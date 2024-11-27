@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lotus_Spor.MainPage">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="10">
+            <!-- Başlık -->
+            <Label 
+            Text="Hoş Geldiniz!" 
+            FontSize="24" 
+            HorizontalOptions="Center" 
+            Margin="0,10,0,10" />
+
+            <!-- ListView -->
+            <ListView x:Name="LessonsListView"
+                  ItemsSource="{Binding Lessons}"
+                  HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10" Spacing="5">
+                                <Label Text="{Binding Day}" FontAttributes="Bold" FontSize="16" />
+                                <Label Text="{Binding Time}" />
+                                <Label Text="{Binding Description}" TextColor="Gray" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

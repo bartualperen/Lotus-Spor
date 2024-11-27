@@ -1,0 +1,93 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\services\\usersession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\services\\usersession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\loginpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\loginpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AppShell.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\AppShell.xaml.cs",
+              "RelativeDocumentMoniker": "Lotus Spor\\AppShell.xaml.cs",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\AppShell.xaml.cs",
+              "RelativeToolTip": "Lotus Spor\\AppShell.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T07:38:58.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserSession.cs",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Services\\UserSession.cs",
+              "RelativeDocumentMoniker": "Lotus Spor\\Services\\UserSession.cs",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Services\\UserSession.cs",
+              "RelativeToolTip": "Lotus Spor\\Services\\UserSession.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T07:33:12.814Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LoginPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\LoginPage.xaml.cs",
+              "RelativeDocumentMoniker": "Lotus Spor\\LoginPage.xaml.cs",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\LoginPage.xaml.cs",
+              "RelativeToolTip": "Lotus Spor\\LoginPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T07:31:25.273Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LoginPage.xaml",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\LoginPage.xaml",
+              "RelativeDocumentMoniker": "Lotus Spor\\LoginPage.xaml",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\LoginPage.xaml",
+              "RelativeToolTip": "Lotus Spor\\LoginPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-11-27T07:31:22.935Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

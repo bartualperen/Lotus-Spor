@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:Lotus_Spor"
+       x:Class="Lotus_Spor.AppShell">
+
+    <!-- Flyout Header -->
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="Gray" Padding="10" HeightRequest="100">
+            <Label Text="Hoş Geldiniz!" 
+                   FontSize="24" 
+                   TextColor="White" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" />
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <ShellContent Title="Ana Sayfa" ContentTemplate="{DataTemplate local:MainPage}" />
+    <ShellContent Title="Ölçümler" ContentTemplate="{DataTemplate local:MeasurementPage}" />
+    <ShellContent Title="İletişim" ContentTemplate="{DataTemplate local:ContactPage}" />
+    <ShellContent Title="Ders İptali" ContentTemplate="{DataTemplate local:CancelClassPage}" />
+    <ShellContent Title="Çıkış Yap" ContentTemplate="{DataTemplate local:LoginPage}" />
+
+</Shell>
