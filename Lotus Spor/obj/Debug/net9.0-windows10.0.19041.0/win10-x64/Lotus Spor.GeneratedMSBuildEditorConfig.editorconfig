@@ -70,6 +70,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.MeasurementPage
 build_metadata.AdditionalFiles.TargetPath = MeasurementPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MeasurementPage.xaml
 
+[F:/repos/Lotus-Spor/Lotus Spor/OlcuEkle.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.OlcuEkle.xaml
+build_metadata.AdditionalFiles.TargetPath = OlcuEkle.xaml
+build_metadata.AdditionalFiles.RelativePath = OlcuEkle.xaml
+
 [F:/repos/Lotus-Spor/Lotus Spor/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.Resources.Styles.Colors.xaml
@@ -81,3 +87,9 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
+
+[F:/repos/Lotus-Spor/Lotus Spor/UyeEkle.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.UyeEkle.xaml
+build_metadata.AdditionalFiles.TargetPath = UyeEkle.xaml
+build_metadata.AdditionalFiles.RelativePath = UyeEkle.xaml

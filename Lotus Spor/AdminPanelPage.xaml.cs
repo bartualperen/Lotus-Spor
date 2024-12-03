@@ -16,4 +16,12 @@ public partial class AdminPanelPage : ContentPage
     {
         return true; // Geri tuþunu devre dýþý býrak
     }
+    private async void OnUyeEkleClicked(Object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new UyeEkle());
+    }
+    private async void OnOlcuEkleClicked(object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new OlcuEkle());
+    }
 }

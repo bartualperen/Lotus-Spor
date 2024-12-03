@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lotus_Spor.AdminPanelPage"
-             Title="AdminPanelPage">
+             Title="Yönetici Paneli">
     <VerticalStackLayout Padding="20">
         <Label Text="Üye Listesi" FontSize="24" HorizontalOptions="Center" />
         <CollectionView x:Name="MemberList">
@@ -16,7 +16,8 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Text="Yeni Üye Ekle" Margin="10,10,5,10"/>
+        <Button Text="Yeni Üye Ekle" Margin="10,10,5,10" Clicked="OnUyeEkleClicked" x:Name="UyeEkle"/>
+        <Button Text="Ölçü Bilgisi Ekle" Margin="10,10,5,10" Clicked="OnOlcuEkleClicked" x:Name="OlcuEkle"/>
         <Button Text="Çıkış Yap" Margin="10,10,5,10" Clicked="OnClickedLogOut" x:Name="LogOutButton" />
     </VerticalStackLayout>
 </ContentPage>

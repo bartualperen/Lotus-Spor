@@ -23,6 +23,12 @@ namespace Lotus_Spor
             // Sayfanın BindingContext'ine verileri bağla
             BindingContext = this;
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            string title = LoginManager.Gender.ToLower() == "erkek" ? "Bey" : "Hanım";
+            WelcomeLabel.Text = $"Hoş Geldiniz, {LoginManager.LoggedInUser} {title}!";
+        }
 
         private async void OnClickedLogOut(Object sender, EventArgs e)
         {

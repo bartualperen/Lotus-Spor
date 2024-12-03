@@ -9,6 +9,10 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Color x:Key="EntryBackgroundColorLight">black</Color>
+            <Color x:Key="EntryBackgroundColorDark">white</Color>
+            <Color x:Key="EntryPlaceholderColorDark">LightGray</Color>
+            <Color x:Key="EntryPlaceholderColorLight">Gray</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

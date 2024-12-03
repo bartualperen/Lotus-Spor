@@ -21,5 +21,23 @@ namespace Lotus_Spor
                 MainPage = new NavigationPage(new LoginPage());
             }
         }
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            // Uygulamanın teması başlangıçta belirlenir ve ilgili renkler otomatik olarak güncellenir.
+            if (AppInfo.RequestedTheme == AppTheme.Dark)
+            {
+                Application.Current.Resources["EntryBackgroundColor"] = Color.FromArgb("#f7f7f7");
+                Application.Current.Resources["EntryPlaceholderColor"] = Color.FromArgb("#D3D3D3");
+            }
+            else
+            {
+                Application.Current.Resources["EntryBackgroundColor"] = Color.FromArgb("#000000");
+                Application.Current.Resources["EntryPlaceholderColor"] = Color.FromArgb("#808080");
+            }
+        }
+
+
     }
 }

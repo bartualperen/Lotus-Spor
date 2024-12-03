@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lotus_Spor.UyeEkle"
+             Title="Üye Ekle">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Üye Bilgileri" 
+                   FontSize="24" 
+                   HorizontalOptions="Center" />
+
+            <Entry x:Name="NameEntry" 
+                   Placeholder="İsim Soyisim"
+                   TextChanged="OnUsernameTextChanged"
+                   PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
+                   TextColor="{DynamicResource EntryBackgroundColor}"/>
+
+            <Entry x:Name="PhoneEntry" 
+                   Placeholder="Telefon Numarası" 
+                   Keyboard="Telephone"
+                   PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
+                   TextColor="{DynamicResource EntryBackgroundColor}" />
+
+            <Picker x:Name="GenderPicker" Title="Cinsiyet Seçin">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Erkek</x:String>
+                        <x:String>Kadın</x:String>
+                        <x:String>Diğer</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Picker x:Name="SeansPicker" Title="Seans Türü Seçin">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Fitness</x:String>
+                        <x:String>Yoga</x:String>
+                        <x:String>Pilates</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Entry x:Name="UcretEntry"
+                   Placeholder="Seans Ücreti"
+                   Keyboard="Numeric" 
+                   PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
+                   TextColor="{DynamicResource EntryBackgroundColor}" />
+
+            <Label Text="Seans Günleri Seçin:" FontAttributes="Bold" />
+            <VerticalStackLayout>
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="CheckBoxPazartesi" />
+                    <Label Text="Pazartesi" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="CheckBoxSali" />
+                    <Label Text="Salı" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="CheckBoxCarsamba" />
+                    <Label Text="Çarşamba" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="CheckBoxPersembe" />
+                    <Label Text="Perşembe" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="CheckBoxCuma" />
+                    <Label Text="Cuma" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="CheckBoxCumartesi" />
+                    <Label Text="Cumartesi" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <CheckBox x:Name="CheckBoxPazar" />
+                    <Label Text="Pazar" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <TimePicker x:Name="SeansSaatPicker" Format="HH:mm" />
+
+            <Editor x:Name="NoteEntry"
+                    Placeholder="Ekstra Notlar"
+                    AutoSize="TextChanges"
+                    HeightRequest="150"
+                    FontSize="16"
+                    Margin="10"
+                    PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
+                    TextColor="{DynamicResource EntryBackgroundColor}" />
+
+            <Button Text="Üye Ekle" 
+                    BackgroundColor="#007ACC" 
+                    TextColor="White" 
+                    Clicked="OnAddMemberClicked"
+                    Margin="10,10,5,100"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
