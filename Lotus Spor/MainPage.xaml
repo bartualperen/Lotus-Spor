@@ -28,6 +28,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Text="Çıkış Yap" Margin="10,10,5,10" Clicked="OnClickedLogOut" x:Name="LogOutButton" />
         </StackLayout>
     </ScrollView>
 

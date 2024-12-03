@@ -16,6 +16,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Text="Yeni Üye Ekle" />
+        <Button Text="Yeni Üye Ekle" Margin="10,10,5,10"/>
+        <Button Text="Çıkış Yap" Margin="10,10,5,10" Clicked="OnClickedLogOut" x:Name="LogOutButton" />
     </VerticalStackLayout>
 </ContentPage>

@@ -18,7 +18,7 @@ namespace Lotus_Spor
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            builder.Services.AddSingleton<MainPage>();
             return builder.Build();
         }
     }

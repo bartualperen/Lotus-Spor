@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics.Tracing;
+using System.Windows.Input;
 
 namespace Lotus_Spor
 {
@@ -20,6 +22,17 @@ namespace Lotus_Spor
 
             // Sayfanın BindingContext'ine verileri bağla
             BindingContext = this;
+        }
+
+        private async void OnClickedLogOut(Object sender, EventArgs e)
+        {
+            Preferences.Remove("UserRole");
+            await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+            await Task.CompletedTask;
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            return true; // Geri tuşunu devre dışı bırak
         }
     }
 
