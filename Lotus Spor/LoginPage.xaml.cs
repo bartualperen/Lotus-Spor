@@ -19,7 +19,7 @@ public class LoginManager
     public static string LoggedInUser { get; private set; }
     public static string UserRole { get; private set; }
     public static string Gender { get; private set; }
-
+    public static int LoggedInUserId { get; private set; }
     public static bool Login(string isim, string soyisim, string sifre)
     {
         using (var conn = Database.GetConnection())
@@ -46,7 +46,7 @@ public class LoginManager
             }
 
             // Eðer yönetici deðilse, müþteriler tablosunu kontrol et
-            string musteriQuery = "SELECT 'musteri' AS rol, cinsiyet FROM musteriler WHERE isim = @isim AND soyisim = @soyisim AND sifre = @sifre;";
+            string musteriQuery = "SELECT 'musteri' AS rol, cinsiyet, id FROM musteriler WHERE isim = @isim AND soyisim = @soyisim AND sifre = @sifre;";
             using (var musteriCmd = new MySqlCommand(musteriQuery, conn))
             {
                 musteriCmd.Parameters.AddWithValue("@isim", isim);
@@ -60,6 +60,7 @@ public class LoginManager
                         LoggedInUser = isim;
                         Gender = reader["cinsiyet"].ToString();
                         UserRole = "musteri";
+                        LoggedInUserId = Convert.ToInt32(reader["id"]);
                         return true;
                     }
                 }
@@ -67,11 +68,11 @@ public class LoginManager
         }
         return false;
     }
-
     public static void Logout()
     {
         LoggedInUser = null;
         UserRole = null;
+        LoggedInUserId = 0;
     }
 }
 
@@ -105,16 +106,24 @@ public partial class LoginPage : ContentPage
     {
         string isim, soyisim;
         string fullName = UsernameEntry.Text;
+        string sifre = PasswordEntry.Text;
+
+        // Boþ alan kontrolü
+        if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(sifre))
+        {
+            await DisplayAlert("Hata", "Lütfen tüm alanlarý doldurunuz!", "Tamam");
+            return; // Ýþlem burada sonlanýr
+        }
+
         string[] nameParts = fullName.Split(' ');
 
         if (nameParts.Length > 1)
         {
             isim = string.Join(" ", nameParts[..^1]);
             soyisim = nameParts[^1];
+
             try
             {
-                string sifre = PasswordEntry.Text;
-
                 if (LoginManager.Login(isim, soyisim, sifre))
                 {
                     // Kullanýcý rolünü kaydet
@@ -139,6 +148,11 @@ public partial class LoginPage : ContentPage
                 await DisplayAlert("Hata", ex.Message, "Tamam");
             }
         }
+        else
+        {
+            await DisplayAlert("Hata", "Lütfen tam adýnýzý giriniz (isim ve soyisim)!", "Tamam");
+        }
+
     }
     protected override bool OnBackButtonPressed()
     {

@@ -23,7 +23,9 @@
                             <StackLayout Padding="10" Spacing="5">
                                 <Label Text="{Binding Day}" FontAttributes="Bold" FontSize="16" />
                                 <Label Text="{Binding Time}" />
-                                <Label Text="{Binding Description}" TextColor="Gray" />
+                                <Label Text="{Binding Status}" TextColor="Gray" />
+                                <Label Text="{Binding Type}" TextColor="Gray" />
+                                <Label Text="{Binding Client}" TextColor="Gray" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

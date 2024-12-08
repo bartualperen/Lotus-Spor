@@ -4,18 +4,40 @@
              x:Class="Lotus_Spor.LessonManagementPage"
              Title="LessonManagementPage">
     <VerticalStackLayout Padding="20">
-        <Label Text="Üye Listesi" FontSize="24" HorizontalOptions="Center" />
-        <CollectionView x:Name="MemberList">
+        <Label Text="Kişi Adı Ara" FontSize="16" />
+        <Entry x:Name="SearchEntry"
+               Placeholder="İsim girin..."
+               TextChanged="OnSearchTextChanged"
+               FontSize="16"
+               HorizontalOptions="FillAndExpand" />
+        <!-- Arama Sonuçları Listesi -->
+        <CollectionView x:Name="ResultsCollectionView"
+                        IsVisible="False"
+                        SelectionMode="Single"
+                        SelectionChanged="OnSelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout>
-                        <Label Text="{Binding Name}" FontSize="18" />
-                        <Button Text="Detaylar" />
-                    </StackLayout>
+                    <Label Text="{Binding}" Padding="10" />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-        <Button Text="Yeni Üye Ekle" />
+        
+        <ListView x:Name="LessonsListView"
+                  ItemsSource="{Binding Lessons}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10" Spacing="5">
+                            <Label Text="{Binding DayWithWeekday}" FontAttributes="Bold" FontSize="16" />
+                            <Label Text="{Binding Time}" />
+                            <Label Text="{Binding Status}" />
+                            <Label Text="{Binding Type}" />
+                            <Label Text="{Binding Client}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </VerticalStackLayout>
 </ContentPage>

@@ -18,6 +18,8 @@
 
         <Button Text="Yeni Üye Ekle" Margin="10,10,5,10" Clicked="OnUyeEkleClicked" x:Name="UyeEkle"/>
         <Button Text="Ölçü Bilgisi Ekle" Margin="10,10,5,10" Clicked="OnOlcuEkleClicked" x:Name="OlcuEkle"/>
+        <Button Text="Dersleri Yönet" Margin="10,10,5,10" Clicked="OnDersYonet" x:Name="DersYonet"/>
+        <Button Text="Ölçü Bilgilerini Yönet" Margin="10,10,5,10" Clicked="OnOlcuYonet" x:Name="OlcuYonet"/>
         <Button Text="Çıkış Yap" Margin="10,10,5,10" Clicked="OnClickedLogOut" x:Name="LogOutButton" />
     </VerticalStackLayout>
 </ContentPage>

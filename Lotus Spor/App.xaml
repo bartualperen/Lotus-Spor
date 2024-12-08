@@ -13,6 +13,16 @@
             <Color x:Key="EntryBackgroundColorDark">white</Color>
             <Color x:Key="EntryPlaceholderColorDark">LightGray</Color>
             <Color x:Key="EntryPlaceholderColorLight">Gray</Color>
+            <Color x:Key="TitleColorLight">Black</Color>
+            <Color x:Key="TitleColorDark">White</Color>
+            <Style TargetType="Shell">
+                <Setter Property="TitleColor">
+                    <Setter.Value>
+                        <AppThemeBinding Light="{StaticResource TitleColorLight}" 
+                                         Dark="{StaticResource TitleColorDark}" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

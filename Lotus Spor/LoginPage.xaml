@@ -5,6 +5,19 @@
              Title="Giriş Yap">
 
     <StackLayout Padding="20" Spacing="20" VerticalOptions="CenterAndExpand">
+
+        <Frame 
+            CornerRadius="20" 
+            HasShadow="true" 
+            BackgroundColor="{AppThemeBinding Light='Black', Dark='White'}" 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center" 
+            Padding="10" 
+            HeightRequest="100" 
+            WidthRequest="100">
+            <Image Source="{AppThemeBinding Light='light_mode_logo.png', Dark='dark_mode_logo.png'}" Aspect="AspectFit" />
+        </Frame>
+        
         <Label 
             Text="İsminiz Soyisminiz" 
             FontSize="16" 

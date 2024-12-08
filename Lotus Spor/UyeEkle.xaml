@@ -18,6 +18,7 @@
             <Entry x:Name="PhoneEntry" 
                    Placeholder="Telefon Numarası" 
                    Keyboard="Telephone"
+                   TextChanged="OnPhoneEntryTextChanged"
                    PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
                    TextColor="{DynamicResource EntryBackgroundColor}" />
 

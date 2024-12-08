@@ -24,4 +24,12 @@ public partial class AdminPanelPage : ContentPage
     {
         await Application.Current.MainPage.Navigation.PushAsync(new OlcuEkle());
     }
+    private async void OnDersYonet(Object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new LessonManagementPage());
+    }
+    private async void OnOlcuYonet(Object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new MeasurementPage());
+    }
 }

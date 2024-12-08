@@ -3,10 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lotus_Spor.OlcuEkle"
              Title="OlcuEkle">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+            <!-- Kullanıcı Adı Arama Entry -->
+            <Label Text="Kişi Adı Ara" FontSize="16" />
+            <Entry x:Name="SearchEntry"
+               Placeholder="İsim girin..."
+               TextChanged="OnSearchTextChanged"
+               FontSize="16"
+               HorizontalOptions="FillAndExpand" />
+
+            <!-- Arama Sonuçları Listesi -->
+            <CollectionView x:Name="ResultsCollectionView"
+                        IsVisible="False"
+                        SelectionMode="Single"
+                        SelectionChanged="OnSelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding}" Padding="10" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!-- Kilo -->
+            <Label Text="Kilo (kg)" FontSize="16" />
+            <Entry x:Name="KiloEntry" Keyboard="Numeric" Placeholder="Kilonuzu giriniz" />
+
+            <!-- Yağ Oranı -->
+            <Label Text="Yağ Oranı (%)" FontSize="16" />
+            <Entry x:Name="YagOraniEntry" Keyboard="Numeric" Placeholder="Yağ oranınızı giriniz" />
+
+            <!-- Su Oranı -->
+            <Label Text="Su Oranı (%)" FontSize="16" />
+            <Entry x:Name="SuOraniEntry" Keyboard="Numeric" Placeholder="Su oranınızı giriniz" />
+
+            <!-- Omuz Ölçüsü -->
+            <Label Text="Omuz Ölçüsü (cm)" FontSize="16" />
+            <Entry x:Name="OmuzOlcusuEntry" Keyboard="Numeric" Placeholder="Omuz ölçünüzü giriniz" />
+
+            <!-- Biceps Ölçüsü -->
+            <Label Text="Biceps Ölçüsü (cm)" FontSize="16" />
+            <Entry x:Name="BicepsOlcusuEntry" Keyboard="Numeric" Placeholder="Biceps ölçünüzü giriniz" />
+
+            <!-- Göğüs Ölçüsü -->
+            <Label Text="Göğüs Ölçüsü (cm)" FontSize="16" />
+            <Entry x:Name="GogusOlcusuEntry" Keyboard="Numeric" Placeholder="Göğüs ölçünüzü giriniz" />
+
+            <!-- Bel Ölçüsü -->
+            <Label Text="Bel Ölçüsü (cm)" FontSize="16" />
+            <Entry x:Name="BelOlcusuEntry" Keyboard="Numeric" Placeholder="Bel ölçünüzü giriniz" />
+
+            <!-- Karın Ölçüsü -->
+            <Label Text="Karın Ölçüsü (cm)" FontSize="16" />
+            <Entry x:Name="KarinOlcusuEntry" Keyboard="Numeric" Placeholder="Karın ölçünüzü giriniz" />
+
+            <!-- Kaçla Ölçüsü -->
+            <Label Text="Kaçla Ölçüsü (cm)" FontSize="16" />
+            <Entry x:Name="KaclaOlcusuEntry" Keyboard="Numeric" Placeholder="Kaçla ölçünüzü giriniz" />
+
+            <!-- Bacak Ölçüsü -->
+            <Label Text="Bacak Ölçüsü (cm)" FontSize="16" />
+            <Entry x:Name="BacakOlcusuEntry" Keyboard="Numeric" Placeholder="Bacak ölçünüzü giriniz" />
+
+            <!-- Kalf Ölçüsü -->
+            <Label Text="Kalf Ölçüsü (cm)" FontSize="16" />
+            <Entry x:Name="KalfOlcusuEntry" Keyboard="Numeric" Placeholder="Kalf ölçünüzü giriniz" />
+
+            <!-- Submit Butonu -->
+            <Button Margin="10,10,5,100" Text="Ölçüleri Kaydet"  Clicked="OnSaveButtonClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
