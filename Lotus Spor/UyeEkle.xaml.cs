@@ -1,14 +1,24 @@
 using MySql.Data.MySqlClient;
+using System.Collections.ObjectModel;
 using static Google.Protobuf.Reflection.UninterpretedOption.Types;
 
 namespace Lotus_Spor;
 
 public partial class UyeEkle : ContentPage
 {
-	public UyeEkle()
+    List<string> isimListesi = new List<string>();
+    private ObservableCollection<string> filteredList = new ObservableCollection<string>();
+    private int kullaniciId = -1;
+    public class Kisi
+    {
+        public string Name { get; set; }
+    }
+    public UyeEkle()
 	{
 		InitializeComponent();
-	}
+        ResultsCollectionView.ItemsSource = filteredList;
+        kisilistele();
+    }
     private void OnPhoneEntryTextChanged(object sender, TextChangedEventArgs e)
     {
         // Sadece sayýlarý filtrele
@@ -27,6 +37,7 @@ public partial class UyeEkle : ContentPage
     private async void OnAddMemberClicked(object sender, EventArgs e)
     {
         string fullName = NameEntry.Text;
+        string antrenorName = AntrenorNameEntry.Text;
         string telefon = PhoneEntry.Text.ToString();
         string cinsiyet = GenderPicker.SelectedItem?.ToString();
         string seansTur = SeansPicker.SelectedItem?.ToString();
@@ -72,8 +83,8 @@ public partial class UyeEkle : ContentPage
 
         string getLastInsertedIdQuery = "SELECT LAST_INSERT_ID()";
 
-        string seansquery = "INSERT INTO seanslar (tur, saat, tarih, musteri_id) " +
-                       "VALUES (@seans_turu, @seans_saati, @seans_tarihi, @musteri_id)";
+        string seansquery = "INSERT INTO seanslar (tur, saat, tarih, musteri_id, antrenor) " +
+                       "VALUES (@seans_turu, @seans_saati, @seans_tarihi, @musteri_id, @antrenor)";
 
         try
         {
@@ -171,6 +182,7 @@ public partial class UyeEkle : ContentPage
                     command.Parameters.AddWithValue("@seans_turu", seansTur);
                     command.Parameters.AddWithValue("@seans_saati", seansSaat.ToString(@"hh\:mm"));
                     command.Parameters.AddWithValue("@musteri_id", musteriId);
+                    command.Parameters.AddWithValue("@antrenor", antrenorName);
 
                     // Seans tarihi için parametreyi ekle
                     MySqlParameter seansTarihiParam = new MySqlParameter("@seans_tarihi", MySqlDbType.Date);
@@ -214,5 +226,112 @@ public partial class UyeEkle : ContentPage
             NameEntry.Text = string.Join(" ", words);
         }
     }
+    private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.Count > 0)
+        {
+            string selectedName = e.CurrentSelection[0] as string;
 
+            if (!string.IsNullOrEmpty(selectedName))
+            {
+                AntrenorNameEntry.Text = selectedName;  // Seçilen ismi Entry'ye yaz
+                ResultsCollectionView.IsVisible = false;  // Önerileri gizle
+                GetKullaniciId(selectedName);
+            }
+        }
+    }
+    private async void GetKullaniciId(string fullName)
+    {
+        try
+        {
+            var connectionString = Database.GetConnection();
+            using (var connection = Database.GetConnection())
+            {
+                connection.Open();
+                string[] nameParts = fullName.Split(' ');
+                string isim = nameParts[0];
+                string soyisim = nameParts.Length > 1 ? nameParts[1] : "";
+
+                // Kullanýcýyý bulmak için sorgu
+                string query = "SELECT id FROM yoneticiler WHERE isim = @isim AND soyisim = @soyisim";
+
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@isim", isim);
+                    command.Parameters.AddWithValue("@soyisim", soyisim);
+
+                    var result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        kullaniciId = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        await DisplayAlert("Hata", "Kullanýcý bulunamadý.", "Tamam");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", "An error occurred while fetching user ID: " + ex.Message, "OK");
+        }
+    }
+    private async void OnAntrenornameTextChanged(object sender, TextChangedEventArgs e)
+    {
+        string searchText = e.NewTextValue?.ToLower() ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            ResultsCollectionView.IsVisible = false;
+            filteredList.Clear();
+            return;
+        }
+
+        // Listeyi filtrele
+        var suggestions = isimListesi
+            .Where(isimSoyisim => isimSoyisim.ToLower().Contains(searchText))
+            .ToList();
+
+        // CollectionView'ý güncelle
+        filteredList.Clear();
+        foreach (var suggestion in suggestions)
+        {
+            filteredList.Add(suggestion);
+        }
+
+        ResultsCollectionView.IsVisible = filteredList.Count > 0;
+    }
+    private async void kisilistele()
+    {
+        try
+        {
+            var connectionString = Database.GetConnection();
+            using (var connection = Database.GetConnection())
+            {
+                connection.Open();
+                string query = "SELECT isim, soyisim FROM yoneticiler";
+
+                // SQL komutunu çalýþtýr
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Verileri listeye ekle
+                        while (reader.Read())
+                        {
+                            string isim = reader["isim"].ToString();
+                            string soyisim = reader["soyisim"].ToString();
+                            string fullName = $"{isim} {soyisim}";  // Ýsim ve soyisim birleþiyor
+                            isimListesi.Add(fullName);
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", "An error occurred while fetching data: " + ex, "OK");
+        }
+    }
 }

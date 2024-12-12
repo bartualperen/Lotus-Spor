@@ -17,6 +17,7 @@ class Database
 public class LoginManager
 {
     public static string LoggedInUser { get; private set; }
+    public static string LoggedInUser2 { get; private set; }
     public static string UserRole { get; private set; }
     public static string Gender { get; private set; }
     public static int LoggedInUserId { get; private set; }
@@ -39,6 +40,7 @@ public class LoginManager
                     if (reader.Read())
                     {
                         LoggedInUser = isim;
+                        LoggedInUser2 = soyisim;
                         UserRole = "yonetici";
                         return true;
                     }
@@ -58,6 +60,7 @@ public class LoginManager
                     if (reader.Read())
                     {
                         LoggedInUser = isim;
+                        LoggedInUser2 = soyisim;
                         Gender = reader["cinsiyet"].ToString();
                         UserRole = "musteri";
                         LoggedInUserId = Convert.ToInt32(reader["id"]);
@@ -128,6 +131,10 @@ public partial class LoginPage : ContentPage
                 {
                     // Kullanýcý rolünü kaydet
                     Preferences.Set("UserRole", LoginManager.UserRole);
+                    Preferences.Set("LoggedInUser", LoginManager.LoggedInUser);
+                    Preferences.Set("LoggedInUser2", LoginManager.LoggedInUser2);
+                    Preferences.Set("Gender", LoginManager.Gender);
+                    Preferences.Set("LoggedInUserId", LoginManager.LoggedInUserId.ToString());
 
                     if (LoginManager.UserRole == "yonetici")
                     {

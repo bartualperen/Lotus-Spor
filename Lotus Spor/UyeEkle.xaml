@@ -42,6 +42,24 @@
                 </Picker.ItemsSource>
             </Picker>
 
+            <Entry x:Name="AntrenorNameEntry" 
+                   Placeholder="Antrenör İsim Soyisim"
+                   TextChanged="OnAntrenornameTextChanged"
+                   PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
+                   TextColor="{DynamicResource EntryBackgroundColor}"/>
+
+            <!-- Arama Sonuçları Listesi -->
+            <CollectionView x:Name="ResultsCollectionView"
+                        IsVisible="False"
+                        SelectionMode="Single"
+                        SelectionChanged="OnSelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding}" Padding="10" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
             <Entry x:Name="UcretEntry"
                    Placeholder="Seans Ücreti"
                    Keyboard="Numeric" 

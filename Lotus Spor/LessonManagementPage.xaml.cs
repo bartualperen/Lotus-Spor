@@ -8,6 +8,12 @@ public partial class LessonManagementPage : ContentPage
 {
     List<string> isimListesi = new List<string>();
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
+    string loggedInUser = Preferences.Get("LoggedInUser", string.Empty);
+    string loggedInUser2 = Preferences.Get("LoggedInUser2", string.Empty);
+    string gender = Preferences.Get("Gender", string.Empty);
+    int loggedInUserId = int.Parse(Preferences.Get("LoggedInUserId", "0"));
+    string userRole = Preferences.Get("UserRole", string.Empty);
+
     public ObservableCollection<Lesson> Lessons { get; set; } = new ObservableCollection<Lesson>();
     private int kullaniciId = -1;
     public class Kisi
@@ -135,7 +141,7 @@ public partial class LessonManagementPage : ContentPage
     }
     private async void LoadLessons(string searchName = "")
     {
-
+        string antrenor = loggedInUser + " " + loggedInUser2;
         // SQL sorgusu, arama ismine göre sorguyu filtreliyoruz
         string query = @"
             SELECT 
@@ -147,15 +153,18 @@ public partial class LessonManagementPage : ContentPage
             FROM 
                 seanslar s
             INNER JOIN 
-                musteriler m ON s.musteri_id = m.id";
+                musteriler m ON s.musteri_id = m.id
+            WHERE 
+                s.antrenor = @loggedInUser"; // Antrenör filtresi
 
-        // Eðer bir isim arama yapýlýyorsa sorguya filtre ekliyoruz
+        // Eðer bir isim arama yapýlýyorsa sorguya ek filtre ekleniyor
         if (!string.IsNullOrEmpty(searchName))
         {
-            query += " WHERE CONCAT(m.isim, ' ', m.soyisim) LIKE @searchName";
+            query += " AND CONCAT(m.isim, ' ', m.soyisim) LIKE @searchName"; // Ýsim filtresi
         }
 
         query += " ORDER BY s.tarih ASC, s.saat ASC"; // Tarihe göre sýralama
+
 
         try
         {
@@ -164,6 +173,7 @@ public partial class LessonManagementPage : ContentPage
                 await connection.OpenAsync();
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@loggedInUser", antrenor);
                     // Eðer isim arama yapýlmýþsa parametre ekliyoruz
                     if (!string.IsNullOrEmpty(searchName))
                     {

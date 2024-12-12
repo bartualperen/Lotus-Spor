@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Windows.Input;
 
@@ -16,17 +17,25 @@ namespace Lotus_Spor
             Lessons = new ObservableCollection<Lesson>();
             LoadLessonsAsync();
         }
+
         protected override void OnAppearing()
         {
+
+            string loggedInUser = Preferences.Get("LoggedInUser", string.Empty);
+            string loggedInUser2 = Preferences.Get("LoggedInUser2", string.Empty);
+            string gender = Preferences.Get("Gender", string.Empty);
+            int loggedInUserId = int.Parse(Preferences.Get("LoggedInUserId", "0"));
+            string userRole = Preferences.Get("UserRole", string.Empty);
+            string user = loggedInUser + " " + loggedInUser2;
+
             base.OnAppearing();
-            if (!string.IsNullOrEmpty(LoginManager.LoggedInUser) && !string.IsNullOrEmpty(LoginManager.Gender))
+            if (!string.IsNullOrEmpty(loggedInUser) && !string.IsNullOrEmpty(gender))
             {
-                string title = LoginManager.Gender.ToLower() == "erkek" ? "Bey" : "Hanım";
-                WelcomeLabel.Text = $"Hoş Geldiniz, {LoginManager.LoggedInUser} {title}!";
+                string title = gender.ToLower() == "erkek" ? "Bey" : "Hanım";
+                WelcomeLabel.Text = $"Hoş Geldiniz, {loggedInUser} {title}!";
             }
             else
             {
-                // Kullanıcı henüz giriş yapmamışsa veya veriler eksikse
                 WelcomeLabel.Text = "Hoş Geldiniz!";
             }
         }
@@ -42,14 +51,18 @@ namespace Lotus_Spor
         }
         public async void LoadLessonsAsync()
         {
-            // Kullanıcı ID'sini alın (örnek olarak statik bir değer kullandık)
-            int loggedInUserId = LoginManager.LoggedInUserId;  // Bu değeri giriş yapan kullanıcıya göre ayarlayın
+            // Kullanıcı ID'sini alın
+            int loggedInUserId = int.Parse(Preferences.Get("LoggedInUserId", "0"));
+            string loggedInUser = Preferences.Get("LoggedInUser", string.Empty);
+            string loggedInUser2 = Preferences.Get("LoggedInUser2", string.Empty);
+            string user = loggedInUser + " " + loggedInUser2;
 
+            // SQL sorgusu
             string query = @"
             SELECT s.tarih, s.saat, s.durum, s.tur, m.isim, m.soyisim
             FROM seanslar s
             JOIN musteriler m ON s.musteri_id = m.id
-            WHERE s.musteri_id = @musteri_id
+            WHERE s.musteri_id = @id
             ORDER BY s.tarih ASC";
 
             try
@@ -60,29 +73,29 @@ namespace Lotus_Spor
 
                     using (var command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@musteri_id", loggedInUserId);
+                        command.Parameters.AddWithValue("@id", loggedInUserId);
 
                         using (var reader = await command.ExecuteReaderAsync())
                         {
+                            Lessons.Clear(); // Listeyi temizle
+
                             while (await reader.ReadAsync())
                             {
-                                // Tarih değeri string olarak alınıyor. Eğer 'tarih' bir stringse, GetString kullanabilirsiniz.
-                                string date = reader.GetString("tarih");  // Eğer 'tarih' sütunu stringse
-                                                                          // Eğer 'tarih' bir DateTime ise, şu şekilde de kullanabilirsiniz:
-                                                                          // DateTime date = reader.GetDateTime("tarih");  
+                                string tarih = reader.GetDateTime("tarih").ToString("yyyy-MM-dd");
+                                string saat = reader["saat"]?.ToString() ?? "Bilinmiyor";
+                                string durum = reader["durum"]?.ToString() ?? "Bilinmiyor";
+                                string tur = reader["tur"]?.ToString() ?? "Bilinmiyor";
+                                string isimSoyisim = $"{reader["isim"]} {reader["soyisim"]}";
 
-                                string time = reader.GetString("saat");
-                                string status = reader.GetString("durum");
-                                string type = reader.GetString("tur");
-                                string client = reader.GetString("isim") + " " + reader.GetString("soyisim");
+                                Debug.WriteLine($"Veri: {tarih}, {saat}, {durum}, {tur}, {isimSoyisim}");
 
                                 Lessons.Add(new Lesson
                                 {
-                                    Day = date,  // 'date' değişkeni buraya atandı
-                                    Time = time,
-                                    Status = status,
-                                    Type = type,
-                                    Client = client
+                                    Day = tarih,
+                                    Time = saat,
+                                    Status = durum,
+                                    Type = tur,
+                                    Client = isimSoyisim
                                 });
                             }
                         }
@@ -91,18 +104,17 @@ namespace Lotus_Spor
             }
             catch (Exception ex)
             {
-                // Hata durumunda loglama veya uyarı
-                Console.WriteLine("Veritabanı hatası: " + ex.Message);
+                await DisplayAlert("Hata", "Veriler yüklenirken bir hata oluştu: " + ex.Message, "Tamam");
             }
         }
-    }
 
-    public class Lesson
-    {
-        public string Day { get; set; }
-        public string Time { get; set; }
-        public string Status { get; set; }
-        public string Type { get; set; }
-        public string Client { get; set; }
+        public class Lesson
+        {
+            public string Day { get; set; }
+            public string Time { get; set; }
+            public string Status { get; set; }
+            public string Type { get; set; }
+            public string Client { get; set; }
+        }
     }
 }
