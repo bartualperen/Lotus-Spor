@@ -1,38 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Lotus_Spor.MainPage">
+             x:Class="Lotus_Spor.MainPage"
+             NavigationPage.HasNavigationBar="False">
 
-    <ScrollView>
-        <StackLayout Padding="20" Spacing="10">
-            <!-- Başlık -->
-            <Label 
-            x:Name="WelcomeLabel"
-            Text="Hoş Geldiniz!" 
-            FontSize="24" 
-            HorizontalOptions="Center" 
-            Margin="0,10,0,10" />
+    <Grid x:Name="MainGrid">
+        <!-- Ana İçerik -->
+        <ScrollView>
+            <StackLayout Padding="20" Spacing="10">
+                <!-- Başlık -->
+                <Label 
+                x:Name="WelcomeLabel"
+                Text="Hoş Geldiniz!" 
+                FontSize="24" 
+                HorizontalOptions="Center" 
+                Margin="0,10,0,10" />
 
-            <!-- ListView -->
-            <ListView x:Name="LessonsListView"
-                  ItemsSource="{Binding Lessons}"
-                  HasUnevenRows="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Padding="10" Spacing="5">
-                                <Label Text="{Binding Day}" FontAttributes="Bold" FontSize="16" />
-                                <Label Text="{Binding Time}" />
-                                <Label Text="{Binding Status}" TextColor="Gray" />
-                                <Label Text="{Binding Type}" TextColor="Gray" />
-                                <Label Text="{Binding Client}" TextColor="Gray" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button Text="Çıkış Yap" Margin="10,10,5,100" Clicked="OnClickedLogOut" x:Name="LogOutButton" />
-        </StackLayout>
-    </ScrollView>
+                <!-- ListView -->
+                <ListView x:Name="LessonsListView"
+                          ItemsSource="{Binding Lessons}"
+                          HasUnevenRows="True"
+                          HeightRequest="400"
+                          SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="10" Spacing="5">
+                                    <Label Text="{Binding DayWithWeekday}" FontAttributes="Bold" FontSize="16" />
+                                    <Label Text="{Binding Time}" />
+                                    <Label Text="{Binding Status}" />
+                                    <Label Text="{Binding Type}" />
+                                    <Label Text="{Binding Antrenor}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Sabit Alt Menü Çubuğu -->
+        <Frame Padding="10" BorderColor="Gray" BackgroundColor="LightGray" HorizontalOptions="Center" VerticalOptions="End">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="0">
+                <!--<Button Text="Ders İptal Talebi" Clicked="OnClickedCancel" HorizontalOptions="FillAndExpand" />-->
+                <Button Text="Mesajlar" Clicked="OnClickedMessages" HorizontalOptions="FillAndExpand" />
+                <Button Text="Ölçümlerim" Clicked="OnClickedMeasurements" HorizontalOptions="FillAndExpand" />
+                <Button Text="Çıkış Yap" Clicked="OnClickedLogOut" x:Name="LogOutButton" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </Frame>
+    </Grid>
 
 </ContentPage>

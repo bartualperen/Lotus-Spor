@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lotus_Spor.AdminPanelPage"
-             Title="Yönetici Paneli">
+             Title="Yönetici Paneli"
+             NavigationPage.HasNavigationBar="False">
     <VerticalStackLayout Padding="20">
         <Label Text="Üye Listesi" FontSize="24" HorizontalOptions="Center" />
         <CollectionView x:Name="MemberList">

@@ -3,21 +3,21 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
+using System.Globalization;
 using System.Windows.Input;
 
 namespace Lotus_Spor
 {
     public partial class MainPage : ContentPage
     {
-        public ObservableCollection<Lesson> Lessons { get; set; }
-
+        public ObservableCollection<Lesson> Lessons { get; set; } = new ObservableCollection<Lesson>();
         public MainPage()
         {
             InitializeComponent();
-            Lessons = new ObservableCollection<Lesson>();
             LoadLessonsAsync();
+            BindingContext = this;
+            LessonsListView.ItemsSource = Lessons;
         }
-
         protected override void OnAppearing()
         {
 
@@ -49,6 +49,18 @@ namespace Lotus_Spor
         {
             return true; // Geri tuşunu devre dışı bırak
         }
+        private async void OnClickedCancel(Object sender, EventArgs e)
+        {
+            
+        }
+        private async void OnClickedMessages(Object sender, EventArgs e)
+        {
+            
+        }
+        private async void OnClickedMeasurements(Object sender, EventArgs e)
+        {
+            
+        }
         public async void LoadLessonsAsync()
         {
             // Kullanıcı ID'sini alın
@@ -57,45 +69,36 @@ namespace Lotus_Spor
             string loggedInUser2 = Preferences.Get("LoggedInUser2", string.Empty);
             string user = loggedInUser + " " + loggedInUser2;
 
-            // SQL sorgusu
-            string query = @"
-            SELECT s.tarih, s.saat, s.durum, s.tur, m.isim, m.soyisim
-            FROM seanslar s
-            JOIN musteriler m ON s.musteri_id = m.id
-            WHERE s.musteri_id = @id
-            ORDER BY s.tarih ASC";
+            string query = @"SELECT s.tarih, s.saat, s.durum, s.tur, s.antrenor, m.isim, m.soyisim
+                            FROM seanslar s
+                            JOIN musteriler m ON s.musteri_id = m.id
+                            WHERE s.musteri_id = @loggedInUserID AND durum = 'beklemede'
+                            ORDER BY s.tarih ASC
+                            LIMIT 5";
+
 
             try
             {
-                using (var connection = Database.GetConnection())
+                using (MySqlConnection connection = Database.GetConnection())
                 {
                     await connection.OpenAsync();
-
-                    using (var command = new MySqlCommand(query, connection))
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@id", loggedInUserId);
+                        command.Parameters.AddWithValue("@loggedInUserID", loggedInUserId);
 
-                        using (var reader = await command.ExecuteReaderAsync())
+                        using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                         {
-                            Lessons.Clear(); // Listeyi temizle
+                            Lessons.Clear(); // Listeyi sıfırla
 
                             while (await reader.ReadAsync())
                             {
-                                string tarih = reader.GetDateTime("tarih").ToString("yyyy-MM-dd");
-                                string saat = reader["saat"]?.ToString() ?? "Bilinmiyor";
-                                string durum = reader["durum"]?.ToString() ?? "Bilinmiyor";
-                                string tur = reader["tur"]?.ToString() ?? "Bilinmiyor";
-                                string isimSoyisim = $"{reader["isim"]} {reader["soyisim"]}";
-
-                                Debug.WriteLine($"Veri: {tarih}, {saat}, {durum}, {tur}, {isimSoyisim}");
-
                                 Lessons.Add(new Lesson
                                 {
-                                    Day = tarih,
-                                    Time = saat,
-                                    Status = durum,
-                                    Type = tur,
-                                    Client = isimSoyisim
+                                    Day = DateTime.Parse(reader["tarih"].ToString()).ToString("yyyy-MM-dd"),
+                                    Status = reader["durum"]?.ToString() ?? "Bilinmiyor",
+                                    Type = reader["tur"]?.ToString() ?? "Bilinmiyor",
+                                    Time = reader["saat"].ToString(),
+                                    Antrenor = reader["antrenor"]?.ToString() ?? "Bilinmiyor"
                                 });
                             }
                         }
@@ -104,17 +107,29 @@ namespace Lotus_Spor
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Hata", "Veriler yüklenirken bir hata oluştu: " + ex.Message, "Tamam");
+                await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluştu: {ex.Message}", "Tamam");
             }
         }
-
         public class Lesson
         {
             public string Day { get; set; }
             public string Time { get; set; }
             public string Status { get; set; }
             public string Type { get; set; }
-            public string Client { get; set; }
+            public string Antrenor { get; set; }
+            public string DayWithWeekday
+            {
+                get
+                {
+                    DateTime dayDate;
+                    if (DateTime.TryParse(Day, out dayDate))
+                    {
+                        // Gün bilgisiyle birlikte tarihi döndürüyoruz
+                        return dayDate.ToString("yyyy-MM-dd", new CultureInfo("tr-TR")) + " (" + dayDate.ToString("dddd", new CultureInfo("tr-TR")) + ")";
+                    }
+                    return Day; // Eğer tarih dönüştürülemezse sadece günü döndür
+                }
+            }
         }
     }
 }

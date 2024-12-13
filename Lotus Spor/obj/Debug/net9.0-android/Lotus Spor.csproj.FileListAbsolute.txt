@@ -933,11 +933,6 @@ C:\Users\bartu\source\repos\Lotus Spor\Lotus Spor\obj\Debug\net9.0-android\stamp
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Lotus Spor.runtimeconfig.json
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Lotus Spor.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Lotus Spor.pdb
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.companyname.lotusspor.apk
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.companyname.lotusspor.aab
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.companyname.lotusspor-Signed.aab
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.companyname.lotusspor-Signed.apk
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.companyname.lotusspor-Signed.apk.idsig
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.Maui.Controls.HotReload.Forms.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
@@ -1048,10 +1043,7 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\Lotus Spor.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\Lotus Spor.pdb
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\Lotus Spor.genruntimeconfig.cache
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\Lotus Spor.runtimeconfig.json.bin
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\bin\com.companyname.lotusspor.apk
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\bin\base.zip
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\bin\com.companyname.lotusspor.aab
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\bin\com.companyname.lotusspor.apks
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\res\values\colors.xml
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\uploadflags.txt
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\resolvedassemblies.hash
@@ -2364,6 +2356,15 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\zh-HK\Microsoft.Maui.Controls.resources.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\ZstdSharp.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\_Microsoft.Android.Resource.Designer.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.lotusspor.lotusspor.apk
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.lotusspor.lotusspor.aab
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.lotusspor.lotusspor-Signed.aab
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.lotusspor.lotusspor-Signed.apk
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\com.lotusspor.lotusspor-Signed.apk.idsig
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\bin\com.lotusspor.lotusspor.apk
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\bin\com.lotusspor.lotusspor.aab
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\bin\com.lotusspor.lotusspor.apks
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\com\lotusspor\lotusspor\R.java
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\typemaps.arm64-v8a.ll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\environment.arm64-v8a.ll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\compressed_assemblies.arm64-v8a.ll
