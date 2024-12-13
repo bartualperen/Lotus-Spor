@@ -55263,11 +55263,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+      "projectUniqueName": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
       "projectName": "Lotus Spor",
-      "projectPath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+      "projectPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
       "packagesPath": "C:\\Users\\bartu\\.nuget\\packages\\",
-      "outputPath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\obj\\",
+      "outputPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [

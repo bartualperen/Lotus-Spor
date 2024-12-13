@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GGQn14V89yY=",
+  "dgSpecHash": "/n9/ke8fi4g=",
   "success": true,
-  "projectFilePath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+  "projectFilePath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bartu\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\bartu\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

@@ -20,6 +20,10 @@ public partial class AdminPanelPage : ContentPage
     {
         await Application.Current.MainPage.Navigation.PushAsync(new UyeEkle());
     }
+    private async void OnDuyuruYap(Object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new UyeEkle());
+    }
     private async void OnOlcuEkleClicked(object sender, EventArgs e)
     {
         await Application.Current.MainPage.Navigation.PushAsync(new OlcuEkle());
