@@ -30,17 +30,17 @@ build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/CancelClassPage.xaml]
+[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/Duyurular.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.CancelClassPage.xaml
-build_metadata.AdditionalFiles.TargetPath = CancelClassPage.xaml
-build_metadata.AdditionalFiles.RelativePath = CancelClassPage.xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.Duyurular.xaml
+build_metadata.AdditionalFiles.TargetPath = Duyurular.xaml
+build_metadata.AdditionalFiles.RelativePath = Duyurular.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/ContactPage.xaml]
+[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/DuyuruYap.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.ContactPage.xaml
-build_metadata.AdditionalFiles.TargetPath = ContactPage.xaml
-build_metadata.AdditionalFiles.RelativePath = ContactPage.xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.DuyuruYap.xaml
+build_metadata.AdditionalFiles.TargetPath = DuyuruYap.xaml
+build_metadata.AdditionalFiles.RelativePath = DuyuruYap.xaml
 
 [C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/LessonManagementPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

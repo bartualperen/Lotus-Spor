@@ -55,11 +55,11 @@ namespace Lotus_Spor
         }
         private async void OnClickedMessages(Object sender, EventArgs e)
         {
-            
+            await Application.Current.MainPage.Navigation.PushAsync(new Duyurular());
         }
         private async void OnClickedMeasurements(Object sender, EventArgs e)
         {
-            
+            await Application.Current.MainPage.Navigation.PushAsync(new MeasurementPage());
         }
         public async void LoadLessonsAsync()
         {

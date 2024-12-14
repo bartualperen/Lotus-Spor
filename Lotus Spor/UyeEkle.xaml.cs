@@ -6,6 +6,7 @@ namespace Lotus_Spor;
 
 public partial class UyeEkle : ContentPage
 {
+    private List<DoluSeans> doluSeanslar = new List<DoluSeans>();
     List<string> isimListesi = new List<string>();
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     private int kullaniciId = -1;
@@ -13,11 +14,17 @@ public partial class UyeEkle : ContentPage
     {
         public string Name { get; set; }
     }
+    public class DoluSeans
+    {
+        public string Gun { get; set; }
+        public string BaslangicSaat { get; set; }
+    }
     public UyeEkle()
 	{
 		InitializeComponent();
         ResultsCollectionView.ItemsSource = filteredList;
         kisilistele();
+        LoadDoluSeanslar();
     }
     private void OnPhoneEntryTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -44,7 +51,6 @@ public partial class UyeEkle : ContentPage
         string notlar = NoteEntry.Text;
         float seansUcret;
         bool ucretValid = float.TryParse(UcretEntry.Text, out seansUcret);
-        TimeSpan seansSaat = SeansSaatPicker.Time;
 
         string[] nameParts = fullName.Split(' ');
         string isim, soyisim;
@@ -101,7 +107,6 @@ public partial class UyeEkle : ContentPage
                     command.Parameters.AddWithValue("@seans_gunleri", seansGunleri);
                     command.Parameters.AddWithValue("@seans_ucreti", seansUcret);
                     command.Parameters.AddWithValue("@sifre", telefon);
-                    command.Parameters.AddWithValue("@seans_saati", seansSaat.ToString(@"hh\:mm"));
                     command.Parameters.AddWithValue("@notlar", notlar);
 
                     int rowsAffected = await command.ExecuteNonQueryAsync();
@@ -163,7 +168,6 @@ public partial class UyeEkle : ContentPage
             }
         }
 
-
         try
         {
             using (MySqlConnection connection = Database.GetConnection())
@@ -180,7 +184,6 @@ public partial class UyeEkle : ContentPage
                 using (MySqlCommand command = new MySqlCommand(seansquery, connection))
                 {
                     command.Parameters.AddWithValue("@seans_turu", seansTur);
-                    command.Parameters.AddWithValue("@seans_saati", seansSaat.ToString(@"hh\:mm"));
                     command.Parameters.AddWithValue("@musteri_id", musteriId);
                     command.Parameters.AddWithValue("@antrenor", antrenorName);
 
@@ -332,6 +335,91 @@ public partial class UyeEkle : ContentPage
         catch (Exception ex)
         {
             await DisplayAlert("Error", "An error occurred while fetching data: " + ex, "OK");
+        }
+    }
+    private async void LoadDoluSeanslar()
+    {
+        // Simüle edilmiþ veritabaný isteði
+        doluSeanslar = await GetDoluSeanslarFromDatabase();
+
+        // UI üzerinde kontrol
+        KontrolVeEngelle();
+    }
+    private async Task<List<DoluSeans>> GetDoluSeanslarFromDatabase()
+        {
+            string query = @"SELECT s.tarih, s.saat, DAYNAME(s.tarih) AS gun FROM seanslar s WHERE s.antrenor = @antrenor ORDER BY s.tarih ASC; ";
+        try
+        {
+            using (MySqlConnection conn = Database.GetConnection())
+            {
+                await conn.OpenAsync();
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@antrenor", AntrenorNameEntry.Text);
+
+                    using (MySqlDataReader reader = (MySqlDataReader)await cmd.ExecuteReaderAsync())
+                    {
+                        doluSeanslar.Clear(); // Listeyi sýfýrla
+
+                        while (await reader.ReadAsync())
+                        {
+                            doluSeanslar.Add(new DoluSeans
+                            {
+                                BaslangicSaat = reader["saat"].ToString(),
+                                Gun = reader["gun"].ToString() // Haftanýn gün adý
+                            });
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+        }
+        return doluSeanslar;
+    }
+
+    private void KontrolVeEngelle()
+    {
+        foreach (var seans in doluSeanslar)
+        {
+            switch (seans.Gun)
+            {
+                case "Pazartesi":
+                    EngelleTimePicker(CheckBoxPazartesi, StartTimePazartesi, seans);
+                    break;
+                case "Salý":
+                    EngelleTimePicker(CheckBoxPazartesi, StartTimePazartesi, seans);
+                    break;
+                case "Çarþamba":
+                    EngelleTimePicker(CheckBoxCarsamba, StartTimeCarsamba, seans);
+                    break;
+                case "Perþembe":
+                    EngelleTimePicker(CheckBoxPazartesi, StartTimePazartesi, seans);
+                    break;
+                case "Cuma":
+                    EngelleTimePicker(CheckBoxCuma, StartTimeCuma, seans);
+                    break;
+                case "Cumartesi":
+                    EngelleTimePicker(CheckBoxPazartesi, StartTimePazartesi, seans);
+                    break;
+                case "Pazar":
+                    EngelleTimePicker(CheckBoxPazartesi, StartTimePazartesi, seans);
+                    break;
+            }
+        }
+    }
+
+    private void EngelleTimePicker(CheckBox checkBox, TimePicker startPicker, DoluSeans seans)
+    {
+        // Baþlangýç ve bitiþ saatlerini devre dýþý býrak
+        TimeSpan baslangic = TimeSpan.Parse(seans.BaslangicSaat);
+
+        if (startPicker.Time >= baslangic)
+        {
+            checkBox.IsEnabled = false;
+            startPicker.IsEnabled = false;
         }
     }
 }

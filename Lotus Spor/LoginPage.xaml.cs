@@ -41,6 +41,7 @@ public class LoginManager
                     {
                         LoggedInUser = isim;
                         LoggedInUser2 = soyisim;
+                        LoggedInUserId = Convert.ToInt32(reader["id"]);
                         UserRole = "yonetici";
                         return true;
                     }

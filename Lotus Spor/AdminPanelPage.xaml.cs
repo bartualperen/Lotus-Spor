@@ -22,7 +22,7 @@ public partial class AdminPanelPage : ContentPage
     }
     private async void OnDuyuruYap(Object sender, EventArgs e)
     {
-        await Application.Current.MainPage.Navigation.PushAsync(new UyeEkle());
+        await Application.Current.MainPage.Navigation.PushAsync(new DuyuruYap());
     }
     private async void OnOlcuEkleClicked(object sender, EventArgs e)
     {

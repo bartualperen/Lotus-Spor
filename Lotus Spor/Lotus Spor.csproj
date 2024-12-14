@@ -110,10 +110,10 @@
 	  <MauiXaml Update="AdminPanelPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="CancelClassPage.xaml">
+	  <MauiXaml Update="Duyurular.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ContactPage.xaml">
+	  <MauiXaml Update="DuyuruYap.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="LessonManagementPage.xaml">
