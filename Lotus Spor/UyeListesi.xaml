@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lotus_Spor.UyeListesi"
+             Title="Üye Listesi">
+    <VerticalStackLayout>
+        <Label x:Name="TotalMembersLabel"
+               Text="Toplam Üye Sayısı: 0"
+               FontSize="16"
+               HorizontalOptions="Center"
+               Margin="0, 10, 0, 10" />
+        <!-- Kişi Adı Ara -->
+        <Label Text="Kişi Adı Ara" FontSize="16" />
+        <Entry x:Name="SearchEntry"
+               Placeholder="İsim girin..."
+               TextChanged="OnSearchTextChanged"
+               FontSize="16"
+               HorizontalOptions="FillAndExpand" />
+
+        <!-- Müşteri Bilgilerini Gösteren ListView -->
+        <ListView x:Name="CustomerListView"
+                  IsVisible="True"
+                  SelectionMode="Single"
+                  ItemSelected="OnItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding FullName}" 
+                              Detail="{Binding AdditionalInfo}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>

@@ -36,4 +36,8 @@ public partial class AdminPanelPage : ContentPage
     {
         await Application.Current.MainPage.Navigation.PushAsync(new MeasurementPage());
     }
+    private async void OnUyeListesiClicked(Object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new UyeListesi());
+    }
 }

@@ -68,15 +68,18 @@
                    TextColor="{DynamicResource EntryBackgroundColor}" />
 
             <Label Text="Seans Günleri Seçin:" FontAttributes="Bold" />
-            <Grid RowSpacing="5" ColumnSpacing="10">
-                <!-- Grid Tanımları -->
+            <Grid RowSpacing="10" ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
+                    <!-- Gün isimleri için geniş bir sütun -->
                     <ColumnDefinition Width="Auto" />
+                    <!-- CheckBox için küçük bir sütun -->
                     <ColumnDefinition Width="*" />
+                    <!-- TimePicker için geniş bir sütun -->
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <!-- 7 satır = 7 gün -->
+                    <!-- Her bir satır için otomatik yükseklik -->
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -86,47 +89,47 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <!-- Header -->
-                <Label Text="Gün" Grid.Row="0" Grid.Column="0" FontAttributes="Bold" />
-                <Label Text="Seç" Grid.Row="0" Grid.Column="1" FontAttributes="Bold" />
-                <Label Text="Başlangıç Saati" Grid.Row="0" Grid.Column="2" FontAttributes="Bold" />
+                <!-- Başlıklar -->
+                <Label Text="Gün" Grid.Row="0" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="Start" />
+                <Label Text="Seç" Grid.Row="0" Grid.Column="1" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="Saat" Grid.Row="0" Grid.Column="2" FontAttributes="Bold" HorizontalOptions="Center" />
 
                 <!-- Pazartesi -->
-                <Label Text="Pazartesi" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
-                <CheckBox x:Name="CheckBoxPazartesi" Grid.Row="1" Grid.Column="1" />
-                <TimePicker x:Name="StartTimePazartesi" Format="HH:mm" Grid.Row="1" Grid.Column="2" />
+                <Label Text="Pazartesi" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                <CheckBox x:Name="CheckBoxPazartesi" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" />
+                <TimePicker x:Name="StartTimePazartesi" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="1" Grid.Column="2" HorizontalOptions="Fill" />
 
                 <!-- Salı -->
-                <Label Text="Salı" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
-                <CheckBox x:Name="CheckBoxSali" Grid.Row="2" Grid.Column="1" />
-                <TimePicker x:Name="StartTimeSali" Format="HH:mm" Grid.Row="2" Grid.Column="2" />
+                <Label Text="Salı" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                <CheckBox x:Name="CheckBoxSali" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" />
+                <TimePicker x:Name="StartTimeSali" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="2" Grid.Column="2" HorizontalOptions="Fill" />
 
                 <!-- Çarşamba -->
-                <Label Text="Çarşamba" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" />
-                <CheckBox x:Name="CheckBoxCarsamba" Grid.Row="3" Grid.Column="1" />
-                <TimePicker x:Name="StartTimeCarsamba" Format="HH:mm" Grid.Row="3" Grid.Column="2" />
+                <Label Text="Çarşamba" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                <CheckBox x:Name="CheckBoxCarsamba" Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" />
+                <TimePicker x:Name="StartTimeCarsamba" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="3" Grid.Column="2" HorizontalOptions="Fill" />
 
                 <!-- Perşembe -->
-                <Label Text="Perşembe" Grid.Row="4" Grid.Column="0" VerticalOptions="Center" />
-                <CheckBox x:Name="CheckBoxPersembe" Grid.Row="4" Grid.Column="1" />
-                <TimePicker x:Name="StartTimePersembe" Format="HH:mm" Grid.Row="4" Grid.Column="2" />
+                <Label Text="Perşembe" Grid.Row="4" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                <CheckBox x:Name="CheckBoxPersembe" Grid.Row="4" Grid.Column="1" HorizontalOptions="Center" />
+                <TimePicker x:Name="StartTimePersembe" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="4" Grid.Column="2" HorizontalOptions="Fill" />
 
                 <!-- Cuma -->
-                <Label Text="Cuma" Grid.Row="5" Grid.Column="0" VerticalOptions="Center" />
-                <CheckBox x:Name="CheckBoxCuma" Grid.Row="5" Grid.Column="1" />
-                <TimePicker x:Name="StartTimeCuma" Format="HH:mm" Grid.Row="5" Grid.Column="2" />
+                <Label Text="Cuma" Grid.Row="5" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                <CheckBox x:Name="CheckBoxCuma" Grid.Row="5" Grid.Column="1" HorizontalOptions="Center" />
+                <TimePicker x:Name="StartTimeCuma" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="5" Grid.Column="2" HorizontalOptions="Fill" />
 
                 <!-- Cumartesi -->
-                <Label Text="Cumartesi" Grid.Row="6" Grid.Column="0" VerticalOptions="Center" />
-                <CheckBox x:Name="CheckBoxCumartesi" Grid.Row="6" Grid.Column="1" />
-                <TimePicker x:Name="StartTimeCumartesi" Format="HH:mm" Grid.Row="6" Grid.Column="2" />
+                <Label Text="Cumartesi" Grid.Row="6" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                <CheckBox x:Name="CheckBoxCumartesi" Grid.Row="6" Grid.Column="1" HorizontalOptions="Center" />
+                <TimePicker x:Name="StartTimeCumartesi" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="6" Grid.Column="2" HorizontalOptions="Fill" />
 
                 <!-- Pazar -->
-                <Label Text="Pazar" Grid.Row="7" Grid.Column="0" VerticalOptions="Center" />
-                <CheckBox x:Name="CheckBoxPazar" Grid.Row="7" Grid.Column="1" />
-                <TimePicker x:Name="StartTimePazar" Format="HH:mm" Grid.Row="7" Grid.Column="2" />
-
+                <Label Text="Pazar" Grid.Row="7" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                <CheckBox x:Name="CheckBoxPazar" Grid.Row="7" Grid.Column="1" HorizontalOptions="Center" />
+                <TimePicker x:Name="StartTimePazar" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="7" Grid.Column="2" HorizontalOptions="Fill" />
             </Grid>
+
 
             <Editor x:Name="NoteEntry"
                     Placeholder="Ekstra Notlar"
@@ -142,6 +145,25 @@
                     TextColor="White" 
                     Clicked="OnAddMemberClicked"
                     Margin="10,10,5,100"/>
+
+
+            <Label Text="Gelecek Derslerim" FontAttributes="Bold" />
+            <ScrollView>
+                <Grid x:Name="LessonsListView" ColumnDefinitions="*,*,*,*,*,*,*" RowSpacing="5" ColumnSpacing="5">
+                    <!-- Haftanın Gün Başlıkları -->
+                    <Label Text="Pzt" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+                    <Label Text="Salı" Grid.Column="1" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+                    <Label Text="Çrş" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+                    <Label Text="Prş" Grid.Column="3" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+                    <Label Text="Cuma" Grid.Column="4" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+                    <Label Text="Cmt" Grid.Column="5" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+                    <Label Text="Pazar" Grid.Column="6" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+                </Grid>
+            </ScrollView>
+
+
+
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

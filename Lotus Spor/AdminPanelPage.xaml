@@ -5,7 +5,7 @@
              Title="Yönetici Paneli"
              NavigationPage.HasNavigationBar="False">
     <VerticalStackLayout Padding="20">
-        <Label Text="Üye Listesi" FontSize="24" HorizontalOptions="Center" />
+        <Label Text="Üye İşlemleri" FontSize="24" HorizontalOptions="Center" />
         <CollectionView x:Name="MemberList">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -18,6 +18,7 @@
         </CollectionView>
 
         <Button Text="Yeni Üye Ekle" Margin="10,10,5,10" Clicked="OnUyeEkleClicked" x:Name="UyeEkle"/>
+        <Button Text="Üye Listesi" Margin="10,10,5,10" Clicked="OnUyeListesiClicked" x:Name="UyeListesi"/>
         <Button Text="Ölçü Bilgisi Ekle" Margin="10,10,5,10" Clicked="OnOlcuEkleClicked" x:Name="OlcuEkle"/>
         <Button Text="Dersleri Yönet" Margin="10,10,5,10" Clicked="OnDersYonet" x:Name="DersYonet"/>
         <Button Text="Ölçü Bilgilerini Yönet" Margin="10,10,5,10" Clicked="OnOlcuYonet" x:Name="OlcuYonet"/>

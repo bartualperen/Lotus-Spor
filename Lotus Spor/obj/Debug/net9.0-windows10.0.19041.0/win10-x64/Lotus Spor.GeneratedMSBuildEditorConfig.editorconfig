@@ -8,7 +8,7 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Lotus_Spor
-build_property.ProjectDir = C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\
+build_property.ProjectDir = F:\repos\Lotus-Spor\Lotus Spor\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.CsWinRTAotOptimizerEnabled = true
@@ -22,74 +22,80 @@ build_property.CsWinRTUseWindowsUIXamlProjections = false
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/AdminPanelPage.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/AdminPanelPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.AdminPanelPage.xaml
 build_metadata.AdditionalFiles.TargetPath = AdminPanelPage.xaml
 build_metadata.AdditionalFiles.RelativePath = AdminPanelPage.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/App.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/Duyurular.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/Duyurular.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.Duyurular.xaml
 build_metadata.AdditionalFiles.TargetPath = Duyurular.xaml
 build_metadata.AdditionalFiles.RelativePath = Duyurular.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/DuyuruYap.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/DuyuruYap.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.DuyuruYap.xaml
 build_metadata.AdditionalFiles.TargetPath = DuyuruYap.xaml
 build_metadata.AdditionalFiles.RelativePath = DuyuruYap.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/LessonManagementPage.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/LessonManagementPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.LessonManagementPage.xaml
 build_metadata.AdditionalFiles.TargetPath = LessonManagementPage.xaml
 build_metadata.AdditionalFiles.RelativePath = LessonManagementPage.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/LoginPage.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/LoginPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.LoginPage.xaml
 build_metadata.AdditionalFiles.TargetPath = LoginPage.xaml
 build_metadata.AdditionalFiles.RelativePath = LoginPage.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/MainPage.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/MeasurementPage.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/MeasurementPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.MeasurementPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MeasurementPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MeasurementPage.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/OlcuEkle.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/OlcuEkle.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.OlcuEkle.xaml
 build_metadata.AdditionalFiles.TargetPath = OlcuEkle.xaml
 build_metadata.AdditionalFiles.RelativePath = OlcuEkle.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/Resources/Styles/Colors.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/Resources/Styles/Styles.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
-[C:/Users/bartu/source/repos/Lotus-Spor/Lotus Spor/UyeEkle.xaml]
+[F:/repos/Lotus-Spor/Lotus Spor/UyeEkle.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.UyeEkle.xaml
 build_metadata.AdditionalFiles.TargetPath = UyeEkle.xaml
 build_metadata.AdditionalFiles.RelativePath = UyeEkle.xaml
+
+[F:/repos/Lotus-Spor/Lotus Spor/UyeListesi.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.UyeListesi.xaml
+build_metadata.AdditionalFiles.TargetPath = UyeListesi.xaml
+build_metadata.AdditionalFiles.RelativePath = UyeListesi.xaml

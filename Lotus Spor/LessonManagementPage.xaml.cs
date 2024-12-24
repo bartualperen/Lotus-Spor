@@ -142,29 +142,26 @@ public partial class LessonManagementPage : ContentPage
     private async void LoadLessons(string searchName = "")
     {
         string antrenor = loggedInUser + " " + loggedInUser2;
-        // SQL sorgusu, arama ismine göre sorguyu filtreliyoruz
         string query = @"
-            SELECT 
-                s.tarih AS Day, 
-                s.saat AS Time, 
-                s.durum AS Status, 
-                s.tur AS Type, 
-                CONCAT(m.isim, ' ', m.soyisim) AS Client 
-            FROM 
-                seanslar s
-            INNER JOIN 
-                musteriler m ON s.musteri_id = m.id
-            WHERE 
-                s.antrenor = @loggedInUser"; // Antrenör filtresi
+                SELECT 
+                    s.tarih AS Day, 
+                    s.saat AS Time, 
+                    s.durum AS Status, 
+                    s.tur AS Type, 
+                    CONCAT(m.isim, ' ', m.soyisim) AS Client 
+                FROM 
+                    seanslar s
+                INNER JOIN 
+                    musteriler m ON s.musteri_id = m.id
+                WHERE 
+                    s.antrenor = @loggedInUser";
 
-        // Eðer bir isim arama yapýlýyorsa sorguya ek filtre ekleniyor
         if (!string.IsNullOrEmpty(searchName))
         {
-            query += " AND CONCAT(m.isim, ' ', m.soyisim) LIKE @searchName"; // Ýsim filtresi
+            query += " AND CONCAT(m.isim, ' ', m.soyisim) LIKE @searchName";
         }
 
-        query += " ORDER BY s.tarih ASC, s.saat ASC"; // Tarihe göre sýralama
-
+        query += " ORDER BY s.tarih ASC, s.saat ASC";
 
         try
         {
@@ -174,7 +171,6 @@ public partial class LessonManagementPage : ContentPage
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@loggedInUser", antrenor);
-                    // Eðer isim arama yapýlmýþsa parametre ekliyoruz
                     if (!string.IsNullOrEmpty(searchName))
                     {
                         command.Parameters.AddWithValue("@searchName", "%" + searchName + "%");
@@ -182,19 +178,93 @@ public partial class LessonManagementPage : ContentPage
 
                     using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                     {
-                        Lessons.Clear(); // Listeyi sýfýrla
+                        // Gün ve saat bazýnda verileri saklamak için dictionary
+                        var lessonsByDayAndTime = new Dictionary<string, Dictionary<string, string>>();
+                        var saatler = new HashSet<string>();
+                        var gunler = new HashSet<string>();
 
                         while (await reader.ReadAsync())
                         {
-                            Lessons.Add(new Lesson
-                            {
-                                Day = DateTime.Parse(reader["Day"].ToString()).ToString("yyyy-MM-dd"),
-                                Time = reader["Time"].ToString(),
-                                Status = reader["Status"]?.ToString() ?? "Bilinmiyor",
-                                Type = reader["Type"]?.ToString() ?? "Bilinmiyor",
-                                Client = reader["Client"].ToString()
-                            });
+                            string day = DateTime.Parse(reader["Day"].ToString()).ToString("dddd", new CultureInfo("tr-TR"));
+                            string time = reader["Time"].ToString();
+                            string clientInfo = $"{reader["Client"]} - {reader["Type"] ?? "Bilinmiyor"}";
+
+                            gunler.Add(day);
+                            saatler.Add(time);
+
+                            if (!lessonsByDayAndTime.ContainsKey(day))
+                                lessonsByDayAndTime[day] = new Dictionary<string, string>();
+
+                            lessonsByDayAndTime[day][time] = clientInfo;
                         }
+
+                        // Gün sýralamasý
+                        var gunSirasi = new List<string> { "Pazartesi", "Salý", "Çarþamba", "Perþembe", "Cuma", "Cumartesi", "Pazar" };
+                        var sortedGunler = gunSirasi.Where(gun => gunler.Contains(gun)).ToList();
+
+                        // Saatleri sýralama
+                        var sortedSaatler = saatler.OrderBy(s => s).ToList();
+
+                        // Grid yapýlandýrmasý
+                        LessonsListView.RowDefinitions.Clear();
+                        LessonsListView.ColumnDefinitions.Clear();
+                        LessonsListView.Children.Clear();
+
+                        // Ýlk satýrda saat baþlýklarýný ekle
+                        LessonsListView.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                        for (int i = 0; i < sortedSaatler.Count; i++)
+                        {
+                            LessonsListView.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                            var label = new Label
+                            {
+                                Text = sortedSaatler[i],
+                                HorizontalOptions = LayoutOptions.Center,
+                                FontAttributes = FontAttributes.Bold
+                            };
+                            Grid.SetRow(label, 0); // Baþlýk satýrý
+                            Grid.SetColumn(label, i + 1); // Saat sütunlarý
+                            LessonsListView.Children.Add(label);
+                        }
+
+                        // Günleri ve seanslarý ekle
+                        for (int rowIndex = 0; rowIndex < sortedGunler.Count; rowIndex++)
+                        {
+                            LessonsListView.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                            // Gün baþlýðýný ekle
+                            var dayLabel = new Label
+                            {
+                                Text = sortedGunler[rowIndex],
+                                HorizontalOptions = LayoutOptions.Center,
+                                FontAttributes = FontAttributes.Bold
+                            };
+                            Grid.SetRow(dayLabel, rowIndex + 1); // Gün satýrlarý
+                            Grid.SetColumn(dayLabel, 0); // Ýlk sütun
+                            LessonsListView.Children.Add(dayLabel);
+
+                            // Saatlere göre seanslarý ekle
+                            for (int colIndex = 0; colIndex < sortedSaatler.Count; colIndex++)
+                            {
+                                string time = sortedSaatler[colIndex];
+                                string day = sortedGunler[rowIndex];
+
+                                string clientInfo = lessonsByDayAndTime.ContainsKey(day) && lessonsByDayAndTime[day].ContainsKey(time)
+                                    ? lessonsByDayAndTime[day][time]
+                                    : "";
+
+                                var sessionLabel = new Label
+                                {
+                                    Text = clientInfo,
+                                    HorizontalOptions = LayoutOptions.Center,
+                                    FontAttributes = FontAttributes.Italic
+                                };
+                                Grid.SetRow(sessionLabel, rowIndex + 1); // Gün satýrý
+                                Grid.SetColumn(sessionLabel, colIndex + 1); // Saat sütunu
+                                LessonsListView.Children.Add(sessionLabel);
+                            }
+                        }
+                        LessonsListView.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
                     }
                 }
             }
@@ -211,18 +281,5 @@ public partial class LessonManagementPage : ContentPage
         public string Status { get; set; }
         public string Type { get; set; }
         public string Client { get; set; }
-        public string DayWithWeekday
-        {
-            get
-            {
-                DateTime dayDate;
-                if (DateTime.TryParse(Day, out dayDate))
-                {
-                    // Gün bilgisiyle birlikte tarihi döndürüyoruz
-                    return dayDate.ToString("yyyy-MM-dd", new CultureInfo("tr-TR")) + " (" + dayDate.ToString("dddd", new CultureInfo("tr-TR")) + ")";
-                }
-                return Day; // Eðer tarih dönüþtürülemezse sadece günü döndür
-            }
-        }
     }
 }

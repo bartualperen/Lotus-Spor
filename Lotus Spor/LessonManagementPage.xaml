@@ -21,23 +21,13 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        
-        <ListView x:Name="LessonsListView"
-                  ItemsSource="{Binding Lessons}"
-                  HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="10" Spacing="5">
-                            <Label Text="{Binding DayWithWeekday}" FontAttributes="Bold" FontSize="16" />
-                            <Label Text="{Binding Time}" />
-                            <Label Text="{Binding Status}" />
-                            <Label Text="{Binding Type}" />
-                            <Label Text="{Binding Client}" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ScrollView Orientation="Horizontal">
+            <Grid x:Name="LessonsListView"
+                  ColumnSpacing="5"
+                  RowSpacing="5">
+                <!-- Dinamik olarak doldurulacak -->
+            </Grid>
+        </ScrollView>
+
     </VerticalStackLayout>
 </ContentPage>

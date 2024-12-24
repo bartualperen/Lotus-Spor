@@ -28,7 +28,7 @@ public class LoginManager
             conn.Open();
 
             // Önce yöneticiler tablosunu kontrol et
-            string yoneticiQuery = "SELECT 'yonetici' AS rol FROM yoneticiler WHERE isim = @isim AND soyisim = @soyisim AND sifre = @sifre;";
+            string yoneticiQuery = "SELECT 'yonetici' AS rol, id FROM yoneticiler WHERE isim = @isim AND soyisim = @soyisim AND sifre = @sifre;";
             using (var yoneticiCmd = new MySqlCommand(yoneticiQuery, conn))
             {
                 yoneticiCmd.Parameters.AddWithValue("@isim", isim);
