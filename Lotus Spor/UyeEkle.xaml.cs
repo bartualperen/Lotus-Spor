@@ -1,4 +1,4 @@
-using Microsoft.Maui.Platform;
+ï»¿using Microsoft.Maui.Platform;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -33,14 +33,14 @@ public partial class UyeEkle : ContentPage
     }
     private void OnPhoneEntryTextChanged(object sender, TextChangedEventArgs e)
     {
-        // Sadece sayýlarý filtrele
+        // Sadece sayÄ±larÄ± filtrele
         string numericInput = new string(e.NewTextValue.Where(char.IsDigit).ToArray());
 
-        // Maksimum 10 karakter sýnýrý için güvence
+        // Maksimum 10 karakter sÄ±nÄ±rÄ± iÃ§in gÃ¼vence
         if (numericInput.Length > 10)
             numericInput = numericInput.Substring(0, 10);
 
-        // Eski deðerle farký kontrol ederek Text'i güncelle
+        // Eski deÄŸerle farkÄ± kontrol ederek Text'i gÃ¼ncelle
         if (PhoneEntry.Text != numericInput)
         {
             PhoneEntry.Text = numericInput;
@@ -67,35 +67,34 @@ public partial class UyeEkle : ContentPage
         }
         else
         {
-            await DisplayAlert("Hata", "Soyadý belirlemek için en az iki kelime girilmelidir.", "Tamam");
+            await DisplayAlert("Hata", "SoyadÄ± belirlemek iÃ§in en az iki kelime girilmelidir.", "Tamam");
             return;
         }
 
         if (!ucretValid)
         {
-            await DisplayAlert("Hata", "Geçerli bir seans ücreti giriniz.", "Tamam");
+            await DisplayAlert("Hata", "GeÃ§erli bir seans Ã¼creti giriniz.", "Tamam");
             return;
         }
 
-        // Seçilen günleri birleþtirme
+        // SeÃ§ilen gÃ¼nleri birleÅŸtirme
         List<string> secilenGunler = new List<string>();
         if (CheckBoxPazartesi.IsChecked) secilenGunler.Add("Pazartesi");
-        if (CheckBoxSali.IsChecked) secilenGunler.Add("Salý");
-        if (CheckBoxCarsamba.IsChecked) secilenGunler.Add("Çarþamba");
-        if (CheckBoxPersembe.IsChecked) secilenGunler.Add("Perþembe");
+        if (CheckBoxSali.IsChecked) secilenGunler.Add("SalÄ±");
+        if (CheckBoxCarsamba.IsChecked) secilenGunler.Add("Ã‡arÅŸamba");
+        if (CheckBoxPersembe.IsChecked) secilenGunler.Add("PerÅŸembe");
         if (CheckBoxCuma.IsChecked) secilenGunler.Add("Cuma");
         if (CheckBoxCumartesi.IsChecked) secilenGunler.Add("Cumartesi");
         if (CheckBoxPazar.IsChecked) secilenGunler.Add("Pazar");
 
         string seansGunleri = string.Join(", ", secilenGunler);
 
-        string query = "INSERT INTO musteriler (isim, soyisim, telefon, cinsiyet, hizmet_turu, seans_gunleri, seans_ucreti, seans_saati, notlar, kayit_tarihi, sifre) " +
-                       "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @seans_saati, @notlar, CURRENT_DATE, @sifre)";
+        string query = "INSERT INTO musteriler (isim, soyisim, telefon, cinsiyet, hizmet_turu, seans_gunleri, seans_ucreti, notlar, kayit_tarihi, sifre) " +
+                       "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @notlar, CURRENT_DATE, @sifre)";
 
         string getLastInsertedIdQuery = "SELECT LAST_INSERT_ID()";
 
-        string seansquery = "INSERT INTO seanslar (tur, saat, tarih, musteri_id, antrenor) " +
-                       "VALUES (@seans_turu, @seans_saati, @seans_tarihi, @musteri_id, @antrenor)";
+        string seansquery = "INSERT INTO seanslar (tur, musteri_id, antrenor, tarih, saat) VALUES (@seans_turu, @musteri_id, @antrenor, @seans_tarihi, @seans_saati)";
 
         try
         {
@@ -117,37 +116,95 @@ public partial class UyeEkle : ContentPage
                     int rowsAffected = await command.ExecuteNonQueryAsync();
                     if (rowsAffected > 0)
                     {
-                        await DisplayAlert("Baþarýlý", "Müþteri bilgileri baþarýyla eklendi.", "Tamam");
+                        await DisplayAlert("BaÅŸarÄ±lÄ±", "MÃ¼ÅŸteri bilgileri baÅŸarÄ±yla eklendi.", "Tamam");
                     }
                     else
                     {
-                        await DisplayAlert("Hata", "Veri eklenirken bir sorun oluþtu.", "Tamam");
+                        await DisplayAlert("Hata", "Veri eklenirken bir sorun oluÅŸtu.", "Tamam");
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Veritabaný Hatasý", ex.Message, "Tamam");
+            await DisplayAlert("VeritabanÄ± HatasÄ±", ex.Message, "Tamam");
         }
 
         Dictionary<string, DayOfWeek> gunlerMap = new Dictionary<string, DayOfWeek>
         {
             { "Pazartesi", DayOfWeek.Monday },
-            { "Salý", DayOfWeek.Tuesday },
-            { "Çarþamba", DayOfWeek.Wednesday },
-            { "Perþembe", DayOfWeek.Thursday },
+            { "SalÄ±", DayOfWeek.Tuesday },
+            { "Ã‡arÅŸamba", DayOfWeek.Wednesday },
+            { "PerÅŸembe", DayOfWeek.Thursday },
             { "Cuma", DayOfWeek.Friday },
             { "Cumartesi", DayOfWeek.Saturday },
             { "Pazar", DayOfWeek.Sunday }
         };
+        Dictionary<string, TimeSpan> seansSaatleri = new Dictionary<string, TimeSpan>();
+        List<DateTime> seansDÃ¶nemTarihler = new List<DateTime>();
+        DateTime today = DateTime.Today;
+        DateTime endDate = today.AddMonths(1); // Bir aylÃ½k sÃ¼re
+
+        foreach (string gun in secilenGunler)
+        {
+            switch (gun)
+            {
+                case "Pazartesi":
+                    seansSaatleri["Pazartesi"] = StartTimePazartesi.Time;
+                    break;
+                case "SalÄ±":
+                    seansSaatleri["SalÄ±"] = StartTimeSali.Time;
+                    break;
+                case "Ã‡arÅŸamba":
+                    seansSaatleri["Ã‡arÅŸamba"] = StartTimeCarsamba.Time;
+                    break;
+                case "PerÅŸembe":
+                    seansSaatleri["PerÅŸembe"] = StartTimePersembe.Time;
+                    break;
+                case "Cuma":
+                    seansSaatleri["Cuma"] = StartTimeCuma.Time;
+                    break;
+                case "Cumartesi":
+                    seansSaatleri["Cumartesi"] = StartTimeCumartesi.Time;
+                    break;
+                case "Pazar":
+                    seansSaatleri["Pazar"] = StartTimePazar.Time;
+                    break;
+                default:
+                    break;
+            }
+            if (!gunlerMap.ContainsKey(gun))
+                continue;
+
+            DayOfWeek hedefGun = gunlerMap[gun];
+            DateTime seansTarihi = today;
+
+            // SeÃ§ilen gÃ¼nÃ¼ bulmak iÃ§in
+            while (seansTarihi.DayOfWeek != hedefGun)
+            {
+                seansTarihi = seansTarihi.AddDays(1);
+            }
+
+            // Belirlenen tarihleri bir aylÃ½k sÃ¼re iÃ§inde ekleme
+            while (seansTarihi < endDate)
+            {
+                if (seansTarihi > DateTime.MaxValue || seansTarihi < DateTime.MinValue)
+                {
+                    break; // Tarih sÃ½nÃ½rlarÃ½nÃ½ aÃ¾mamak iÃ§in dÃ¶ngÃ¼yÃ¼ sonlandÃ½r
+                }
+
+                seansDÃ¶nemTarihler.Add(seansTarihi);
+                seansTarihi = seansTarihi.AddDays(7);
+            }
+        }
+
+
         try
         {
             using (MySqlConnection connection = Database.GetConnection())
             {
                 await connection.OpenAsync();
 
-                // Son eklenen müþteri ID'sini al
                 int musteriId = 0;
                 using (MySqlCommand getIdCommand = new MySqlCommand(getLastInsertedIdQuery, connection))
                 {
@@ -160,71 +217,30 @@ public partial class UyeEkle : ContentPage
                     command.Parameters.AddWithValue("@musteri_id", musteriId);
                     command.Parameters.AddWithValue("@antrenor", antrenorName);
 
-                    // Seans tarihi için parametreyi ekle
+                    // Seans tarihi iÃ§in parametreyi ekle
                     MySqlParameter seansTarihiParam = new MySqlParameter("@seans_tarihi", MySqlDbType.Date);
-                    command.Parameters.Add(seansTarihiParam);
-
-                    // Seans saati için parametreyi ekle
                     MySqlParameter seansSaatiParam = new MySqlParameter("@seans_saati", MySqlDbType.Time);
+                    command.Parameters.Add(seansTarihiParam);
                     command.Parameters.Add(seansSaatiParam);
 
-                    Dictionary<string, (CheckBox checkBox, TimePicker timePicker)> gunlerVeSaatler = new Dictionary<string, (CheckBox, TimePicker)>
+                    foreach (DateTime seansTarihi in seansDÃ¶nemTarihler)
                     {
-                        { "Pazartesi", (CheckBoxPazartesi, StartTimePazartesi) },
-                        { "Salý", (CheckBoxSali, StartTimeSali) },
-                        { "Çarþamba", (CheckBoxCarsamba, StartTimeCarsamba) },
-                        { "Perþembe", (CheckBoxPersembe, StartTimePersembe) },
-                        { "Cuma", (CheckBoxCuma, StartTimeCuma) },
-                        { "Cumartesi", (CheckBoxCumartesi, StartTimeCumartesi) },
-                        { "Pazar", (CheckBoxPazar, StartTimePazar) }
-                    };
-
-                    List<DateTime> seansDönemTarihler = new List<DateTime>();
-                    DateTime today = DateTime.Today;
-                    DateTime endDate = today.AddMonths(1); // Bir aylýk süre
-
-                    foreach (string gun in secilenGunler)
-                    {
-                        if (!gunlerMap.ContainsKey(gun))
-                            continue;
-
-                        DayOfWeek hedefGun = gunlerMap[gun];
-                        DateTime seansTarihi = today;
-
-                        // Seçilen günü bulmak için baþlangýç tarihini ayarla
-                        while (seansTarihi.DayOfWeek != hedefGun)
+                        seansTarihiParam.Value = seansTarihi.ToString("yyyy-MM-dd");
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
+                        if (rowsAffected <= 0)
                         {
-                            seansTarihi = seansTarihi.AddDays(1);
-
-                            // Tarih sýnýrýný kontrol et
-                            if (seansTarihi > endDate)
-                            {
-                                break;
-                            }
-                        }
-
-                        // Belirlenen tarihleri bir aylýk süre içinde ekle
-                        while (seansTarihi <= endDate)
-                        {
-                            if (seansTarihi > DateTime.MaxValue || seansTarihi < DateTime.MinValue)
-                            {
-                                throw new InvalidOperationException("Seans tarihi desteklenmeyen bir aralýkta."); // Hata at
-                            }
-
-                            seansDönemTarihler.Add(seansTarihi);
-                            seansTarihi = seansTarihi.AddDays(7); // Haftalýk artýþ
+                            await DisplayAlert("Hata", "Seans eklenirken bir sorun oluÃ¾tu.", "Tamam");
                         }
                     }
 
-
-                    await DisplayAlert("Baþarýlý", "Seanslar baþarýyla eklendi.", "Tamam");
+                    await DisplayAlert("BaÃ¾arÃ½lÃ½", "Seanslar baÃ¾arÃ½yla eklendi.", "Tamam");
                     await Navigation.PopAsync();
                 }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Veritabaný Hatasý", ex.Message + "\n" + ex.StackTrace, "Tamam");
+            await DisplayAlert("VeritabanÃ½ HatasÃ½", ex.Message, "Tamam");
         }
 
     }
@@ -254,8 +270,8 @@ public partial class UyeEkle : ContentPage
 
             if (!string.IsNullOrEmpty(selectedName))
             {
-                AntrenorNameEntry.Text = selectedName;  // Seçilen ismi Entry'ye yaz
-                ResultsCollectionView.IsVisible = false;  // Önerileri gizle
+                AntrenorNameEntry.Text = selectedName;  // SeÃ§ilen ismi Entry'ye yaz
+                ResultsCollectionView.IsVisible = false;  // Ã–nerileri gizle
                 GetKullaniciId(selectedName);
             }
         }
@@ -272,7 +288,7 @@ public partial class UyeEkle : ContentPage
                 string isim = nameParts[0];
                 string soyisim = nameParts.Length > 1 ? nameParts[1] : "";
 
-                // Kullanýcýyý bulmak için sorgu
+                // KullanÄ±cÄ±yÄ± bulmak iÃ§in sorgu
                 string query = "SELECT id FROM yoneticiler WHERE isim = @isim AND soyisim = @soyisim";
 
                 using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -287,7 +303,7 @@ public partial class UyeEkle : ContentPage
                     }
                     else
                     {
-                        await DisplayAlert("Hata", "Kullanýcý bulunamadý.", "Tamam");
+                        await DisplayAlert("Hata", "KullanÄ±cÄ± bulunamadÄ±.", "Tamam");
                     }
                 }
             }
@@ -313,7 +329,7 @@ public partial class UyeEkle : ContentPage
             .Where(isimSoyisim => isimSoyisim.ToLower().Contains(searchText))
             .ToList();
 
-        // CollectionView'ý güncelle
+        // CollectionView'Ä± gÃ¼ncelle
         filteredList.Clear();
         foreach (var suggestion in suggestions)
         {
@@ -332,7 +348,7 @@ public partial class UyeEkle : ContentPage
                 connection.Open();
                 string query = "SELECT isim, soyisim FROM yoneticiler";
 
-                // SQL komutunu çalýþtýr
+                // SQL komutunu Ã§alÄ±ÅŸtÄ±r
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -342,7 +358,7 @@ public partial class UyeEkle : ContentPage
                         {
                             string isim = reader["isim"].ToString();
                             string soyisim = reader["soyisim"].ToString();
-                            string fullName = $"{isim} {soyisim}";  // Ýsim ve soyisim birleþiyor
+                            string fullName = $"{isim} {soyisim}";  // Ä°sim ve soyisim birleÅŸiyor
                             isimListesi.Add(fullName);
                         }
                     }
@@ -385,13 +401,13 @@ public partial class UyeEkle : ContentPage
 
                     using (MySqlDataReader reader = (MySqlDataReader)await cmd.ExecuteReaderAsync())
                     {
-                        // Gün bazýnda satýr dizinlerini takip ediyoruz
+                        // GÃ¼n bazÄ±nda satÄ±r dizinlerini takip ediyoruz
                         var gunBazliSatirIndexleri = new Dictionary<string, int>
                     {
                         { "Pazartesi", 1 },
-                        { "Salý", 1 },
-                        { "Çarþamba", 1 },
-                        { "Perþembe", 1 },
+                        { "SalÄ±", 1 },
+                        { "Ã‡arÅŸamba", 1 },
+                        { "PerÅŸembe", 1 },
                         { "Cuma", 1 },
                         { "Cumartesi", 1 },
                         { "Pazar", 1 }
@@ -403,13 +419,13 @@ public partial class UyeEkle : ContentPage
                             string saat = reader["saat"].ToString();
                             string hizmetTuru = reader["hizmet_turu"].ToString();
 
-                            int columnIndex = GetColumnIndex(gun); // Günün sütun indeksini al
-                            int rowIndex = gunBazliSatirIndexleri[gun]; // O günün mevcut satýr indeksini al
+                            int columnIndex = GetColumnIndex(gun); // GÃ¼nÃ¼n sÃ¼tun indeksini al
+                            int rowIndex = gunBazliSatirIndexleri[gun]; // O gÃ¼nÃ¼n mevcut satÄ±r indeksini al
 
-                            // Yeni satýr oluþturulmasýný saðla
+                            // Yeni satÄ±r oluÅŸturulmasÄ±nÄ± saÄŸla
                             LessonsListView.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-                            // Saat ve hizmet türünü içeren bir StackLayout oluþtur
+                            // Saat ve hizmet tÃ¼rÃ¼nÃ¼ iÃ§eren bir StackLayout oluÅŸtur
                             StackLayout seansLayout = new StackLayout
                             {
                                 Orientation = StackOrientation.Vertical,
@@ -431,12 +447,12 @@ public partial class UyeEkle : ContentPage
                             }
                             };
 
-                            // Seansý tabloya ekle
+                            // SeansÄ± tabloya ekle
                             Grid.SetColumn(seansLayout, columnIndex);
                             Grid.SetRow(seansLayout, rowIndex);
                             LessonsListView.Children.Add(seansLayout);
 
-                            // Ýlgili gün için satýr indeksini güncelle
+                            // Ä°lgili gÃ¼n iÃ§in satÄ±r indeksini gÃ¼ncelle
                             gunBazliSatirIndexleri[gun]++;
 
                             DoluSeanslar.Add(new DoluSeans
@@ -452,7 +468,7 @@ public partial class UyeEkle : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+            await DisplayAlert("Hata", $"Veriler yÃ¼klenirken bir hata oluÅŸtu: {ex.Message}", "Tamam");
         }
     }
     private int GetColumnIndex(string gun)
@@ -460,9 +476,9 @@ public partial class UyeEkle : ContentPage
         switch (gun)
         {
             case "Pazartesi": return 0;
-            case "Salý": return 1;
-            case "Çarþamba": return 2;
-            case "Perþembe": return 3;
+            case "SalÄ±": return 1;
+            case "Ã‡arÅŸamba": return 2;
+            case "PerÅŸembe": return 3;
             case "Cuma": return 4;
             case "Cumartesi": return 5;
             case "Pazar": return 6;
@@ -482,9 +498,9 @@ public partial class UyeEkle : ContentPage
 
         string selectedDay = string.Empty;
         if (timePicker == StartTimePazartesi) selectedDay = "Pazartesi";
-        else if (timePicker == StartTimeSali) selectedDay = "Salý";
-        else if (timePicker == StartTimeCarsamba) selectedDay = "Çarþamba";
-        else if (timePicker == StartTimePersembe) selectedDay = "Perþembe";
+        else if (timePicker == StartTimeSali) selectedDay = "SalÄ±";
+        else if (timePicker == StartTimeCarsamba) selectedDay = "Ã‡arÅŸamba";
+        else if (timePicker == StartTimePersembe) selectedDay = "PerÅŸembe";
         else if (timePicker == StartTimeCuma) selectedDay = "Cuma";
         else if (timePicker == StartTimeCumartesi) selectedDay = "Cumartesi";
         else if (timePicker == StartTimePazar) selectedDay = "Pazar";
@@ -497,9 +513,9 @@ public partial class UyeEkle : ContentPage
         Dictionary<string, DayOfWeek> dayMap = new Dictionary<string, DayOfWeek>
     {
         { "Pazartesi", DayOfWeek.Monday },
-        { "Salý", DayOfWeek.Tuesday },
-        { "Çarþamba", DayOfWeek.Wednesday },
-        { "Perþembe", DayOfWeek.Thursday },
+        { "SalÄ±", DayOfWeek.Tuesday },
+        { "Ã‡arÅŸamba", DayOfWeek.Wednesday },
+        { "PerÅŸembe", DayOfWeek.Thursday },
         { "Cuma", DayOfWeek.Friday },
         { "Cumartesi", DayOfWeek.Saturday },
         { "Pazar", DayOfWeek.Sunday }
@@ -515,21 +531,21 @@ public partial class UyeEkle : ContentPage
 
         string selectedDateString = targetDate.ToString("yyyy-MM-dd");
 
-        // Çakýþma kontrolü
+        // Ã‡akÄ±ÅŸma kontrolÃ¼
         var isConflicting = DoluSeanslar.Any(doluSeans =>
             DateTime.Parse(doluSeans.Gun).ToString("yyyy-MM-dd") == selectedDateString &&
             TimeSpan.Parse(doluSeans.BaslangicSaat).ToString(@"hh\:mm") == selectedTime);
 
         if (isConflicting)
         {
-            await DisplayAlert("Uyarý", $"{selectedDay} günü {selectedTime} saatinde bir ders zaten mevcut!", "Tamam");
+            await DisplayAlert("UyarÄ±", $"{selectedDay} gÃ¼nÃ¼ {selectedTime} saatinde bir ders zaten mevcut!", "Tamam");
             isResettingTime = true;
             timePicker.Time = TimeSpan.Zero;
             isResettingTime = false;
         }
         else
         {
-            await DisplayAlert("Uygun", $"{selectedDay} günü {selectedTime} saatinde ders eklenebilir.", "Tamam");
+            await DisplayAlert("Uygun", $"{selectedDay} gÃ¼nÃ¼ {selectedTime} saatinde ders eklenebilir.", "Tamam");
         }
     }
 

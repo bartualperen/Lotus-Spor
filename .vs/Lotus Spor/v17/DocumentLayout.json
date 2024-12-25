@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "F:\\repos\\Lotus-Spor\\",
+  "WorkspaceRootPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\uyeekle.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\uyeekle.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\uyeekle.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\uyeekle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\uyeekle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\uyeekle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\measurementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\measurementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\measurementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\measurementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\measurementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\measurementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -40,9 +40,9 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "UyeEkle.xaml",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml",
               "RelativeDocumentMoniker": "Lotus Spor\\UyeEkle.xaml",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml",
               "RelativeToolTip": "Lotus Spor\\UyeEkle.xaml",
               "ViewState": "AgIAAFQAAAAAAAAAAAAAAGMAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
@@ -53,11 +53,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UyeEkle.xaml.cs",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml.cs",
               "RelativeDocumentMoniker": "Lotus Spor\\UyeEkle.xaml.cs",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml.cs",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml.cs",
               "RelativeToolTip": "Lotus Spor\\UyeEkle.xaml.cs",
-              "ViewState": "AgIAAKoAAAAAAAAAAAAAANkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAOoAAAAAAAAAAAAAAAQBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-23T21:57:28.953Z",
               "EditorCaption": ""
@@ -66,9 +66,9 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "MeasurementPage.xaml.cs",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\MeasurementPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\MeasurementPage.xaml.cs",
               "RelativeDocumentMoniker": "Lotus Spor\\MeasurementPage.xaml.cs",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\MeasurementPage.xaml.cs",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\MeasurementPage.xaml.cs",
               "RelativeToolTip": "Lotus Spor\\MeasurementPage.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -79,13 +79,14 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "MeasurementPage.xaml",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\MeasurementPage.xaml",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\MeasurementPage.xaml",
               "RelativeDocumentMoniker": "Lotus Spor\\MeasurementPage.xaml",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\MeasurementPage.xaml",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\MeasurementPage.xaml",
               "RelativeToolTip": "Lotus Spor\\MeasurementPage.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-12-23T09:09:49.986Z"
+              "WhenOpened": "2024-12-23T09:09:49.986Z",
+              "EditorCaption": ""
             }
           ]
         }

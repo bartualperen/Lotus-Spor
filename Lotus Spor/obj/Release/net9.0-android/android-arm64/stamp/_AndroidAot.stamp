@@ -166,6 +166,7 @@ obj\Release\net9.0-android\android-arm64\aot\System.Threading.Thread.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Threading.ThreadPool.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Threading.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Transactions.Local.dll.so
+obj\Release\net9.0-android\android-arm64\aot\System.Web.HttpUtility.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Xml.Linq.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Xml.ReaderWriter.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Xml.XDocument.dll.so
