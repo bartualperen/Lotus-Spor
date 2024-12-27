@@ -37,8 +37,6 @@
             <!-- Kaydet Butonu -->
             <Button Text="Duyuruyu Kaydet" 
                     x:Name="SaveAnnouncementButton"
-                    BackgroundColor="#6200EE" 
-                    TextColor="White"
                     Clicked="OnSaveAnnouncementClicked" />
         </VerticalStackLayout>
     </ScrollView>

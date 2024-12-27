@@ -1457,3 +1457,11 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\re
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-150.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-200.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-400.png
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\runtimes\win-x64\native\WebView2Loader.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\WindowsAppRuntime.DeploymentExtensions.OneCore.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Globalization.winmd
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Storage.winmd
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Storage.Projection.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\WebView2Loader.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Web.WebView2.Core.Projection.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.UI.pri

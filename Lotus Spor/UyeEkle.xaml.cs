@@ -90,11 +90,13 @@ public partial class UyeEkle : ContentPage
         string seansGunleri = string.Join(", ", secilenGunler);
 
         string query = "INSERT INTO musteriler (isim, soyisim, telefon, cinsiyet, hizmet_turu, seans_gunleri, seans_ucreti, notlar, kayit_tarihi, sifre) " +
-                       "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @notlar, CURRENT_DATE, @sifre)";
+                       "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @notlar, @kayit_tarihi, @sifre)";
 
         string getLastInsertedIdQuery = "SELECT LAST_INSERT_ID()";
 
         string seansquery = "INSERT INTO seanslar (tur, musteri_id, antrenor, tarih, saat) VALUES (@seans_turu, @musteri_id, @antrenor, @seans_tarihi, @seans_saati)";
+
+        DateTime selectedDate = DatePickerKayitTarihi.Date;
 
         try
         {
@@ -110,6 +112,7 @@ public partial class UyeEkle : ContentPage
                     command.Parameters.AddWithValue("@hizmet_turu", seansTur);
                     command.Parameters.AddWithValue("@seans_gunleri", seansGunleri);
                     command.Parameters.AddWithValue("@seans_ucreti", seansUcret);
+                    command.Parameters.AddWithValue("@kayit_tarihi", selectedDate.ToString("yyyy-MM-dd")); // Seçilen tarihi ekleyin
                     command.Parameters.AddWithValue("@sifre", telefon);
                     command.Parameters.AddWithValue("@notlar", notlar);
 
@@ -140,10 +143,11 @@ public partial class UyeEkle : ContentPage
             { "Cumartesi", DayOfWeek.Saturday },
             { "Pazar", DayOfWeek.Sunday }
         };
+
         Dictionary<string, TimeSpan> seansSaatleri = new Dictionary<string, TimeSpan>();
         List<DateTime> seansDönemTarihler = new List<DateTime>();
         DateTime today = DateTime.Today;
-        DateTime endDate = today.AddMonths(1); // Bir aylýk süre
+        DateTime endDate = today.AddMonths(1);
 
         foreach (string gun in secilenGunler)
         {
@@ -173,8 +177,12 @@ public partial class UyeEkle : ContentPage
                 default:
                     break;
             }
-            if (!gunlerMap.ContainsKey(gun))
-                continue;
+
+            if (!seansSaatleri.ContainsKey(gun) || seansSaatleri[gun] == default(TimeSpan))
+            {
+                await DisplayAlert("Hata", $"{gun} için bir saat seçilmelidir.", "Tamam");
+                return;
+            }
 
             DayOfWeek hedefGun = gunlerMap[gun];
             DateTime seansTarihi = today;
@@ -185,19 +193,13 @@ public partial class UyeEkle : ContentPage
                 seansTarihi = seansTarihi.AddDays(1);
             }
 
-            // Belirlenen tarihleri bir aylýk süre içinde ekleme
+            // Tarihleri bir aylık süre içinde ekleme
             while (seansTarihi < endDate)
             {
-                if (seansTarihi > DateTime.MaxValue || seansTarihi < DateTime.MinValue)
-                {
-                    break; // Tarih sýnýrlarýný aþmamak için döngüyü sonlandýr
-                }
-
                 seansDönemTarihler.Add(seansTarihi);
-                seansTarihi = seansTarihi.AddDays(7);
+                seansTarihi = seansTarihi.AddDays(7); // Haftalık artış
             }
         }
-
 
         try
         {
@@ -217,32 +219,44 @@ public partial class UyeEkle : ContentPage
                     command.Parameters.AddWithValue("@musteri_id", musteriId);
                     command.Parameters.AddWithValue("@antrenor", antrenorName);
 
-                    // Seans tarihi için parametreyi ekle
                     MySqlParameter seansTarihiParam = new MySqlParameter("@seans_tarihi", MySqlDbType.Date);
-                    MySqlParameter seansSaatiParam = new MySqlParameter("@seans_saati", MySqlDbType.Time);
+                    MySqlParameter seansSaatiParam = new MySqlParameter("@seans_saati", MySqlDbType.VarChar);
                     command.Parameters.Add(seansTarihiParam);
                     command.Parameters.Add(seansSaatiParam);
 
                     foreach (DateTime seansTarihi in seansDönemTarihler)
                     {
+                        string gunAdi = seansTarihi.DayOfWeek switch
+                        {
+                            DayOfWeek.Monday => "Pazartesi",
+                            DayOfWeek.Tuesday => "Salı",
+                            DayOfWeek.Wednesday => "Çarşamba",
+                            DayOfWeek.Thursday => "Perşembe",
+                            DayOfWeek.Friday => "Cuma",
+                            DayOfWeek.Saturday => "Cumartesi",
+                            DayOfWeek.Sunday => "Pazar",
+                            _ => throw new InvalidOperationException("Geçersiz gün")
+                        };
+
                         seansTarihiParam.Value = seansTarihi.ToString("yyyy-MM-dd");
+                        seansSaatiParam.Value = seansSaatleri[gunAdi].ToString(@"hh\:mm");
+
                         int rowsAffected = await command.ExecuteNonQueryAsync();
                         if (rowsAffected <= 0)
                         {
-                            await DisplayAlert("Hata", "Seans eklenirken bir sorun oluþtu.", "Tamam");
+                            await DisplayAlert("Hata", "Seans eklenirken bir sorun oluştu.", "Tamam");
                         }
                     }
 
-                    await DisplayAlert("Baþarýlý", "Seanslar baþarýyla eklendi.", "Tamam");
+                    await DisplayAlert("Başarılı", "Seanslar başarıyla eklendi.", "Tamam");
                     await Navigation.PopAsync();
                 }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Veritabaný Hatasý", ex.Message, "Tamam");
+            await DisplayAlert("Veritabanı Hatası", ex.Message, "Tamam");
         }
-
     }
     private void OnUsernameTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -385,7 +399,7 @@ public partial class UyeEkle : ContentPage
             musteriler ON seanslar.musteri_id = musteriler.id
         WHERE 
             seanslar.antrenor = @antrenor 
-            AND YEARWEEK(seanslar.tarih, 1) = YEARWEEK(CURDATE(), 1)
+            AND YEARWEEK(seanslar.tarih, 2) = YEARWEEK(CURDATE(), 1)
         ORDER BY 
             seanslar.tarih ASC, 
             seanslar.saat ASC;";
@@ -432,6 +446,12 @@ public partial class UyeEkle : ContentPage
                                 HorizontalOptions = LayoutOptions.Center,
                                 Children =
                             {
+                                //new Label
+                                //{
+                                //    Text = string.Empty,
+                                //    HorizontalOptions = LayoutOptions.Center,
+                                //    FontAttributes = FontAttributes.Bold
+                                //},
                                 new Label
                                 {
                                     Text = saat,
@@ -548,5 +568,4 @@ public partial class UyeEkle : ContentPage
             await DisplayAlert("Uygun", $"{selectedDay} günü {selectedTime} saatinde ders eklenebilir.", "Tamam");
         }
     }
-
 }

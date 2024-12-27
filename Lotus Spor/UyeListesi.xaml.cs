@@ -24,7 +24,7 @@ public partial class UyeListesi : ContentPage
     }
     private async void LoadCustomers()
     {
-        string query = "SELECT isim, soyisim, hizmet_turu, seans_ucreti FROM musteriler";
+        string query = "SELECT isim, soyisim, hizmet_turu, seans_ucreti, notlar, kayit_tarihi FROM musteriler";
 
         try
         {
@@ -44,6 +44,9 @@ public partial class UyeListesi : ContentPage
                             {
                                 FullName = $"{reader["isim"]} {reader["soyisim"]}",
                                 AdditionalInfo = reader["hizmet_turu"]?.ToString() ?? "Bilinmiyor",
+                                Notlar = reader["notlar"]?.ToString() ?? "Bilinmiyor",
+                                KayitTarihi = reader["kayit_tarihi"] != DBNull.Value
+                                ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy") : "Bilinmiyor",
                                 Ucret = Convert.ToInt32((reader["seans_ucreti"]))
                             });
                         }
@@ -69,7 +72,7 @@ public partial class UyeListesi : ContentPage
     {
         if (e.SelectedItem is Customer selectedCustomer)
         {
-            await DisplayAlert("Seçilen Müþteri", $"Ýsim: {selectedCustomer.FullName}\nHizmet Türü: {selectedCustomer.AdditionalInfo}\nSeans Ücreti: {selectedCustomer.Ucret}", "Tamam");
+            await DisplayAlert("Seçilen Müþteri", $"Ýsim: {selectedCustomer.FullName}\nHizmet Türü: {selectedCustomer.AdditionalInfo}\nNot: {selectedCustomer.Notlar}\nKayýt Tarihi: {selectedCustomer.KayitTarihi}\nSeans Ücreti: {selectedCustomer.Ucret}", "Tamam");
         }
 
         // Seçimi temizle
@@ -79,6 +82,8 @@ public partial class UyeListesi : ContentPage
     {
         public string FullName { get; set; }
         public string AdditionalInfo { get; set; }
+        public string Notlar { get; set; }
+        public string KayitTarihi { get; set; }
         public int Ucret {  get; set; }
     }
 }
