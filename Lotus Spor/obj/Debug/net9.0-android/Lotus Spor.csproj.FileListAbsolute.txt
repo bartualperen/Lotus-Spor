@@ -2922,3 +2922,8 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\andro
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\GoogleGson.pdb
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Jsr305Binding.pdb
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Xamarin.Google.Crypto.Tink.Android.pdb
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Extensions.Configuration.FileExtensions.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Extensions.Configuration.Json.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Extensions.FileProviders.Abstractions.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Extensions.FileProviders.Physical.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Extensions.FileSystemGlobbing.dll

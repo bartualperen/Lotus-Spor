@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lotus_Spor.AntrenorYonet"
+             Title="Antrenör Listesi">
+    <VerticalStackLayout Padding="20">
+        <Label x:Name="TotalMembersLabel"
+               Text="Toplam Üye Sayısı: 0"
+               FontSize="16"
+               HorizontalOptions="Center"
+               Margin="0, 10, 0, 10" />
+
+        <!-- Kişi Adı Ara -->
+        <Label Text="Kişi Adı Ara" FontSize="16" />
+        <Entry x:Name="SearchEntry"
+               Placeholder="İsim girin..."
+               TextChanged="OnSearchTextChanged"
+               FontSize="16"
+               HorizontalOptions="FillAndExpand" />
+
+        <!-- Müşteri Bilgilerini Gösteren ListView -->
+        <ListView x:Name="CustomerListView"
+                  IsVisible="True"
+                  SelectionMode="Single"
+                  ItemSelected="OnItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding FullName}" 
+                              Detail="{Binding AdditionalInfo}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Ekle Butonu -->
+        <Button Text="Ekle" Margin="10,10,5,10" Clicked="OnEkleClicked" x:Name="Ekle"/>
+
+        <!-- Kullanıcı Ekleme Formu (Başlangıçta gizli) -->
+        <StackLayout x:Name="AddUserForm" IsVisible="False" Margin="0,10,0,10">
+            <Label Text="Yeni Kullanıcı Ekle" FontSize="18" />
+
+            <Entry x:Name="NameEntry" Placeholder="Ad Soyad" TextChanged="OnUsernameTextChanged" FontSize="16" PlaceholderColor="{DynamicResource EntryPlaceholderColor}" TextColor="{DynamicResource EntryBackgroundColor}"/>
+            <Entry x:Name="PhoneEntry" 
+                   Placeholder="Telefon Numarası (Başında 0 olmadan yazınız)" 
+                   Keyboard="Telephone"
+                   TextChanged="OnPhoneEntryTextChanged"
+                   PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
+                   TextColor="{DynamicResource EntryBackgroundColor}"
+                   FontSize="16"/>
+
+            <Button Text="Kaydet" Clicked="OnSaveUserClicked" Margin="10" />
+            <Button Text="İptal" Clicked="OnCancelAddClicked" Margin="10" />
+        </StackLayout>
+
+        <!-- Seçilen İsmi Çıkar Butonu -->
+        <Button Text="Seçilen İsmi Çıkar" Margin="10,10,5,10" Clicked="OnCikarClicked" x:Name="Cikar"/>
+    </VerticalStackLayout>
+</ContentPage>

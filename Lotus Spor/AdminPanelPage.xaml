@@ -4,25 +4,28 @@
              x:Class="Lotus_Spor.AdminPanelPage"
              Title="Yönetici Paneli"
              NavigationPage.HasNavigationBar="False">
-    <VerticalStackLayout Padding="20">
-        <Label Text="Üye İşlemleri" FontSize="24" HorizontalOptions="Center" />
-        <CollectionView x:Name="MemberList">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
-                        <Label Text="{Binding Name}" FontSize="18" />
-                        <Button Text="Detaylar" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <Label Text="Üye İşlemleri" FontSize="24" HorizontalOptions="Center" />
+            <CollectionView x:Name="MemberList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding Name}" FontSize="18" />
+                            <Button Text="Detaylar" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <Button Text="Yeni Üye Ekle" Margin="10,10,5,10" Clicked="OnUyeEkleClicked" x:Name="UyeEkle"/>
-        <Button Text="Üye Listesi" Margin="10,10,5,10" Clicked="OnUyeListesiClicked" x:Name="UyeListesi"/>
-        <Button Text="Ölçü Bilgisi Ekle" Margin="10,10,5,10" Clicked="OnOlcuEkleClicked" x:Name="OlcuEkle"/>
-        <Button Text="Dersleri Yönet" Margin="10,10,5,10" Clicked="OnDersYonet" x:Name="DersYonet"/>
-        <Button Text="Ölçü Bilgilerini Yönet" Margin="10,10,5,10" Clicked="OnOlcuYonet" x:Name="OlcuYonet"/>
-        <Button Text="Duyuru Yap" Margin="10,10,5,10" Clicked="OnDuyuruYap" x:Name="DuyuruYap"/>
-        <Button Text="Çıkış Yap" Margin="10,10,5,10" Clicked="OnClickedLogOut" x:Name="LogOutButton" />
-    </VerticalStackLayout>
+            <Button Text="Yeni Üye Ekle" Margin="10,10,5,10" Clicked="OnUyeEkleClicked" x:Name="UyeEkle"/>
+            <Button Text="Üye Listesi" Margin="10,10,5,10" Clicked="OnUyeListesiClicked" x:Name="UyeListesi"/>
+            <Button Text="Ölçü Bilgisi Ekle" Margin="10,10,5,10" Clicked="OnOlcuEkleClicked" x:Name="OlcuEkle"/>
+            <Button Text="Dersleri Yönet" Margin="10,10,5,10" Clicked="OnDersYonet" x:Name="DersYonet"/>
+            <Button Text="Antrenörleri Yönet" Margin="10,10,5,10" Clicked="OnAntrenorYonet" x:Name="AntrenorYonet" IsVisible="False"/>
+            <Button Text="Ölçü Bilgilerini Yönet" Margin="10,10,5,10" Clicked="OnOlcuYonet" x:Name="OlcuYonet"/>
+            <Button Text="Duyuru Yap" Margin="10,10,5,10" Clicked="OnDuyuruYap" x:Name="DuyuruYap"/>
+            <Button Text="Çıkış Yap" Margin="10,10,5,10" Clicked="OnClickedLogOut" x:Name="LogOutButton" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

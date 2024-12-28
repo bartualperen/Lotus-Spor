@@ -3,31 +3,104 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lotus_Spor.LessonManagementPage"
              Title="Ders Yönetim Sayfası">
-    <VerticalStackLayout Padding="20">
-        <Label Text="Kişi Adı Ara" FontSize="16" />
-        <Entry x:Name="SearchEntry"
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <Label Text="Kişi Adı Ara" FontSize="16" />
+            <Entry x:Name="SearchEntry"
                Placeholder="İsim girin..."
                TextChanged="OnSearchTextChanged"
                FontSize="16"
                HorizontalOptions="FillAndExpand" />
-        <!-- Arama Sonuçları Listesi -->
-        <CollectionView x:Name="ResultsCollectionView"
+            <!-- Arama Sonuçları Listesi -->
+            <CollectionView x:Name="ResultsCollectionView"
                         IsVisible="False"
                         SelectionMode="Single"
                         SelectionChanged="OnSelectionChanged">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Label Text="{Binding}" Padding="10" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <ScrollView Orientation="Horizontal">
-            <Grid x:Name="LessonsListView"
-                  ColumnSpacing="5"
-                  RowSpacing="5">
-                <!-- Dinamik olarak doldurulacak -->
-            </Grid>
-        </ScrollView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding}" Padding="10" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!-- Hizmet Türü Seçimi -->
+            <Label Text="Hizmet Türü Seç" FontSize="16" />
+            <Picker x:Name="ServiceTypePicker"
+                SelectedIndexChanged="OnServiceTypeChanged"
+                FontSize="16"
+                HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                    <!-- Hizmet türlerini burada tanımlayabilirsiniz -->
+                    <x:String>Fitness</x:String>
+                    <x:String>Yoga</x:String>
+                    <x:String>Pilates</x:String>
+                </Picker.Items>
+            </Picker>
+            <ScrollView Orientation="Both" HeightRequest="200">
+                <Grid x:Name="LessonsListView"
+                  ColumnSpacing="10"
+                  RowSpacing="0">
 
-    </VerticalStackLayout>
+                </Grid>
+            </ScrollView>
+            <StackLayout x:Name="DersDetaylar" IsVisible="False" Margin="0,10,0,10">
+                <Label Text="Ders Detayları" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,0,0,10" />
+                <Label x:Name="Client" FontSize="16" Margin="0,5,0,0" />
+                <Label x:Name="Type" FontSize="16" Margin="0,5,0,10" />
+                <DatePicker x:Name="SeansDate" Format="dd.MM.yyyy" Margin="0,5,0,10" />
+                <TimePicker x:Name="SeansTime" Format="HH:mm" Margin="0,5,0,20" />
+
+                <Picker x:Name="DayPicker" SelectedIndexChanged="OnDayPickerSelectedIndexChanged" Title="Yeni Ders Gününü Seçin">
+                    <Picker.Items>
+                        <x:String>Pazartesi</x:String>
+                        <x:String>Salı</x:String>
+                        <x:String>Çarşamba</x:String>
+                        <x:String>Perşembe</x:String>
+                        <x:String>Cuma</x:String>
+                        <x:String>Cumartesi</x:String>
+                        <x:String>Pazar</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                    <Button Text="Geçerli Günü Değiştir" 
+                Clicked="OnCurDateChangeClicked"
+                CornerRadius="20" 
+                HeightRequest="50" 
+                WidthRequest="180" />
+                    <Button Text="Bütün Dersleri Değiştir" 
+                Clicked="OnAllChangeClicked"
+                CornerRadius="20" 
+                HeightRequest="50" 
+                WidthRequest="180" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,10,0,10">
+                    <Button Text="Yapıldı Olarak İşaretle" 
+                Clicked="OnDoneClicked"
+                CornerRadius="20" 
+                HeightRequest="50" 
+                WidthRequest="180"/>
+                    <Button Text="Yapılmadı Olarak İşaretle" 
+                Clicked="OnUnDoneClicked" 
+                CornerRadius="20" 
+                HeightRequest="50" 
+                WidthRequest="180" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                    <Button Text="Kaydet" 
+                Clicked="OnSaveClicked" 
+                CornerRadius="20" 
+                HeightRequest="50" 
+                WidthRequest="150" />
+                    <Button Text="İptal" 
+                Clicked="OnCancelClicked" 
+                CornerRadius="20" 
+                HeightRequest="50" 
+                WidthRequest="150"/>
+                </StackLayout>
+            </StackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

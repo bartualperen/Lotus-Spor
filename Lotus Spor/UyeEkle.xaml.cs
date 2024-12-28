@@ -12,8 +12,10 @@ public partial class UyeEkle : ContentPage
     List<string> isimListesi = new List<string>();
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     public ObservableCollection<DoluSeans> DoluSeanslar { get; set; } = new ObservableCollection<DoluSeans>();
+    public ObservableCollection<Kisi> GrupDersler { get; set; } = new ObservableCollection<Kisi>();
     private int kullaniciId = int.Parse(Preferences.Get("LoggedInUserId", "0"));
     private string kullaniciAdi = Preferences.Get("LoggedInUser", string.Empty) + " " + Preferences.Get("LoggedInUser2", string.Empty);
+    public string grupders;
     public class Kisi
     {
         public string Name { get; set; }
@@ -29,12 +31,22 @@ public partial class UyeEkle : ContentPage
 		InitializeComponent();
         ResultsCollectionView.ItemsSource = filteredList;
         LoadDoluSeans();
+        LoadGrupDersler();
         kisilistele();
     }
-    private void OnPhoneEntryTextChanged(object sender, TextChangedEventArgs e)
+    private async void OnPhoneEntryTextChanged(object sender, TextChangedEventArgs e)
     {
         // Sadece sayıları filtrele
         string numericInput = new string(e.NewTextValue.Where(char.IsDigit).ToArray());
+
+        if (numericInput.StartsWith("0"))
+        {
+            // Uyarı ver
+            await DisplayAlert("Uyarı", "Telefon numarası 0 ile başlayamaz.", "Tamam");
+
+            // İlk rakamı kaldır
+            numericInput = numericInput.TrimStart('0');
+        }
 
         // Maksimum 10 karakter sınırı için güvence
         if (numericInput.Length > 10)
@@ -86,15 +98,16 @@ public partial class UyeEkle : ContentPage
         if (CheckBoxCuma.IsChecked) secilenGunler.Add("Cuma");
         if (CheckBoxCumartesi.IsChecked) secilenGunler.Add("Cumartesi");
         if (CheckBoxPazar.IsChecked) secilenGunler.Add("Pazar");
+        if (CheckBoxGrup.IsChecked) grupders = "evet";
 
         string seansGunleri = string.Join(", ", secilenGunler);
 
-        string query = "INSERT INTO musteriler (isim, soyisim, telefon, cinsiyet, hizmet_turu, seans_gunleri, seans_ucreti, notlar, kayit_tarihi, sifre) " +
-                       "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @notlar, @kayit_tarihi, @sifre)";
+        string query = "INSERT INTO musteriler (isim, soyisim, telefon, cinsiyet, hizmet_turu, seans_gunleri, seans_ucreti, notlar, kayit_tarihi, sifre, grup) " +
+                       "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @notlar, @kayit_tarihi, @sifre, @grup)";
 
         string getLastInsertedIdQuery = "SELECT LAST_INSERT_ID()";
 
-        string seansquery = "INSERT INTO seanslar (tur, musteri_id, antrenor, tarih, saat) VALUES (@seans_turu, @musteri_id, @antrenor, @seans_tarihi, @seans_saati)";
+        string seansquery = "INSERT INTO seanslar (tur, musteri_id, antrenor, tarih, saat, grup) VALUES (@seans_turu, @musteri_id, @antrenor, @seans_tarihi, @seans_saati, @grup)";
 
         DateTime selectedDate = DatePickerKayitTarihi.Date;
 
@@ -115,6 +128,7 @@ public partial class UyeEkle : ContentPage
                     command.Parameters.AddWithValue("@kayit_tarihi", selectedDate.ToString("yyyy-MM-dd")); // Seçilen tarihi ekleyin
                     command.Parameters.AddWithValue("@sifre", telefon);
                     command.Parameters.AddWithValue("@notlar", notlar);
+                    command.Parameters.AddWithValue("@grup", grupders ?? null);
 
                     int rowsAffected = await command.ExecuteNonQueryAsync();
                     if (rowsAffected > 0)
@@ -147,7 +161,7 @@ public partial class UyeEkle : ContentPage
         Dictionary<string, TimeSpan> seansSaatleri = new Dictionary<string, TimeSpan>();
         List<DateTime> seansDönemTarihler = new List<DateTime>();
         DateTime today = DateTime.Today;
-        DateTime endDate = today.AddMonths(1);
+        DateTime endDate = today.AddMonths(12);
 
         foreach (string gun in secilenGunler)
         {
@@ -218,6 +232,7 @@ public partial class UyeEkle : ContentPage
                     command.Parameters.AddWithValue("@seans_turu", seansTur);
                     command.Parameters.AddWithValue("@musteri_id", musteriId);
                     command.Parameters.AddWithValue("@antrenor", antrenorName);
+                    command.Parameters.AddWithValue("@grup", grupders ?? null);
 
                     MySqlParameter seansTarihiParam = new MySqlParameter("@seans_tarihi", MySqlDbType.Date);
                     MySqlParameter seansSaatiParam = new MySqlParameter("@seans_saati", MySqlDbType.VarChar);
@@ -446,12 +461,6 @@ public partial class UyeEkle : ContentPage
                                 HorizontalOptions = LayoutOptions.Center,
                                 Children =
                             {
-                                //new Label
-                                //{
-                                //    Text = string.Empty,
-                                //    HorizontalOptions = LayoutOptions.Center,
-                                //    FontAttributes = FontAttributes.Bold
-                                //},
                                 new Label
                                 {
                                     Text = saat,
@@ -491,6 +500,34 @@ public partial class UyeEkle : ContentPage
             await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluştu: {ex.Message}", "Tamam");
         }
     }
+    private async void LoadGrupDersler()
+    {
+        string query = "SELECT isim FROM musteriler WHERE grup='evet'";
+        try
+        {
+            using (MySqlConnection connection = Database.GetConnection())
+            {
+                await connection.OpenAsync();
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            GrupDersler.Add(new Kisi
+                            {
+                                Name = reader["isim"].ToString(),
+                            });
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluştu: {ex.Message}", "Tamam");
+        }
+    }
     private int GetColumnIndex(string gun)
     {
         switch (gun)
@@ -508,64 +545,67 @@ public partial class UyeEkle : ContentPage
     private bool isResettingTime = false;
     private async void OnTimeSelected(object sender, EventArgs e)
     {
-        if (isResettingTime)
-            return;
-
-        var timePicker = sender as TimePicker;
-
-        if (timePicker == null)
-            return;
-
-        string selectedDay = string.Empty;
-        if (timePicker == StartTimePazartesi) selectedDay = "Pazartesi";
-        else if (timePicker == StartTimeSali) selectedDay = "Salı";
-        else if (timePicker == StartTimeCarsamba) selectedDay = "Çarşamba";
-        else if (timePicker == StartTimePersembe) selectedDay = "Perşembe";
-        else if (timePicker == StartTimeCuma) selectedDay = "Cuma";
-        else if (timePicker == StartTimeCumartesi) selectedDay = "Cumartesi";
-        else if (timePicker == StartTimePazar) selectedDay = "Pazar";
-
-        string selectedTime = timePicker.Time.ToString(@"hh\:mm");
-
-        DateTime today = DateTime.Today;
-        DateTime targetDate = today;
-
-        Dictionary<string, DayOfWeek> dayMap = new Dictionary<string, DayOfWeek>
-    {
-        { "Pazartesi", DayOfWeek.Monday },
-        { "Salı", DayOfWeek.Tuesday },
-        { "Çarşamba", DayOfWeek.Wednesday },
-        { "Perşembe", DayOfWeek.Thursday },
-        { "Cuma", DayOfWeek.Friday },
-        { "Cumartesi", DayOfWeek.Saturday },
-        { "Pazar", DayOfWeek.Sunday }
-    };
-
-        if (dayMap.ContainsKey(selectedDay))
+        if (!CheckBoxGrup.IsChecked)
         {
-            while (targetDate.DayOfWeek != dayMap[selectedDay])
+            if (isResettingTime)
+                return;
+
+            var timePicker = sender as TimePicker;
+
+            if (timePicker == null)
+                return;
+
+            string selectedDay = string.Empty;
+            if (timePicker == StartTimePazartesi) selectedDay = "Pazartesi";
+            else if (timePicker == StartTimeSali) selectedDay = "Salı";
+            else if (timePicker == StartTimeCarsamba) selectedDay = "Çarşamba";
+            else if (timePicker == StartTimePersembe) selectedDay = "Perşembe";
+            else if (timePicker == StartTimeCuma) selectedDay = "Cuma";
+            else if (timePicker == StartTimeCumartesi) selectedDay = "Cumartesi";
+            else if (timePicker == StartTimePazar) selectedDay = "Pazar";
+
+            string selectedTime = timePicker.Time.ToString(@"hh\:mm");
+
+            DateTime today = DateTime.Today;
+            DateTime targetDate = today;
+
+            Dictionary<string, DayOfWeek> dayMap = new Dictionary<string, DayOfWeek>
+        {
+            { "Pazartesi", DayOfWeek.Monday },
+            { "Salı", DayOfWeek.Tuesday },
+            { "Çarşamba", DayOfWeek.Wednesday },
+            { "Perşembe", DayOfWeek.Thursday },
+            { "Cuma", DayOfWeek.Friday },
+            { "Cumartesi", DayOfWeek.Saturday },
+            { "Pazar", DayOfWeek.Sunday }
+        };
+
+            if (dayMap.ContainsKey(selectedDay))
             {
-                targetDate = targetDate.AddDays(1);
+                while (targetDate.DayOfWeek != dayMap[selectedDay])
+                {
+                    targetDate = targetDate.AddDays(1);
+                }
             }
-        }
 
-        string selectedDateString = targetDate.ToString("yyyy-MM-dd");
+            string selectedDateString = targetDate.ToString("yyyy-MM-dd");
 
-        // Çakışma kontrolü
-        var isConflicting = DoluSeanslar.Any(doluSeans =>
-            DateTime.Parse(doluSeans.Gun).ToString("yyyy-MM-dd") == selectedDateString &&
-            TimeSpan.Parse(doluSeans.BaslangicSaat).ToString(@"hh\:mm") == selectedTime);
+            // Çakışma kontrolü
+            var isConflicting = DoluSeanslar.Any(doluSeans =>
+                DateTime.Parse(doluSeans.Gun).ToString("yyyy-MM-dd") == selectedDateString &&
+                TimeSpan.Parse(doluSeans.BaslangicSaat).ToString(@"hh\:mm") == selectedTime);
 
-        if (isConflicting)
-        {
-            await DisplayAlert("Uyarı", $"{selectedDay} günü {selectedTime} saatinde bir ders zaten mevcut!", "Tamam");
-            isResettingTime = true;
-            timePicker.Time = TimeSpan.Zero;
-            isResettingTime = false;
-        }
-        else
-        {
-            await DisplayAlert("Uygun", $"{selectedDay} günü {selectedTime} saatinde ders eklenebilir.", "Tamam");
+            if (isConflicting)
+            {
+                await DisplayAlert("Uyarı", $"{selectedDay} günü {selectedTime} saatinde bir ders zaten mevcut!", "Tamam");
+                isResettingTime = true;
+                timePicker.Time = TimeSpan.Zero;
+                isResettingTime = false;
+            }
+            else
+            {
+                await DisplayAlert("Uygun", $"{selectedDay} günü {selectedTime} saatinde ders eklenebilir.", "Tamam");
+            }
         }
     }
 }

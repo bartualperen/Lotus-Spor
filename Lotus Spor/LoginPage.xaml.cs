@@ -16,6 +16,23 @@ class Database
 
 public class LoginManager
 {
+    public static bool IsSpecialUser(string isim, string soyisim)
+    {
+        string query = "SELECT COUNT(*) FROM yoneticiler WHERE isim = @FirstName AND soyisim = @LastName";
+
+        using (var connection = Database.GetConnection())
+        {
+            connection.Open();
+            using (var command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@FirstName", isim);
+                command.Parameters.AddWithValue("@LastName", soyisim);
+
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count > 0;
+            }
+        }
+    }
     public static string LoggedInUser { get; private set; }
     public static string LoggedInUser2 { get; private set; }
     public static string UserRole { get; private set; }
@@ -104,8 +121,6 @@ public partial class LoginPage : ContentPage
             PasswordEntry.Text = numericInput;
         }
     }
-
-
     private async void OnLoginClicked(object sender, EventArgs e)
     {
         string isim, soyisim;
@@ -128,6 +143,40 @@ public partial class LoginPage : ContentPage
 
             try
             {
+                //if (LoginManager.IsSpecialUser(isim, soyisim)) // Özel kullanýcý kontrolü
+                //{
+                //    if (!string.IsNullOrEmpty(sifre))
+                //    {
+                //        // Doðrulama kodu oluþtur
+                //        string verificationCode = GenerateVerificationCode();
+
+                //        // SMS gönder (örneðin Twilio API kullanarak)
+                //        bool smsSent = await SmsService.SendSmsAsync(sifre,
+                //            $"Doðrulama kodunuz: {verificationCode}");
+
+                //        if (!smsSent)
+                //        {
+                //            await DisplayAlert("Hata", "Doðrulama kodu gönderilemedi!", "Tamam");
+                //            return;
+                //        }
+
+                //        // Kullanýcýdan doðrulama kodunu al
+                //        string enteredCode = await DisplayPromptAsync("Doðrulama",
+                //            "Lütfen cep telefonunuza gelen doðrulama kodunu girin:",
+                //            "Gönder", "Ýptal");
+
+                //        if (enteredCode != verificationCode)
+                //        {
+                //            await DisplayAlert("Hata", "Doðrulama kodu hatalý!", "Tamam");
+                //            return;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        await DisplayAlert("Hata", "Telefon numarasý bulunamadý!", "Tamam");
+                //        return;
+                //    }
+                //}
                 if (LoginManager.Login(isim, soyisim, sifre))
                 {
                     // Kullanýcý rolünü kaydet
@@ -160,7 +209,6 @@ public partial class LoginPage : ContentPage
         {
             await DisplayAlert("Hata", "Lütfen tam adýnýzý giriniz (isim ve soyisim)!", "Tamam");
         }
-
     }
     protected override bool OnBackButtonPressed()
     {
@@ -187,5 +235,10 @@ public partial class LoginPage : ContentPage
             // Düzenlenmiþ metni tekrar Entry'ye yaz
             UsernameEntry.Text = string.Join(" ", words);
         }
+    }
+    private string GenerateVerificationCode()
+    {
+        var random = new Random();
+        return random.Next(100000, 999999).ToString(); // 6 haneli doðrulama kodu
     }
 }

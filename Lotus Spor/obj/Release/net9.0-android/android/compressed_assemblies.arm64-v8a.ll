@@ -646,7 +646,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @__compressedAssemblyData_124; uint8_t* data
 	}, ; 124: ZstdSharp
 	%struct.CompressedAssemblyDescriptor {
-		i32 197120, ; uint32_t uncompressed_file_size
+		i32 198144, ; uint32_t uncompressed_file_size
 		i1 false, ; bool loaded
 		ptr @__compressedAssemblyData_125; uint8_t* data
 	}, ; 125: Lotus Spor
@@ -1262,7 +1262,7 @@ target triple = "aarch64-unknown-linux-android21"
 @__compressedAssemblyData_122 = internal dso_local global [17408 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_123 = internal dso_local global [88576 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_124 = internal dso_local global [411136 x i8] zeroinitializer, align 1
-@__compressedAssemblyData_125 = internal dso_local global [197120 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_125 = internal dso_local global [198144 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_126 = internal dso_local global [254464 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_127 = internal dso_local global [5120 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_128 = internal dso_local global [4608 x i8] zeroinitializer, align 1

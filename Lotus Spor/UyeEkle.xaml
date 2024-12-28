@@ -18,7 +18,7 @@
                    TextColor="{DynamicResource EntryBackgroundColor}"/>
 
             <Entry x:Name="PhoneEntry" 
-                   Placeholder="Telefon Numarası" 
+                   Placeholder="Telefon Numarası (Başında 0 olmadan yazınız)" 
                    Keyboard="Telephone"
                    TextChanged="OnPhoneEntryTextChanged"
                    PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
@@ -73,6 +73,15 @@
                 <Label Text="Kayıt Tarihini Seçin" FontSize="Medium" />
                 <DatePicker x:Name="DatePickerKayitTarihi" Format="dd.MM.yyyy" />
             </StackLayout>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Grup dersi ise burayı işaretleyin" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                <CheckBox x:Name="CheckBoxGrup" Grid.Column="1" HorizontalOptions="Center" />
+            </Grid>
 
             <Label Text="Seans Günleri Seçin:" FontAttributes="Bold" />
             <Grid RowSpacing="10" ColumnSpacing="10">
@@ -136,8 +145,7 @@
                 <CheckBox x:Name="CheckBoxPazar" Grid.Row="7" Grid.Column="1" HorizontalOptions="Center" />
                 <TimePicker x:Name="StartTimePazar" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="7" Grid.Column="2" HorizontalOptions="Fill" />
             </Grid>
-
-
+            
             <Editor x:Name="NoteEntry"
                     Placeholder="Ekstra Notlar"
                     AutoSize="TextChanges"

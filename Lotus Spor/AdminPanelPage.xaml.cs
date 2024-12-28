@@ -2,9 +2,16 @@ namespace Lotus_Spor;
 
 public partial class AdminPanelPage : ContentPage
 {
-	public AdminPanelPage()
+    string loggedInUser = Preferences.Get("LoggedInUser", string.Empty);
+    string loggedInUser2 = Preferences.Get("LoggedInUser2", string.Empty);
+    public AdminPanelPage()
 	{
 		InitializeComponent();
+        string antrenor = loggedInUser + " " + loggedInUser2;
+        if (antrenor == "Serkan Eren" || antrenor == "Bartu Alp Eren")
+        {
+            AntrenorYonet.IsVisible = true;
+        }
 	}
     private async void OnClickedLogOut(Object sender, EventArgs e)
     {
@@ -23,6 +30,10 @@ public partial class AdminPanelPage : ContentPage
     private async void OnDuyuruYap(Object sender, EventArgs e)
     {
         await Application.Current.MainPage.Navigation.PushAsync(new DuyuruYap());
+    }
+    private async void OnAntrenorYonet(Object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new AntrenorYonet());
     }
     private async void OnOlcuEkleClicked(object sender, EventArgs e)
     {
