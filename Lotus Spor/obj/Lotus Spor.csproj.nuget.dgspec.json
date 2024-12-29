@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj": {}
+    "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj": {}
   },
   "projects": {
-    "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj": {
+    "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+        "projectUniqueName": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
         "projectName": "Lotus Spor",
-        "projectPath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+        "projectPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
         "packagesPath": "C:\\Users\\bartu\\.nuget\\packages\\",
-        "outputPath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\obj\\",
+        "outputPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
@@ -71,6 +71,10 @@
               "target": "Package",
               "version": "[5.2.2, )"
             },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -101,9 +105,9 @@
               "target": "Package",
               "version": "[9.1.0, )"
             },
-            "MySql.Data.EntityFrameworkCore": {
+            "MySql.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.8, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -146,6 +150,10 @@
               "target": "Package",
               "version": "[5.2.2, )"
             },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -176,9 +184,9 @@
               "target": "Package",
               "version": "[9.1.0, )"
             },
-            "MySql.Data.EntityFrameworkCore": {
+            "MySql.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.8, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -221,6 +229,10 @@
               "target": "Package",
               "version": "[5.2.2, )"
             },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -251,9 +263,9 @@
               "target": "Package",
               "version": "[9.1.0, )"
             },
-            "MySql.Data.EntityFrameworkCore": {
+            "MySql.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.8, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -297,6 +309,10 @@
               "target": "Package",
               "version": "[5.2.2, )"
             },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -321,9 +337,9 @@
               "target": "Package",
               "version": "[9.1.0, )"
             },
-            "MySql.Data.EntityFrameworkCore": {
+            "MySql.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.8, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",

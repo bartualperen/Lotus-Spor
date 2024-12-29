@@ -68,10 +68,99 @@ public partial class UyeListesi : ContentPage
             : new ObservableCollection<Customer>(
                 Customers.Where(c => c.FullName.ToLower().Contains(searchQuery)));
     }
+    private void OnCancelEditClicked(object sender, EventArgs e)
+    {
+        //EditPanel.IsVisible = false; // Düzenleme panelini kapat
+    }
+    private async void OnSaveEditClicked(object sender, EventArgs e)
+    {
+    //    if (EditPanel.BindingContext is Customer editedCustomer)
+    //    {
+    //        // Düzenlenmiþ müþteri bilgilerini veritabanýna veya API'ye kaydet
+    //        bool success = await SaveCustomerToDatabaseAsync(editedCustomer);
+
+    //        if (success)
+    //        {
+    //            await DisplayAlert("Baþarýlý", "Müþteri bilgileri baþarýyla güncellendi.", "Tamam");
+    //        }
+    //        else
+    //        {
+    //            await DisplayAlert("Hata", "Müþteri bilgileri güncellenemedi. Lütfen tekrar deneyin.", "Tamam");
+    //        }
+
+    //        // Paneli kapat
+    //        EditPanel.IsVisible = false;
+    //    }
+    }
+    //private async Task<bool> SaveCustomerToDatabaseAsync(Customer customer)
+    //{
+    //    string query = @"
+    //        UPDATE musteriler 
+    //        SET 
+    //            isim = @isim, 
+    //            soyisim = @soyisim, 
+    //            telefon = @telefon, 
+    //            hizmet_turu = @hizmet_turu, 
+    //            seans_ucreti = @seans_ucreti, 
+    //            notlar = @notlar, 
+    //            grup = @grup 
+    //        WHERE CONCAT(isim, ' ', soyisim) = @clientName";
+
+    //    try
+    //    {
+    //        using (MySqlConnection connection = Database.GetConnection())
+    //        {
+    //            await connection.OpenAsync();
+
+    //            using (MySqlCommand command = new MySqlCommand(query, connection))
+    //            {
+    //                string fullName = isimentry.Text;
+    //                string[] nameParts = fullName.Split(' ');
+    //                string isim = nameParts[0];
+    //                string soyisim = nameParts.Length > 1 ? nameParts[1] : "";
+    //                // Parametreleri ekle
+    //                command.Parameters.AddWithValue("@isim", isim);
+    //                command.Parameters.AddWithValue("@soyisim", soyisim);
+    //                command.Parameters.AddWithValue("@telefon", telefonentry.Text.ToString());
+    //                command.Parameters.AddWithValue("@hizmet_turu", SeansPicker.SelectedItem?.ToString());
+    //                command.Parameters.AddWithValue("@seans_ucreti", updatedCustomer.SeansUcreti);
+    //                command.Parameters.AddWithValue("@notlar", updatedCustomer.Notlar);
+    //                command.Parameters.AddWithValue("@grup", updatedCustomer.Grup);
+    //                command.Parameters.AddWithValue("@clientName", originalClientName);
+
+    //                // Sorguyu çalýþtýr
+    //                int rowsAffected = await command.ExecuteNonQueryAsync();
+
+    //                // Güncellemenin baþarýlý olup olmadýðýný kontrol et
+    //                if (rowsAffected > 0)
+    //                {
+    //                    Console.WriteLine("Müþteri bilgileri baþarýyla güncellendi.");
+    //                }
+    //                else
+    //                {
+    //                    Console.WriteLine("Müþteri bilgileri güncellenemedi. Belirtilen müþteri bulunamadý.");
+    //                }
+    //            }
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Bir hata oluþtu: {ex.Message}");
+    //        throw; // Hata fýrlatýlabilir veya daha iyi bir hata iþleme uygulanabilir
+    //    }
+    //    return Task.FromResult(true);
+    }
+
     private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
+        // Seçim iþlemi ve düzenleme için kod
         if (e.SelectedItem is Customer selectedCustomer)
         {
+            // Düzenleme panelini doldurmak için seçilen müþteri bilgilerini aktar
+            EditPanel.BindingContext = selectedCustomer; // Paneli baðla
+            EditPanel.IsVisible = true; // Paneli görünür yap
+
+            // Seçim detaylarýný göster
             await DisplayAlert("Seçilen Müþteri", $"Ýsim: {selectedCustomer.FullName}\nHizmet Türü: {selectedCustomer.AdditionalInfo}\nNot: {selectedCustomer.Notlar}\nKayýt Tarihi: {selectedCustomer.KayitTarihi}\nSeans Ücreti: {selectedCustomer.Ucret}", "Tamam");
         }
 

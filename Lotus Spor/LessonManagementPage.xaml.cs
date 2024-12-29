@@ -1,4 +1,3 @@
-using Java.Sql;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -14,6 +13,8 @@ public partial class LessonManagementPage : ContentPage
     string gender = Preferences.Get("Gender", string.Empty);
     int loggedInUserId = int.Parse(Preferences.Get("LoggedInUserId", "0"));
     string userRole = Preferences.Get("UserRole", string.Empty);
+    private DateTime oldDate;
+    private TimeSpan oldTime;
     private int selectedDayOfWeek;
 
     public ObservableCollection<Lesson> Lessons { get; set; } = new ObservableCollection<Lesson>();
@@ -192,7 +193,7 @@ public partial class LessonManagementPage : ContentPage
                 JOIN musteriler m ON s.musteri_id = m.id
                 SET s.tarih = @newDate, s.saat = @newTime
                 WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
-                AND s.tarih = @selectedDate"; // Ýleri tarihli cuma derslerinin tarih ve saatini güncelle
+                AND s.tarih = @selectedDate";
 
         try
         {
@@ -202,11 +203,11 @@ public partial class LessonManagementPage : ContentPage
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekle
-                    command.Parameters.AddWithValue("@clientName", name); // Müþteri adý parametresi
-                    command.Parameters.AddWithValue("@currentDate", currentDate); // Bugünün tarihi parametresi
-                    command.Parameters.AddWithValue("@dayOfWeek", selectedDayOfWeek); // Cuma günü parametresi (6)
-                    command.Parameters.AddWithValue("@newDate", newDate); // Yeni tarih parametresi
-                    command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm")); // Yeni saat parametresi
+                    command.Parameters.AddWithValue("@clientName", name);
+                    command.Parameters.AddWithValue("@selectedDate", oldDate);
+                    //command.Parameters.AddWithValue("@dayOfWeek", selectedDayOfWeek);
+                    command.Parameters.AddWithValue("@newDate", newDate);
+                    command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm"));
 
                     // Sorguyu çalýþtýr
                     int rowsAffected = await command.ExecuteNonQueryAsync();
@@ -226,17 +227,10 @@ public partial class LessonManagementPage : ContentPage
         {
             await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
-        DersDetaylar.IsVisible = false;
-        Client.Text = string.Empty;
-        Type.Text = string.Empty;
-        SeansDate.Date = DateTime.Now;
-        SeansTime.Time = TimeSpan.Zero;
-        LoadLessons();
     }
     private async void OnAllChangeClicked(object sender, EventArgs e)
     {
         string name = Client.Text; // Seçilen müþteri adýný al
-        DateTime currentDate = DateTime.Now.Date; // Bugünün tarihi (saat kýsmý hariç)
 
         DateTime newDate = SeansDate.Date; // Seçilen yeni tarih
         TimeSpan newTime = SeansTime.Time; // Seçilen yeni saat
@@ -247,9 +241,9 @@ public partial class LessonManagementPage : ContentPage
                 JOIN musteriler m ON s.musteri_id = m.id
                 SET s.tarih = @newDate, s.saat = @newTime
                 WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
-                AND DAYOFWEEK(s.tarih) = @dayOfWeek
-                AND s.tarih > @currentDate;
-                "; // Ýleri tarihli cuma derslerinin tarih ve saatini güncelle
+                AND s.tarih >= @selectedDate
+                AND s.saat = @selectedTime;
+                ";
 
         try
         {
@@ -260,9 +254,9 @@ public partial class LessonManagementPage : ContentPage
                 {
                     // Parametreleri ekle
                     command.Parameters.AddWithValue("@clientName", name); // Müþteri adý parametresi
-                    command.Parameters.AddWithValue("@currentDate", currentDate); // Bugünün tarihi parametresi
-                    command.Parameters.AddWithValue("@dayOfWeek", selectedDayOfWeek); // Cuma günü parametresi (6)
                     command.Parameters.AddWithValue("@newDate", newDate); // Yeni tarih parametresi
+                    command.Parameters.AddWithValue("@selectedDate", oldDate);
+                    command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
                     command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm")); // Yeni saat parametresi
 
                     // Sorguyu çalýþtýr
@@ -281,28 +275,21 @@ public partial class LessonManagementPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+            await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex}", "Tamam");
         }
-        DersDetaylar.IsVisible = false;
-        Client.Text = string.Empty;
-        Type.Text = string.Empty;
-        SeansDate.Date = DateTime.Now;
-        SeansTime.Time = TimeSpan.Zero;
-        LoadLessons();
     }
     private async void OnDoneClicked(object sender, EventArgs e)
     {
         string name = Client.Text; // Seçilen müþteri adýný al
-        DateTime selectedDate = SeansDate.Date; // Seçilen tarihi al
-        TimeSpan selectedTime = SeansTime.Time; // Seçilen saati al
 
         // SQL sorgusunu oluþtur
         string query = @"
-                UPDATE seanslar 
-                SET durum = 'Yapýldý' 
-                WHERE CONCAT(isim, ' ', soyisim) = @clientName 
-                AND tarih = @selectedDate 
-                AND saat = @selectedTime";
+                UPDATE seanslar s
+                JOIN musteriler m ON s.musteri_id = m.id
+                SET s.durum = 'Yapýldý'
+                WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
+                AND s.tarih = @selectedDate
+                AND s.saat = @selectedTime;";
 
         try
         {
@@ -313,8 +300,8 @@ public partial class LessonManagementPage : ContentPage
                 {
                     // Parametreleri ekle
                     command.Parameters.AddWithValue("@clientName", name);
-                    command.Parameters.AddWithValue("@selectedDate", selectedDate.Date);
-                    command.Parameters.AddWithValue("@selectedTime", selectedTime.ToString(@"hh\:mm"));
+                    command.Parameters.AddWithValue("@selectedDate", oldDate);
+                    command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
 
                     // Sorguyu çalýþtýr
                     int rowsAffected = await command.ExecuteNonQueryAsync();
@@ -344,16 +331,15 @@ public partial class LessonManagementPage : ContentPage
     private async void OnUnDoneClicked(object sender, EventArgs e)
     {
         string name = Client.Text; // Seçilen müþteri adýný al
-        DateTime selectedDate = SeansDate.Date; // Seçilen tarihi al
-        TimeSpan selectedTime = SeansTime.Time; // Seçilen saati al
 
         // SQL sorgusunu oluþtur
         string query = @"
-                UPDATE seanslar 
-                SET durum = 'Yapýlmadý' 
-                WHERE CONCAT(isim, ' ', soyisim) = @clientName 
-                AND tarih = @selectedDate 
-                AND saat = @selectedTime";
+                UPDATE seanslar s
+                JOIN musteriler m ON s.musteri_id = m.id
+                SET s.durum = 'Yapýlmadý'
+                WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
+                AND s.tarih = @selectedDate
+                AND s.saat = @selectedTime;";
 
         try
         {
@@ -364,8 +350,8 @@ public partial class LessonManagementPage : ContentPage
                 {
                     // Parametreleri ekle
                     command.Parameters.AddWithValue("@clientName", name);
-                    command.Parameters.AddWithValue("@selectedDate", selectedDate.Date);
-                    command.Parameters.AddWithValue("@selectedTime", selectedTime.ToString(@"hh\:mm"));
+                    command.Parameters.AddWithValue("@selectedDate", oldDate);
+                    command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
 
                     // Sorguyu çalýþtýr
                     int rowsAffected = await command.ExecuteNonQueryAsync();
@@ -560,6 +546,8 @@ public partial class LessonManagementPage : ContentPage
                                         DersDetaylar.IsVisible = true;
                                         Client.Text = clientData.Item3;
                                         SeansDate.Date = clientData.Item1;
+                                        oldDate = clientData.Item1;
+                                        oldTime = clientData.Item2;
                                         SeansTime.Time = clientData.Item2;
                                     }
                                 };

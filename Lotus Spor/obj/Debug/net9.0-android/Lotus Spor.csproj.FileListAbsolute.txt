@@ -1651,7 +1651,6 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\andro
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Lotus Spor.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Lotus Spor.pdb
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.Bcl.HashCode.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.CSharp.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.Data.SqlClient.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -1704,7 +1703,6 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\andro
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\mscorlib.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\ms\Microsoft.Maui.Controls.resources.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\MySql.Data.dll
-C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\MySql.Data.EntityFrameworkCore.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\nb\Microsoft.Maui.Controls.resources.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\netstandard.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\nl\Microsoft.Maui.Controls.resources.dll
@@ -2927,3 +2925,9 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Mi
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Extensions.FileProviders.Abstractions.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Extensions.FileProviders.Physical.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\MySql.EntityFrameworkCore.dll

@@ -3,31 +3,52 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lotus_Spor.UyeListesi"
              Title="Üye Listesi">
-    <VerticalStackLayout>
-        <Label x:Name="TotalMembersLabel"
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label x:Name="TotalMembersLabel"
                Text="Toplam Üye Sayısı: 0"
                FontSize="16"
                HorizontalOptions="Center"
                Margin="0, 10, 0, 10" />
-        <!-- Kişi Adı Ara -->
-        <Label Text="Kişi Adı Ara" FontSize="16" />
-        <Entry x:Name="SearchEntry"
+            <!-- Kişi Adı Ara -->
+            <Label Text="Kişi Adı Ara" FontSize="16" />
+            <Entry x:Name="SearchEntry"
                Placeholder="İsim girin..."
                TextChanged="OnSearchTextChanged"
                FontSize="16"
                HorizontalOptions="FillAndExpand" />
 
-        <!-- Müşteri Bilgilerini Gösteren ListView -->
-        <ListView x:Name="CustomerListView"
+            <!-- Müşteri Bilgilerini Gösteren ListView -->
+            <ListView x:Name="CustomerListView"
                   IsVisible="True"
-                  SelectionMode="Single"
+    s              SelectionMode="Single"
                   ItemSelected="OnItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding FullName}" 
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding FullName}" 
                               Detail="{Binding AdditionalInfo}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </VerticalStackLayout>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!--<StackLayout x:Name="EditPanel" IsVisible="False" Padding="10" BackgroundColor="LightGray">
+                <Label Text="Müşteri Bilgilerini Düzenle" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Entry x:Name="isimentry" Text="{Binding FullName}" Placeholder="İsim" />
+                <Picker x:Name="SeansPicker" SelectedIndex="{Binding AdditionalInfo}" Title="Seans Türü Seçin">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Fitness</x:String>
+                            <x:String>Yoga</x:String>
+                            <x:String>Pilates</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Editor x:Name="notentry" Text="{Binding Notlar}" Placeholder="Notlar" HeightRequest="100" />
+                <Entry x:Name="ucretentry" Text="{Binding Ucret}" Placeholder="Seans Ücreti" Keyboard="Numeric" />
+                <Entry x:Name="telefonentry" Text="{Binding Telefon}" Placeholder="Telefon Numarası (Başında 0 olmadan)" Keyboard="Numeric" />
+
+                <Button Text="Kaydet" Command="{Binding SaveCommand}" />
+                <Button Text="İptal" Clicked="OnCancelEditClicked" />
+            </StackLayout>-->
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

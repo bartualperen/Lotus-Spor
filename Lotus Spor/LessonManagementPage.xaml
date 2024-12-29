@@ -66,25 +66,25 @@
                 Clicked="OnCurDateChangeClicked"
                 CornerRadius="20" 
                 HeightRequest="50" 
-                WidthRequest="180" />
+                WidthRequest="170" />
                     <Button Text="Bütün Dersleri Değiştir" 
                 Clicked="OnAllChangeClicked"
                 CornerRadius="20" 
                 HeightRequest="50" 
-                WidthRequest="180" />
+                WidthRequest="170" />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,10,0,10">
                     <Button Text="Yapıldı Olarak İşaretle" 
                 Clicked="OnDoneClicked"
-                CornerRadius="20" 
+                CornerRadius="20"
                 HeightRequest="50" 
-                WidthRequest="180"/>
-                    <Button Text="Yapılmadı Olarak İşaretle" 
+                WidthRequest="170"/>
+                    <Button Text="Yapılmdı Olarak İşaretle" 
                 Clicked="OnUnDoneClicked" 
                 CornerRadius="20" 
                 HeightRequest="50" 
-                WidthRequest="180" />
+                WidthRequest="170" />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
