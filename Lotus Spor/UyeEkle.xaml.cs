@@ -58,11 +58,36 @@ public partial class UyeEkle : ContentPage
             PhoneEntry.Text = numericInput;
         }
     }
+    private async Task<string> GetUniquePhoneNumberAsync(MySqlConnection connection)
+    {
+        string defaultPhone = "0000000000";
+
+        // Mevcut en büyük varsayılan telefon numarasını bul
+        string query = "SELECT telefon FROM musteriler WHERE telefon LIKE '000000000%' ORDER BY telefon DESC LIMIT 1";
+
+        using (MySqlCommand command = new MySqlCommand(query, connection))
+        {
+            object result = await command.ExecuteScalarAsync();
+
+            if (result != null)
+            {
+                string lastPhone = result.ToString();
+                if (long.TryParse(lastPhone, out long lastPhoneNumber))
+                {
+                    // Son numarayı bir artır
+                    return (lastPhoneNumber + 1).ToString().PadLeft(10, '0');
+                }
+            }
+        }
+
+        // Varsayılan numara kullanılmamışsa, başlangıç değerini döndür
+        return defaultPhone;
+    }
     private async void OnAddMemberClicked(object sender, EventArgs e)
     {
         string fullName = NameEntry.Text;
         string antrenorName = AntrenorNameEntry.Text;
-        string telefon = PhoneEntry.Text.ToString();
+        string telefon = PhoneEntry.Text;
         string cinsiyet = GenderPicker.SelectedItem?.ToString();
         string seansTur = SeansPicker.SelectedItem?.ToString();
         string notlar = NoteEntry.Text;
@@ -71,6 +96,31 @@ public partial class UyeEkle : ContentPage
 
         string[] nameParts = fullName.Split(' ');
         string isim, soyisim;
+
+        if (string.IsNullOrWhiteSpace(telefon))
+        {
+            using (MySqlConnection connection = Database.GetConnection())
+            {
+                await connection.OpenAsync();
+                telefon = await GetUniquePhoneNumberAsync(connection);
+            }
+        }
+
+        using (MySqlConnection connection = Database.GetConnection())
+        {
+            await connection.OpenAsync();
+            string checkQuery = "SELECT COUNT(*) FROM musteriler WHERE telefon = @telefon";
+            using (MySqlCommand command = new MySqlCommand(checkQuery, connection))
+            {
+                command.Parameters.AddWithValue("@telefon", telefon);
+                int count = Convert.ToInt32(await command.ExecuteScalarAsync());
+                if (count > 0)
+                {
+                    await DisplayAlert("Hata", "Bu telefon numarası zaten mevcut.", "Tamam");
+                    return;
+                }
+            }
+        }
 
         if (nameParts.Length > 1)
         {
@@ -110,42 +160,6 @@ public partial class UyeEkle : ContentPage
         string seansquery = "INSERT INTO seanslar (tur, musteri_id, antrenor, tarih, saat, grup) VALUES (@seans_turu, @musteri_id, @antrenor, @seans_tarihi, @seans_saati, @grup)";
 
         DateTime selectedDate = DatePickerKayitTarihi.Date;
-
-        try
-        {
-            using (MySqlConnection connection = Database.GetConnection())
-            {
-                await connection.OpenAsync();
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@isim", isim);
-                    command.Parameters.AddWithValue("@soyisim", soyisim);
-                    command.Parameters.AddWithValue("@telefon", telefon);
-                    command.Parameters.AddWithValue("@cinsiyet", cinsiyet);
-                    command.Parameters.AddWithValue("@hizmet_turu", seansTur);
-                    command.Parameters.AddWithValue("@seans_gunleri", seansGunleri);
-                    command.Parameters.AddWithValue("@seans_ucreti", seansUcret);
-                    command.Parameters.AddWithValue("@kayit_tarihi", selectedDate.ToString("yyyy-MM-dd")); // Seçilen tarihi ekleyin
-                    command.Parameters.AddWithValue("@sifre", telefon);
-                    command.Parameters.AddWithValue("@notlar", notlar);
-                    command.Parameters.AddWithValue("@grup", grupders ?? null);
-
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
-                    if (rowsAffected > 0)
-                    {
-                        await DisplayAlert("Başarılı", "Müşteri bilgileri başarıyla eklendi.", "Tamam");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Hata", "Veri eklenirken bir sorun oluştu.", "Tamam");
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Veritabanı Hatası", ex.Message, "Tamam");
-        }
 
         Dictionary<string, DayOfWeek> gunlerMap = new Dictionary<string, DayOfWeek>
         {
@@ -213,6 +227,42 @@ public partial class UyeEkle : ContentPage
                 seansDönemTarihler.Add(seansTarihi);
                 seansTarihi = seansTarihi.AddDays(7); // Haftalık artış
             }
+        }
+
+        try
+        {
+            using (MySqlConnection connection = Database.GetConnection())
+            {
+                await connection.OpenAsync();
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@isim", isim);
+                    command.Parameters.AddWithValue("@soyisim", soyisim);
+                    command.Parameters.AddWithValue("@telefon", telefon);
+                    command.Parameters.AddWithValue("@cinsiyet", cinsiyet);
+                    command.Parameters.AddWithValue("@hizmet_turu", seansTur);
+                    command.Parameters.AddWithValue("@seans_gunleri", seansGunleri);
+                    command.Parameters.AddWithValue("@seans_ucreti", seansUcret);
+                    command.Parameters.AddWithValue("@kayit_tarihi", selectedDate.ToString("yyyy-MM-dd")); // Seçilen tarihi ekleyin
+                    command.Parameters.AddWithValue("@sifre", telefon);
+                    command.Parameters.AddWithValue("@notlar", notlar);
+                    command.Parameters.AddWithValue("@grup", grupders ?? null);
+
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    if (rowsAffected > 0)
+                    {
+                        await DisplayAlert("Başarılı", "Müşteri bilgileri başarıyla eklendi.", "Tamam");
+                    }
+                    else
+                    {
+                        await DisplayAlert("Hata", "Veri eklenirken bir sorun oluştu.", "Tamam");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Veritabanı Hatası", ex.Message, "Tamam");
         }
 
         try
@@ -570,15 +620,15 @@ public partial class UyeEkle : ContentPage
             DateTime targetDate = today;
 
             Dictionary<string, DayOfWeek> dayMap = new Dictionary<string, DayOfWeek>
-        {
-            { "Pazartesi", DayOfWeek.Monday },
-            { "Salı", DayOfWeek.Tuesday },
-            { "Çarşamba", DayOfWeek.Wednesday },
-            { "Perşembe", DayOfWeek.Thursday },
-            { "Cuma", DayOfWeek.Friday },
-            { "Cumartesi", DayOfWeek.Saturday },
-            { "Pazar", DayOfWeek.Sunday }
-        };
+            {
+                { "Pazartesi", DayOfWeek.Monday },
+                { "Salı", DayOfWeek.Tuesday },
+                { "Çarşamba", DayOfWeek.Wednesday },
+                { "Perşembe", DayOfWeek.Thursday },
+                { "Cuma", DayOfWeek.Friday },
+                { "Cumartesi", DayOfWeek.Saturday },
+                { "Pazar", DayOfWeek.Sunday }
+            };
 
             if (dayMap.ContainsKey(selectedDay))
             {

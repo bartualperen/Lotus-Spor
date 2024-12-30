@@ -320,3 +320,8 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\maccatalyst-x64\re
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\maccatalyst-x64\Lotus Spor.pdb
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\maccatalyst-x64\Lotus Spor.genruntimeconfig.cache
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\maccatalyst-x64\ref\Lotus Spor.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\maccatalyst-x64\resizetizer\r\Resources\dotnet_bot.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\maccatalyst-x64\resizetizer\r\Resources\dark_mode_logo.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\maccatalyst-x64\resizetizer\r\light_mode_logo@3x.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\maccatalyst-x64\resizetizer\r\light_mode_logo@2x.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\maccatalyst-x64\resizetizer\r\light_mode_logo.png

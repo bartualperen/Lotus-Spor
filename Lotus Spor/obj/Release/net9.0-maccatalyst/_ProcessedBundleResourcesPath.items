@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <BundleResource Include="F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\resizetizer\r\dotnet_bot@3x.png" />
-    <BundleResource Include="F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\resizetizer\r\dotnet_bot@2x.png" />
-    <BundleResource Include="F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\resizetizer\r\dotnet_bot.png" />
-    <BundleResource Include="obj\Release\net9.0-maccatalyst\resizetizer\f\OpenSans-Regular.ttf" />
-    <BundleResource Include="obj\Release\net9.0-maccatalyst\resizetizer\f\OpenSans-Semibold.ttf" />
+    <BundleResource Include="F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\resizetizer\r\Resources\dotnet_bot.png" />
+    <BundleResource Include="F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\resizetizer\r\Resources\dark_mode_logo.png" />
+    <BundleResource Include="F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\resizetizer\r\light_mode_logo@3x.png" />
+    <BundleResource Include="F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\resizetizer\r\light_mode_logo@2x.png" />
+    <BundleResource Include="F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-maccatalyst\resizetizer\r\light_mode_logo.png" />
+    <BundleResource Include="obj\Release\net9.0-maccatalyst\resizetizer\f\MauiInfo.plist" />
   </ItemGroup>
 </Project>

@@ -351,3 +351,11 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\refint\Lo
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\Lotus Spor.pdb
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\Lotus Spor.genruntimeconfig.cache
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\ref\Lotus Spor.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\resizetizer\sp\splash_4047196B2F3559D1281A7C9EA53CDFEB8A6A18DEA2827675513E83A627D72BE8.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\resizetizer\sp\splash_4047196B2F3559D1281A7C9EA53CDFEB8A6A18DEA2827675513E83A627D72BE8@2x.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\resizetizer\sp\splash_4047196B2F3559D1281A7C9EA53CDFEB8A6A18DEA2827675513E83A627D72BE8@3x.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\resizetizer\r\Resources\dotnet_bot.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\resizetizer\r\Resources\dark_mode_logo.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\resizetizer\r\light_mode_logo@3x.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\resizetizer\r\light_mode_logo@2x.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-ios\iossimulator-x64\resizetizer\r\light_mode_logo.png

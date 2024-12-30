@@ -1385,7 +1385,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\K4
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\K4os.Compression.LZ4.Streams.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\K4os.Hash.xxHash.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Bcl.AsyncInterfaces.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Bcl.HashCode.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Data.SqlClient.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.EntityFrameworkCore.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -1402,7 +1401,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Mi
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.IdentityModel.Tokens.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.SqlServer.Server.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\MySql.Data.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\MySql.Data.EntityFrameworkCore.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.ClientModel.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Configuration.ConfigurationManager.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Data.SqlClient.dll
@@ -1465,3 +1463,9 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Mi
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\WebView2Loader.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Web.WebView2.Core.Projection.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.UI.pri
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.Configuration.FileExtensions.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.Configuration.Json.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.FileProviders.Abstractions.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.FileProviders.Physical.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.FileSystemGlobbing.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\MySql.EntityFrameworkCore.dll

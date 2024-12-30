@@ -63,7 +63,7 @@
             </CollectionView>
 
             <Entry x:Name="UcretEntry"
-                   Placeholder="Seans Ücreti"
+                   Placeholder="Aylık Ücret"
                    Keyboard="Numeric" 
                    PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
                    TextColor="{DynamicResource EntryBackgroundColor}" />
@@ -162,8 +162,8 @@
                     Margin="10,10,5,100"/>
 
 
-            <Label Text="Gelecek Derslerim" FontAttributes="Bold" />
-            <ScrollView>
+            <Label IsVisible="False" Text="Gelecek Derslerim" FontAttributes="Bold" />
+            <ScrollView IsVisible="False">
                 <Grid x:Name="LessonsListView" ColumnDefinitions="*,*,*,*,*,*,*" RowSpacing="5" ColumnSpacing="5">
                     <!-- Haftanın Gün Başlıkları -->
                     <Label Text="Pzt" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />

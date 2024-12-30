@@ -8,7 +8,6 @@ obj\Release\net9.0-android\android-x64\aot\K4os.Compression.LZ4.dll.so
 obj\Release\net9.0-android\android-x64\aot\K4os.Compression.LZ4.Streams.dll.so
 obj\Release\net9.0-android\android-x64\aot\K4os.Hash.xxHash.dll.so
 obj\Release\net9.0-android\android-x64\aot\Microsoft.Bcl.AsyncInterfaces.dll.so
-obj\Release\net9.0-android\android-x64\aot\Microsoft.Bcl.HashCode.dll.so
 obj\Release\net9.0-android\android-x64\aot\Microsoft.Data.SqlClient.dll.so
 obj\Release\net9.0-android\android-x64\aot\Microsoft.EntityFrameworkCore.dll.so
 obj\Release\net9.0-android\android-x64\aot\Microsoft.EntityFrameworkCore.Abstractions.dll.so
@@ -38,7 +37,7 @@ obj\Release\net9.0-android\android-x64\aot\Microsoft.Maui.Essentials.dll.so
 obj\Release\net9.0-android\android-x64\aot\Microsoft.Maui.Graphics.dll.so
 obj\Release\net9.0-android\android-x64\aot\Microsoft.SqlServer.Server.dll.so
 obj\Release\net9.0-android\android-x64\aot\MySql.Data.dll.so
-obj\Release\net9.0-android\android-x64\aot\MySql.Data.EntityFrameworkCore.dll.so
+obj\Release\net9.0-android\android-x64\aot\MySql.EntityFrameworkCore.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.ClientModel.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Configuration.ConfigurationManager.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Data.SqlClient.dll.so
@@ -95,7 +94,6 @@ obj\Release\net9.0-android\android-x64\aot\System.ComponentModel.TypeConverter.d
 obj\Release\net9.0-android\android-x64\aot\System.ComponentModel.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Console.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Data.Common.dll.so
-obj\Release\net9.0-android\android-x64\aot\System.Diagnostics.Debug.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Diagnostics.DiagnosticSource.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Diagnostics.Process.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Diagnostics.StackTrace.dll.so
@@ -133,7 +131,6 @@ obj\Release\net9.0-android\android-x64\aot\System.Private.Xml.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Reflection.Emit.ILGeneration.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Reflection.Emit.Lightweight.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Reflection.Primitives.dll.so
-obj\Release\net9.0-android\android-x64\aot\System.Resources.ResourceManager.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Runtime.CompilerServices.Unsafe.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Runtime.InteropServices.RuntimeInformation.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Runtime.InteropServices.dll.so
@@ -161,7 +158,6 @@ obj\Release\net9.0-android\android-x64\aot\System.Text.Encodings.Web.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Text.RegularExpressions.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Threading.Channels.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Threading.Tasks.Extensions.dll.so
-obj\Release\net9.0-android\android-x64\aot\System.Threading.Tasks.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Threading.Thread.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Threading.ThreadPool.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Threading.dll.so

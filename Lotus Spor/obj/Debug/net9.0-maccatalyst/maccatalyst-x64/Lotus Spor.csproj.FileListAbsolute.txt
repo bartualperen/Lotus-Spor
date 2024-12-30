@@ -9,7 +9,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\K4os
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\K4os.Compression.LZ4.Streams.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\K4os.Hash.xxHash.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Bcl.AsyncInterfaces.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Bcl.HashCode.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Data.SqlClient.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.EntityFrameworkCore.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -40,7 +39,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Micr
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Maui.Graphics.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.SqlServer.Server.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\MySql.Data.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\MySql.Data.EntityFrameworkCore.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.ClientModel.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.Configuration.ConfigurationManager.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.Data.SqlClient.dll
@@ -388,3 +386,9 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-maccatalyst\m
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\Lotus Spor.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\refint\Lotus Spor.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\Lotus Spor.pdb
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Extensions.Configuration.FileExtensions.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Extensions.Configuration.Json.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Extensions.FileProviders.Abstractions.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Extensions.FileProviders.Physical.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Extensions.FileSystemGlobbing.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\MySql.EntityFrameworkCore.dll

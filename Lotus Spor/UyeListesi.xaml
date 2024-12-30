@@ -21,7 +21,6 @@
             <!-- Müşteri Bilgilerini Gösteren ListView -->
             <ListView x:Name="CustomerListView"
                   IsVisible="True"
-    s              SelectionMode="Single"
                   ItemSelected="OnItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -30,9 +29,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <!--<StackLayout x:Name="EditPanel" IsVisible="False" Padding="10" BackgroundColor="LightGray">
+            <StackLayout x:Name="EditPanel" IsVisible="False" Padding="10">
                 <Label Text="Müşteri Bilgilerini Düzenle" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="İsim Soyisim" />
                 <Entry x:Name="isimentry" Text="{Binding FullName}" Placeholder="İsim" />
+                <Label Text="Ders Türü" />
                 <Picker x:Name="SeansPicker" SelectedIndex="{Binding AdditionalInfo}" Title="Seans Türü Seçin">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
@@ -42,13 +43,17 @@
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
+                <Label Text="Aylık Ücret" />
+                <Entry x:Name="ucretentry" Text="{Binding Ucret}" Placeholder="Aylık Ücret" Keyboard="Numeric" />
+                <Label Text="Telefon Numarası" />
+                <Entry x:Name="telefonentry" TextChanged="OnPhoneEntryTextChanged" Text="{Binding Telefon}" Placeholder="Telefon Numarası (Başında 0 olmadan)" Keyboard="Numeric" />
+                <Label Text="Notlar" />
                 <Editor x:Name="notentry" Text="{Binding Notlar}" Placeholder="Notlar" HeightRequest="100" />
-                <Entry x:Name="ucretentry" Text="{Binding Ucret}" Placeholder="Seans Ücreti" Keyboard="Numeric" />
-                <Entry x:Name="telefonentry" Text="{Binding Telefon}" Placeholder="Telefon Numarası (Başında 0 olmadan)" Keyboard="Numeric" />
 
-                <Button Text="Kaydet" Command="{Binding SaveCommand}" />
-                <Button Text="İptal" Clicked="OnCancelEditClicked" />
-            </StackLayout>-->
+                <Button Margin="10,10,5,10" Text="Kaydet" Clicked="OnSaveEditClicked" />
+                <Button Margin="10,10,5,10" Text="İptal" Clicked="OnCancelEditClicked" />
+                <Button Margin="10,10,5,10" Text="Üyeliği Sil" BackgroundColor="red" Clicked="OnDeleteCustomerClicked" />
+            </StackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

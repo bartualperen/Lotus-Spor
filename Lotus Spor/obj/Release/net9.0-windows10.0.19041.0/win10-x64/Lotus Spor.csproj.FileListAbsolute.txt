@@ -54,10 +54,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\appiconWideTile.scale-200.png
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\appiconWideTile.scale-400.png
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\dotnet_bot.scale-100.png
-F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\dotnet_bot.scale-125.png
-F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\dotnet_bot.scale-150.png
-F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\dotnet_bot.scale-200.png
-F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\dotnet_bot.scale-400.png
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\CoreMessagingXP.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\dcompi.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\dwmcorei.dll
@@ -299,7 +295,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\K4os.Compression.LZ4.Streams.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\K4os.Hash.xxHash.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Bcl.AsyncInterfaces.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Bcl.HashCode.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Data.SqlClient.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.EntityFrameworkCore.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -348,7 +343,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Widgets.Projection.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.WindowsAppRuntime.Bootstrap.Net.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\MySql.Data.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\MySql.Data.EntityFrameworkCore.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\System.ClientModel.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\System.Configuration.ConfigurationManager.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\System.Data.SqlClient.dll
@@ -484,10 +478,6 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-200.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-400.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png
-F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-125.png
-F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png
-F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png
-F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\mauiimage.stamp
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\mauiimage.outputs
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\Lotus Spor.AssemblyInfoInputs.cache
@@ -516,3 +506,29 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\qualifiers.txt
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\qualifiers.txt.intermediate
 F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\MultipleQualifiersPerDimensionFound.txt
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\dark_mode_logo.scale-100.png
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\light_mode_logo.scale-100.png
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\light_mode_logo.scale-125.png
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\light_mode_logo.scale-150.png
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\light_mode_logo.scale-200.png
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\light_mode_logo.scale-400.png
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\runtimes\win-x64\native\WebView2Loader.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\WindowsAppRuntime.DeploymentExtensions.OneCore.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Globalization.winmd
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Storage.winmd
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.Configuration.FileExtensions.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.Configuration.Json.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.FileProviders.Abstractions.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.FileProviders.Physical.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.FileSystemGlobbing.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Storage.Projection.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\MySql.EntityFrameworkCore.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\WebView2Loader.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Web.WebView2.Core.Projection.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Release\net9.0-windows10.0.19041.0\win10-x64\Microsoft.UI.pri
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\dark_mode_logo.scale-100.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-100.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-125.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-150.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-200.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-400.png
