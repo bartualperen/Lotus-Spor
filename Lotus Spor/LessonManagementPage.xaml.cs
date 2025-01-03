@@ -27,7 +27,7 @@ public partial class LessonManagementPage : ContentPage
     string userRole = Preferences.Get("UserRole", string.Empty);
     private DateTime oldDate;
     private TimeSpan oldTime;
-    string searchName, serviceType, antrenor;
+    string searchName, serviceType, antrenor, hafta;
     private int selectedDayOfWeek;
     public string grupders;
 
@@ -52,6 +52,8 @@ public partial class LessonManagementPage : ContentPage
         AntrenorPicker.ItemsSource = isimListesi2;
         AntrenorPicker.SelectedIndex = AntrenorPicker.Items.IndexOf("Tümü");
         ServiceTypePicker.SelectedIndex = ServiceTypePicker.Items.IndexOf("Tümü");
+        HaftaPicker.SelectedIndex = HaftaPicker.Items.IndexOf("Bu Hafta");
+        hafta = HaftaPicker.SelectedItem?.ToString();
     }
     private async void kisilistele()
     {
@@ -108,6 +110,8 @@ public partial class LessonManagementPage : ContentPage
                             string fullName = $"{isim} {soyisim}";  // Ýsim ve soyisim birleþiyor
                             isimListesi1.Add(fullName);
                             isimListesi2.Add(fullName);
+                            isimListesi1.Remove("Bartu Alp Eren");
+                            isimListesi2.Remove("Bartu Alp Eren");
                         }
                     }
                 }
@@ -146,8 +150,9 @@ public partial class LessonManagementPage : ContentPage
         searchName = SearchEntry.Text;
         serviceType = ServiceTypePicker.SelectedItem?.ToString();
         antrenor = AntrenorPicker.SelectedItem?.ToString();
+        hafta = HaftaPicker.SelectedItem?.ToString();
 
-        LoadLessons(searchName, serviceType, antrenor);
+        LoadLessons(searchName, serviceType, antrenor, hafta);
     }
     private async void OnUsernameTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -375,18 +380,29 @@ public partial class LessonManagementPage : ContentPage
     private async void OnServiceTypeChanged(object sender, EventArgs e)
     {
         searchName = SearchEntry.Text;
-        serviceType = ServiceTypePicker.SelectedItem?.ToString();  // Seçilen hizmet türü
+        serviceType = ServiceTypePicker.SelectedItem?.ToString();
         antrenor = AntrenorPicker.SelectedItem?.ToString();
+        hafta = HaftaPicker.SelectedItem?.ToString();
 
-        LoadLessons(searchName, serviceType, antrenor);
+        LoadLessons(searchName, serviceType, antrenor, hafta);
     }
     private async void OnAntrenorChanged(object sender, EventArgs e)
     {
         searchName = SearchEntry.Text;
         serviceType = ServiceTypePicker.SelectedItem?.ToString();
         antrenor = AntrenorPicker.SelectedItem?.ToString();
+        hafta = HaftaPicker.SelectedItem?.ToString();
 
-        LoadLessons(searchName, serviceType, antrenor);
+        LoadLessons(searchName, serviceType, antrenor, hafta);
+    }
+    private async void OnHaftaChanged(object sender, EventArgs e)
+    {
+        searchName = SearchEntry.Text;
+        serviceType = ServiceTypePicker.SelectedItem?.ToString();
+        antrenor = AntrenorPicker.SelectedItem?.ToString();
+        hafta = HaftaPicker.SelectedItem?.ToString();
+
+        LoadLessons(searchName, serviceType, antrenor, hafta);
     }
     private async void OnBiriniSilClicked(object sender, EventArgs e)
     {
@@ -1021,7 +1037,7 @@ public partial class LessonManagementPage : ContentPage
         SeansTime.Time = TimeSpan.Zero;
         LoadLessons(searchName, serviceType, antrenor);
     }
-    private async void LoadLessons(string searchName = "", string hizmet_turu = "", string antrenor = "")
+    private async void LoadLessons(string searchName = "", string hizmet_turu = "", string antrenor = "", string hafta = "")
     {
         string query = @"
         SELECT 
@@ -1035,7 +1051,22 @@ public partial class LessonManagementPage : ContentPage
             seanslar s
         INNER JOIN 
             musteriler m ON s.musteri_id = m.id
-        WHERE YEARWEEK(s.tarih, 1) = YEARWEEK(CURDATE(), 1)";
+        WHERE YEARWEEK(s.tarih, 1) = ";
+
+        if (string.IsNullOrEmpty(hafta))
+        {
+            hafta = "Bu Hafta";
+        }
+
+        if (hafta == "Bu Hafta")
+        {
+            query += "YEARWEEK(CURDATE(), 1)";
+        }
+
+        if (hafta == "Sonraki Hafta")
+        {
+            query += "YEARWEEK(CURDATE(), 1) + 1";
+        }
 
         if (!string.IsNullOrEmpty(searchName))
         {

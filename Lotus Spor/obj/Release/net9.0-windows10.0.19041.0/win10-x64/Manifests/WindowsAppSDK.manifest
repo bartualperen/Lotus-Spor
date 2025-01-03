@@ -8,6 +8,7 @@
         <winrtv1:activatableClass name='Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.ApplicationModel.Resources.ResourceLoader' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.ApplicationModel.Resources.ResourceManager' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.Windows.Globalization.ApplicationLanguages' threadingModel='both'/>
     </asmv3:file>
     <asmv3:file name='Microsoft.WindowsAppRuntime.dll'>
         <winrtv1:activatableClass name='Microsoft.Windows.ApplicationModel.DynamicDependency.AddPackageDependencyOptions' threadingModel='both'/>
@@ -52,6 +53,8 @@
         <winrtv1:activatableClass name='Microsoft.Windows.PushNotifications.PushNotificationRegistrationToken' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.PushNotifications.PushNotificationManager' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.Security.AccessControl.SecurityDescriptorHelpers' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.Windows.Storage.ApplicationData' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.Windows.Storage.ApplicationDataContainer' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.System.EnvironmentManager' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.System.Power.PowerManager' threadingModel='both'/>
     </asmv3:file>
@@ -292,7 +295,6 @@
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.Viewbox' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.VirtualizingStackPanel' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.WrapGrid' threadingModel='both'/>
-        <winrtv1:activatableClass name='Microsoft.UI.Xaml.Core.Direct.XamlDirect' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.CornerRadiusHelper' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Data.Binding' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Data.BindingBase' threadingModel='both'/>
@@ -594,6 +596,7 @@
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Automation.Peers.DropDownButtonAutomationPeer' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Automation.Peers.ExpanderAutomationPeer' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Automation.Peers.InfoBarAutomationPeer' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.UI.Xaml.Automation.Peers.InkCanvasAutomationPeer' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Automation.Peers.ItemContainerAutomationPeer' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Automation.Peers.ItemsViewAutomationPeer' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Automation.Peers.MenuBarAutomationPeer' threadingModel='both'/>
@@ -649,6 +652,7 @@
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.InfoBadgeTemplateSettings' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.InfoBar' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.InkCanvas' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.ItemCollectionTransitionProvider' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.ItemContainer' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.ItemsRepeater' threadingModel='both'/>
@@ -733,6 +737,9 @@
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.TeachingTip' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.TeachingTipTemplateSettings' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.TextCommandBarFlyout' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.TitleBar' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.TitleBarAutomationPeer' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.TitleBarTemplateSettings' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.ToggleSplitButton' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.TreeView' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Xaml.Controls.TreeViewItem' threadingModel='both'/>
@@ -805,8 +812,6 @@
         <winrtv1:activatableClass name='Microsoft.UI.Dispatching.DispatcherQueueController' threadingModel='both'/>
     </asmv3:file>
     <asmv3:file name='dcompi.dll'>
-        <winrtv1:activatableClass name='Microsoft.UI.ColorHelper' threadingModel='both'/>
-        <winrtv1:activatableClass name='Microsoft.UI.Colors' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Composition.AnimationController' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Composition.CompositionAnimation' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Composition.CompositionApiInformation' threadingModel='both'/>
@@ -864,9 +869,12 @@
         <winrtv1:activatableClass name='Microsoft.Graphics.Display.DisplayInformation' threadingModel='both'/>
     </asmv3:file>
     <asmv3:file name='Microsoft.UI.dll'>
+        <winrtv1:activatableClass name='Microsoft.UI.Colors' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.UI.ColorHelper' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.System.ThemeSettings' threadingModel='both'/>
     </asmv3:file>
     <asmv3:file name='Microsoft.UI.Input.dll'>
+        <winrtv1:activatableClass name='Microsoft.UI.Content.ChildContentLink' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Content.ContentAppWindowBridge' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Content.ContentCoordinateConverter' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Content.ContentExternalBackdropLink' threadingModel='both'/>
@@ -881,12 +889,10 @@
         <winrtv1:activatableClass name='Microsoft.UI.Content.DesktopChildSiteBridge' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Content.DesktopSiteBridge' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Content.ProcessStarter' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.UI.Content.ReadOnlyDesktopSiteBridge' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Content.SystemVisualSiteBridge' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Input.DragDrop.DragDropManager' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Input.DragDrop.DragOperation' threadingModel='both'/>
-        <winrtv1:activatableClass name='Microsoft.UI.Input.Experimental.ExpFocusController' threadingModel='both'/>
-        <winrtv1:activatableClass name='Microsoft.UI.Input.Experimental.ExpFocusNavigationHost' threadingModel='both'/>
-        <winrtv1:activatableClass name='Microsoft.UI.Input.Experimental.ExpFocusNavigationRequest' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Input.Experimental.ExpPointerPoint' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Input.FocusNavigationRequest' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.UI.Input.GestureRecognizer' threadingModel='both'/>
@@ -926,6 +932,8 @@
     <asmv3:file name='Microsoft.Windows.Widgets.dll'>
         <winrtv1:activatableClass name='Microsoft.Windows.Widgets.Providers.WidgetUpdateRequestOptions' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.Widgets.Providers.WidgetManager' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.Windows.Widgets.Providers.WidgetResourceResponse' threadingModel='both'/>
+        <winrtv1:activatableClass name='Microsoft.Windows.Widgets.Notifications.WidgetAnnouncement' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.Widgets.Feeds.Providers.FeedManager' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.Widgets.Feeds.Providers.CustomQueryParametersUpdateOptions' threadingModel='both'/>
         <winrtv1:activatableClass name='Microsoft.Windows.Widgets.Feeds.Providers.FeedResourceResponse' threadingModel='both'/>
