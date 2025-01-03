@@ -4,11 +4,11 @@
     "includedFrameworks": [
       {
         "name": "Microsoft.NETCore.App",
-        "version": "9.0.0-rc.2.24473.5"
+        "version": "9.0.0"
       },
       {
         "name": "Microsoft.MacCatalyst",
-        "version": "18.0.9600-net9-rc2"
+        "version": "18.1.9163"
       }
     ],
     "configProperties": {
@@ -23,7 +23,7 @@
       "System.Net.Http.EnableActivityPropagation": false,
       "System.Net.Http.UseNativeHttpHandler": true,
       "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
-      "System.Reflection.NullabilityInfoContext.IsSupported": false,
+      "System.Reflection.NullabilityInfoContext.IsSupported": true,
       "System.Resources.ResourceManager.AllowCustomResourceTypes": false,
       "System.Resources.UseSystemResourceKeys": true,
       "System.Runtime.CompilerServices.RuntimeFeature.IsDynamicCodeSupported": false,
@@ -36,7 +36,7 @@
       "System.Text.Json.JsonSerializer.IsReflectionEnabledByDefault": true,
       "System.Threading.Thread.EnableAutoreleasePool": true,
       "Microsoft.Maui.RuntimeFeature.IsIVisualAssemblyScanningEnabled": false,
-      "Microsoft.Maui.RuntimeFeature.Microsoft.Maui.RuntimeFeature.AreBindingInterceptorsSupported": true
+      "Microsoft.Maui.RuntimeFeature.AreBindingInterceptorsSupported": true
     }
   }
 }

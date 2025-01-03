@@ -1,4 +1,6 @@
+using Microsoft.Maui.ApplicationModel;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1;
 using System.Collections.ObjectModel;
 using System.Globalization;
 
@@ -386,12 +388,12 @@ public partial class LessonManagementPage : ContentPage
 
         LoadLessons(searchName, serviceType, antrenor);
     }
-    private async void OnKayitSilClicked(object sender, EventArgs e)
+    private async void OnBiriniSilClicked(object sender, EventArgs e)
     {
-        string query = "DELETE FROM seanslar WHERE musteri_id = @kullaniciID AND tarih <= @selectedDate AND saat = @selectedTime";
-        string fullName = Client.Text;
-        GetKullaniciId(fullName);
-        int musteriID = kullaniciId;
+        string query = "DELETE FROM seanslar WHERE musteri_id = @kullaniciID AND tarih = @selectedDate AND saat = @selectedTime";
+        string fullName = Client.Text; // Seçilen müþteri adlarý
+        string[] clientNameList = fullName.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Satýrlara göre ayýr
+
         try
         {
             using (MySqlConnection conn = Database.GetConnection())
@@ -399,30 +401,100 @@ public partial class LessonManagementPage : ContentPage
                 await conn.OpenAsync();
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@kullaniciID", musteriID);
-                    cmd.Parameters.AddWithValue("@selectedDate", oldDate);
-                    cmd.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
-                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                    cmd.Parameters.AddWithValue("@selectedDate", oldDate); // Seçilen tarih parametresi
+                    cmd.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm")); // Seçilen saat parametresi
 
-                    if (rowsAffected > 0)
+                    // Her müþteri için sorguyu çalýþtýr
+                    foreach (var name in clientNameList)
                     {
-                        await DisplayAlert("Baþarýlý", "Ders kaydý baþarýyla silindi.", "Tamam");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Hata", "Dersler silinemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        GetKullaniciId(name.Trim());
+                        int musteriID = kullaniciId;
+
+                        cmd.Parameters.AddWithValue("@kullaniciID", musteriID); // Her müþteri için ID parametresi ekle
+
+                        int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                        if (rowsAffected > 0)
+                        {
+                            await DisplayAlert("Baþarýlý", $"{name.Trim()} için ders kaydý baþarýyla silindi.", "Tamam");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Hata", $"{name.Trim()} için dersler silinemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        }
+
+                        // Parametreleri sýfýrla, bir sonraki müþteri için yeniden ayarlamak için
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@selectedDate", oldDate); // Eski tarih parametresini tekrar ekle
+                        cmd.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Hata", $"Veriler silinirken bir hata oluþtu: {ex}", "Tamam");
+            await DisplayAlert("Hata", $"Veriler silinirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
+
+        Sifirla();
+
+    }
+    private async void OnKayitSilClicked(object sender, EventArgs e)
+    {
+        string query = "DELETE FROM seanslar WHERE musteri_id = @kullaniciID AND tarih <= @selectedDate AND tarih > @selectedDate AND saat = @selectedTime";
+        string fullName = Client.Text; // Seçilen müþteri adlarý
+        string[] clientNameList = fullName.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Satýrlara göre ayýr
+
+        try
+        {
+            using (MySqlConnection conn = Database.GetConnection())
+            {
+                await conn.OpenAsync();
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@selectedDate", oldDate); // Seçilen tarih parametresi
+                    cmd.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm")); // Seçilen saat parametresi
+
+                    // Her müþteri için sorguyu çalýþtýr
+                    foreach (var name in clientNameList)
+                    {
+                        GetKullaniciId(name.Trim());
+                        int musteriID = kullaniciId; // Müþteri ID'sini almak için fonksiyonu çaðýr
+
+                        cmd.Parameters.AddWithValue("@kullaniciID", musteriID); // Her müþteri için ID parametresi ekle
+
+                        int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                        if (rowsAffected > 0)
+                        {
+                            await DisplayAlert("Baþarýlý", $"{name.Trim()} için ders kaydý baþarýyla silindi.", "Tamam");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Hata", $"{name.Trim()} için dersler silinemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        }
+
+                        // Parametreleri sýfýrla, bir sonraki müþteri için yeniden ayarlamak için
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@selectedDate", oldDate); // Eski tarih parametresini tekrar ekle
+                        cmd.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Hata", $"Veriler silinirken bir hata oluþtu: {ex.Message}", "Tamam");
+        }
+
+        Sifirla();
+
     }
     private async void OnCurDateChangeClicked(object sender, EventArgs e)
     {
-        string name = Client.Text; // Seçilen müþteri adýný al
+        string clientNames = Client.Text; // Seçilen müþteri adlarý
+        string[] clientNameList = clientNames.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Adlarý ayýrmak için satýrlara göre bölelim
+
         DateTime currentDate = DateTime.Now.Date; // Bugünün tarihi (saat kýsmý hariç)
 
         DateTime newDate = SeansDate.Date; // Seçilen yeni tarih
@@ -430,11 +502,11 @@ public partial class LessonManagementPage : ContentPage
 
         // SQL sorgusunu oluþtur
         string query = @"
-                UPDATE seanslar s
-                JOIN musteriler m ON s.musteri_id = m.id
-                SET s.tarih = @newDate, s.saat = @newTime
-                WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
-                AND s.tarih = @selectedDate";
+        UPDATE seanslar s
+        JOIN musteriler m ON s.musteri_id = m.id
+        SET s.tarih = @newDate, s.saat = @newTime
+        WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
+        AND s.tarih = @selectedDate;";
 
         try
         {
@@ -444,22 +516,32 @@ public partial class LessonManagementPage : ContentPage
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekle
-                    command.Parameters.AddWithValue("@clientName", name);
-                    command.Parameters.AddWithValue("@selectedDate", oldDate);
-                    //command.Parameters.AddWithValue("@dayOfWeek", selectedDayOfWeek);
-                    command.Parameters.AddWithValue("@newDate", newDate);
-                    command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm"));
+                    command.Parameters.AddWithValue("@selectedDate", oldDate); // Seçilen eski tarih parametresi
+                    command.Parameters.AddWithValue("@newDate", newDate); // Yeni tarih parametresi
+                    command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm")); // Yeni saat parametresi
 
-                    // Sorguyu çalýþtýr
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    // Her müþteri için sorguyu çalýþtýr
+                    foreach (var name in clientNameList)
+                    {
+                        command.Parameters.AddWithValue("@clientName", name.Trim()); // Her müþteri adý için parametre ekle (Trim ile boþluklarý temizle)
 
-                    if (rowsAffected > 0)
-                    {
-                        await DisplayAlert("Baþarýlý", "Ýleri tarihli cuma günleri derslerinin tarihi ve saati baþarýyla güncellendi.", "Tamam");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Hata", "Ýleri tarihli cuma günleri için ders bulunamadý veya güncellenemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        // Sorguyu çalýþtýr
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                        if (rowsAffected > 0)
+                        {
+                            await DisplayAlert("Baþarýlý", $"{name} için dersin tarihi ve saati baþarýyla güncellendi.", "Tamam");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Hata", $"{name} için ders bulunamadý veya güncellenemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        }
+
+                        // Parametreyi sýfýrla, bir sonraki müþteri için yeniden ayarlamak için
+                        command.Parameters.Clear();
+                        command.Parameters.AddWithValue("@selectedDate", oldDate); // Tekrar eski tarihi ekle
+                        command.Parameters.AddWithValue("@newDate", newDate);
+                        command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm"));
                     }
                 }
             }
@@ -468,23 +550,27 @@ public partial class LessonManagementPage : ContentPage
         {
             await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
+
+        Sifirla();
+
     }
     private async void OnAllChangeClicked(object sender, EventArgs e)
     {
-        string name = Client.Text; // Seçilen müþteri adýný al
+        string clientNames = Client.Text; // Seçilen müþteri adlarý
+        string[] clientNameList = clientNames.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Adlarý ayýrmak için satýrlara göre bölelim
 
         DateTime newDate = SeansDate.Date; // Seçilen yeni tarih
         TimeSpan newTime = SeansTime.Time; // Seçilen yeni saat
 
         // SQL sorgusunu oluþtur
         string query = @"
-                    UPDATE seanslar s
-                    JOIN musteriler m ON s.musteri_id = m.id
-                    SET s.tarih = DATE_ADD(@newDate, INTERVAL FLOOR(DATEDIFF(s.tarih, @selectedDate) / 7) WEEK),
-                        s.saat = @newTime
-                    WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
-                      AND s.tarih >= @selectedDate
-                      AND s.saat = @selectedTime;";
+        UPDATE seanslar s
+        JOIN musteriler m ON s.musteri_id = m.id
+        SET s.tarih = DATE_ADD(@newDate, INTERVAL FLOOR(DATEDIFF(s.tarih, @selectedDate) / 7) WEEK),
+            s.saat = @newTime
+        WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
+          AND s.tarih >= @selectedDate
+          AND s.saat = @selectedTime;";
 
         try
         {
@@ -494,43 +580,58 @@ public partial class LessonManagementPage : ContentPage
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekle
-                    command.Parameters.AddWithValue("@clientName", name); // Müþteri adý parametresi
                     command.Parameters.AddWithValue("@newDate", newDate); // Yeni tarih parametresi
-                    command.Parameters.AddWithValue("@selectedDate", oldDate);
-                    command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
+                    command.Parameters.AddWithValue("@selectedDate", oldDate); // Seçilen eski tarih
+                    command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm")); // Seçilen eski saat parametresi
                     command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm")); // Yeni saat parametresi
 
-                    // Sorguyu çalýþtýr
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    // Her müþteri için sorguyu çalýþtýr
+                    foreach (var name in clientNameList)
+                    {
+                        command.Parameters.AddWithValue("@clientName", name.Trim()); // Trim ile gereksiz boþluklardan kurtuluyoruz
 
-                    if (rowsAffected > 0)
-                    {
-                        await DisplayAlert("Baþarýlý", "Ýleri tarihli derslerinin tarihi ve saati baþarýyla güncellendi.", "Tamam");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Hata", "Ýleri tarihli ders bulunamadý veya güncellenemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        // Sorguyu çalýþtýr
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                        if (rowsAffected > 0)
+                        {
+                            await DisplayAlert("Baþarýlý", $"Ýleri tarihli derslerinin tarihi ve saati {name} için baþarýyla güncellendi.", "Tamam");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Hata", $"{name} için ileri tarihli ders bulunamadý veya güncellenemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        }
+
+                        // Parametreyi sýfýrla, bir sonraki müþteri için yeniden ayarlamak için
+                        command.Parameters.Clear();
+                        command.Parameters.AddWithValue("@newDate", newDate);
+                        command.Parameters.AddWithValue("@selectedDate", oldDate);
+                        command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
+                        command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm"));
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex}", "Tamam");
+            await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
+        Sifirla();
+
     }
     private async void OnDoneClicked(object sender, EventArgs e)
     {
-        string name = Client.Text; // Seçilen müþteri adýný al
+        string clientNames = Client.Text; // Seçilen müþteri adlarý
+        string[] clientNameList = clientNames.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Adlarý ayýrmak için satýrlara göre bölelim
 
         // SQL sorgusunu oluþtur
         string query = @"
-                UPDATE seanslar s
-                JOIN musteriler m ON s.musteri_id = m.id
-                SET s.durum = 'Yapýldý'
-                WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
-                AND s.tarih = @selectedDate
-                AND s.saat = @selectedTime;";
+        UPDATE seanslar s
+        JOIN musteriler m ON s.musteri_id = m.id
+        SET s.durum = 'Yapýldý'
+        WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
+        AND s.tarih = @selectedDate
+        AND s.saat = @selectedTime;";
 
         try
         {
@@ -540,20 +641,30 @@ public partial class LessonManagementPage : ContentPage
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekle
-                    command.Parameters.AddWithValue("@clientName", name);
                     command.Parameters.AddWithValue("@selectedDate", oldDate);
                     command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
 
-                    // Sorguyu çalýþtýr
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    // Her müþteri için sorguyu çalýþtýr
+                    foreach (var name in clientNameList)
+                    {
+                        command.Parameters.AddWithValue("@clientName", name);
 
-                    if (rowsAffected > 0)
-                    {
-                        await DisplayAlert("Baþarýlý", "Seans durumu 'Yapýldý' olarak güncellendi.", "Tamam");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Hata", "Seans güncellenemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        // Sorguyu çalýþtýr
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                        if (rowsAffected > 0)
+                        {
+                            await DisplayAlert("Baþarýlý", $"Seans durumu 'Yapýldý' olarak {name} için güncellendi.", "Tamam");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Hata", $"{name} için seans güncellenemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        }
+
+                        // Parametreyi sýfýrla, bir sonraki müþteri için yeniden ayarlamak için
+                        command.Parameters.Clear();
+                        command.Parameters.AddWithValue("@selectedDate", oldDate);
+                        command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
                     }
                 }
             }
@@ -562,19 +673,22 @@ public partial class LessonManagementPage : ContentPage
         {
             await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
+        Sifirla();
+
     }
     private async void OnUnDoneClicked(object sender, EventArgs e)
     {
-        string name = Client.Text; // Seçilen müþteri adýný al
+        string name = Client.Text; // Seçilen müþteri adlarýný al
+        string[] clientNameList = name.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Satýrlara göre ayýr
 
         // SQL sorgusunu oluþtur
         string query = @"
-                UPDATE seanslar s
-                JOIN musteriler m ON s.musteri_id = m.id
-                SET s.durum = 'Yapýlmadý'
-                WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
-                AND s.tarih = @selectedDate
-                AND s.saat = @selectedTime;";
+                        UPDATE seanslar s
+                        JOIN musteriler m ON s.musteri_id = m.id
+                        SET s.durum = 'Yapýlmadý'
+                        WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
+                        AND s.tarih = @selectedDate
+                        AND s.saat = @selectedTime;";
 
         try
         {
@@ -584,20 +698,30 @@ public partial class LessonManagementPage : ContentPage
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekle
-                    command.Parameters.AddWithValue("@clientName", name);
                     command.Parameters.AddWithValue("@selectedDate", oldDate);
                     command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
 
-                    // Sorguyu çalýþtýr
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    // Her müþteri için sorguyu çalýþtýr
+                    foreach (var clientName in clientNameList)
+                    {
+                        command.Parameters.AddWithValue("@clientName", clientName.Trim()); // Her müþteri için isim parametresini ekle
 
-                    if (rowsAffected > 0)
-                    {
-                        await DisplayAlert("Baþarýlý", "Seans durumu 'Yapýlmadý' olarak güncellendi.", "Tamam");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Hata", "Seans güncellenemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        // Sorguyu çalýþtýr
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                        if (rowsAffected > 0)
+                        {
+                            await DisplayAlert("Baþarýlý", $"{clientName.Trim()} için seans durumu 'Yapýlmadý' olarak güncellendi.", "Tamam");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Hata", $"{clientName.Trim()} için seans güncellenemedi. Lütfen verileri kontrol edin.", "Tamam");
+                        }
+
+                        // Parametreleri sýfýrla, bir sonraki müþteri için yeniden ayarlamak için
+                        command.Parameters.Clear();
+                        command.Parameters.AddWithValue("@selectedDate", oldDate); // Eski tarih parametresini tekrar ekle
+                        command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
                     }
                 }
             }
@@ -606,6 +730,9 @@ public partial class LessonManagementPage : ContentPage
         {
             await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
+
+        Sifirla();
+
     }
     private async void OnAddLessonClicked(object sender, EventArgs e)
     {
@@ -769,8 +896,110 @@ public partial class LessonManagementPage : ContentPage
         {
             await DisplayAlert("Veritabaný Hatasý", ex.Message, "Tamam");
         }
+        Sifirla();
     }
-    private async void OnSaveClicked(object sender, EventArgs e)
+    private async void OnTekEkleClicked(object sender, EventArgs e)
+    {
+        string antrenorName = AntrenorNameEntry.Text;
+        string seansTur = SeansPicker.SelectedItem?.ToString();
+
+        string seansquery = "INSERT INTO seanslar (tur, musteri_id, antrenor, tarih, saat, grup) VALUES (@seans_turu, @musteri_id, @antrenor, @seans_tarihi, @seans_saati, @grup)";
+
+        // Seçilen tarih ve saat
+        DateTime selectedDate = DatePickerKayitTarihi.Date;
+        TimeSpan selectedTime = TimeSpan.Zero;
+
+        if (CheckBoxPazartesi.IsChecked)
+        {
+            selectedTime = StartTimePazartesi.Time;
+        }
+        if (CheckBoxSali.IsChecked)
+        {
+            selectedTime = StartTimeSali.Time;
+        }
+        if (CheckBoxCarsamba.IsChecked)
+        {
+            selectedTime = StartTimeCarsamba.Time;
+        }
+        if (CheckBoxPersembe.IsChecked)
+        {
+            selectedTime = StartTimePersembe.Time;
+        }
+        if (CheckBoxCuma.IsChecked)
+        {
+            selectedTime = StartTimeCuma.Time;
+        }
+        if (CheckBoxCumartesi.IsChecked)
+        {
+            selectedTime = StartTimeCumartesi.Time;
+        }
+        if (CheckBoxPazar.IsChecked)
+        {
+            selectedTime = StartTimePazar.Time;
+        }
+
+        // Gruplar
+        string grupders = null;
+        if (CheckBoxGrup.IsChecked)
+        {
+            grupders = "evet";
+        }
+
+        try
+        {
+            using (MySqlConnection connection = Database.GetConnection())
+            {
+                await connection.OpenAsync();
+
+                string fullName = NameEntry.Text;
+                GetKullaniciId(fullName);
+                int musteriId = kullaniciId;
+
+                using (MySqlCommand command = new MySqlCommand(seansquery, connection))
+                {
+                    command.Parameters.AddWithValue("@seans_turu", seansTur);
+                    command.Parameters.AddWithValue("@musteri_id", musteriId);
+                    command.Parameters.AddWithValue("@antrenor", antrenorName);
+                    command.Parameters.AddWithValue("@grup", grupders ?? null);
+
+                    // Parametreleri ekliyoruz
+                    MySqlParameter seansTarihiParam = new MySqlParameter("@seans_tarihi", MySqlDbType.Date);
+                    MySqlParameter seansSaatiParam = new MySqlParameter("@seans_saati", MySqlDbType.VarChar);
+                    command.Parameters.Add(seansTarihiParam);
+                    command.Parameters.Add(seansSaatiParam);
+
+                    // Tek bir tarih ve saat ekleniyor
+                    seansTarihiParam.Value = selectedDate.ToString("yyyy-MM-dd");
+                    seansSaatiParam.Value = selectedTime.ToString(@"hh\:mm");
+
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    if (rowsAffected > 0)
+                    {
+                        await DisplayAlert("Baþarýlý", "Seans baþarýyla eklendi.", "Tamam");
+                    }
+                    else
+                    {
+                        await DisplayAlert("Hata", "Seans eklenirken bir sorun oluþtu.", "Tamam");
+                    }
+                }
+
+                // Seans ekleme baþarýlý ise seanslarý tekrar yükleyebilirsiniz
+                DersEkle.IsVisible = false;
+
+                // Arama kriterlerini alýp dersleri tekrar yükleyebilirsiniz
+                searchName = SearchEntry.Text;
+                serviceType = ServiceTypePicker.SelectedItem?.ToString();
+                antrenor = AntrenorPicker.SelectedItem?.ToString();
+                LoadLessons(searchName, serviceType, antrenor);
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Veritabaný Hatasý", ex.Message, "Tamam");
+        }
+        Sifirla();
+    }
+    private async void Sifirla()
     {
         DersDetaylar.IsVisible = false;
         DersEkle.IsVisible = false;
@@ -806,7 +1035,7 @@ public partial class LessonManagementPage : ContentPage
             seanslar s
         INNER JOIN 
             musteriler m ON s.musteri_id = m.id
-        WHERE 1=1";
+        WHERE YEARWEEK(s.tarih, 1) = YEARWEEK(CURDATE(), 1)";
 
         if (!string.IsNullOrEmpty(searchName))
         {
@@ -847,10 +1076,12 @@ public partial class LessonManagementPage : ContentPage
                         command.Parameters.AddWithValue("@searchName", "%" + searchName + "%");
                     }
 
+                    List<Tuple<int, int>> rowHeights = new List<Tuple<int, int>>();
+
                     using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                     {
                         // Gün ve saat bazýnda verileri saklamak için dictionary
-                        var lessonsByDayAndTime = new Dictionary<string, Dictionary<string, (DateTime, TimeSpan, string)>>();
+                        var lessonsByDayAndTime = new Dictionary<string, Dictionary<string, List<(string client, string status, DateTime date, TimeSpan time)>>>();
                         var saatler = new HashSet<string>();
                         var gunler = new HashSet<string>();
 
@@ -859,6 +1090,7 @@ public partial class LessonManagementPage : ContentPage
                             string day = DateTime.Parse(reader["Day"].ToString()).ToString("dddd", new CultureInfo("tr-TR"));
                             string time = reader["Time"].ToString();
                             string clientInfo = $"{reader["Client"]}";
+                            string status = reader["Status"].ToString();
 
                             DateTime parsedDate = DateTime.Parse(reader["Day"].ToString());
                             TimeSpan parsedTime = TimeSpan.Parse(reader["Time"].ToString());
@@ -867,9 +1099,12 @@ public partial class LessonManagementPage : ContentPage
                             saatler.Add(time);
 
                             if (!lessonsByDayAndTime.ContainsKey(day))
-                                lessonsByDayAndTime[day] = new Dictionary<string, (DateTime, TimeSpan, string)>();
+                                lessonsByDayAndTime[day] = new Dictionary<string, List<(string client, string status, DateTime, TimeSpan)>>();
 
-                            lessonsByDayAndTime[day][time] = (parsedDate, parsedTime, clientInfo);
+                            if (!lessonsByDayAndTime[day].ContainsKey(time))
+                                lessonsByDayAndTime[day][time] = new List<(string client, string status, DateTime date, TimeSpan time)>();
+
+                            lessonsByDayAndTime[day][time].Add((clientInfo, status, parsedDate, parsedTime));
                         }
 
                         // Gün sýralamasý
@@ -878,6 +1113,22 @@ public partial class LessonManagementPage : ContentPage
 
                         // Saatleri sýralama
                         var sortedSaatler = saatler.OrderBy(s => s).ToList();
+
+                        int rowHeight = 70;
+
+                        // 1. Üstte saatlerin olduðu grid'i oluþturuyoruz.
+                        HoursHeaderGrid.Children.Clear();
+                        HoursHeaderGrid.RowDefinitions.Clear();
+                        HoursHeaderGrid.ColumnDefinitions.Clear();
+                        HoursHeaderGrid.Children.Clear();
+
+                        // Saat baþlýklarýný ekliyoruz
+                        HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                        var boslabel = new Label
+                        {
+                            Text = string.Empty
+                        };
+                        HoursHeaderGrid.Children.Add(boslabel);
 
                         // Grid yapýlandýrmasý
                         LessonsListView.RowDefinitions.Clear();
@@ -908,17 +1159,6 @@ public partial class LessonManagementPage : ContentPage
                         {
                             LessonsListView.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-                            // Saat baþlýðýný ekle
-                            var timeLabel = new Label
-                            {
-                                Text = sortedSaatler[rowIndex],
-                                HorizontalOptions = LayoutOptions.Center,
-                                FontAttributes = FontAttributes.Bold
-                            };
-                            Grid.SetRow(timeLabel, rowIndex + 1); // Saat satýrlarý
-                            Grid.SetColumn(timeLabel, 0); // Ýlk sütun
-                            LessonsListView.Children.Add(timeLabel);
-
                             if (rowIndex < sortedSaatler.Count + 2)
                             {
                                 var horizontalLine = new BoxView
@@ -934,42 +1174,87 @@ public partial class LessonManagementPage : ContentPage
                                 LessonsListView.Children.Add(horizontalLine);
                             }
 
+                            int maxHeight = 0;
+
                             // Günlere göre seanslarý ekle
                             for (int colIndex = 0; colIndex < sortedGunler.Count; colIndex++)
                             {
                                 string day = sortedGunler[colIndex];
                                 string time = sortedSaatler[rowIndex];
 
-                                var clientData = lessonsByDayAndTime.ContainsKey(day) && lessonsByDayAndTime[day].ContainsKey(time)
+                                var clientDataList = lessonsByDayAndTime.ContainsKey(day) && lessonsByDayAndTime[day].ContainsKey(time)
                                     ? lessonsByDayAndTime[day][time]
-                                    : (default(DateTime), default(TimeSpan), string.Empty);
+                                    : new List<(string client, string status, DateTime date, TimeSpan time)>();
 
-                                var sessionLabel = new Label
-                                {
-                                    Text = clientData.Item3,
-                                    HorizontalOptions = LayoutOptions.Center,
-                                    FontAttributes = FontAttributes.Italic
-                                };
+                                string clientDisplayText = string.Join("\n", clientDataList.Select(cd => cd.client));
+
+                                var currentTheme = Application.Current.RequestedTheme;
 
                                 var tapGestureRecognizer = new TapGestureRecognizer();
-                                tapGestureRecognizer.Tapped += (s, e) =>
+                                tapGestureRecognizer.Tapped += async (s, e) =>
                                 {
-                                    if (!string.IsNullOrEmpty(clientData.Item3))
+                                    var tappedLabel = (Label)s; // Týklanan Label'ý al
+                                    string clientInfo = tappedLabel.Text; // Týklanan Label'daki ismi al
+
+                                    if (!string.IsNullOrEmpty(clientInfo))
                                     {
+                                        // Ýlgili Ders Detaylarýný Göster
                                         DersDetaylar.IsVisible = true;
                                         btnDersEkle.IsVisible = false;
-                                        Client.Text = clientData.Item3;
-                                        SeansDate.Date = clientData.Item1;
-                                        oldDate = clientData.Item1;
-                                        oldTime = clientData.Item2;
-                                        SeansTime.Time = clientData.Item2;
+                                        DersEkle.IsVisible = false;
+
+                                        Client.Text = clientInfo;
+                                        string clientNames = Client.Text;
+                                        string[] clientNameList = clientNames.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                        var selectedLesson = clientDataList.FirstOrDefault(cd => cd.client == clientNameList[0]); // client bilgisi ile eþleþen dersin verisini al
+
+                                        // Týklanan dersin tarih ve saat bilgisi
+                                        SeansDate.Date = selectedLesson.date; // Günün tarihi
+                                        SeansTime.Time = selectedLesson.time;
+                                        oldDate = selectedLesson.date;
+                                        oldTime = selectedLesson.time; // Saat bilgisi
                                     }
                                 };
-                                sessionLabel.GestureRecognizers.Add(tapGestureRecognizer);
 
-                                Grid.SetRow(sessionLabel, rowIndex + 1); // Saat satýrý
-                                Grid.SetColumn(sessionLabel, colIndex + 1); // Gün sütunu
-                                LessonsListView.Children.Add(sessionLabel);
+                                Color labelColor;
+                                foreach (var clientData in clientDataList)
+                                {
+                                    // Duruma göre renk seçimi
+                                    switch (clientData.status)
+                                    {
+                                        case "Yapýldý":
+                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightGreen : Colors.DarkGreen; // Koyu modda açýk yeþil, aydýnlýk modda koyu yeþil
+                                            break;
+                                        case "Yapýlmadý":
+                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightCoral : Colors.DarkRed; // Koyu modda açýk kýrmýzý, aydýnlýk modda koyu kýrmýzý
+                                            break;
+                                        case "beklemede":
+                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.Yellow : Colors.OrangeRed; // Koyu modda açýk kýrmýzý, aydýnlýk modda koyu kýrmýzý
+                                            break;
+                                        default:
+                                            labelColor = Colors.Grey; // Diðer durumlar için gri
+                                            break;
+                                    }
+
+                                    // Her Label'a tapGesture eklendiði yer
+                                    var sessionLabel = new Label
+                                    {
+                                        Text = clientDisplayText, // Alt alta yazýlmýþ ders isimleri
+                                        HorizontalOptions = LayoutOptions.Center,
+                                        FontAttributes = FontAttributes.Italic,
+                                        TextColor = labelColor,
+                                        VerticalTextAlignment = TextAlignment.Center
+                                    };
+
+                                    sessionLabel.HeightRequest = rowHeight;
+                                    LessonsListView.RowDefinitions[rowIndex + 1].Height = new GridLength(rowHeight, GridUnitType.Absolute);
+                                    sessionLabel.GestureRecognizers.Add(tapGestureRecognizer);
+                                    Grid.SetRow(sessionLabel, rowIndex + 1); // Saat satýrý
+                                    Grid.SetColumn(sessionLabel, colIndex + 1); // Gün sütunu
+                                    LessonsListView.Children.Add(sessionLabel);
+                                    rowHeights.Add(new Tuple<int, int>(rowIndex + 1, (int)sessionLabel.Height));
+                                }
 
                                 if (colIndex < sortedGunler.Count + 4)
                                 {
@@ -981,11 +1266,29 @@ public partial class LessonManagementPage : ContentPage
                                         HorizontalOptions = LayoutOptions.Start,
                                     };
                                     Grid.SetRow(verticalLine, rowIndex + 1);
-                                    Grid.SetColumn(verticalLine, colIndex + 1); // Her sütun arasýna
-                                    Grid.SetRowSpan(verticalLine, 0); // Her hücreye bir çizgi
+                                    Grid.SetColumn(verticalLine, colIndex + 1);
+                                    Grid.SetRowSpan(verticalLine, 0);
                                     LessonsListView.Children.Add(verticalLine);
                                 }
                             }
+
+                            HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                            string saatindex = string.Join("\n", sortedSaatler[rowIndex]);
+
+                            var timeLabel1 = new Label
+                            {
+                                Text = saatindex,
+                                HorizontalOptions = LayoutOptions.Center,
+                                FontAttributes = FontAttributes.Bold,
+                                VerticalTextAlignment = TextAlignment.Center
+                            };
+
+                            timeLabel1.HeightRequest = rowHeight;
+                            HoursHeaderGrid.RowDefinitions[rowIndex + 1].Height = new GridLength(rowHeight, GridUnitType.Absolute);
+
+                            Grid.SetRow(timeLabel1, (rowIndex + 1));
+                            Grid.SetColumn(timeLabel1, 0);
+                            HoursHeaderGrid.Children.Add(timeLabel1);
                         }
                     }
                 }

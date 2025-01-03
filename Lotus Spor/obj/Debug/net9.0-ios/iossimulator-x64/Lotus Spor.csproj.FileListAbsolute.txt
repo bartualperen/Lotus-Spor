@@ -330,7 +330,6 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\ibtool\_Bun
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\ibtool\_ProcessedInterfaceDefinitionsPath.items
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\coremlc\_PartialAppManifest.items
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\coremlc\_BundleResourceWithLogicalName.items
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\coremlc\_ProcessedCoreMLModelsPath.items
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\_ProcessedBundleResourcesPath.items
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\_ProcessedContentPath.items
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\Lotus Spor.csproj.AssemblyReference.cache
@@ -350,9 +349,6 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\resizetizer
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\resizetizer\sp\splash_BB039C3B509132A35D1562C867175AC64BB08FC4971203C0BEC91F5A4C043E11@2x.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\resizetizer\sp\splash_BB039C3B509132A35D1562C867175AC64BB08FC4971203C0BEC91F5A4C043E11@3x.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\resizetizer\r\Resources\dark_mode_logo.png
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\resizetizer\sp\splash_4047196B2F3559D1281A7C9EA53CDFEB8A6A18DEA2827675513E83A627D72BE8.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\resizetizer\sp\splash_4047196B2F3559D1281A7C9EA53CDFEB8A6A18DEA2827675513E83A627D72BE8@2x.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\resizetizer\sp\splash_4047196B2F3559D1281A7C9EA53CDFEB8A6A18DEA2827675513E83A627D72BE8@3x.png
@@ -423,3 +419,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.E
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.Extensions.FileProviders.Physical.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.Extensions.FileSystemGlobbing.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\MySql.EntityFrameworkCore.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\copySceneKitAssets\_ProcessedSceneKitAssetsPath.items
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\collada\_ProcessedColladaAssetsPath.items
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\atlas\_ProcessedTextureAtlasesPath.items
