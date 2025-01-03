@@ -7,7 +7,7 @@ namespace Lotus_Spor;
 
 class Database
 {
-    private static string connectionString = "Server=193.35.154.209;Port=3306;Database=lotussporDB;Uid=bartu;Pwd=Acx544~%[]4fx;";
+    private static string connectionString = ConnectionString.connectionString;
     public static MySqlConnection GetConnection()
     {
         return new MySqlConnection(connectionString);
