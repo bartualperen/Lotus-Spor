@@ -110,8 +110,8 @@ public partial class LessonManagementPage : ContentPage
                             string fullName = $"{isim} {soyisim}";  // Ýsim ve soyisim birleþiyor
                             isimListesi1.Add(fullName);
                             isimListesi2.Add(fullName);
-                            isimListesi1.Remove("Bartu Alp Eren");
-                            isimListesi2.Remove("Bartu Alp Eren");
+                            isimListesi1.Remove(ConnectionString.admin2);
+                            isimListesi2.Remove(ConnectionString.admin2);
                         }
                     }
                 }
