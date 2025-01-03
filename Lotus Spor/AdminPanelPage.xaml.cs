@@ -4,11 +4,12 @@ public partial class AdminPanelPage : ContentPage
 {
     string loggedInUser = Preferences.Get("LoggedInUser", string.Empty);
     string loggedInUser2 = Preferences.Get("LoggedInUser2", string.Empty);
+    string admin1 = ConnectionString.admin1, admin2 = ConnectionString.admin2;
     public AdminPanelPage()
 	{
 		InitializeComponent();
         string antrenor = loggedInUser + " " + loggedInUser2;
-        if (antrenor == "Serkan Eren" || antrenor == "Bartu Alp Eren")
+        if (antrenor == admin1 || antrenor == admin2)
         {
             AntrenorYonet.IsVisible = true;
         }
