@@ -230,8 +230,12 @@ public partial class LessonManagementPage : ContentPage
             {
                 connection.Open();
                 string[] nameParts = fullName.Split(' ');
-                string isim = nameParts[0];
-                string soyisim = nameParts.Length > 1 ? nameParts[1] : "";
+
+                // Soyisim: Dizinin son elemaný
+                string soyisim = nameParts.Length > 0 ? nameParts[^1] : "";
+
+                // Ýsim: Soyisim hariç kalan kýsým
+                string isim = nameParts.Length > 1 ? string.Join(" ", nameParts[..^1]) : "";
 
                 // Kullanýcýyý bulmak için sorgu
                 string query = "SELECT id FROM musteriler WHERE isim = @isim AND soyisim = @soyisim";
@@ -257,6 +261,7 @@ public partial class LessonManagementPage : ContentPage
         {
             await DisplayAlert("Error", "An error occurred while fetching user ID: " + ex.Message, "OK");
         }
+
     }
     private void OnDayPickerSelectedIndexChanged(object sender, EventArgs e)
     {
@@ -1221,6 +1226,12 @@ public partial class LessonManagementPage : ContentPage
 
                                 var currentTheme = Application.Current.RequestedTheme;
 
+                                var labelContainer = new StackLayout
+                                {
+                                    Orientation = StackOrientation.Vertical,
+                                    Spacing = 10
+                                };
+
                                 var tapGestureRecognizer = new TapGestureRecognizer();
                                 tapGestureRecognizer.Tapped += async (s, e) =>
                                 {
@@ -1245,6 +1256,37 @@ public partial class LessonManagementPage : ContentPage
                                         SeansTime.Time = selectedLesson.time;
                                         oldDate = selectedLesson.date;
                                         oldTime = selectedLesson.time; // Saat bilgisi
+
+                                        foreach (var clientName in clientNameList)
+                                        {
+                                            var clientLabel = new Label
+                                            {
+                                                Text = clientName, // Müþteri ismini Label'a yaz
+                                                FontSize = 16,
+                                                HorizontalOptions = LayoutOptions.Start,
+                                                VerticalOptions = LayoutOptions.Center
+                                            };
+
+                                            var tapGestureRecognizer = new TapGestureRecognizer();
+                                            tapGestureRecognizer.Tapped += async (s, e) =>
+                                            {
+                                                var tappedLabel = (Label)s; // Týklanan Label'ý al
+                                                SelectedClient.Text = tappedLabel.Text;
+                                                SelectedClient.IsVisible = true;
+                                                LabelSelectedClient.IsVisible = true;
+                                            };
+
+                                            // TapGestureRecognizer'ý Label'a ekle
+                                            clientLabel.GestureRecognizers.Add(tapGestureRecognizer);
+
+                                            // TapGestureRecognizer'ý her Label'a ekle
+                                            clientLabel.GestureRecognizers.Add(tapGestureRecognizer);
+
+                                            // Label'ý StackLayout içine ekle
+                                            labelContainer.Children.Add(clientLabel);
+                                        }
+
+                                        DersDetaylar.Children.Add(labelContainer);
                                     }
                                 };
 

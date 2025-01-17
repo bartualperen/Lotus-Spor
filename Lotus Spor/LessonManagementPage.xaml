@@ -96,6 +96,8 @@
                 <Label Text="Ders Detayları" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,0,0,10" />
                 <Label Text="Üye İsmi" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0" />
                 <Label x:Name="Client" FontSize="16" Margin="0,5,0,0" />
+                <Label x:Name="LabelSelectedClient" Text="Seçilen İsim" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0" />
+                <Label x:Name="SelectedClient" FontSize="16" Margin="0,5,0,0" />
                 <Label Text="Ders Türü" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0" IsVisible="False" />
                 <Label x:Name="Type" FontSize="16" Margin="0,5,0,10" IsVisible="False" />
                 <Label Text="Ders Tarihi" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0" />
