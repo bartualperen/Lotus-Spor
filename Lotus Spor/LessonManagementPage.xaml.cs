@@ -1,6 +1,7 @@
 using Microsoft.Maui.ApplicationModel;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1;
+using Org.BouncyCastle.Tls;
 using System.Collections.ObjectModel;
 using System.Globalization;
 
@@ -462,7 +463,7 @@ public partial class LessonManagementPage : ContentPage
     }
     private async void OnKayitSilClicked(object sender, EventArgs e)
     {
-        string query = "DELETE FROM seanslar WHERE musteri_id = @kullaniciID AND tarih <= @selectedDate AND tarih > @selectedDate AND saat = @selectedTime";
+        string query = "DELETE FROM seanslar WHERE musteri_id = @kullaniciID";
         string fullName = Client.Text; // Seçilen müþteri adlarý
         string[] clientNameList = fullName.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Satýrlara göre ayýr
 
@@ -764,6 +765,7 @@ public partial class LessonManagementPage : ContentPage
     {
         DersEkle.IsVisible = false;
         btnDersEkle.IsVisible = true;
+        Sifirla();
     }
     private async void OnEkleClicked(object sender, EventArgs e)
     {
@@ -930,33 +932,9 @@ public partial class LessonManagementPage : ContentPage
         DateTime selectedDate = DatePickerKayitTarihi.Date;
         TimeSpan selectedTime = TimeSpan.Zero;
 
-        if (CheckBoxPazartesi.IsChecked)
+        if (AntrenorNameEntry.Text == string.Empty || NameEntry.Text == string.Empty)
         {
-            selectedTime = StartTimePazartesi.Time;
-        }
-        if (CheckBoxSali.IsChecked)
-        {
-            selectedTime = StartTimeSali.Time;
-        }
-        if (CheckBoxCarsamba.IsChecked)
-        {
-            selectedTime = StartTimeCarsamba.Time;
-        }
-        if (CheckBoxPersembe.IsChecked)
-        {
-            selectedTime = StartTimePersembe.Time;
-        }
-        if (CheckBoxCuma.IsChecked)
-        {
-            selectedTime = StartTimeCuma.Time;
-        }
-        if (CheckBoxCumartesi.IsChecked)
-        {
-            selectedTime = StartTimeCumartesi.Time;
-        }
-        if (CheckBoxPazar.IsChecked)
-        {
-            selectedTime = StartTimePazar.Time;
+            await DisplayAlert("Uyarý", "Lütfen boþ kýsýmlarý doldurunuz.", "Tamam");
         }
 
         // Gruplar
@@ -1026,9 +1004,23 @@ public partial class LessonManagementPage : ContentPage
         DersEkle.IsVisible = false;
         btnDersEkle.IsVisible = true;
         Client.Text = string.Empty;
-        Type.Text = string.Empty;
+        LessonType.Text = string.Empty;
         SeansDate.Date = DateTime.Now;
         SeansTime.Time = TimeSpan.Zero;
+        CheckBoxPazartesi.IsChecked = false;
+        CheckBoxSali.IsChecked = false;
+        CheckBoxCarsamba.IsChecked = false;
+        CheckBoxPersembe.IsChecked = false;
+        CheckBoxCuma.IsChecked = false;
+        CheckBoxCumartesi.IsChecked = false;
+        CheckBoxPazar.IsChecked = false;
+        StartTimePazartesi.Time = TimeSpan.Zero;
+        StartTimeSali.Time = TimeSpan.Zero;
+        StartTimeCarsamba.Time = TimeSpan.Zero;
+        StartTimePersembe.Time = TimeSpan.Zero;
+        StartTimeCuma.Time = TimeSpan.Zero;
+        StartTimeCumartesi.Time = TimeSpan.Zero;
+        StartTimePazar.Time = TimeSpan.Zero;
         LoadLessons(searchName, serviceType, antrenor);
     }
     private async void OnCancelClicked(object sender, EventArgs e)
@@ -1037,7 +1029,7 @@ public partial class LessonManagementPage : ContentPage
         DersEkle.IsVisible = false;
         btnDersEkle.IsVisible = true;
         Client.Text = string.Empty;   
-        Type.Text = string.Empty;     
+        //lessontype.Text = string.Empty;
         SeansDate.Date = DateTime.Now;
         SeansTime.Time = TimeSpan.Zero;
         LoadLessons(searchName, serviceType, antrenor);
@@ -1117,7 +1109,7 @@ public partial class LessonManagementPage : ContentPage
                     using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                     {
                         // Gün ve saat bazýnda verileri saklamak için dictionary
-                        var lessonsByDayAndTime = new Dictionary<string, Dictionary<string, List<(string client, string status, DateTime date, TimeSpan time)>>>();
+                        var lessonsByDayAndTime = new Dictionary<string, Dictionary<string, List<(string client, string status, DateTime date, TimeSpan time, string type)>>>();
                         var saatler = new HashSet<string>();
                         var gunler = new HashSet<string>();
 
@@ -1127,6 +1119,7 @@ public partial class LessonManagementPage : ContentPage
                             string time = reader["Time"].ToString();
                             string clientInfo = $"{reader["Client"]}";
                             string status = reader["Status"].ToString();
+                            string lessontype = reader["Type"].ToString();
 
                             DateTime parsedDate = DateTime.Parse(reader["Day"].ToString());
                             TimeSpan parsedTime = TimeSpan.Parse(reader["Time"].ToString());
@@ -1135,12 +1128,12 @@ public partial class LessonManagementPage : ContentPage
                             saatler.Add(time);
 
                             if (!lessonsByDayAndTime.ContainsKey(day))
-                                lessonsByDayAndTime[day] = new Dictionary<string, List<(string client, string status, DateTime, TimeSpan)>>();
+                                lessonsByDayAndTime[day] = new Dictionary<string, List<(string client, string status, DateTime, TimeSpan, string type)>>();
 
                             if (!lessonsByDayAndTime[day].ContainsKey(time))
-                                lessonsByDayAndTime[day][time] = new List<(string client, string status, DateTime date, TimeSpan time)>();
+                                lessonsByDayAndTime[day][time] = new List<(string client, string status, DateTime date, TimeSpan time, string type)>();
 
-                            lessonsByDayAndTime[day][time].Add((clientInfo, status, parsedDate, parsedTime));
+                            lessonsByDayAndTime[day][time].Add((clientInfo, status, parsedDate, parsedTime, lessontype));
                         }
 
                         // Gün sýralamasý
@@ -1150,7 +1143,7 @@ public partial class LessonManagementPage : ContentPage
                         // Saatleri sýralama
                         var sortedSaatler = saatler.OrderBy(s => s).ToList();
 
-                        int rowHeight = 70;
+                        int rowHeight = 90;
 
                         // 1. Üstte saatlerin olduðu grid'i oluþturuyoruz.
                         HoursHeaderGrid.Children.Clear();
@@ -1193,7 +1186,7 @@ public partial class LessonManagementPage : ContentPage
                         // Saatleri ve seanslarý ekle
                         for (int rowIndex = 0; rowIndex < sortedSaatler.Count; rowIndex++)
                         {
-                            LessonsListView.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                            LessonsListView.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
 
                             if (rowIndex < sortedSaatler.Count + 2)
                             {
@@ -1210,8 +1203,6 @@ public partial class LessonManagementPage : ContentPage
                                 LessonsListView.Children.Add(horizontalLine);
                             }
 
-                            int maxHeight = 0;
-
                             // Günlere göre seanslarý ekle
                             for (int colIndex = 0; colIndex < sortedGunler.Count; colIndex++)
                             {
@@ -1220,114 +1211,83 @@ public partial class LessonManagementPage : ContentPage
 
                                 var clientDataList = lessonsByDayAndTime.ContainsKey(day) && lessonsByDayAndTime[day].ContainsKey(time)
                                     ? lessonsByDayAndTime[day][time]
-                                    : new List<(string client, string status, DateTime date, TimeSpan time)>();
+                                    : new List<(string client, string status, DateTime date, TimeSpan time, string type)>();
 
-                                string clientDisplayText = string.Join("\n", clientDataList.Select(cd => cd.client));
 
                                 var currentTheme = Application.Current.RequestedTheme;
 
                                 var labelContainer = new StackLayout
                                 {
                                     Orientation = StackOrientation.Vertical,
-                                    Spacing = 10
+                                    Spacing = 1
                                 };
 
-                                var tapGestureRecognizer = new TapGestureRecognizer();
-                                tapGestureRecognizer.Tapped += async (s, e) =>
-                                {
-                                    var tappedLabel = (Label)s; // Týklanan Label'ý al
-                                    string clientInfo = tappedLabel.Text; // Týklanan Label'daki ismi al
-
-                                    if (!string.IsNullOrEmpty(clientInfo))
-                                    {
-                                        // Ýlgili Ders Detaylarýný Göster
-                                        DersDetaylar.IsVisible = true;
-                                        btnDersEkle.IsVisible = false;
-                                        DersEkle.IsVisible = false;
-
-                                        Client.Text = clientInfo;
-                                        string clientNames = Client.Text;
-                                        string[] clientNameList = clientNames.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-                                        var selectedLesson = clientDataList.FirstOrDefault(cd => cd.client == clientNameList[0]); // client bilgisi ile eþleþen dersin verisini al
-
-                                        // Týklanan dersin tarih ve saat bilgisi
-                                        SeansDate.Date = selectedLesson.date; // Günün tarihi
-                                        SeansTime.Time = selectedLesson.time;
-                                        oldDate = selectedLesson.date;
-                                        oldTime = selectedLesson.time; // Saat bilgisi
-
-                                        foreach (var clientName in clientNameList)
-                                        {
-                                            var clientLabel = new Label
-                                            {
-                                                Text = clientName, // Müþteri ismini Label'a yaz
-                                                FontSize = 16,
-                                                HorizontalOptions = LayoutOptions.Start,
-                                                VerticalOptions = LayoutOptions.Center
-                                            };
-
-                                            var tapGestureRecognizer = new TapGestureRecognizer();
-                                            tapGestureRecognizer.Tapped += async (s, e) =>
-                                            {
-                                                var tappedLabel = (Label)s; // Týklanan Label'ý al
-                                                SelectedClient.Text = tappedLabel.Text;
-                                                SelectedClient.IsVisible = true;
-                                                LabelSelectedClient.IsVisible = true;
-                                            };
-
-                                            // TapGestureRecognizer'ý Label'a ekle
-                                            clientLabel.GestureRecognizers.Add(tapGestureRecognizer);
-
-                                            // TapGestureRecognizer'ý her Label'a ekle
-                                            clientLabel.GestureRecognizers.Add(tapGestureRecognizer);
-
-                                            // Label'ý StackLayout içine ekle
-                                            labelContainer.Children.Add(clientLabel);
-                                        }
-
-                                        DersDetaylar.Children.Add(labelContainer);
-                                    }
-                                };
-
-                                Color labelColor;
                                 foreach (var clientData in clientDataList)
                                 {
-                                    // Duruma göre renk seçimi
+                                    string clientName = clientData.client;
+
+                                    // Renk seçimi duruma göre yapýlýyor
+                                    Color labelColor;
                                     switch (clientData.status)
                                     {
                                         case "Yapýldý":
-                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightGreen : Colors.DarkGreen; // Koyu modda açýk yeþil, aydýnlýk modda koyu yeþil
+                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightGreen : Colors.DarkGreen;
                                             break;
                                         case "Yapýlmadý":
-                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightCoral : Colors.DarkRed; // Koyu modda açýk kýrmýzý, aydýnlýk modda koyu kýrmýzý
+                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightCoral : Colors.DarkRed;
                                             break;
                                         case "beklemede":
-                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.Yellow : Colors.OrangeRed; // Koyu modda açýk kýrmýzý, aydýnlýk modda koyu kýrmýzý
+                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.Yellow : Colors.OrangeRed;
                                             break;
                                         default:
-                                            labelColor = Colors.Grey; // Diðer durumlar için gri
+                                            labelColor = Colors.Grey;
                                             break;
                                     }
 
-                                    // Her Label'a tapGesture eklendiði yer
-                                    var sessionLabel = new Label
+                                    // Her müþteri için ayrý bir Label oluþturuluyor
+                                    var clientLabel = new Label
                                     {
-                                        Text = clientDisplayText, // Alt alta yazýlmýþ ders isimleri
+                                        Text = clientName,
+                                        FontSize = 16,
                                         HorizontalOptions = LayoutOptions.Center,
-                                        FontAttributes = FontAttributes.Italic,
-                                        TextColor = labelColor,
-                                        VerticalTextAlignment = TextAlignment.Center
+                                        VerticalOptions = LayoutOptions.Center,
+                                        TextColor = labelColor
                                     };
 
-                                    sessionLabel.HeightRequest = rowHeight;
-                                    LessonsListView.RowDefinitions[rowIndex + 1].Height = new GridLength(rowHeight, GridUnitType.Absolute);
-                                    sessionLabel.GestureRecognizers.Add(tapGestureRecognizer);
-                                    Grid.SetRow(sessionLabel, rowIndex + 1); // Saat satýrý
-                                    Grid.SetColumn(sessionLabel, colIndex + 1); // Gün sütunu
-                                    LessonsListView.Children.Add(sessionLabel);
-                                    rowHeights.Add(new Tuple<int, int>(rowIndex + 1, (int)sessionLabel.Height));
+                                    var tapGestureRecognizer = new TapGestureRecognizer();
+                                    tapGestureRecognizer.Tapped += async (s, e) =>
+                                    {
+                                        var tappedLabel = (Label)s;
+                                        string clientInfo = tappedLabel.Text;
+                                        if (!string.IsNullOrEmpty(clientInfo))
+                                        {
+                                            DersDetaylar.IsVisible = true;
+                                            btnDersEkle.IsVisible = false;
+                                            DersEkle.IsVisible = false;
+
+                                            Client.Text = clientInfo;
+
+                                            var selectedLesson = clientDataList.FirstOrDefault(cd => cd.client == clientInfo);
+
+                                            LessonType.Text = selectedLesson.type;
+
+                                            SeansDate.Date = selectedLesson.date; // Günün tarihi
+                                            SeansTime.Time = selectedLesson.time;
+                                            oldDate = selectedLesson.date;
+                                            oldTime = selectedLesson.time;
+                                        }
+                                    };
+
+                                    clientLabel.GestureRecognizers.Add(tapGestureRecognizer);
+
+                                    // Label, StackLayout içine ekleniyor
+                                    labelContainer.Children.Add(clientLabel);
                                 }
+
+                                // StackLayout, grid içine ekleniyor
+                                Grid.SetRow(labelContainer, rowIndex + 1);
+                                Grid.SetColumn(labelContainer, colIndex + 1);
+                                LessonsListView.Children.Add(labelContainer);
 
                                 if (colIndex < sortedGunler.Count + 4)
                                 {
@@ -1345,7 +1305,7 @@ public partial class LessonManagementPage : ContentPage
                                 }
                             }
 
-                            HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                            HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
                             string saatindex = string.Join("\n", sortedSaatler[rowIndex]);
 
                             var timeLabel1 = new Label

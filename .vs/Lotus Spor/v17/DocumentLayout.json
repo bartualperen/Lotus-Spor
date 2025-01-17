@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\",
+  "WorkspaceRootPath": "F:\\repos\\Lotus-Spor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\lessonmanagementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\lessonmanagementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\lessonmanagementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\lessonmanagementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\lessonmanagementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\lessonmanagementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -32,11 +32,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "LessonManagementPage.xaml",
-              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml",
+              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml",
               "RelativeDocumentMoniker": "Lotus Spor\\LessonManagementPage.xaml",
-              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml",
+              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml",
               "RelativeToolTip": "Lotus Spor\\LessonManagementPage.xaml",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAAAGIAAAB8AAAAAAAAAA==",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAAAJAAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-01-16T20:15:54.76Z",
               "EditorCaption": ""
@@ -45,11 +45,11 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "LessonManagementPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml.cs",
+              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml.cs",
               "RelativeDocumentMoniker": "Lotus Spor\\LessonManagementPage.xaml.cs",
-              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml.cs",
+              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml.cs",
               "RelativeToolTip": "Lotus Spor\\LessonManagementPage.xaml.cs",
-              "ViewState": "AgIAANYEAAAAAAAAAAAIwPYEAABRAAAAAAAAAA==",
+              "ViewState": "AgIAAM8BAAAAAAAAAAAqwAwEAAB8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-16T20:14:20.255Z",
               "EditorCaption": ""

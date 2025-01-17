@@ -94,16 +94,14 @@
             <Button x:Name="btnDersEkle" Text="Yeni Ders Ekle" Clicked="OnAddLessonClicked" CornerRadius="20" Margin="0,20,0,10" />
             <StackLayout x:Name="DersDetaylar" IsVisible="False" Margin="0,10,0,10">
                 <Label Text="Ders Detayları" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,0,0,10" />
-                <Label Text="Üye İsmi" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0" />
-                <Label x:Name="Client" FontSize="16" Margin="0,5,0,0" />
-                <Label x:Name="LabelSelectedClient" Text="Seçilen İsim" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0" />
-                <Label x:Name="SelectedClient" FontSize="16" Margin="0,5,0,0" />
-                <Label Text="Ders Türü" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0" IsVisible="False" />
-                <Label x:Name="Type" FontSize="16" Margin="0,5,0,10" IsVisible="False" />
-                <Label Text="Ders Tarihi" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0" />
-                <DatePicker x:Name="SeansDate" Format="dd.MM.yyyy" Margin="0,5,0,10" />
-                <Label Text="Ders Saati" FontSize="18" FontAttributes="Bold" Margin="0,5,0,0" />
-                <TimePicker x:Name="SeansTime" Format="HH:mm" Margin="0,5,0,20" />
+                <Label Text="Üye İsmi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                <Label x:Name="Client" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
+                <Label Text="Ders Türü" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,25,0,0" />
+                <Label x:Name="LessonType" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,10" />
+                <Label Text="Ders Tarihi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,15,0,0" />
+                <DatePicker x:Name="SeansDate" Format="dd.MM.yyyy" Margin="0,0,0,10" />
+                <Label Text="Ders Saati" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                <TimePicker x:Name="SeansTime" Format="HH:mm" Margin="0,0,0,20" />
 
                 <Picker IsVisible="False" x:Name="DayPicker" SelectedIndexChanged="OnDayPickerSelectedIndexChanged" Title="Yeni Ders Gününü Seçin">
                     <Picker.Items>
@@ -117,7 +115,8 @@
                     </Picker.Items>
                 </Picker>
 
-                <Button Text="Seçilen Dersi Değiştir"  Clicked="OnCurDateChangeClicked" CornerRadius="20" Margin="0,5,0,10" />
+                <Label Text="Not: Yeni ders tarihini ve saatini seçtikten sonra tek seferlik veya hepsini değiştirme seçeneklerinden birini seçebilirsiniz." FontSize="14" />
+                <Button Text="Seçilen Dersi Değiştir"  Clicked="OnCurDateChangeClicked" CornerRadius="20" Margin="0,15,0,10" />
                 <Button Text="Bütün Dersleri Değiştir" Clicked="OnAllChangeClicked" CornerRadius="20" Margin="0,5,0,10" />
                 <Button Text="Yapıldı Olarak İşaretle" Clicked="OnDoneClicked" CornerRadius="20" Margin="0,5,0,10"/>
                 <Button Text="Yapılmadı Olarak İşaretle" Clicked="OnUnDoneClicked" CornerRadius="20"  Margin="0,5,0,10"/>
@@ -126,7 +125,7 @@
                 <Button Text="İptal" Clicked="OnCancelClicked" CornerRadius="20" Margin="0,5,0,10"/>
             </StackLayout>
 
-            <StackLayout x:Name="DersEkle" IsVisible="False" Margin="0,10,0,10">
+            <StackLayout x:Name="DersEkle" IsVisible="False" Margin="0,20,0,10">
                 <Picker x:Name="SeansPicker" Title="Seans Türü Seçin">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
@@ -138,7 +137,7 @@
                 </Picker>
 
                 <Entry x:Name="NameEntry" 
-                   Placeholder="İsim Soyisim"
+                   Placeholder="Müşteri İsim Soyisim"
                    TextChanged="OnUsernameTextChanged"
                    PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
                    TextColor="{DynamicResource EntryBackgroundColor}"/>
@@ -153,12 +152,6 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
-                <StackLayout Padding="20">
-                    <!-- Tarih Seçici -->
-                    <Label Text="Ders Tarihini Seçin" FontSize="Medium" />
-                    <DatePicker x:Name="DatePickerKayitTarihi" Format="dd.MM.yyyy" />
-                </StackLayout>
 
                 <Entry x:Name="AntrenorNameEntry" 
                    Placeholder="Antrenör İsim Soyisim"
@@ -185,6 +178,14 @@
                     <Label Text="Grup dersi ise burayı işaretleyin" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
                     <CheckBox x:Name="CheckBoxGrup" Grid.Column="1" HorizontalOptions="Center" />
                 </Grid>
+                <Label Text="Not: Tek seferlik dersler için yalnızca aşağıdaki alanı doldurun ve ders tarihi seçin. Ayrıca gün seçimi yapmanıza gerek yoktur."  Margin="0,20,0,20" FontSize="14" />
+
+                <Label Text="Ders Tarihini Seçin" FontSize="Medium" />
+                <DatePicker x:Name="DatePickerKayitTarihi" Format="dd.MM.yyyy" />
+
+                <Label Text="Ders Saatini Seçin" FontSize="Medium" />
+                <TimePicker x:Name="TimePickerTek" TimeSelected="OnTimeSelected" Format="HH:mm" />
+                <Label Text="Not: Dönemlik ekleme yapmak için yalnızca aşağıdaki alanı doldurun. Ayrıca tarih ve saat seçimi yapmanıza gerek yoktur." FontSize="14" />
 
                 <Label Text="Seans Günleri Seçin:" FontAttributes="Bold" />
                 <Grid RowSpacing="10" ColumnSpacing="10">

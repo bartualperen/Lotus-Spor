@@ -4,7 +4,7 @@
     "frameworks": [
       {
         "name": "Microsoft.NETCore.App",
-        "version": "9.0.0-rc.2.24473.5"
+        "version": "9.0.0"
       },
       {
         "name": "Microsoft.Android",
@@ -13,6 +13,7 @@
     ],
     "configProperties": {
       "Microsoft.Extensions.DependencyInjection.VerifyOpenGenericServiceTrimmability": true,
+      "System.ComponentModel.DefaultValueAttribute.IsSupported": true,
       "System.Diagnostics.Metrics.Meter.IsSupported": false,
       "System.Diagnostics.Tracing.EventSource.IsSupported": false,
       "System.Globalization.Invariant": false,

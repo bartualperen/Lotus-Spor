@@ -982,7 +982,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -4439,7 +4439,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -7840,7 +7840,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -11241,7 +11241,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -14642,7 +14642,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -18046,7 +18046,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -20491,7 +20491,7 @@
         }
       }
     },
-    "net9.0-ios18.0": {
+    "net9.0-ios18.1": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -21446,7 +21446,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -22197,7 +22197,7 @@
         }
       }
     },
-    "net9.0-ios18.0/android-arm64": {
+    "net9.0-ios18.1/android-arm64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -23122,7 +23122,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -23924,7 +23924,7 @@
         }
       }
     },
-    "net9.0-ios18.0/android-x64": {
+    "net9.0-ios18.1/android-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -24849,7 +24849,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -25651,7 +25651,7 @@
         }
       }
     },
-    "net9.0-ios18.0/iossimulator-x64": {
+    "net9.0-ios18.1/iossimulator-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -26576,7 +26576,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -27378,7 +27378,7 @@
         }
       }
     },
-    "net9.0-ios18.0/maccatalyst-x64": {
+    "net9.0-ios18.1/maccatalyst-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -28303,7 +28303,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -29105,7 +29105,7 @@
         }
       }
     },
-    "net9.0-ios18.0/win10-x64": {
+    "net9.0-ios18.1/win10-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -30033,7 +30033,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -30827,7 +30827,7 @@
         }
       }
     },
-    "net9.0-maccatalyst18.0": {
+    "net9.0-maccatalyst18.1": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -31781,7 +31781,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -32395,7 +32395,7 @@
         }
       }
     },
-    "net9.0-maccatalyst18.0/android-arm64": {
+    "net9.0-maccatalyst18.1/android-arm64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -33319,7 +33319,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -33938,7 +33938,7 @@
         }
       }
     },
-    "net9.0-maccatalyst18.0/android-x64": {
+    "net9.0-maccatalyst18.1/android-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -34862,7 +34862,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -35481,7 +35481,7 @@
         }
       }
     },
-    "net9.0-maccatalyst18.0/iossimulator-x64": {
+    "net9.0-maccatalyst18.1/iossimulator-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -36405,7 +36405,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -37024,7 +37024,7 @@
         }
       }
     },
-    "net9.0-maccatalyst18.0/maccatalyst-x64": {
+    "net9.0-maccatalyst18.1/maccatalyst-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -37948,7 +37948,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -38567,7 +38567,7 @@
         }
       }
     },
-    "net9.0-maccatalyst18.0/win10-x64": {
+    "net9.0-maccatalyst18.1/win10-x64": {
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -39494,7 +39494,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
+      "Microsoft.NET.ILLink.Tasks/9.0.0": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -52361,10 +52361,10 @@
         "microsoft.maui.resizetizer.nuspec"
       ]
     },
-    "Microsoft.NET.ILLink.Tasks/9.0.0-rc.2.24473.5": {
-      "sha512": "mXyCgKqBIo/KOpY09FqjOU8d+LME2qowzzvBd1/viYmSpAKYfQ2w1WDOlh0FniY4xnrB/wmDiAo4frJvfCqT0w==",
+    "Microsoft.NET.ILLink.Tasks/9.0.0": {
+      "sha512": "zAwp213evC3UkimtVXRb+Dlgc/40QG145nmZDtp2LO9zJJMfrp+i/87BnXN7tRXEA4liyzdFkjqG1HE8/RPb4A==",
       "type": "package",
-      "path": "microsoft.net.illink.tasks/9.0.0-rc.2.24473.5",
+      "path": "microsoft.net.illink.tasks/9.0.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -52378,7 +52378,7 @@
         "build/Microsoft.NET.ILLink.Analyzers.props",
         "build/Microsoft.NET.ILLink.Tasks.props",
         "build/Microsoft.NET.ILLink.targets",
-        "microsoft.net.illink.tasks.9.0.0-rc.2.24473.5.nupkg.sha512",
+        "microsoft.net.illink.tasks.9.0.0.nupkg.sha512",
         "microsoft.net.illink.tasks.nuspec",
         "tools/net472/ILLink.Tasks.dll",
         "tools/net472/ILLink.Tasks.dll.config",
@@ -57268,14 +57268,14 @@
       "Microsoft.Extensions.Configuration.Json >= 9.0.0",
       "Microsoft.Extensions.Logging.Debug >= 9.0.0",
       "Microsoft.Maui.Controls >= 9.0.21",
-      "Microsoft.NET.ILLink.Tasks >= 9.0.0-rc.2.24473.5",
+      "Microsoft.NET.ILLink.Tasks >= 9.0.0",
       "MySql.Data >= 9.1.0",
       "MySql.EntityFrameworkCore >= 8.0.8",
       "System.Data.SqlClient >= 4.9.0",
       "System.Private.Uri >= 4.3.2",
       "System.Text.Json >= 9.0.0"
     ],
-    "net9.0-ios18.0": [
+    "net9.0-ios18.1": [
       "Microsoft.Data.SqlClient >= 5.2.2",
       "Microsoft.Extensions.Caching.Memory >= 9.0.0",
       "Microsoft.Extensions.Configuration >= 9.0.0",
@@ -57283,14 +57283,14 @@
       "Microsoft.Extensions.Configuration.Json >= 9.0.0",
       "Microsoft.Extensions.Logging.Debug >= 9.0.0",
       "Microsoft.Maui.Controls >= 9.0.21",
-      "Microsoft.NET.ILLink.Tasks >= 9.0.0-rc.2.24473.5",
+      "Microsoft.NET.ILLink.Tasks >= 9.0.0",
       "MySql.Data >= 9.1.0",
       "MySql.EntityFrameworkCore >= 8.0.8",
       "System.Data.SqlClient >= 4.9.0",
       "System.Private.Uri >= 4.3.2",
       "System.Text.Json >= 9.0.0"
     ],
-    "net9.0-maccatalyst18.0": [
+    "net9.0-maccatalyst18.1": [
       "Microsoft.Data.SqlClient >= 5.2.2",
       "Microsoft.Extensions.Caching.Memory >= 9.0.0",
       "Microsoft.Extensions.Configuration >= 9.0.0",
@@ -57298,7 +57298,7 @@
       "Microsoft.Extensions.Configuration.Json >= 9.0.0",
       "Microsoft.Extensions.Logging.Debug >= 9.0.0",
       "Microsoft.Maui.Controls >= 9.0.21",
-      "Microsoft.NET.ILLink.Tasks >= 9.0.0-rc.2.24473.5",
+      "Microsoft.NET.ILLink.Tasks >= 9.0.0",
       "MySql.Data >= 9.1.0",
       "MySql.EntityFrameworkCore >= 8.0.8",
       "System.Data.SqlClient >= 4.9.0",
@@ -57327,11 +57327,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+      "projectUniqueName": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
       "projectName": "Lotus Spor",
-      "projectPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+      "projectPath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
       "packagesPath": "C:\\Users\\bartu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\obj\\",
+      "outputPath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [
@@ -57358,11 +57358,11 @@
           "targetAlias": "net9.0-android",
           "projectReferences": {}
         },
-        "net9.0-ios18.0": {
+        "net9.0-ios18.1": {
           "targetAlias": "net9.0-ios",
           "projectReferences": {}
         },
-        "net9.0-maccatalyst18.0": {
+        "net9.0-maccatalyst18.1": {
           "targetAlias": "net9.0-maccatalyst",
           "projectReferences": {}
         },
@@ -57381,7 +57381,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0-android35.0": {
@@ -57418,7 +57418,7 @@
           "Microsoft.NET.ILLink.Tasks": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[9.0.0-rc.2.24473.5, )",
+            "version": "[9.0.0, )",
             "autoReferenced": true
           },
           "MySql.Data": {
@@ -57461,9 +57461,9 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-rc.2.24474.11/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200-preview.0.24575.35/PortableRuntimeIdentifierGraph.json"
       },
-      "net9.0-ios18.0": {
+      "net9.0-ios18.1": {
         "targetAlias": "net9.0-ios",
         "dependencies": {
           "Microsoft.Data.SqlClient": {
@@ -57497,7 +57497,7 @@
           "Microsoft.NET.ILLink.Tasks": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[9.0.0-rc.2.24473.5, )",
+            "version": "[9.0.0, )",
             "autoReferenced": true
           },
           "MySql.Data": {
@@ -57540,9 +57540,9 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-rc.2.24474.11/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200-preview.0.24575.35/PortableRuntimeIdentifierGraph.json"
       },
-      "net9.0-maccatalyst18.0": {
+      "net9.0-maccatalyst18.1": {
         "targetAlias": "net9.0-maccatalyst",
         "dependencies": {
           "Microsoft.Data.SqlClient": {
@@ -57576,7 +57576,7 @@
           "Microsoft.NET.ILLink.Tasks": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[9.0.0-rc.2.24473.5, )",
+            "version": "[9.0.0, )",
             "autoReferenced": true
           },
           "MySql.Data": {
@@ -57620,7 +57620,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-rc.2.24474.11/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200-preview.0.24575.35/PortableRuntimeIdentifierGraph.json"
       },
       "net9.0-windows10.0.19041": {
         "targetAlias": "net9.0-windows10.0.19041.0",
@@ -57688,7 +57688,7 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
-            "version": "[10.0.19041.45, 10.0.19041.45]"
+            "version": "[10.0.19041.57, 10.0.19041.57]"
           }
         ],
         "frameworkReferences": {
@@ -57699,7 +57699,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-rc.2.24474.11\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200-preview.0.24575.35\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

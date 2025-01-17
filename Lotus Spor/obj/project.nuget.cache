@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LozcqAdJMhM=",
+  "dgSpecHash": "HjxZllOQSqw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+  "projectFilePath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bartu\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\bartu\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
@@ -55,7 +55,7 @@
     "C:\\Users\\bartu\\.nuget\\packages\\microsoft.maui.graphics\\9.0.21\\microsoft.maui.graphics.9.0.21.nupkg.sha512",
     "C:\\Users\\bartu\\.nuget\\packages\\microsoft.maui.graphics.win2d.winui.desktop\\9.0.21\\microsoft.maui.graphics.win2d.winui.desktop.9.0.21.nupkg.sha512",
     "C:\\Users\\bartu\\.nuget\\packages\\microsoft.maui.resizetizer\\9.0.21\\microsoft.maui.resizetizer.9.0.21.nupkg.sha512",
-    "C:\\Users\\bartu\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.0-rc.2.24473.5\\microsoft.net.illink.tasks.9.0.0-rc.2.24473.5.nupkg.sha512",
+    "C:\\Users\\bartu\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.0\\microsoft.net.illink.tasks.9.0.0.nupkg.sha512",
     "C:\\Users\\bartu\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.1\\microsoft.netcore.platforms.1.1.1.nupkg.sha512",
     "C:\\Users\\bartu\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
     "C:\\Users\\bartu\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
@@ -213,7 +213,7 @@
     "C:\\Users\\bartu\\.nuget\\packages\\xamarin.kotlinx.serialization.core\\1.7.1.3\\xamarin.kotlinx.serialization.core.1.7.1.3.nupkg.sha512",
     "C:\\Users\\bartu\\.nuget\\packages\\xamarin.kotlinx.serialization.core.jvm\\1.7.1.3\\xamarin.kotlinx.serialization.core.jvm.1.7.1.3.nupkg.sha512",
     "C:\\Users\\bartu\\.nuget\\packages\\zstdsharp.port\\0.8.0\\zstdsharp.port.0.8.0.nupkg.sha512",
-    "C:\\Users\\bartu\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.45\\microsoft.windows.sdk.net.ref.10.0.19041.45.nupkg.sha512"
+    "C:\\Users\\bartu\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.57\\microsoft.windows.sdk.net.ref.10.0.19041.57.nupkg.sha512"
   ],
   "logs": []
 }
