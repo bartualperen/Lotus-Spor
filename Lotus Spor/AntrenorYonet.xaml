@@ -18,18 +18,25 @@
                FontSize="16"
                HorizontalOptions="FillAndExpand" />
 
-        <!-- Müşteri Bilgilerini Gösteren ListView -->
         <ListView x:Name="CustomerListView"
-                  IsVisible="True"
-                  SelectionMode="Single"
-                  ItemSelected="OnItemSelected">
+          IsVisible="True"
+          SelectionMode="Single"
+          ItemSelected="OnItemSelected"
+          CachingStrategy="RecycleElement">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding FullName}" 
-                              Detail="{Binding AdditionalInfo}" />
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <!-- Seçilen öğe için stil uygulamak -->
+                            <Label Text="{Binding FullName}"
+                           TextColor="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}"
+                           FontSize="16" />
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
 
         <!-- Ekle Butonu -->
         <Button Text="Ekle" Margin="10,10,5,10" Clicked="OnEkleClicked" x:Name="Ekle"/>

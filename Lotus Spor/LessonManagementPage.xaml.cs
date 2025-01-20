@@ -463,7 +463,7 @@ public partial class LessonManagementPage : ContentPage
     }
     private async void OnKayitSilClicked(object sender, EventArgs e)
     {
-        string query = "DELETE FROM seanslar WHERE musteri_id = @kullaniciID AND tarih >= @selectedDate AND saat = @selectedTime ";
+        string query = "DELETE FROM seanslar WHERE musteri_id = @kullaniciID AND tarih >= @selectedDate AND saat = @selectedTime AND DATEDIFF(tarih, @selectedDate) % 7 = 0;";
         string fullName = Client.Text; // Seçilen müþteri adlarý
         string[] clientNameList = fullName.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Satýrlara göre ayýr
 
@@ -586,13 +586,16 @@ public partial class LessonManagementPage : ContentPage
 
         // SQL sorgusunu oluþtur
         string query = @"
-        UPDATE seanslar s
-        JOIN musteriler m ON s.musteri_id = m.id
-        SET s.tarih = DATE_ADD(@newDate, INTERVAL FLOOR(DATEDIFF(s.tarih, @selectedDate) / 7) WEEK),
-            s.saat = @newTime
-        WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
-          AND s.tarih >= @selectedDate
-          AND s.saat = @selectedTime;";
+UPDATE seanslar s
+JOIN musteriler m ON s.musteri_id = m.id
+SET s.tarih = DATE_ADD(@newDate, INTERVAL FLOOR(DATEDIFF(s.tarih, @selectedDate) / 7) WEEK),
+    s.saat = @newTime
+WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
+  AND s.tarih >= @selectedDate -- Sadece baþlangýç tarihi ve sonrasý
+  AND s.saat = @selectedTime
+  AND WEEKDAY(s.tarih) = WEEKDAY(@selectedDate); -- Haftanýn ayný gününe odaklan
+
+";
 
         try
         {
@@ -639,7 +642,6 @@ public partial class LessonManagementPage : ContentPage
             await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
         Sifirla();
-
     }
     private async void OnDoneClicked(object sender, EventArgs e)
     {
@@ -1021,6 +1023,8 @@ public partial class LessonManagementPage : ContentPage
         StartTimeCuma.Time = TimeSpan.Zero;
         StartTimeCumartesi.Time = TimeSpan.Zero;
         StartTimePazar.Time = TimeSpan.Zero;
+        NameEntry.Text = string.Empty;
+        AntrenorNameEntry.Text = string.Empty;
         LoadLessons(searchName, serviceType, antrenor);
     }
     private async void OnCancelClicked(object sender, EventArgs e)

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace Lotus_Spor;
 
+
 public partial class UyeListesi : ContentPage
 {
     List<string> isimListesi = new List<string>();
@@ -24,7 +25,7 @@ public partial class UyeListesi : ContentPage
     }
     private async void LoadCustomers()
     {
-        string query = "SELECT id, isim, soyisim, hizmet_turu, seans_ucreti, notlar, telefon, kayit_tarihi FROM musteriler";
+        string query = "SELECT id, isim, soyisim, hizmet_turu, seans_ucreti, notlar, telefon, kayit_tarihi FROM musteriler ORDER BY isim ASC";
 
         try
         {

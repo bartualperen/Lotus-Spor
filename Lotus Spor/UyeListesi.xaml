@@ -20,15 +20,18 @@
 
             <!-- Müşteri Bilgilerini Gösteren ListView -->
             <ListView x:Name="CustomerListView"
-                  IsVisible="True"
-                  ItemSelected="OnItemSelected">
+          IsVisible="True"
+          ItemSelected="OnItemSelected"
+          CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding FullName}" 
-                              Detail="{Binding AdditionalInfo}" />
+                      Detail="{Binding AdditionalInfo}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+
             <StackLayout x:Name="EditPanel" IsVisible="False" Padding="10">
                 <Label Text="Müşteri Bilgilerini Düzenle" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
                 <Label Text="İsim Soyisim" />
