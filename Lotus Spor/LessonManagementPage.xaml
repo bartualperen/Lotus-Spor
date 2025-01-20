@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lotus_Spor.LessonManagementPage"
              Title="Ders Yönetim Sayfası">
+
     <ScrollView>
         <VerticalStackLayout Padding="20">
             <Label Text="Kişi Adı Ara" FontSize="16" />
@@ -54,76 +55,98 @@
                     <x:String>Sonraki Hafta</x:String>
                 </Picker.Items>
             </Picker>
-            <StackLayout >
-                <Grid>
-                    <!-- Grid içerisindeki ilk sütunda HoursHeaderGrid yer alacak -->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <!-- Sabit genişlik -->
-                        <ColumnDefinition Width="*" />
-                        <!-- Esnek genişlik -->
-                    </Grid.ColumnDefinitions>
 
-                    <!-- HoursHeaderGrid sol tarafta sabit -->
-                    <Grid x:Name="HoursHeaderGrid"
-                      Grid.Row="0" Grid.Column="0"
-                      ColumnSpacing="10"
-                      RowSpacing="0"
-                      VerticalOptions="Start">
-                    </Grid>
+            <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,30,0,0">
+                <BoxView HeightRequest="1" 
+                 BackgroundColor="Gray"
+                 HorizontalOptions="FillAndExpand" />
+            </StackLayout>
 
-                    <!-- LessonsListView sağda, kaydırılabilir ve HoursHeaderGrid'in solunda -->
-                    <ScrollView Orientation="Horizontal" 
-                                Grid.Row="1" Grid.Column="1">
-                        <Grid x:Name="LessonsListView"
-                              ColumnSpacing="10"
-                              RowSpacing="0">
+            <ScrollView Orientation="Vertical" HeightRequest="400" Scrolled="OnScrollChanged">
+                <StackLayout Margin="0,0,0,0">
+                    <Grid>
+                        <!-- Grid içerisindeki ilk sütunda HoursHeaderGrid yer alacak -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <!-- Sabit genişlik -->
+                            <ColumnDefinition Width="*" />
+                            <!-- Esnek genişlik -->
+                        </Grid.ColumnDefinitions>
+
+                        <!-- HoursHeaderGrid sol tarafta sabit -->
+                        <Grid x:Name="HoursHeaderGrid"
+                          Grid.Row="0" Grid.Column="0"
+                          ColumnSpacing="10"
+                          RowSpacing="0"
+                          VerticalOptions="Start"
+                          Margin="0,0,0,0">
                         </Grid>
-                    </ScrollView>
-                </Grid>
+
+                        <!-- LessonsListView sağda, kaydırılabilir ve HoursHeaderGrid'in solunda -->
+                        <ScrollView Orientation="Horizontal" Grid.Row="1" Grid.Column="1" >
+                            <StackLayout>
+                                <Grid x:Name="DaysHeaderGrid"
+                                          ColumnSpacing="10"
+                                          RowSpacing="0"
+                                          VerticalOptions="Start"
+                                          IsVisible="false">
+                                </Grid>
+
+                                <Grid x:Name="LessonsListView"
+                                          ColumnSpacing="10"
+                                          RowSpacing="0"
+                                          VerticalOptions="Start" >
+                                </Grid>
+                            </StackLayout>
+                        </ScrollView>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+
+            <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                <BoxView HeightRequest="1" 
+                 BackgroundColor="Gray"
+                 HorizontalOptions="FillAndExpand" />
             </StackLayout>
-
-
-
-
-
-
+            
             <Button x:Name="btnDersEkle" Text="Yeni Ders Ekle" Clicked="OnAddLessonClicked" CornerRadius="20" Margin="0,20,0,10" />
-            <StackLayout x:Name="DersDetaylar" IsVisible="False" Margin="0,10,0,10">
-                <Label Text="Ders Detayları" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,0,0,10" />
-                <Label Text="Üye İsmi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
-                <Label x:Name="Client" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
-                <Label Text="Ders Türü" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,25,0,0" />
-                <Label x:Name="LessonType" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,10" />
-                <Label Text="Ders Tarihi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,15,0,0" />
-                <DatePicker x:Name="SeansDate" Format="dd.MM.yyyy" Margin="0,0,0,10" />
-                <Label Text="Ders Saati" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
-                <TimePicker x:Name="SeansTime" Format="HH:mm" Margin="0,0,0,20" />
+            <Frame x:Name="DersDetaylar" IsVisible="False" BorderColor="Black" CornerRadius="10" Padding="10" Margin="0,20,0,0">
+                <StackLayout Margin="0,10,0,10">
+                    <Label Text="Ders Detayları" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,0,0,10" />
+                    <Label Text="Üye İsmi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    <Label x:Name="Client" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
+                    <Label Text="Ders Türü" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,25,0,0" />
+                    <Label x:Name="LessonType" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,10" />
+                    <Label Text="Ders Tarihi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,15,0,0" />
+                    <DatePicker x:Name="SeansDate" Format="dd.MM.yyyy" Margin="0,0,0,10" />
+                    <Label Text="Ders Saati" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    <TimePicker x:Name="SeansTime" Format="HH:mm" Margin="0,0,0,20" />
 
-                <Picker IsVisible="False" x:Name="DayPicker" SelectedIndexChanged="OnDayPickerSelectedIndexChanged" Title="Yeni Ders Gününü Seçin">
-                    <Picker.Items>
-                        <x:String>Pazartesi</x:String>
-                        <x:String>Salı</x:String>
-                        <x:String>Çarşamba</x:String>
-                        <x:String>Perşembe</x:String>
-                        <x:String>Cuma</x:String>
-                        <x:String>Cumartesi</x:String>
-                        <x:String>Pazar</x:String>
-                    </Picker.Items>
-                </Picker>
+                    <Picker IsVisible="False" x:Name="DayPicker" SelectedIndexChanged="OnDayPickerSelectedIndexChanged" Title="Yeni Ders Gününü Seçin">
+                        <Picker.Items>
+                            <x:String>Pazartesi</x:String>
+                            <x:String>Salı</x:String>
+                            <x:String>Çarşamba</x:String>
+                            <x:String>Perşembe</x:String>
+                            <x:String>Cuma</x:String>
+                            <x:String>Cumartesi</x:String>
+                            <x:String>Pazar</x:String>
+                        </Picker.Items>
+                    </Picker>
 
-                <Label Text="Not: Yeni ders tarihini ve saatini seçtikten sonra tek seferlik veya hepsini değiştirme seçeneklerinden birini seçebilirsiniz." FontSize="14" />
-                <Button Text="Seçilen Dersi Değiştir"  Clicked="OnCurDateChangeClicked" CornerRadius="20" Margin="0,15,0,10" />
-                <Button Text="Bütün Dersleri Değiştir" Clicked="OnAllChangeClicked" CornerRadius="20" Margin="0,5,0,10" />
-                <Button Text="Yapıldı Olarak İşaretle" Clicked="OnDoneClicked" CornerRadius="20" Margin="0,5,0,10"/>
-                <Button Text="Yapılmadı Olarak İşaretle" Clicked="OnUnDoneClicked" CornerRadius="20"  Margin="0,5,0,10"/>
-                <Button Text="Hepsini Sil" Clicked="OnKayitSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
-                <Button Text="Seçilen Dersi Sil" Clicked="OnBiriniSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
-                <Button Text="İptal" Clicked="OnCancelClicked" CornerRadius="20" Margin="0,5,0,10"/>
-            </StackLayout>
+                    <Label Text="Not: Yeni ders tarihini ve saatini seçtikten sonra tek seferlik veya hepsini değiştirme seçeneklerinden birini seçebilirsiniz." FontSize="14" />
+                    <Button FontSize="16" Text="Seçilen Dersi Değiştir"  Clicked="OnCurDateChangeClicked" CornerRadius="20" Margin="0,15,0,10" />
+                    <Button FontSize="16" Text="Bütün Dersleri Değiştir" Clicked="OnAllChangeClicked" CornerRadius="20" Margin="0,5,0,10" />
+                    <Button FontSize="16" Text="Yapıldı Olarak İşaretle" Clicked="OnDoneClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                    <Button FontSize="16" Text="Yapılmadı Olarak İşaretle" Clicked="OnUnDoneClicked" CornerRadius="20"  Margin="0,5,0,10"/>
+                    <Button FontSize="16" Text="Hepsini Sil" Clicked="OnKayitSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                    <Button FontSize="16" Text="Seçilen Dersi Sil" Clicked="OnBiriniSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                    <Button FontSize="16" Text="İptal" Clicked="OnCancelClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                </StackLayout>
+            </Frame>
 
             <StackLayout x:Name="DersEkle" IsVisible="False" Margin="0,20,0,10">
                 <Picker x:Name="SeansPicker" Title="Seans Türü Seçin">
@@ -178,81 +201,98 @@
                     <Label Text="Grup dersi ise burayı işaretleyin" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
                     <CheckBox x:Name="CheckBoxGrup" Grid.Column="1" HorizontalOptions="Center" />
                 </Grid>
-                <Label Text="Not: Tek seferlik dersler için yalnızca aşağıdaki alanı doldurun ve ders tarihi seçin. Ayrıca gün seçimi yapmanıza gerek yoktur."  Margin="0,20,0,20" FontSize="14" />
 
-                <Label Text="Ders Tarihini Seçin" FontSize="Medium" />
-                <DatePicker x:Name="DatePickerKayitTarihi" Format="dd.MM.yyyy" />
+                <StackLayout Margin="20">
+                    <Frame BorderColor="Black" CornerRadius="10" Padding="10">
+                        <StackLayout>
+                            <Label Text="Günlük Ekleme" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10"/>
 
-                <Label Text="Ders Saatini Seçin" FontSize="Medium" />
-                <TimePicker x:Name="TimePickerTek" TimeSelected="OnTimeSelected" Format="HH:mm" />
-                <Label Text="Not: Dönemlik ekleme yapmak için yalnızca aşağıdaki alanı doldurun. Ayrıca tarih ve saat seçimi yapmanıza gerek yoktur." FontSize="14" />
+                            <Label Text="Not: Tek seferlik dersler için yalnızca aşağıdaki alanı doldurun ve ders tarihi seçin. Ayrıca gün seçimi yapmanıza gerek yoktur."  
+                            Margin="0,20,0,20" FontSize="14" />
 
-                <Label Text="Seans Günleri Seçin:" FontAttributes="Bold" />
-                <Grid RowSpacing="10" ColumnSpacing="10">
-                    <Grid.ColumnDefinitions>
-                        <!-- Gün isimleri için geniş bir sütun -->
-                        <ColumnDefinition Width="Auto" />
-                        <!-- CheckBox için küçük bir sütun -->
-                        <ColumnDefinition Width="*" />
-                        <!-- TimePicker için geniş bir sütun -->
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <!-- Her bir satır için otomatik yükseklik -->
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                            <Label Text="Ders Tarihini Seçin" FontSize="Medium" />
+                            <DatePicker x:Name="DatePickerKayitTarihi" Format="dd.MM.yyyy" />
 
-                    <!-- Başlıklar -->
-                    <Label Text="Gün" Grid.Row="0" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="Start" />
-                    <Label Text="Seç" Grid.Row="0" Grid.Column="1" FontAttributes="Bold" HorizontalOptions="Center" />
-                    <Label Text="Saat" Grid.Row="0" Grid.Column="2" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Text="Ders Saatini Seçin" FontSize="Medium" />
+                            <TimePicker x:Name="TimePickerTek" TimeSelected="OnTimeSelected" Format="HH:mm" />
+                            <Button Text="Tek Seferlik Ekle" Clicked="OnTekEkleClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
 
-                    <!-- Pazartesi -->
-                    <Label Text="Pazartesi" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <CheckBox x:Name="CheckBoxPazartesi" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" />
-                    <TimePicker x:Name="StartTimePazartesi" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="1" Grid.Column="2" HorizontalOptions="Fill" />
+                <StackLayout Margin="20">
+                    <Frame BorderColor="Black" CornerRadius="10" Padding="10">
+                        <StackLayout>
+                            <Label Text="Dönemlik Ekleme" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10"/>
+                            <Label Text="Not: Dönemlik ekleme yapmak için yalnızca aşağıdaki alanı doldurun. Ayrıca tarih ve saat seçimi yapmanıza gerek yoktur." FontSize="14" />
+                            <Label Text="Seans Günleri Seçin:" FontAttributes="Bold" Margin="0,20,0,0" />
+                            <Grid RowSpacing="10" ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <!-- Gün isimleri için geniş bir sütun -->
+                                    <ColumnDefinition Width="Auto" />
+                                    <!-- CheckBox için küçük bir sütun -->
+                                    <ColumnDefinition Width="*" />
+                                    <!-- TimePicker için geniş bir sütun -->
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <!-- Her bir satır için otomatik yükseklik -->
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                    <!-- Salı -->
-                    <Label Text="Salı" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <CheckBox x:Name="CheckBoxSali" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" />
-                    <TimePicker x:Name="StartTimeSali" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="2" Grid.Column="2" HorizontalOptions="Fill" />
+                                <!-- Başlıklar -->
+                                <Label Text="Gün" Grid.Row="0" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="Start" />
+                                <Label Text="Seç" Grid.Row="0" Grid.Column="1" FontAttributes="Bold" HorizontalOptions="Center" />
+                                <Label Text="Saat" Grid.Row="0" Grid.Column="2" FontAttributes="Bold" HorizontalOptions="Center" />
 
-                    <!-- Çarşamba -->
-                    <Label Text="Çarşamba" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <CheckBox x:Name="CheckBoxCarsamba" Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" />
-                    <TimePicker x:Name="StartTimeCarsamba" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="3" Grid.Column="2" HorizontalOptions="Fill" />
+                                <!-- Pazartesi -->
+                                <Label Text="Pazartesi" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <CheckBox x:Name="CheckBoxPazartesi" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" />
+                                <TimePicker x:Name="StartTimePazartesi" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="1" Grid.Column="2" HorizontalOptions="Fill" />
 
-                    <!-- Perşembe -->
-                    <Label Text="Perşembe" Grid.Row="4" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <CheckBox x:Name="CheckBoxPersembe" Grid.Row="4" Grid.Column="1" HorizontalOptions="Center" />
-                    <TimePicker x:Name="StartTimePersembe" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="4" Grid.Column="2" HorizontalOptions="Fill" />
+                                <!-- Salı -->
+                                <Label Text="Salı" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <CheckBox x:Name="CheckBoxSali" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" />
+                                <TimePicker x:Name="StartTimeSali" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="2" Grid.Column="2" HorizontalOptions="Fill" />
 
-                    <!-- Cuma -->
-                    <Label Text="Cuma" Grid.Row="5" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <CheckBox x:Name="CheckBoxCuma" Grid.Row="5" Grid.Column="1" HorizontalOptions="Center" />
-                    <TimePicker x:Name="StartTimeCuma" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="5" Grid.Column="2" HorizontalOptions="Fill" />
+                                <!-- Çarşamba -->
+                                <Label Text="Çarşamba" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <CheckBox x:Name="CheckBoxCarsamba" Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" />
+                                <TimePicker x:Name="StartTimeCarsamba" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="3" Grid.Column="2" HorizontalOptions="Fill" />
 
-                    <!-- Cumartesi -->
-                    <Label Text="Cumartesi" Grid.Row="6" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <CheckBox x:Name="CheckBoxCumartesi" Grid.Row="6" Grid.Column="1" HorizontalOptions="Center" />
-                    <TimePicker x:Name="StartTimeCumartesi" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="6" Grid.Column="2" HorizontalOptions="Fill" />
+                                <!-- Perşembe -->
+                                <Label Text="Perşembe" Grid.Row="4" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <CheckBox x:Name="CheckBoxPersembe" Grid.Row="4" Grid.Column="1" HorizontalOptions="Center" />
+                                <TimePicker x:Name="StartTimePersembe" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="4" Grid.Column="2" HorizontalOptions="Fill" />
 
-                    <!-- Pazar -->
-                    <Label Text="Pazar" Grid.Row="7" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
-                    <CheckBox x:Name="CheckBoxPazar" Grid.Row="7" Grid.Column="1" HorizontalOptions="Center" />
-                    <TimePicker x:Name="StartTimePazar" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="7" Grid.Column="2" HorizontalOptions="Fill" />
-                </Grid>
+                                <!-- Cuma -->
+                                <Label Text="Cuma" Grid.Row="5" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <CheckBox x:Name="CheckBoxCuma" Grid.Row="5" Grid.Column="1" HorizontalOptions="Center" />
+                                <TimePicker x:Name="StartTimeCuma" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="5" Grid.Column="2" HorizontalOptions="Fill" />
 
-                <Button Text="Tek Seferlik Ekle" Clicked="OnTekEkleClicked" CornerRadius="20" Margin="0,5,0,10"/>
-                <Button Text="Dönemlik Ekle" Clicked="OnEkleClicked" CornerRadius="20" Margin="0,5,0,10"/>
-                <Button Text="İptal" Clicked="OnIptalClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                                <!-- Cumartesi -->
+                                <Label Text="Cumartesi" Grid.Row="6" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <CheckBox x:Name="CheckBoxCumartesi" Grid.Row="6" Grid.Column="1" HorizontalOptions="Center" />
+                                <TimePicker x:Name="StartTimeCumartesi" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="6" Grid.Column="2" HorizontalOptions="Fill" />
+
+                                <!-- Pazar -->
+                                <Label Text="Pazar" Grid.Row="7" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <CheckBox x:Name="CheckBoxPazar" Grid.Row="7" Grid.Column="1" HorizontalOptions="Center" />
+                                <TimePicker x:Name="StartTimePazar" TimeSelected="OnTimeSelected" Format="HH:mm" Grid.Row="7" Grid.Column="2" HorizontalOptions="Fill" />
+                            </Grid>
+
+                            <Button Text="Dönemlik Ekle" Clicked="OnEkleClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                            <Button Text="İptal" Clicked="OnIptalClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
             </StackLayout>
 
         </VerticalStackLayout>

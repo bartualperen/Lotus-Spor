@@ -463,7 +463,7 @@ public partial class LessonManagementPage : ContentPage
     }
     private async void OnKayitSilClicked(object sender, EventArgs e)
     {
-        string query = "DELETE FROM seanslar WHERE musteri_id = @kullaniciID";
+        string query = "DELETE FROM seanslar WHERE musteri_id = @kullaniciID AND tarih >= @selectedDate AND saat = @selectedTime ";
         string fullName = Client.Text; // Seçilen müþteri adlarý
         string[] clientNameList = fullName.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Satýrlara göre ayýr
 
@@ -1034,8 +1034,13 @@ public partial class LessonManagementPage : ContentPage
         SeansTime.Time = TimeSpan.Zero;
         LoadLessons(searchName, serviceType, antrenor);
     }
-    private async void LoadLessons(string searchName = "", string hizmet_turu = "", string antrenor = "", string hafta = "")
+    private void OnScrollChanged(object sender, ScrolledEventArgs e)
     {
+        
+    }
+    private async void LoadLessons(string searchName = "", string hizmet_turu = "", string antrenor = "", string Hafta = "")
+    {
+        Hafta = hafta;
         string query = @"
         SELECT 
             s.tarih AS Day, 
@@ -1151,6 +1156,11 @@ public partial class LessonManagementPage : ContentPage
                         HoursHeaderGrid.ColumnDefinitions.Clear();
                         HoursHeaderGrid.Children.Clear();
 
+                        DaysHeaderGrid.Children.Clear();
+                        DaysHeaderGrid.RowDefinitions.Clear();
+                        DaysHeaderGrid.ColumnDefinitions.Clear();
+                        DaysHeaderGrid.Children.Clear();
+
                         // Saat baþlýklarýný ekliyoruz
                         HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                         var boslabel = new Label
@@ -1171,7 +1181,7 @@ public partial class LessonManagementPage : ContentPage
                         // Gün baþlýklarýný ekle
                         for (int i = 0; i < sortedGunler.Count; i++)
                         {
-                            LessonsListView.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                            DaysHeaderGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                             var label = new Label
                             {
                                 Text = sortedGunler[i],
@@ -1179,8 +1189,20 @@ public partial class LessonManagementPage : ContentPage
                                 FontAttributes = FontAttributes.Bold
                             };
                             Grid.SetRow(label, 0); // Baþlýk satýrý
-                            Grid.SetColumn(label, i + 1); // Gün sütunlarý
-                            LessonsListView.Children.Add(label);
+                            Grid.SetColumn(label, i); // Gün sütunlarý
+                            DaysHeaderGrid.Children.Add(label);
+
+                            LessonsListView.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                            var label1 = new Label
+                            {
+                                Text = sortedGunler[i],
+                                HorizontalOptions = LayoutOptions.Center,
+                                VerticalOptions = LayoutOptions.Center,
+                                FontAttributes = FontAttributes.Bold
+                            };
+                            Grid.SetRow(label1, 0); // Baþlýk satýrý
+                            Grid.SetColumn(label1, i + 1); // Gün sütunlarý
+                            LessonsListView.Children.Add(label1);
                         }
 
                         // Saatleri ve seanslarý ekle
@@ -1201,6 +1223,18 @@ public partial class LessonManagementPage : ContentPage
                                 Grid.SetColumn(horizontalLine, 0);
                                 Grid.SetColumnSpan(horizontalLine, sortedGunler.Count + 1); // Tüm sütunlarda geçerli
                                 LessonsListView.Children.Add(horizontalLine);
+
+                                var horizontalLine1 = new BoxView
+                                {
+                                    Color = Colors.Gray,
+                                    HeightRequest = 1,
+                                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                                    VerticalOptions = LayoutOptions.Start
+                                };
+                                Grid.SetRow(horizontalLine1, rowIndex + 1); // Her satýr baþlýðýnýn altýna
+                                Grid.SetColumn(horizontalLine1, 0);
+                                Grid.SetColumnSpan(horizontalLine1, sortedGunler.Count + 1); // Tüm sütunlarda geçerli
+                                HoursHeaderGrid.Children.Add(horizontalLine1);
                             }
 
                             // Günlere göre seanslarý ekle
@@ -1289,7 +1323,7 @@ public partial class LessonManagementPage : ContentPage
                                 Grid.SetColumn(labelContainer, colIndex + 1);
                                 LessonsListView.Children.Add(labelContainer);
 
-                                if (colIndex < sortedGunler.Count + 4)
+                                if (colIndex < sortedGunler.Count)
                                 {
                                     var verticalLine = new BoxView
                                     {
@@ -1302,6 +1336,18 @@ public partial class LessonManagementPage : ContentPage
                                     Grid.SetColumn(verticalLine, colIndex + 1);
                                     Grid.SetRowSpan(verticalLine, 0);
                                     LessonsListView.Children.Add(verticalLine);
+
+                                    var verticalLine1 = new BoxView
+                                    {
+                                        Color = Colors.Gray,
+                                        WidthRequest = 1,
+                                        VerticalOptions = LayoutOptions.FillAndExpand,
+                                        HorizontalOptions = LayoutOptions.Start,
+                                    };
+                                    Grid.SetRow(verticalLine1, 0);
+                                    Grid.SetColumn(verticalLine1, colIndex + 1);
+                                    Grid.SetRowSpan(verticalLine1, 0);
+                                    LessonsListView.Children.Add(verticalLine1);
                                 }
                             }
 
@@ -1313,7 +1359,8 @@ public partial class LessonManagementPage : ContentPage
                                 Text = saatindex,
                                 HorizontalOptions = LayoutOptions.Center,
                                 FontAttributes = FontAttributes.Bold,
-                                VerticalTextAlignment = TextAlignment.Center
+                                VerticalTextAlignment = TextAlignment.Center,
+                                VerticalOptions = LayoutOptions.Center
                             };
 
                             timeLabel1.HeightRequest = rowHeight;
