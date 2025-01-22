@@ -20,9 +20,9 @@
 
             <!-- Müşteri Bilgilerini Gösteren ListView -->
             <ListView x:Name="CustomerListView"
-          IsVisible="True"
-          ItemSelected="OnItemSelected"
-          CachingStrategy="RecycleElement">
+                  IsVisible="True"
+                  ItemSelected="OnItemSelected"
+                  CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding FullName}" 

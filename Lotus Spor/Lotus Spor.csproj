@@ -142,6 +142,9 @@
 	  <MauiXaml Update="MeasurementPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="OdemeBilgileri.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="OlcuEkle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

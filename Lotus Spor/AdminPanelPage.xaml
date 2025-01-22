@@ -22,6 +22,7 @@
             <Button Text="Üye Listesi" Margin="10,10,5,10" Clicked="OnUyeListesiClicked" x:Name="UyeListesi"/>
             <Button Text="Ölçü Bilgisi Ekle" Margin="10,10,5,10" Clicked="OnOlcuEkleClicked" x:Name="OlcuEkle"/>
             <Button Text="Dersleri Yönet" Margin="10,10,5,10" Clicked="OnDersYonet" x:Name="DersYonet"/>
+            <Button Text="Ödeme Bilgileri" Margin="10,10,5,10" Clicked="OnOdemeBilgileri" x:Name="OdemeBilgileri"/>
             <Button Text="Antrenörleri Yönet" Margin="10,10,5,10" Clicked="OnAntrenorYonet" x:Name="AntrenorYonet" IsVisible="False"/>
             <Button Text="Ölçü Bilgilerini Yönet" Margin="10,10,5,10" Clicked="OnOlcuYonet" x:Name="OlcuYonet"/>
             <Button Text="Duyuru Yap" Margin="10,10,5,10" Clicked="OnDuyuruYap" x:Name="DuyuruYap"/>

@@ -28,6 +28,10 @@ public partial class AdminPanelPage : ContentPage
     {
         await Application.Current.MainPage.Navigation.PushAsync(new UyeEkle());
     }
+    private async void OnOdemeBilgileri(Object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new OdemeBilgileri());
+    }
     private async void OnDuyuruYap(Object sender, EventArgs e)
     {
         await Application.Current.MainPage.Navigation.PushAsync(new DuyuruYap());

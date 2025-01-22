@@ -76,6 +76,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.MeasurementPage
 build_metadata.AdditionalFiles.TargetPath = MeasurementPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MeasurementPage.xaml
 
+[F:/repos/Lotus-Spor/Lotus Spor/OdemeBilgileri.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.OdemeBilgileri.xaml
+build_metadata.AdditionalFiles.TargetPath = OdemeBilgileri.xaml
+build_metadata.AdditionalFiles.RelativePath = OdemeBilgileri.xaml
+
 [F:/repos/Lotus-Spor/Lotus Spor/OlcuEkle.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.OlcuEkle.xaml

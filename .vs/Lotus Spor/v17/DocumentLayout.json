@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "F:\\repos\\Lotus-Spor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\antrenoryonet.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\antrenoryonet.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\odemebilgileri.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\odemebilgileri.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\antrenoryonet.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\antrenoryonet.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\lessonmanagementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\lessonmanagementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\lessonmanagementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\lessonmanagementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\odemebilgileri.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\odemebilgileri.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,7 +17,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 792,
+          "DockedWidth": 711,
           "SelectedChildIndex": 3,
           "Children": [
             {
@@ -39,53 +31,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AntrenorYonet.xaml.cs",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\AntrenorYonet.xaml.cs",
-              "RelativeDocumentMoniker": "Lotus Spor\\AntrenorYonet.xaml.cs",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\AntrenorYonet.xaml.cs",
-              "RelativeToolTip": "Lotus Spor\\AntrenorYonet.xaml.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAcwF0AAAA1AAAAAAAAAA==",
+              "Title": "OdemeBilgileri.xaml.cs",
+              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\OdemeBilgileri.xaml.cs",
+              "RelativeDocumentMoniker": "Lotus Spor\\OdemeBilgileri.xaml.cs",
+              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\OdemeBilgileri.xaml.cs",
+              "RelativeToolTip": "Lotus Spor\\OdemeBilgileri.xaml.cs",
+              "ViewState": "AgIAACcBAAAAAAAAAAAAAD8BAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-20T11:39:23.656Z",
+              "WhenOpened": "2025-01-22T09:15:45.196Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AntrenorYonet.xaml",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\AntrenorYonet.xaml",
-              "RelativeDocumentMoniker": "Lotus Spor\\AntrenorYonet.xaml",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\AntrenorYonet.xaml",
-              "RelativeToolTip": "Lotus Spor\\AntrenorYonet.xaml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
+              "Title": "OdemeBilgileri.xaml",
+              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\OdemeBilgileri.xaml",
+              "RelativeDocumentMoniker": "Lotus Spor\\OdemeBilgileri.xaml",
+              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\OdemeBilgileri.xaml",
+              "RelativeToolTip": "Lotus Spor\\OdemeBilgileri.xaml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACkAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-20T11:38:17.374Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "LessonManagementPage.xaml",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml",
-              "RelativeDocumentMoniker": "Lotus Spor\\LessonManagementPage.xaml",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml",
-              "RelativeToolTip": "Lotus Spor\\LessonManagementPage.xaml",
-              "ViewState": "AgIAAJ8AAAAAAAAAAAAAAKoAAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-16T20:15:54.76Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LessonManagementPage.xaml.cs",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml.cs",
-              "RelativeDocumentMoniker": "Lotus Spor\\LessonManagementPage.xaml.cs",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml.cs",
-              "RelativeToolTip": "Lotus Spor\\LessonManagementPage.xaml.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAUwBQEAAB8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T20:14:20.255Z",
+              "WhenOpened": "2025-01-22T09:47:50.676Z",
               "EditorCaption": ""
             }
           ]
