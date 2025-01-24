@@ -34,7 +34,7 @@
                     SelectedIndexChanged="OnAntrenorChanged"
                     FontSize="16"
                     HorizontalOptions="FillAndExpand" />
-                <Label Text="Dönem Seçin" FontSize="16" />
+                <Label Text="Dönem Seçin" FontSize="16" IsVisible="False" />
                 <Picker x:Name="DonemPicker"
                     SelectedIndexChanged="OnDonemChanged"
                     FontSize="16"
@@ -57,6 +57,9 @@
 
                                     <Label Text="Dönem:" FontAttributes="Bold" />
                                     <Label Text="{Binding odeme_donemi}" />
+
+                                    <Label Text="Kayıt Tarihi:" FontAttributes="Bold" />
+                                    <Label Text="{Binding kayit_tarihi}" />
 
                                     <Label Text="Toplam Ödeme:" FontAttributes="Bold" />
                                     <Label Text="{Binding toplam_odeme}" />

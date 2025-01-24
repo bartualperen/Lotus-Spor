@@ -932,7 +932,7 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
 
         // Seçilen tarih ve saat
         DateTime selectedDate = DatePickerKayitTarihi.Date;
-        TimeSpan selectedTime = TimeSpan.Zero;
+        TimeSpan selectedTime = TimePickerTek.Time;
 
         if (AntrenorNameEntry.Text == string.Empty || NameEntry.Text == string.Empty)
         {

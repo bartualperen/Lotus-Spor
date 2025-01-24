@@ -350,12 +350,14 @@ public partial class OdemeBilgileri : ContentPage
                                 isim = reader["isim"].ToString(),
                                 soyisim = reader["soyisim"].ToString(),
                                 odeme_donemi = reader["odeme_donemi"].ToString(),
+                                kayit_tarihi = reader["kayit_tarihi"] != DBNull.Value
+                                ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy") : "Bilinmiyor",
                                 toplam_odeme = Convert.ToDecimal(reader["toplam_odeme"]),
                                 seans_ucreti = Convert.ToDecimal(reader["seans_ucreti"]),
                                 yapilan_ders = Convert.ToInt32(reader["yapilan_seans_sayisi"]),
                                 yapilmayan_ders = Convert.ToInt32(reader["yapilmayan_seans_sayisi"]),
                                 beklenen_ders = Convert.ToInt32(reader["beklemede_seans_sayisi"]),
-                                odeme_durumu = "beklemede" // Ödeme durumu örnek olarak sabitlenmiþtir
+                                odeme_durumu = "beklemede"
                             });
                         }
                     }
@@ -369,7 +371,15 @@ public partial class OdemeBilgileri : ContentPage
     }
     private void KaydetOdemeBilgileri()
     {
-        DisplayAlert("Baþarýlý", "Ödeme bilgileri kaydedildi!", "Tamam");
+        try
+        {
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
     }
 }
 public class OdemeModel
@@ -378,6 +388,7 @@ public class OdemeModel
     public string isim { get; set; }
     public string soyisim { get; set; }
     public string odeme_donemi { get; set; }
+    public string kayit_tarihi { get; set; }
     public decimal toplam_odeme { get; set; }
     public decimal seans_ucreti { get; set; }
     public string odeme_durumu { get; set; }
