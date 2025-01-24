@@ -1,5 +1,7 @@
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Lotus_Spor;
 
@@ -8,10 +10,12 @@ public partial class OdemeBilgileri : ContentPage
     List<string> isimListesi = new List<string>();
     List<string> isimListesi2 = new List<string>();
 
+    private string admin1 = ConnectionString.admin1, admin2 = ConnectionString.admin2;
+    string KullaniciAdi = Preferences.Get("LoggedInUser", string.Empty) + " " + Preferences.Get("LoggedInUser2", string.Empty);
+
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     public ObservableCollection<Kisi> Customers { get; set; }
     public ObservableCollection<OdemeModel> OdemeListesi { get; set; }
-    public Command KaydetCommand { get; set; }
     string searchName, antrenor, donem, customer;
     private int kullaniciId = -1;
     public OdemeBilgileri()
@@ -20,7 +24,6 @@ public partial class OdemeBilgileri : ContentPage
 
         OdemeListesi = new ObservableCollection<OdemeModel>();
         Customers = new ObservableCollection<Kisi>();
-        KaydetCommand = new Command(KaydetOdemeBilgileri);
         ResultsCollectionView.ItemsSource = filteredList;
         kisilistele();
         kisilistele1();
@@ -28,7 +31,19 @@ public partial class OdemeBilgileri : ContentPage
         isimListesi2.Insert(0, "Tümü");
         AntrenorPicker.ItemsSource = isimListesi2;
         CustomerListView.ItemsSource = Customers;
-        AntrenorPicker.SelectedIndex = AntrenorPicker.Items.IndexOf("Tümü");
+        
+        if (KullaniciAdi == admin1 || KullaniciAdi == admin2)
+        {
+            AntrenorPicker.IsVisible = true;
+            lblAntrenorPicker.IsVisible = true;
+            AntrenorPicker.SelectedIndex = AntrenorPicker.Items.IndexOf("Tümü");
+        }
+        else if (KullaniciAdi != admin1 || KullaniciAdi != admin2)
+        {
+
+            AntrenorPicker.SelectedIndex = AntrenorPicker.Items.IndexOf(KullaniciAdi);
+        }
+        SaveOdemeBilgileri();
 
         BindingContext = this;
     }
@@ -131,6 +146,7 @@ public partial class OdemeBilgileri : ContentPage
                     {
                         command.Parameters.AddWithValue("@searchName", "%" + searchName + "%");
                     }
+
                     if (AntrenorPicker.SelectedItem != null && AntrenorPicker.SelectedItem.ToString() != "Tümü")
                     {
                         command.Parameters.AddWithValue("@antrenor", AntrenorPicker.SelectedItem.ToString());
@@ -163,6 +179,7 @@ public partial class OdemeBilgileri : ContentPage
     private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
         string searchText = e.NewTextValue?.ToLower() ?? string.Empty;
+        CustomerListView.IsVisible = false;
 
         if (string.IsNullOrWhiteSpace(searchText))
         {
@@ -170,7 +187,6 @@ public partial class OdemeBilgileri : ContentPage
             OdemeListesiView.IsVisible = false;
             CustomerListView.IsVisible = true;
             ListeleButton.IsVisible = false;
-            KaydetButton.IsVisible = false;
             filteredList.Clear();
             return;
         }
@@ -189,7 +205,6 @@ public partial class OdemeBilgileri : ContentPage
 
         ResultsCollectionView.IsVisible = filteredList.Count > 0;
         antrenor = AntrenorPicker.SelectedItem?.ToString();
-
         searchName = SearchEntry.Text;
     }
     private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -203,7 +218,6 @@ public partial class OdemeBilgileri : ContentPage
                 SearchEntry.Text = selectedName;
                 ResultsCollectionView.IsVisible = false;
                 OdemeListesiView.IsVisible = true;
-                KaydetButton.IsVisible = true;
                 CustomerListView.IsVisible = false;
                 ListeleButton.IsVisible = true;
                 GetKullaniciId(selectedName);
@@ -235,7 +249,6 @@ public partial class OdemeBilgileri : ContentPage
 
             OdemeListesiView.IsVisible = true;
             CustomerListView.IsVisible = false;
-            KaydetButton.IsVisible = true;
             ListeleButton.IsVisible = true;
 
             LoadOdemeBilgileri(customer, antrenor);
@@ -287,44 +300,72 @@ public partial class OdemeBilgileri : ContentPage
     {
         CustomerListView.IsVisible = true;
         OdemeListesiView.IsVisible = false;
-        KaydetButton.IsVisible = false;
         ListeleButton.IsVisible = false;
     }
-    private async void LoadOdemeBilgileri(string searchName = "", string antrenor = "")
+    private async void SaveOdemeBilgileri()
     {
-        string query = @"SELECT 
-                m.id AS musteri_id,
-                m.isim,
-                m.soyisim,
-                m.kayit_tarihi,
-                m.seans_ucreti,
-                m.seans_gunleri,
-                DATE_FORMAT(DATE_ADD(m.kayit_tarihi, INTERVAL (TIMESTAMPDIFF(MONTH, m.kayit_tarihi, s.tarih)) MONTH), '%Y-%m') AS odeme_donemi,
-                COUNT(CASE WHEN s.durum = 'yapýldý' THEN s.id END) AS yapilan_seans_sayisi,
-                COUNT(CASE WHEN s.durum = 'yapýlmadý' THEN s.id END) AS yapilmayan_seans_sayisi,
-                COUNT(CASE WHEN s.durum = 'beklemede' THEN s.id END) AS beklemede_seans_sayisi,
-                (LENGTH(m.seans_gunleri) - LENGTH(REPLACE(m.seans_gunleri, ',', '')) + 1) * 4 AS planlanan_aylik_seans_sayisi, -- Haftalýk günlerin sayýsý x 4 (aylýk)
-                ROUND(
-                    (m.seans_ucreti * COUNT(CASE WHEN s.durum = 'yapýldý' THEN s.id END)) /
-                    GREATEST((LENGTH(m.seans_gunleri) - LENGTH(REPLACE(m.seans_gunleri, ',', '')) + 1) * 4, 1),
-                    2
-                ) AS toplam_odeme,
-                s.antrenor
-            FROM 
-                musteriler AS m
-            LEFT JOIN 
-                seanslar AS s
-            ON 
-                m.id = s.musteri_id
-            WHERE 
-                s.tarih <= NOW()
-                AND (@antrenor = 'Tümü' OR s.antrenor = @antrenor)
-                AND CONCAT(m.isim, ' ', m.soyisim) LIKE @searchName
-            GROUP BY 
-                m.id, odeme_donemi, s.antrenor
-            ORDER BY 
-                m.id, odeme_donemi;";
-
+        string insertQuery = @"
+               SET sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));
+               REPLACE INTO odeme_bilgileri (
+                   musteri_id,
+                   isim,
+                   soyisim,
+                   kayit_tarihi,
+                   seans_ucreti,
+                   seans_gunleri,
+                   odeme_donemi,
+                   yapilan_seans_sayisi,
+                   yapilmayan_seans_sayisi,
+                   beklemede_seans_sayisi,
+                   planlanan_aylik_seans_sayisi,
+                   toplam_odeme,
+                   antrenor,
+                   odeme_durumu
+               )
+               SELECT 
+                   m.id AS musteri_id,
+                   m.isim,
+                   m.soyisim,
+                   m.kayit_tarihi,
+                   m.seans_ucreti,
+                   m.seans_gunleri,
+                   DATE_FORMAT(DATE_ADD(m.kayit_tarihi, INTERVAL (TIMESTAMPDIFF(MONTH, m.kayit_tarihi, s.tarih)) MONTH), '%Y-%m') AS odeme_donemi,
+                   COUNT(CASE WHEN s.durum = 'yapýldý' THEN s.id END) AS yapilan_seans_sayisi,
+                   COUNT(CASE WHEN s.durum = 'yapýlmadý' THEN s.id END) AS yapilmayan_seans_sayisi,
+                   COUNT(CASE WHEN s.durum = 'beklemede' THEN s.id END) AS beklemede_seans_sayisi,
+                   (LENGTH(m.seans_gunleri) - LENGTH(REPLACE(m.seans_gunleri, ',', '')) + 1) * 4 AS planlanan_aylik_seans_sayisi,
+                   ROUND(
+                       (m.seans_ucreti * COUNT(CASE WHEN s.durum = 'yapýldý' THEN s.id END)) / 
+                       GREATEST((LENGTH(m.seans_gunleri) - LENGTH(REPLACE(m.seans_gunleri, ',', '')) + 1) * 4, 1),
+                       2
+                   ) AS toplam_odeme,
+                   s.antrenor,
+                   CASE
+                       WHEN EXISTS (
+                           SELECT 1 
+                           FROM odeme_bilgileri ob 
+                           WHERE ob.musteri_id = m.id 
+                             AND ob.odeme_donemi = DATE_FORMAT(DATE_ADD(m.kayit_tarihi, INTERVAL (TIMESTAMPDIFF(MONTH, m.kayit_tarihi, s.tarih)) MONTH), '%Y-%m')
+                             AND ob.odeme_durumu != 'Ödenmedi'
+                       ) THEN (
+                           SELECT ob.odeme_durumu
+                           FROM odeme_bilgileri ob
+                           WHERE ob.musteri_id = m.id 
+                             AND ob.odeme_donemi = DATE_FORMAT(DATE_ADD(m.kayit_tarihi, INTERVAL (TIMESTAMPDIFF(MONTH, m.kayit_tarihi, s.tarih)) MONTH), '%Y-%m')
+                       )
+                       ELSE 'Ödenmedi'
+                   END AS odeme_durumu
+               FROM 
+                   musteriler AS m
+               LEFT JOIN 
+                   seanslar AS s
+               ON 
+                   m.id = s.musteri_id
+               WHERE 
+                   s.tarih <= NOW()
+               GROUP BY 
+                   m.id, odeme_donemi, s.antrenor;
+        ";
 
         try
         {
@@ -332,32 +373,73 @@ public partial class OdemeBilgileri : ContentPage
             {
                 await connection.OpenAsync();
 
-                using (var command = new MySqlCommand(query, connection))
+                using (var command = new MySqlCommand(insertQuery, connection))
                 {
-                    // Antrenör ve isim parametrelerini ekle
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", "An error occurred while saving payment data: " + ex.Message, "OK");
+        }
+
+    }
+    private async void LoadOdemeBilgileri(string searchName = "", string antrenor = "")
+    {
+        string selectQuery = @"
+            SELECT 
+                musteri_id,
+                isim,
+                soyisim,
+                kayit_tarihi,
+                seans_ucreti,
+                odeme_donemi,
+                toplam_odeme,
+                yapilan_seans_sayisi,
+                yapilmayan_seans_sayisi,
+                beklemede_seans_sayisi,
+                antrenor,
+                odeme_durumu
+            FROM odeme_bilgileri
+            WHERE 
+                (@antrenor = 'Tümü' OR antrenor = @antrenor)
+                AND CONCAT(isim, ' ', soyisim) LIKE @searchName
+            ORDER BY odeme_donemi DESC;
+        ";
+
+        try
+        {
+            using (MySqlConnection connection = Database.GetConnection())
+            {
+                await connection.OpenAsync();
+
+                using (var command = new MySqlCommand(selectQuery, connection))
+                {
                     command.Parameters.AddWithValue("@antrenor", antrenor);
                     command.Parameters.AddWithValue("@searchName", string.IsNullOrEmpty(searchName) ? "" : $"%{searchName}%");
 
-                    using (var reader = command.ExecuteReader())
+                    using (var reader = await command.ExecuteReaderAsync())
                     {
                         OdemeListesi.Clear(); // Mevcut listeyi temizle
 
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
                             OdemeListesi.Add(new OdemeModel
                             {
                                 musteri_id = Convert.ToInt32(reader["musteri_id"]),
                                 isim = reader["isim"].ToString(),
                                 soyisim = reader["soyisim"].ToString(),
+                                antrenor = reader["antrenor"].ToString(),
                                 odeme_donemi = reader["odeme_donemi"].ToString(),
                                 kayit_tarihi = reader["kayit_tarihi"] != DBNull.Value
-                                ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy") : "Bilinmiyor",
+                                    ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy") : "Bilinmiyor",
                                 toplam_odeme = Convert.ToDecimal(reader["toplam_odeme"]),
                                 seans_ucreti = Convert.ToDecimal(reader["seans_ucreti"]),
                                 yapilan_ders = Convert.ToInt32(reader["yapilan_seans_sayisi"]),
                                 yapilmayan_ders = Convert.ToInt32(reader["yapilmayan_seans_sayisi"]),
                                 beklenen_ders = Convert.ToInt32(reader["beklemede_seans_sayisi"]),
-                                odeme_durumu = "beklemede"
+                                odeme_durumu = reader["odeme_durumu"].ToString()
                             });
                         }
                     }
@@ -366,27 +448,86 @@ public partial class OdemeBilgileri : ContentPage
         }
         catch (Exception ex)
         {
-            DisplayAlert("Error", "An error occurred while loading payment information: " + ex.Message, "OK");
+            await DisplayAlert("Error", "An error occurred while loading payment information: " + ex.Message, "OK");
         }
+
     }
-    private void KaydetOdemeBilgileri()
+    private async void OnOdemeYapildiClicked(object sender, EventArgs e)
     {
-        try
+        if (sender is Button button && button.BindingContext is OdemeModel odemeModel)
         {
+            try
+            {
+                // OdemeModel'den alýnan verileri kullanarak iþlemleri gerçekleþtirin
+                using (MySqlConnection connection = Database.GetConnection())
+                {
+                    await connection.OpenAsync();
 
+                    string query = @"
+                    UPDATE odeme_bilgileri 
+                    SET odeme_durumu = 'Ödendi' 
+                    WHERE musteri_id = @musteri_id AND odeme_donemi = @odeme_donemi";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@musteri_id", odemeModel.musteri_id);
+                        command.Parameters.AddWithValue("@odeme_donemi", odemeModel.odeme_donemi);
+
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                        if (rowsAffected > 0)
+                        {
+                            // Baþarýlý mesajý
+                            await DisplayAlert("Baþarýlý",
+                                $"{odemeModel.isim} {odemeModel.soyisim} için ödeme durumu güncellendi.",
+                                "Tamam");
+
+                            // UI güncelleme
+                            odemeModel.odeme_durumu = "Ödendi";
+                            ReloadPage();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Hata", "Kayýt bulunamadý.", "Tamam");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Hata", $"Bir hata oluþtu: {ex.Message}", "Tamam");
+            }
         }
-        catch (Exception)
+        else
         {
-
-            throw;
+            await DisplayAlert("Hata", "Baðlý bir ödeme modeli bulunamadý.", "Tamam");
         }
     }
+    private async void ReloadPage()
+    {
+        // Mevcut sayfayý kaldýrýp tekrar yüklemek
+        var currentPage = this;
+        var parent = currentPage.Parent;
+
+        if (parent is NavigationPage navigationPage)
+        {
+            // Sayfayý kaldýr ve tekrar yükle
+            navigationPage.Navigation.RemovePage(currentPage);
+            await navigationPage.Navigation.PushAsync(new OdemeBilgileri());
+        }
+        else
+        {
+            // Diðer durumlar için sayfayý yenilemek için uygun bir yöntem seçin
+        }
+    }
+
 }
 public class OdemeModel
 {
     public int musteri_id { get; set; }
     public string isim { get; set; }
     public string soyisim { get; set; }
+    public string antrenor { get; set; }
     public string odeme_donemi { get; set; }
     public string kayit_tarihi { get; set; }
     public decimal toplam_odeme { get; set; }

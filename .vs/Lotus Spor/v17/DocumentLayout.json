@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "F:\\repos\\Lotus-Spor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\odemebilgileri.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\odemebilgileri.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\odemebilgileri.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\odemebilgileri.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\uyelistesi.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\uyelistesi.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\odemebilgileri.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\odemebilgileri.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\adminpanelpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\adminpanelpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 711,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -35,38 +35,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UyeListesi.xaml.cs",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml.cs",
-              "RelativeDocumentMoniker": "Lotus Spor\\UyeListesi.xaml.cs",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml.cs",
-              "RelativeToolTip": "Lotus Spor\\UyeListesi.xaml.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwDEAAABYAAAAAAAAAA==",
+              "Title": "AdminPanelPage.xaml.cs",
+              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\AdminPanelPage.xaml.cs",
+              "RelativeDocumentMoniker": "Lotus Spor\\AdminPanelPage.xaml.cs",
+              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\AdminPanelPage.xaml.cs",
+              "RelativeToolTip": "Lotus Spor\\AdminPanelPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T13:25:21.322Z",
+              "WhenOpened": "2025-01-24T17:39:16.981Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "OdemeBilgileri.xaml.cs",
               "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\OdemeBilgileri.xaml.cs",
               "RelativeDocumentMoniker": "Lotus Spor\\OdemeBilgileri.xaml.cs",
               "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\OdemeBilgileri.xaml.cs",
               "RelativeToolTip": "Lotus Spor\\OdemeBilgileri.xaml.cs",
-              "ViewState": "AgIAAEgBAAAAAAAAAAAAAGEBAABzAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAiwC0AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-22T09:15:45.196Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "OdemeBilgileri.xaml",
               "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\OdemeBilgileri.xaml",
               "RelativeDocumentMoniker": "Lotus Spor\\OdemeBilgileri.xaml",
               "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\OdemeBilgileri.xaml",
               "RelativeToolTip": "Lotus Spor\\OdemeBilgileri.xaml",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAACQAAABJAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACYAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-01-22T09:47:50.676Z",
               "EditorCaption": ""
