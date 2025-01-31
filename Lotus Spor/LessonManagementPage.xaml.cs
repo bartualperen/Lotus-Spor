@@ -804,7 +804,39 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
 
         Dictionary<string, TimeSpan> seansSaatleri = new Dictionary<string, TimeSpan>();
         List<DateTime> seansDönemTarihler = new List<DateTime>();
-        DateTime today = DateTime.Today;
+        //DateTime today = DateTime.Today;
+        DateTime today;
+        try
+        {
+            using (MySqlConnection connection = Database.GetConnection())
+            {
+                await connection.OpenAsync();
+
+                // Müþteri kayýt tarihini alacak sorgu
+                string kayitTarihiQuery = "SELECT kayit_tarihi FROM musteriler WHERE id = @musteri_id LIMIT 1";
+
+                using (MySqlCommand command = new MySqlCommand(kayitTarihiQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@musteri_id", kullaniciId); // Kullanýcý ID'si
+
+                    object result = await command.ExecuteScalarAsync();
+                    if (result != null && DateTime.TryParse(result.ToString(), out DateTime kayitTarihi))
+                    {
+                        today = kayitTarihi; // Veritabanýndan alýnan kayýt tarihi
+                    }
+                    else
+                    {
+                        await DisplayAlert("Hata", "Seçilen müþteri için kayýt tarihi bulunamadý.", "Tamam");
+                        return;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Veritabaný Hatasý", ex.Message, "Tamam");
+            return;
+        }
         DateTime endDate = today.AddMonths(12);
 
         foreach (string gun in secilenGunler)
