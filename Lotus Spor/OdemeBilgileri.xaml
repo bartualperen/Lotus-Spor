@@ -59,7 +59,7 @@
                                 Margin="10,20,20,10">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame Margin="10,20,20,10" Padding="10" BorderColor="Gray">
+                            <Frame Margin="10,5,20,10" Padding="10" BorderColor="Gray">
                                 <HorizontalStackLayout>
                                     <VerticalStackLayout>
                                         <Label Text="{Binding musteri_adi}" FontAttributes="Bold" />
