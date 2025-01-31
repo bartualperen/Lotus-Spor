@@ -124,6 +124,9 @@
 	  <MauiXaml Update="AdminPanelPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="AntrenorOdemeleri.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="AntrenorYonet.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

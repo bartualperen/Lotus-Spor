@@ -8,10 +8,6 @@ public partial class OlcuEkle : ContentPage
     List<string> isimListesi = new List<string>();
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     private int kullaniciId = -1;
-    public class Kisi
-    {
-        public string Name { get; set; }
-    }
     public OlcuEkle()
 	{
 		InitializeComponent();

@@ -16,16 +16,7 @@ public partial class UyeEkle : ContentPage
     private int kullaniciId = int.Parse(Preferences.Get("LoggedInUserId", "0"));
     private string kullaniciAdi = Preferences.Get("LoggedInUser", string.Empty) + " " + Preferences.Get("LoggedInUser2", string.Empty);
     public string grupders;
-    public class Kisi
-    {
-        public string Name { get; set; }
-    }
-    public class DoluSeans
-    {
-        public string Gun { get; set; }
-        public string BaslangicSaat { get; set; }
-        public string HizmetTuru { get; set; }
-    }
+
     public UyeEkle()
 	{
 		InitializeComponent();

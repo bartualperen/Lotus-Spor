@@ -12,6 +12,7 @@ public partial class AdminPanelPage : ContentPage
         if (antrenor == admin1 || antrenor == admin2)
         {
             AntrenorYonet.IsVisible = true;
+            AntrenorOdemeleri.IsVisible = true;
         }
 	}
     private async void OnClickedLogOut(Object sender, EventArgs e)
@@ -35,6 +36,10 @@ public partial class AdminPanelPage : ContentPage
     private async void OnDuyuruYap(Object sender, EventArgs e)
     {
         await Application.Current.MainPage.Navigation.PushAsync(new DuyuruYap());
+    }
+    private async void OnAntrenorOdemeleri(Object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new AntrenorOdemeleri());
     }
     private async void OnAntrenorYonet(Object sender, EventArgs e)
     {

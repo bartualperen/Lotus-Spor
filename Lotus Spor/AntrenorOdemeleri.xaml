@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lotus_Spor.AntrenorOdemeleri"
+             Title="Antrenör Ödemeleri">
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+            <VerticalStackLayout Padding="10">
+
+                <Label Text="Müşteri Ödeme Bilgileri" 
+                        FontSize="24"
+                        HorizontalOptions="Center"
+                        Margin="0,0,0,10" />
+                <Label Text="Kişi Adı Ara" FontSize="16" />
+                <Entry x:Name="SearchEntry"
+                       Placeholder="İsim girin..."
+                       TextChanged="OnSearchTextChanged"
+                       FontSize="16"
+                       HorizontalOptions="FillAndExpand" />
+
+                <CollectionView x:Name="ResultsCollectionView"
+                                IsVisible="False"
+                                SelectionMode="Single"
+                                SelectionChanged="OnSelectionChanged">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding}" Padding="10" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Label IsVisible="False" x:Name="lblAntrenorPicker" Text="Antrenör Seçin" FontSize="16" />
+
+                <Picker x:Name="AntrenorPicker"
+                        SelectedIndexChanged="OnAntrenorChanged"
+                        FontSize="16"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="False" />
+
+                <Label Text="Dönem Seçin" FontSize="16" IsVisible="False" />
+
+                <Picker x:Name="DonemPicker"
+                        SelectedIndexChanged="OnDonemChanged"
+                        FontSize="16"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="False"/>
+
+                <CollectionView x:Name="OdemeListesiView"
+                                ItemsSource="{Binding OdemeListesi}"
+                                IsVisible="False">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="5" Padding="10" BorderColor="LightGray">
+                                <VerticalStackLayout>
+
+                                    <Label Text="Adı:" FontAttributes="Bold" />
+                                    <Label Text="{Binding isim}" />
+
+                                    <Label Text="Soyadı:" FontAttributes="Bold" />
+                                    <Label Text="{Binding soyisim}" />
+
+                                    <Label Text="Antrenör:" FontAttributes="Bold" />
+                                    <Label Text="{Binding antrenor}" />
+
+                                    <Label Text="Dönem:" FontAttributes="Bold" />
+                                    <Label Text="{Binding odeme_donemi}" />
+
+                                    <Label Text="Kayıt Tarihi:" FontAttributes="Bold" />
+                                    <Label Text="{Binding kayit_tarihi}" />
+
+                                    <Label Text="Aylık Ücret:" FontAttributes="Bold" />
+                                    <Label Text="{Binding seans_ucreti}" />
+
+                                    <Label Text="Ödenecek Tutar:" FontAttributes="Bold" />
+                                    <Label Text="{Binding toplam_odeme}" />
+
+                                    <Label Text="Ödeme Durumu:" FontAttributes="Bold" />
+                                    <Label Text="{Binding odeme_durumu}" />
+
+                                    <Label Text="Yapılan Ders Sayısı:" FontAttributes="Bold" />
+                                    <Label Text="{Binding yapilan_ders}" />
+
+                                    <!--<Label Text="Yapılmayan Ders Sayısı:" FontAttributes="Bold" />
+                                    <Label Text="{Binding yapilmayan_ders}" />
+
+                                    <Label Text="Beklemede Olan Ders Sayısı:" FontAttributes="Bold" />
+                                    <Label Text="{Binding beklenen_ders}" />-->
+                                    <Button Text="Ödendi Olarak İşaretle" 
+                                            Clicked="OnOdemeYapildiClicked"
+                                            BindingContext="{Binding}"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <ListView x:Name="CustomerListView"
+                  ItemSelected="OnItemSelected"
+                  CachingStrategy="RecycleElement">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Text="Üyeleri Listele"
+                        x:Name="ListeleButton"
+                        Clicked="OnListeleClicked"
+                        HorizontalOptions="Center"
+                        Margin="0,20,0,0"
+                        IsVisible="False"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

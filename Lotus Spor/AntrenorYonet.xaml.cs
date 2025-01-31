@@ -9,10 +9,6 @@ public partial class AntrenorYonet : ContentPage
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     public ObservableCollection<Customer> Customers { get; set; }
     public string selectedÝsim;
-    public class Kisi
-    {
-        public string Name { get; set; }
-    }
     public AntrenorYonet()
     {
         InitializeComponent();
@@ -238,9 +234,5 @@ public partial class AntrenorYonet : ContentPage
             // Düzenlenmiþ metni tekrar Entry'ye yaz
             NameEntry.Text = string.Join(" ", words);
         }
-    }
-    public class Customer
-    {
-        public string FullName { get; set; }
     }
 }

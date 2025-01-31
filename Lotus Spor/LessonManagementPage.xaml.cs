@@ -35,10 +35,6 @@ public partial class LessonManagementPage : ContentPage
     public ObservableCollection<Lesson> Lessons { get; set; } = new ObservableCollection<Lesson>();
     private int kullaniciId = -1;
     private int kullaniciId1 = -1;
-    public class Kisi
-    {
-        public string Name { get; set; }
-    }
     public LessonManagementPage()
 	{
 		InitializeComponent();
@@ -1414,14 +1410,5 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
         {
             await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
-    }
-    public class Lesson
-    {
-        public string Day { get; set; }
-        public string Time { get; set; }
-        public string Status { get; set; }
-        public string Type { get; set; }
-        public string Client { get; set; }
-        public string Grup {  get; set; }
     }
 }

@@ -10,10 +10,6 @@ public partial class UyeListesi : ContentPage
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     public ObservableCollection<Customer> Customers { get; set; }
 
-    public class Kisi
-    {
-        public string Name { get; set; }
-    }
     public UyeListesi()
 	{
 		InitializeComponent();
@@ -258,15 +254,5 @@ public partial class UyeListesi : ContentPage
             ucretentry.Text = selectedCustomer.Ucret.ToString();
             telefonentry.Text = selectedCustomer.Telefon;
         }
-    }
-    public class Customer
-    {
-        public int ID { get; set; }
-        public string FullName { get; set; }
-        public string AdditionalInfo { get; set; }
-        public string Notlar { get; set; }
-        public string Telefon { get; set; }
-        public string KayitTarihi { get; set; }
-        public int Ucret {  get; set; }
     }
 }
