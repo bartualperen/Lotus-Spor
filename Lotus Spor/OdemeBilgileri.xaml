@@ -8,18 +8,32 @@
         <ScrollView>
             <VerticalStackLayout Padding="10">
 
-                <Label Text="Müşteri Ödeme Bilgileri" 
+                <Label Text="Müşteri Ödeme Bilgileri"
                        FontSize="24" 
                        HorizontalOptions="Center"
                        Margin="0,0,0,10" />
 
-                <Label Text="Kişi Adı Ara" FontSize="16" Margin="10,20,20,0" />
-                <Entry x:Name="SearchEntry"
-                       Placeholder="İsim girin..."
-                       TextChanged="OnSearchTextChanged"
-                       FontSize="16"
-                       HorizontalOptions="FillAndExpand"
-                       Margin="10,5,20,10"/>
+                <Label Text="Kişi Adı Ara" x:Name="lblSearchEntry" FontSize="16" Margin="10,20,20,0" />
+                <StackLayout Orientation="Horizontal" Margin="10,5,20,10">
+                    <Entry x:Name="SearchEntry"
+                           Placeholder="İsim girin..."
+                           TextChanged="OnSearchTextChanged"
+                           FontSize="16"
+                           HorizontalOptions="FillAndExpand" />
+
+                    <Button Text="×" 
+                            x:Name="btnClear"
+                            TextColor="Red"
+                            WidthRequest="40" 
+                            HeightRequest="40"
+                            BackgroundColor="Transparent"
+                            Clicked="OnClearButtonClicked"
+                            VerticalOptions="Center"
+                            BorderColor="Red"
+                            BorderWidth="1"
+                            CornerRadius="20"
+                            IsVisible="False"/>
+                </StackLayout>
 
                 <CollectionView x:Name="ResultsCollectionView"
                                 IsVisible="False"
@@ -32,14 +46,15 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <Label Text="Dönem Seçin" FontSize="16" Margin="10,20,20,0" />
+
+                <Label Text="Dönem Seçin" x:Name="lblDonemPicker" FontSize="16" Margin="10,20,20,0" />
                 <Picker x:Name="DonemPicker" 
                         SelectedIndexChanged="OnFilterChanged"
                         Margin="10,5,20,10"
                         FontSize="16">
                 </Picker>
 
-                <Label Text="Ödeme Durumu" FontSize="16" Margin="10,20,20,0" />
+                <Label Text="Ödeme Durumu" x:Name="lblOdemeDurumuPicker" FontSize="16" Margin="10,20,20,0" />
                 <Picker x:Name="OdemeDurumuPicker"
                         SelectedIndexChanged="OnFilterChanged"
                         Margin="10,5,20,10"
@@ -56,10 +71,11 @@
                                 ItemsSource="{Binding MusteriListesi}"
                                 SelectionMode="Single"
                                 SelectionChanged="OnCustomerSelected"
-                                Margin="10,20,20,10">
+                                Margin="10,20,20,10"
+                                ZIndex="10">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame Margin="10,5,20,10" Padding="10" BorderColor="Gray">
+                            <Frame Margin="10,5,20,10" Padding="10" BorderColor="Gray" InputTransparent="True">
                                 <HorizontalStackLayout>
                                     <VerticalStackLayout>
                                         <Label Text="{Binding musteri_adi}" FontAttributes="Bold" />
@@ -72,6 +88,14 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button x:Name="btnBas" Margin="0,0,10,0" Text="Başa Dön" Clicked="OnReturnToStart" IsEnabled="{Binding IsPreviousEnabled}" />
+                    <Button x:Name="btnOnceki" Margin="0,0,10,0" Text="Önceki" Clicked="OnPreviousPageClicked" IsEnabled="{Binding IsPreviousEnabled}" />
+                    <Label x:Name="SayfaButtons" Text="{Binding CurrentPage, StringFormat='Sayfa {0}'}" VerticalTextAlignment="Center" />
+                    <Button x:Name="btnSonraki" Text="Sonraki" Clicked="OnNextPageClicked" IsEnabled="{Binding IsNextEnabled}" />
+                </StackLayout>
+
 
 
                 <!-- Seçili Müşteri Paneli -->

@@ -8,20 +8,25 @@ public partial class UyeListesi : ContentPage
 {
     List<string> isimListesi = new List<string>();
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
-    public ObservableCollection<Customer> Customers { get; set; }
+    public ObservableCollection<Customer> AktifCustomers { get; set; }
+    public ObservableCollection<Customer> PasifCustomers { get; set; }
 
     public UyeListesi()
-	{
-		InitializeComponent();
-        Customers = new ObservableCollection<Customer>();
-        CustomerListView.ItemsSource = Customers;
+    {
+        InitializeComponent();
+        AktifCustomers = new ObservableCollection<Customer>();
+        PasifCustomers = new ObservableCollection<Customer>();
 
-        // Load data from database
+        AktifCustomerListView.ItemsSource = AktifCustomers;
+        PasifCustomerListView.ItemsSource = PasifCustomers;
+
+        // Veritabanýndan verileri yükle
         LoadCustomers();
     }
+
     private async void LoadCustomers()
     {
-        string query = "SELECT id, isim, soyisim, hizmet_turu, seans_ucreti, notlar, telefon, kayit_tarihi FROM musteriler ORDER BY isim ASC";
+        string query = "SELECT id, isim, soyisim, hizmet_turu, seans_ucreti, notlar, telefon, kayit_tarihi, aktiflik FROM musteriler ORDER BY isim ASC";
 
         try
         {
@@ -33,11 +38,12 @@ public partial class UyeListesi : ContentPage
                 {
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        Customers.Clear();
+                        AktifCustomers.Clear();
+                        PasifCustomers.Clear();
 
                         while (await reader.ReadAsync())
                         {
-                            Customers.Add(new Customer
+                            var customer = new Customer
                             {
                                 ID = Convert.ToInt32(reader["id"]),
                                 FullName = $"{reader["isim"]} {reader["soyisim"]}",
@@ -45,20 +51,36 @@ public partial class UyeListesi : ContentPage
                                 Notlar = reader["notlar"]?.ToString() ?? "Bilinmiyor",
                                 Telefon = reader["telefon"]?.ToString() ?? "Bilinmiyor",
                                 KayitTarihi = reader["kayit_tarihi"] != DBNull.Value
-                                ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy") : "Bilinmiyor",
-                                Ucret = Convert.ToInt32((reader["seans_ucreti"]))
-                            });
+                                    ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy")
+                                    : "Bilinmiyor",
+                                Ucret = Convert.ToInt32(reader["seans_ucreti"]),
+                                Aktiflik = reader["aktiflik"].ToString()
+                            };
+
+                            // Müþteriyi Aktif veya Pasif listesine ekleyelim
+                            if (customer.Aktiflik == "Aktif")
+                            {
+                                AktifCustomers.Add(customer);
+                            }
+                            else if (customer.Aktiflik == "Pasif")
+                            {
+                                PasifCustomers.Add(customer);
+                            }
                         }
                     }
                 }
             }
-            TotalMembersLabel.Text = $"Toplam Üye Sayýsý: {Customers.Count}";
+
+            TotalMembersLabel.Text = $"Toplam Üye Sayýsý: {AktifCustomers.Count + PasifCustomers.Count}";
+            TotalActiveMembersLabel.Text = $"Toplam Aktif Üye Sayýsý: {AktifCustomers.Count}";
+            TotalPasiveMembersLabel.Text = $"Toplam Pasif Üye Sayýsý: { PasifCustomers.Count}";
         }
         catch (Exception ex)
         {
             await DisplayAlert("Hata", $"Müþteri verileri yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
     }
+
     private async void OnPhoneEntryTextChanged(object sender, TextChangedEventArgs e)
     {
         // Sadece sayýlarý filtrele
@@ -85,25 +107,50 @@ public partial class UyeListesi : ContentPage
     }
     private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
+        if (!string.IsNullOrEmpty(SearchEntry.Text))
+        {
+            btnClear.IsVisible = true;
+        }
+        else if (string.IsNullOrEmpty(SearchEntry.Text))
+        {
+            btnClear.IsVisible = false;
+        }
         string searchQuery = e.NewTextValue?.ToLower() ?? string.Empty;
-        CustomerListView.ItemsSource = string.IsNullOrEmpty(searchQuery)
-            ? Customers
+        AktifCustomerListView.ItemsSource = string.IsNullOrEmpty(searchQuery)
+            ? AktifCustomers
             : new ObservableCollection<Customer>(
-                Customers.Where(c => c.FullName.ToLower().Contains(searchQuery)));
+                AktifCustomers.Where(c => c.FullName.ToLower().Contains(searchQuery)));
+        PasifCustomerListView.ItemsSource = string.IsNullOrEmpty(searchQuery)
+            ? PasifCustomers
+            : new ObservableCollection<Customer>(
+                PasifCustomers.Where(c => c.FullName.ToLower().Contains(searchQuery)));
     }
     private void OnCancelEditClicked(object sender, EventArgs e)
     {
-        CustomerListView.IsVisible = true;
+        AktifCustomerListView.IsVisible = true;
+        PasifCustomerListView.IsVisible = true;
         EditPanel.IsVisible = false;
+        SearchEntry.IsVisible = true;
+        lblSearchEntry.IsVisible = true;
+        if (!string.IsNullOrEmpty(SearchEntry.Text))
+        {
+            btnClear.IsVisible = true;
+        }
+        else if (string.IsNullOrEmpty(SearchEntry.Text))
+        {
+            btnClear.IsVisible = false;
+        }
 
         // Liste öðesinin seçilmesini kaldýrýyoruz
-        CustomerListView.SelectedItem = null;
+        AktifCustomerListView.SelectedItem = null;
+        PasifCustomerListView.SelectedItem = null;
     }
     private async void OnSaveEditClicked(object sender, EventArgs e)
     {
         // EditPanel'deki müþteri bilgilerini alýyoruz
         string fullName = isimentry.Text;
         string seansTur = SeansPicker.SelectedItem.ToString();
+        string aktiflik = AktiflikPicker.SelectedItem.ToString();
         string notlar = notentry.Text;
         decimal ucret = decimal.Parse(ucretentry.Text);
         string telefon = telefonentry.Text;
@@ -123,8 +170,17 @@ public partial class UyeListesi : ContentPage
             return;
         }
 
-        // Seçilen müþteriyi alýyoruz. (ListView'deki seçilen öðe)
-        var selectedCustomer = CustomerListView.SelectedItem as Customer; // Burada Customer, müþteri verilerinin olduðu sýnýf adý
+        // Seçilen müþteriyi alýyoruz (Aktif veya Pasif müþteri listelerinden)
+        Customer selectedCustomer = null;
+
+        if (AktifCustomerListView.SelectedItem is Customer aktifCustomer)
+        {
+            selectedCustomer = aktifCustomer;
+        }
+        else if (PasifCustomerListView.SelectedItem is Customer pasifCustomer)
+        {
+            selectedCustomer = pasifCustomer;
+        }
 
         if (selectedCustomer == null)
         {
@@ -136,19 +192,20 @@ public partial class UyeListesi : ContentPage
 
         // Veritabaný baðlantýsý ve güncelleme sorgusu
         string query = @"
-                UPDATE musteriler 
-                SET 
-                    isim = @isim, 
-                    soyisim = @soyisim, 
-                    telefon = @telefon, 
-                    hizmet_turu = @seans_turu, 
-                    notlar = @notlar, 
-                    seans_ucreti = @ucret
-                WHERE id = @id"; // ID'ye göre güncelleme yapýyoruz
+            UPDATE musteriler 
+            SET 
+                isim = @isim, 
+                soyisim = @soyisim, 
+                telefon = @telefon, 
+                hizmet_turu = @seans_turu, 
+                notlar = @notlar, 
+                seans_ucreti = @ucret,
+                aktiflik = @aktiflik
+            WHERE id = @id";
 
         try
         {
-            using (MySqlConnection connection = Database.GetConnection()) // Database.GetConnection() veritabaný baðlantýnýzý alýyor
+            using (MySqlConnection connection = Database.GetConnection())
             {
                 await connection.OpenAsync();
                 using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -160,13 +217,47 @@ public partial class UyeListesi : ContentPage
                     command.Parameters.AddWithValue("@seans_turu", seansTur);
                     command.Parameters.AddWithValue("@notlar", notlar);
                     command.Parameters.AddWithValue("@ucret", ucret);
-                    command.Parameters.AddWithValue("@id", customerId); // ID parametresi ekliyoruz
+                    command.Parameters.AddWithValue("@aktiflik", aktiflik);
+                    command.Parameters.AddWithValue("@id", customerId);
 
                     // Sorguyu çalýþtýrýyoruz
                     int rowsAffected = await command.ExecuteNonQueryAsync();
                     if (rowsAffected > 0)
                     {
                         await DisplayAlert("Baþarýlý", "Müþteri bilgileri baþarýyla güncellendi.", "Tamam");
+
+                        // Eski listeden kaldýr ve uygun listeye ekle
+                        if (selectedCustomer.Aktiflik == "Aktif")
+                        {
+                            AktifCustomers.Remove(selectedCustomer);
+                        }
+                        else if (selectedCustomer.Aktiflik == "Pasif")
+                        {
+                            PasifCustomers.Remove(selectedCustomer);
+                        }
+
+                        // Güncellenmiþ müþteri nesnesini oluþtur
+                        var updatedCustomer = new Customer
+                        {
+                            ID = customerId,
+                            FullName = $"{isim} {soyisim}",
+                            AdditionalInfo = seansTur,
+                            Notlar = notlar,
+                            Telefon = telefon,
+                            KayitTarihi = selectedCustomer.KayitTarihi,
+                            Ucret = (int)ucret,
+                            Aktiflik = aktiflik
+                        };
+
+                        // Yeni aktiflik durumuna göre ekle
+                        if (aktiflik == "Aktif")
+                        {
+                            AktifCustomers.Add(updatedCustomer);
+                        }
+                        else
+                        {
+                            PasifCustomers.Add(updatedCustomer);
+                        }
                     }
                     else
                     {
@@ -181,18 +272,34 @@ public partial class UyeListesi : ContentPage
         }
 
         // Liste öðesinin seçilmesini kaldýrýyoruz
-        LoadCustomers();
-        CustomerListView.SelectedItem = null;
+        AktifCustomerListView.SelectedItem = null;
+        PasifCustomerListView.SelectedItem = null;
         EditPanel.IsVisible = false;
-        CustomerListView.IsVisible = true;
+        AktifCustomerListView.IsVisible = true;
+        PasifCustomerListView.IsVisible = true;
+        SearchEntry.IsVisible = true;
+        lblSearchEntry.IsVisible = true;
+
+        btnClear.IsVisible = !string.IsNullOrEmpty(SearchEntry.Text);
     }
     private async void OnDeleteCustomerClicked(object sender, EventArgs e)
     {
-        if (CustomerListView.SelectedItem is Customer selectedCustomer)
+        Customer selectedCustomer = null;
+
+        if (AktifCustomerListView.SelectedItem is Customer aktifCustomer)
+        {
+            selectedCustomer = aktifCustomer;
+        }
+        else if (PasifCustomerListView.SelectedItem is Customer pasifCustomer)
+        {
+            selectedCustomer = pasifCustomer;
+        }
+
+        if (selectedCustomer != null)
         {
             var confirmation = await DisplayAlert("Silme Onayý",
-                                                    $"'{selectedCustomer.FullName}' adlý müþteriyi silmek istediðinize emin misiniz?",
-                                                    "Evet", "Hayýr");
+                $"'{selectedCustomer.FullName}' adlý müþteriyi silmek istediðinize emin misiniz?",
+                "Evet", "Hayýr");
 
             if (confirmation)
             {
@@ -213,8 +320,16 @@ public partial class UyeListesi : ContentPage
                             if (rowsAffected > 0)
                             {
                                 await DisplayAlert("Baþarýlý", "Müþteri baþarýyla silindi.", "Tamam");
-                                // Müþteri listesi güncellenebilir
-                                Customers.Remove(selectedCustomer); // veya listeden çýkarýlabilir
+
+                                // Aktif veya Pasif listeden kaldýr
+                                if (selectedCustomer.Aktiflik == "Aktif")
+                                {
+                                    AktifCustomers.Remove(selectedCustomer);
+                                }
+                                else if (selectedCustomer.Aktiflik == "Pasif")
+                                {
+                                    PasifCustomers.Remove(selectedCustomer);
+                                }
                             }
                             else
                             {
@@ -233,8 +348,14 @@ public partial class UyeListesi : ContentPage
         {
             await DisplayAlert("Hata", "Silinecek müþteri seçilmedi.", "Tamam");
         }
+
         EditPanel.IsVisible = false;
-        CustomerListView.IsVisible = true;
+        AktifCustomerListView.IsVisible = true;
+        PasifCustomerListView.IsVisible = true;
+        SearchEntry.IsVisible = true;
+        lblSearchEntry.IsVisible = true;
+
+        btnClear.IsVisible = !string.IsNullOrEmpty(SearchEntry.Text);
     }
     private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
@@ -245,7 +366,12 @@ public partial class UyeListesi : ContentPage
 
             // EditPanel'i görünür yapýyoruz
             EditPanel.IsVisible = true;
-            CustomerListView.IsVisible = false;
+            AktifCustomerListView.IsVisible = false;
+            PasifCustomerListView.IsVisible = false;
+
+            SearchEntry.IsVisible = false;
+            btnClear.IsVisible = false;
+            lblSearchEntry.IsVisible = false;
 
             // EditPanel'deki alanlara týklanan öðenin verilerini baðlýyoruz
             isimentry.Text = selectedCustomer.FullName;
@@ -253,6 +379,13 @@ public partial class UyeListesi : ContentPage
             notentry.Text = selectedCustomer.Notlar;
             ucretentry.Text = selectedCustomer.Ucret.ToString();
             telefonentry.Text = selectedCustomer.Telefon;
+            AktiflikPicker.SelectedItem = selectedCustomer.Aktiflik;
         }
+    }
+    private async void OnClearButtonClicked(object sender, EventArgs e)
+    {
+        SearchEntry.Text = string.Empty;
+        btnClear.IsVisible = false;
+        LoadCustomers();
     }
 }

@@ -31,6 +31,7 @@ public partial class LessonManagementPage : ContentPage
     string searchName, serviceType, antrenor, hafta;
     private int selectedDayOfWeek;
     public string grupders;
+    private bool isResettingTime = false;
 
     public ObservableCollection<Lesson> Lessons { get; set; } = new ObservableCollection<Lesson>();
     private int kullaniciId = -1;
@@ -126,14 +127,19 @@ public partial class LessonManagementPage : ContentPage
         if (string.IsNullOrWhiteSpace(searchText))
         {
             ResultsCollectionView.IsVisible = false;
+            btnClear.IsVisible = false;
             filteredList.Clear();
             return;
         }
+        else if(!string.IsNullOrWhiteSpace(searchText))
+        {
+            btnClear.IsVisible = true;
+        }
 
-        // Listeyi filtrele
-        var suggestions = isimListesi
-            .Where(isimSoyisim => isimSoyisim.ToLower().Contains(searchText))
-            .ToList();
+            // Listeyi filtrele
+            var suggestions = isimListesi
+                .Where(isimSoyisim => isimSoyisim.ToLower().Contains(searchText))
+                .ToList();
 
         // CollectionView'ý güncelle
         filteredList.Clear();
@@ -149,7 +155,7 @@ public partial class LessonManagementPage : ContentPage
         antrenor = AntrenorPicker.SelectedItem?.ToString();
         hafta = HaftaPicker.SelectedItem?.ToString();
 
-        LoadLessons(searchName, serviceType, antrenor, hafta);
+        //LoadLessons(searchName, serviceType, antrenor, hafta);
     }
     private async void OnUsernameTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -187,6 +193,14 @@ public partial class LessonManagementPage : ContentPage
                 SearchEntry.Text = selectedName;  // Seçilen ismi Entry'ye yaz
                 ResultsCollectionView.IsVisible = false;  // Önerileri gizle
                 GetKullaniciId(selectedName);
+                ResultsCollectionView.SelectedItem = string.Empty;
+
+                searchName = SearchEntry.Text;
+                serviceType = ServiceTypePicker.SelectedItem?.ToString();
+                antrenor = AntrenorPicker.SelectedItem?.ToString();
+                hafta = HaftaPicker.SelectedItem?.ToString();
+
+                LoadLessons(searchName, serviceType, antrenor, hafta);
             }
         }
     }
@@ -201,6 +215,7 @@ public partial class LessonManagementPage : ContentPage
                 NameEntry.Text = selectedName;  // Seçilen ismi Entry'ye yaz
                 ResultsCollectionView2.IsVisible = false;  // Önerileri gizle
                 GetKullaniciId(selectedName);
+                ResultsCollectionView2.SelectedItem = string.Empty;
             }
         }
     }
@@ -313,7 +328,6 @@ public partial class LessonManagementPage : ContentPage
 
         ResultsCollectionView1.IsVisible = filteredList1.Count > 0;
     }
-    private bool isResettingTime = false;
     private async void OnTimeSelected(object sender, EventArgs e)
     {
         if (!CheckBoxGrup.IsChecked)
@@ -810,6 +824,7 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
 
                 // Müþteri kayýt tarihini alacak sorgu
                 string kayitTarihiQuery = "SELECT kayit_tarihi FROM musteriler WHERE id = @musteri_id LIMIT 1";
+                string updateQuery = "UPDATE musteriler SET seans_gunleri = @seans_gunleri WHERE id = @id";
 
                 using (MySqlCommand command = new MySqlCommand(kayitTarihiQuery, connection))
                 {
@@ -824,6 +839,17 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
                     {
                         await DisplayAlert("Hata", "Seçilen müþteri için kayýt tarihi bulunamadý.", "Tamam");
                         return;
+                    }
+                }
+                using (MySqlCommand command = new MySqlCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@id", kullaniciId);
+                    command.Parameters.AddWithValue("@seans_gunleri", seansGunleri);
+
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    if (rowsAffected <= 0)
+                    {
+                        await DisplayAlert("Hata", "Günler güncellenirken bir sorun oluþtu.", "Tamam");
                     }
                 }
             }
@@ -1085,7 +1111,7 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
             seanslar s
         INNER JOIN 
             musteriler m ON s.musteri_id = m.id
-        WHERE YEARWEEK(s.tarih, 1) = ";
+        WHERE m.aktiflik = 'Aktif' AND YEARWEEK(s.tarih, 1) = ";
 
         if (string.IsNullOrEmpty(hafta))
         {
@@ -1410,5 +1436,12 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
         {
             await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
+    }
+    private async void OnClearButtonClicked(object sender, EventArgs e)
+    {
+        SearchEntry.Text = string.Empty;
+        searchName = string.Empty;
+        btnClear.IsVisible = false;
+        LoadLessons();
     }
 }

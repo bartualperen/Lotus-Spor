@@ -6,12 +6,27 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <Label Text="Kişi Adı Ara" FontSize="16" />
-            <Entry x:Name="SearchEntry"
-               Placeholder="İsim girin..."
-               TextChanged="OnSearchTextChanged"
-               FontSize="16"
-               HorizontalOptions="FillAndExpand" />
+            <Label Text="Kişi Adı Ara" x:Name="lblSearchEntry" FontSize="16" />
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="SearchEntry"
+                           Placeholder="İsim girin..."
+                           TextChanged="OnSearchTextChanged"
+                           FontSize="16"
+                           HorizontalOptions="FillAndExpand" />
+
+                <Button Text="×" 
+                            x:Name="btnClear"
+                            TextColor="Red"
+                            WidthRequest="40" 
+                            HeightRequest="40"
+                            BackgroundColor="Transparent"
+                            Clicked="OnClearButtonClicked"
+                            VerticalOptions="Center"
+                            BorderColor="Red"
+                            BorderWidth="1"
+                            CornerRadius="20"
+                            IsVisible="False"/>
+            </StackLayout>
             <!-- Arama Sonuçları Listesi -->
             <CollectionView x:Name="ResultsCollectionView"
                         IsVisible="False"

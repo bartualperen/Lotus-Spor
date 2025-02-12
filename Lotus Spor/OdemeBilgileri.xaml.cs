@@ -12,6 +12,12 @@ public partial class OdemeBilgileri : ContentPage
     string searchName;
     public ObservableCollection<OdemeModel> MusteriListesi { get; set; }
     private int kullaniciId = -1;
+    private int currentPage = 1; // Baþlangýç sayfasý
+    private int recordsPerPage = 10; // Her sayfada gösterilecek kayýt sayýsý
+    private int totalRecords = 0; // Toplam kayýt sayýsý
+    private int totalPages = 0; // Toplam sayfa sayýsý
+    public bool IsPreviousEnabled => currentPage > 1;
+    public bool IsNextEnabled => currentPage < totalPages;
 
     public OdemeBilgileri()
 	{
@@ -21,6 +27,8 @@ public partial class OdemeBilgileri : ContentPage
         MusteriListesi = new ObservableCollection<OdemeModel>();
         CustomerListView.ItemsSource = MusteriListesi;
         VerileriGetir();
+        UpdatePageButtons();
+        GetTotalRecords();
 
         BindingContext = this;
     }
@@ -32,7 +40,7 @@ public partial class OdemeBilgileri : ContentPage
             using (var connection = Database.GetConnection())
             {
                 connection.Open();
-                string query = "SELECT isim, soyisim FROM musteriler";
+                string query = "SELECT isim, soyisim FROM musteriler WHERE aktiflik = 'Aktif'";
 
                 // SQL komutunu çalýþtýr
                 using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -56,7 +64,7 @@ public partial class OdemeBilgileri : ContentPage
             await DisplayAlert("Error", "An error occurred while fetching data: " + ex, "OK");
         }
     }
-    private void VerileriGetir()
+    private async void VerileriGetir()
     {
         MusteriListesi.Clear();
         DonemPicker.Items.Clear();
@@ -84,21 +92,23 @@ public partial class OdemeBilgileri : ContentPage
 
         // Listeyi güncelle
         MusteriListesi.Clear();
-        foreach (var odeme in OdemeleriGetir())
+        foreach (var odeme in await OdemeleriGetir(currentPage))
         {
             MusteriListesi.Add(odeme);
         }
 
-        var odemeler = OdemeleriGetir();
+        var odemeler = OdemeleriGetir(currentPage);
 
-        foreach (var odeme in odemeler)
+        foreach (var odeme in await odemeler)
         {
             MusteriListesi.Add(odeme);
         }
     }
-    public ObservableCollection<OdemeModel> OdemeleriGetir()
+    public async Task<ObservableCollection<OdemeModel>> OdemeleriGetir(int page)
     {
         var odemeler = new ObservableCollection<OdemeModel>();
+        int offset = (page - 1) * recordsPerPage;
+
         using (var conn = Database.GetConnection())
         {
             conn.Open();
@@ -114,7 +124,7 @@ public partial class OdemeBilgileri : ContentPage
                     ROW_NUMBER() OVER (PARTITION BY o.musteri_id, o.odeme_donemi ORDER BY o.id DESC) AS row_num
                 FROM Odemeler o
                 INNER JOIN musteriler m ON o.musteri_id = m.id
-                WHERE o.odeme_donemi <= CURDATE()
+                WHERE o.odeme_donemi <= CURDATE() AND m.aktiflik = 'Aktif'
             )
             SELECT id, isim, soyisim, odeme_donemi, toplam_odeme, odeme_durumu
             FROM RankedPayments
@@ -145,10 +155,13 @@ public partial class OdemeBilgileri : ContentPage
                 parameters.Add(new MySqlParameter("@searchName", "%" + searchName + "%"));
             }
 
-            query += " ORDER BY odeme_donemi ASC;";
+            query += " ORDER BY odeme_donemi DESC LIMIT @limit OFFSET @offset;";
 
             using (var cmd = new MySqlCommand(query, conn))
             {
+                cmd.Parameters.AddWithValue("@limit", recordsPerPage);
+                cmd.Parameters.AddWithValue("@offset", offset);
+
                 foreach (var param in parameters)
                 {
                     cmd.Parameters.Add(param);
@@ -177,13 +190,29 @@ public partial class OdemeBilgileri : ContentPage
         }
         return odemeler;
     }
-    private void OnFilterChanged(object sender, EventArgs e)
+    private void GetTotalRecords()
+    {
+        using (var conn = Database.GetConnection())
+        {
+            conn.Open();
+            string query = "SELECT COUNT(*) FROM Odemeler";
+            using (var cmd = new MySqlCommand(query, conn))
+            {
+                totalRecords = Convert.ToInt32(cmd.ExecuteScalar());
+                totalPages = (int)Math.Ceiling((double)totalRecords / recordsPerPage);
+            }
+        }
+    }
+    private async void OnFilterChanged(object sender, EventArgs e)
     {
         MusteriListesi.Clear();
-        foreach (var odeme in OdemeleriGetir())
+        foreach (var odeme in await OdemeleriGetir(currentPage))
         {
             MusteriListesi.Add(odeme);
         }
+        currentPage = 1;
+        UpdatePageButtons();
+        GetTotalRecords();
     }
     private async void OnOdendiClicked(object sender, EventArgs e)
     {
@@ -212,7 +241,15 @@ public partial class OdemeBilgileri : ContentPage
     private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
         string searchText = e.NewTextValue?.ToLower() ?? string.Empty;
-        //CustomerListView.IsVisible = false;
+
+        if (!string.IsNullOrEmpty(SearchEntry.Text))
+        {
+            btnClear.IsVisible = true;
+        }
+        else if (string.IsNullOrEmpty(SearchEntry.Text))
+        {
+            btnClear.IsVisible = false;
+        }
 
         if (string.IsNullOrWhiteSpace(searchText))
         {
@@ -221,10 +258,10 @@ public partial class OdemeBilgileri : ContentPage
             return;
         }
 
-        // Listeyi filtrele
-        var suggestions = isimListesi
-            .Where(isimSoyisim => isimSoyisim.ToLower().Contains(searchText))
-            .ToList();
+            // Listeyi filtrele
+            var suggestions = isimListesi
+                .Where(isimSoyisim => isimSoyisim.ToLower().Contains(searchText))
+                .ToList();
 
         // CollectionView'ý güncelle
         filteredList.Clear();
@@ -234,6 +271,16 @@ public partial class OdemeBilgileri : ContentPage
         }
         ResultsCollectionView.IsVisible = filteredList.Count > 0;
         searchName = SearchEntry.Text;
+    }
+    private async void OnClearButtonClicked(object sender, EventArgs e)
+    {
+        SearchEntry.Text = string.Empty;
+        searchName = string.Empty;
+        btnClear.IsVisible = false;
+
+        currentPage = 1;
+        UpdatePageButtons();
+        GetTotalRecords();
         VerileriGetir();
     }
     private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -247,7 +294,12 @@ public partial class OdemeBilgileri : ContentPage
                 SearchEntry.Text = selectedName;
                 searchName = selectedName;
                 //CustomerListView.IsVisible = false;
+                ResultsCollectionView.IsVisible = false;
+                ResultsCollectionView.SelectedItem = string.Empty;
                 VerileriGetir();
+                currentPage = 1;
+                UpdatePageButtons();
+                GetTotalRecords();
                 GetKullaniciId(selectedName);
             }
         }
@@ -256,6 +308,18 @@ public partial class OdemeBilgileri : ContentPage
     {
         if (e.CurrentSelection.Count == 0) return;
         CustomerListView.IsVisible = false;
+        SearchEntry.IsVisible = false;
+        lblSearchEntry.IsVisible = false;
+        DonemPicker.IsVisible = false;
+        lblDonemPicker.IsVisible = false;
+        OdemeDurumuPicker.IsVisible = false;
+        lblOdemeDurumuPicker.IsVisible = false;
+        btnOnceki.IsVisible = false;
+        SayfaButtons.IsVisible = false;
+        btnSonraki.IsVisible = false;
+        btnBas.IsVisible = false;
+        btnClear.IsVisible = false;
+        ResultsCollectionView.IsVisible = false;
 
         var selectedMusteri = (OdemeModel)e.CurrentSelection[0];
 
@@ -268,9 +332,23 @@ public partial class OdemeBilgileri : ContentPage
     }
     private void OnClosePanelClicked(object sender, EventArgs e)
     {
+        btnOnceki.IsVisible = true;
+        SayfaButtons.IsVisible = true;
+        btnSonraki.IsVisible = true;
+        btnBas.IsVisible = true;
+        SearchEntry.IsVisible = true;
+        lblSearchEntry.IsVisible = true;
+        DonemPicker.IsVisible = true;
+        lblDonemPicker.IsVisible = true;
+        OdemeDurumuPicker.IsVisible = true;
+        lblOdemeDurumuPicker.IsVisible = true;
         SelectedCustomerPanel.IsVisible = false;
         CustomerListView.SelectedItem = null;
         CustomerListView.IsVisible = true;
+        SearchEntry.Text = string.Empty;
+        searchName = SearchEntry.Text;
+
+        VerileriGetir();
     }
     private async void GetKullaniciId(string fullName)
     {
@@ -313,5 +391,49 @@ public partial class OdemeBilgileri : ContentPage
             await DisplayAlert("Error", "An error occurred while fetching user ID: " + ex.Message, "OK");
         }
 
+    }
+    private void UpdatePageButtons()
+    {
+        OnPropertyChanged(nameof(IsPreviousEnabled));
+        OnPropertyChanged(nameof(IsNextEnabled));
+    }
+    private async void OnNextPageClicked(object sender, EventArgs e)
+    {
+        if (currentPage < totalPages)
+        {
+            currentPage++;
+            MusteriListesi.Clear();
+            foreach (var odeme in await OdemeleriGetir(currentPage))
+            {
+                MusteriListesi.Add(odeme);
+            }
+        }
+        UpdatePageButtons();
+    }
+    private async void OnPreviousPageClicked(object sender, EventArgs e)
+    {
+        if (currentPage > 1)
+        {
+            currentPage--;
+            MusteriListesi.Clear();
+            foreach (var odeme in await OdemeleriGetir(currentPage))
+            {
+                MusteriListesi.Add(odeme);
+            }
+        }
+        UpdatePageButtons();
+    }
+    private async void OnReturnToStart(object sender, EventArgs e)
+    {
+        if (currentPage > 1)
+        {
+            currentPage = 1;
+            MusteriListesi.Clear();
+            foreach (var odeme in await OdemeleriGetir(currentPage))
+            {
+                MusteriListesi.Add(odeme);
+            }
+        }
+        UpdatePageButtons();
     }
 }

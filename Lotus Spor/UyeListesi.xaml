@@ -10,16 +10,59 @@
                FontSize="16"
                HorizontalOptions="Center"
                Margin="0, 10, 0, 10" />
-            <!-- Kişi Adı Ara -->
-            <Label Text="Kişi Adı Ara" FontSize="16" />
-            <Entry x:Name="SearchEntry"
-               Placeholder="İsim girin..."
-               TextChanged="OnSearchTextChanged"
+            
+            <Label x:Name="TotalActiveMembersLabel"
+               Text="Toplam Üye Sayısı: 0"
                FontSize="16"
-               HorizontalOptions="FillAndExpand" />
+               HorizontalOptions="Center"
+               Margin="0, 0, 0, 10" />
+            
+            <Label x:Name="TotalPasiveMembersLabel"
+               Text="Toplam Üye Sayısı: 0"
+               FontSize="16"
+               HorizontalOptions="Center"
+               Margin="0, 0, 0, 0" />
+            
+            <!-- Kişi Adı Ara -->
+            <Label Text="Kişi Adı Ara" x:Name="lblSearchEntry" FontSize="16" Margin="10,20,20,0" />
+            <StackLayout Orientation="Horizontal" Margin="10,5,20,10">
+                <Entry x:Name="SearchEntry"
+                           Placeholder="İsim girin..."
+                           TextChanged="OnSearchTextChanged"
+                           FontSize="16"
+                           HorizontalOptions="FillAndExpand" />
 
+                <Button Text="×" 
+                            x:Name="btnClear"
+                            TextColor="Red"
+                            WidthRequest="40" 
+                            HeightRequest="40"
+                            BackgroundColor="Transparent"
+                            Clicked="OnClearButtonClicked"
+                            VerticalOptions="Center"
+                            BorderColor="Red"
+                            BorderWidth="1"
+                            CornerRadius="20"
+                            IsVisible="False"/>
+            </StackLayout>
+
+            <Label Text="Aktif Üyeler" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" />
             <!-- Müşteri Bilgilerini Gösteren ListView -->
-            <ListView x:Name="CustomerListView"
+            <ListView x:Name="AktifCustomerListView"
+                  IsVisible="True"
+                  ItemSelected="OnItemSelected"
+                  CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding FullName}" 
+                      Detail="{Binding AdditionalInfo}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label Text="Pasif Üyeler" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,30,0,10" />
+            <!-- Müşteri Bilgilerini Gösteren ListView -->
+            <ListView x:Name="PasifCustomerListView"
                   IsVisible="True"
                   ItemSelected="OnItemSelected"
                   CachingStrategy="RecycleElement">
@@ -50,6 +93,15 @@
                 <Entry x:Name="ucretentry" Text="{Binding Ucret}" Placeholder="Aylık Ücret" Keyboard="Numeric" />
                 <Label Text="Telefon Numarası" />
                 <Entry x:Name="telefonentry" TextChanged="OnPhoneEntryTextChanged" Text="{Binding Telefon}" Placeholder="Telefon Numarası (Başında 0 olmadan)" Keyboard="Numeric" />
+                <Label Text="Aktiflik" />
+                <Picker x:Name="AktiflikPicker" SelectedIndex="{Binding Aktiflik}" Title="Seans Türü Seçin">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Aktif</x:String>
+                            <x:String>Pasif</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
                 <Label Text="Notlar" />
                 <Editor x:Name="notentry" Text="{Binding Notlar}" Placeholder="Notlar" HeightRequest="100" />
 

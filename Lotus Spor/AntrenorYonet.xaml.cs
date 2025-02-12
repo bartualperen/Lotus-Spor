@@ -44,6 +44,11 @@ public partial class AntrenorYonet : ContentPage
                     }
                 }
             }
+            var kisi = Customers.FirstOrDefault(c => c.FullName == ConnectionString.admin2);
+            if (kisi != null)
+            {
+                Customers.Remove(kisi);
+            }
             TotalMembersLabel.Text = $"Toplam Antrenör Sayýsý: {Customers.Count}";
         }
         catch (Exception ex)

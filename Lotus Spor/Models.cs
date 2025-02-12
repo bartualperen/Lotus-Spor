@@ -39,6 +39,7 @@ namespace Lotus_Spor
         public string Telefon { get; set; }
         public string KayitTarihi { get; set; }
         public int Ucret { get; set; }
+        public string Aktiflik { get; set; }
     }
     public class Lesson
     {
