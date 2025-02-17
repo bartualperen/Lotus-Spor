@@ -12,6 +12,7 @@ namespace Lotus_Spor {
 	/// Android Resource Designer class.
 	/// Exposes the Android Resource designer assembly into the project Namespace.
 	/// </summary>
+	[GeneratedCode("GenerateResourceDesignerIntermediateClass", "13.2.99.152")]
 	public partial class Resource : _Microsoft.Android.Resource.Designer.ResourceConstant {
 	}
 	#pragma warning restore IDE0002

@@ -110,17 +110,17 @@ public partial class OlcuEkle : ContentPage
         }
 
         // Burada ölçüleri iþleyebilirsiniz
-        string kilo = KiloEntry.Text;
-        string yagOrani = YagOraniEntry.Text;
-        string suOrani = SuOraniEntry.Text;
-        string omuzOlcusu = OmuzOlcusuEntry.Text;
-        string bicepsOlcusu = BicepsOlcusuEntry.Text;
-        string gogusOlcusu = GogusOlcusuEntry.Text;
-        string belOlcusu = BelOlcusuEntry.Text;
-        string karinOlcusu = KarinOlcusuEntry.Text;
-        string kaclaOlcusu = KaclaOlcusuEntry.Text;
-        string bacakOlcusu = BacakOlcusuEntry.Text;
-        string kalfOlcusu = KalfOlcusuEntry.Text;
+        decimal kilo = Convert.ToDecimal(KiloEntry.Text);
+        decimal yagOrani = Convert.ToDecimal(YagOraniEntry.Text);
+        decimal suOrani = Convert.ToDecimal(SuOraniEntry.Text);
+        decimal omuzOlcusu = Convert.ToDecimal(OmuzOlcusuEntry.Text);
+        decimal bicepsOlcusu = Convert.ToDecimal(BicepsOlcusuEntry.Text);
+        decimal gogusOlcusu = Convert.ToDecimal(GogusOlcusuEntry.Text);
+        decimal belOlcusu = Convert.ToDecimal(BelOlcusuEntry.Text);
+        decimal karinOlcusu = Convert.ToDecimal(KarinOlcusuEntry.Text);
+        decimal kaclaOlcusu = Convert.ToDecimal(KaclaOlcusuEntry.Text);
+        decimal bacakOlcusu = Convert.ToDecimal(BacakOlcusuEntry.Text);
+        decimal kalfOlcusu = Convert.ToDecimal(KalfOlcusuEntry.Text);
 
         try
         {

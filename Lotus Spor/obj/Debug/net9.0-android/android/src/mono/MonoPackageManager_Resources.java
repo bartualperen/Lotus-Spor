@@ -57,6 +57,7 @@ public class MonoPackageManager_Resources {
 		"System.Runtime.Caching.dll",
 		"System.Security.Cryptography.ProtectedData.dll",
 		"System.Security.Permissions.dll",
+		"System.Text.Json.dll",
 		"System.Windows.Extensions.dll",
 		"Xamarin.Android.Glide.dll",
 		"Xamarin.Android.Glide.Annotations.dll",
