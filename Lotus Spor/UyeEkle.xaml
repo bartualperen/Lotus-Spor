@@ -155,9 +155,7 @@
                     PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
                     TextColor="{DynamicResource EntryBackgroundColor}" />
 
-            <Button Text="Üye Ekle" 
-                    BackgroundColor="#007ACC" 
-                    TextColor="White" 
+            <Button Text="Üye Ekle"
                     Clicked="OnAddMemberClicked"
                     Margin="10,10,5,100"/>
 

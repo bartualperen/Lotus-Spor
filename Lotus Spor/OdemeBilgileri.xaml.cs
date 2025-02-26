@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ namespace Lotus_Spor;
 
 public partial class OdemeBilgileri : ContentPage
 {
+    private LoadingPopup _loadingPopup;
     List<string> isimListesi = new List<string>();
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     string searchName;
@@ -61,11 +63,14 @@ public partial class OdemeBilgileri : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "An error occurred while fetching data: " + ex, "OK");
+            await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
     }
     private async void VerileriGetir()
     {
+        //_loadingPopup = new LoadingPopup();
+        //await this.ShowPopupAsync(_loadingPopup);
+
         MusteriListesi.Clear();
         DonemPicker.Items.Clear();
         DonemPicker.Items.Add("Tümü");
@@ -96,13 +101,15 @@ public partial class OdemeBilgileri : ContentPage
         {
             MusteriListesi.Add(odeme);
         }
-
-        var odemeler = OdemeleriGetir(currentPage);
-
-        foreach (var odeme in await odemeler)
-        {
-            MusteriListesi.Add(odeme);
-        }
+        //await Task.Delay(100);
+        //try
+        //{
+        //    _loadingPopup.Close();
+        //}
+        //catch (Exception ex)
+        //{
+        //    await DisplayAlert("Error", "Kapatýlamadý" + ex.Message, "OK");
+        //}
     }
     public async Task<ObservableCollection<OdemeModel>> OdemeleriGetir(int page)
     {
@@ -330,7 +337,7 @@ public partial class OdemeBilgileri : ContentPage
 
         SelectedCustomerPanel.IsVisible = true;
     }
-    private void OnClosePanelClicked(object sender, EventArgs e)
+    private async void OnClosePanelClicked(object sender, EventArgs e)
     {
         btnOnceki.IsVisible = true;
         SayfaButtons.IsVisible = true;

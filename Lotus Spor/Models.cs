@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Google.Protobuf.WellKnownTypes;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,22 @@ namespace Lotus_Spor
         public string KayitTarihi { get; set; }
         public int Ucret { get; set; }
         public string Aktiflik { get; set; }
+    }
+    public class OlcuModel
+    {
+        public string Isim { get; set; }
+        public DateTime Tarih { get; set; } 
+        public decimal Kilo { get; set; }
+        public decimal YagOrani { get; set; }
+        public decimal SuOrani { get; set; }
+        public decimal Omuz { get; set; }
+        public decimal Biceps { get; set; }
+        public decimal Gogus { get; set; }
+        public decimal Bel { get; set; }
+        public decimal Karin { get; set; }
+        public decimal Kalca { get; set; }
+        public decimal Bacak { get; set; }
+        public decimal Kalf { get; set; }
     }
     public class Lesson
     {

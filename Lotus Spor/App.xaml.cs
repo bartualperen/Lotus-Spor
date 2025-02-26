@@ -37,7 +37,5 @@ namespace Lotus_Spor
                 Application.Current.Resources["EntryPlaceholderColor"] = Color.FromArgb("#808080");
             }
         }
-
-
     }
 }

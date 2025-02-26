@@ -2,12 +2,130 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lotus_Spor.MeasurementPage"
-             Title="MeasurementPage"
+             Title="Ölçüm Bilgileri"
              NavigationPage.HasNavigationBar="False">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="Kişi Adı Ara" x:Name="lblSearchEntry" FontSize="16" Margin="10,20,20,0" />
+            <StackLayout Orientation="Horizontal" Margin="10,5,20,10">
+                <Entry x:Name="SearchEntry"
+                           Placeholder="İsim girin..."
+                           TextChanged="OnSearchTextChanged"
+                           FontSize="16"
+                           HorizontalOptions="FillAndExpand" />
+
+                <Button Text="×" 
+                            x:Name="btnClear"
+                            TextColor="Red"
+                            WidthRequest="40" 
+                            HeightRequest="40"
+                            BackgroundColor="Transparent"
+                            Clicked="OnClearButtonClicked"
+                            VerticalOptions="Center"
+                            BorderColor="Red"
+                            BorderWidth="1"
+                            CornerRadius="20"
+                            IsVisible="False"/>
+            </StackLayout>
+            <ListView x:Name="CustomerListView"
+                  IsVisible="True"
+                  ItemSelected="OnItemSelected"
+                  CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding FullName}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button x:Name="btnUyeListele" Text="İsim Listesine Dön" Clicked="OnListeyeDonClicked" IsVisible="False" Margin="10,10,10,10" />
+
+            <CollectionView x:Name="SelectedCustomerListView" SelectionMode="None" Margin="10,10,10,10" ZIndex="10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="10,10,10,10" BorderColor="Gray" InputTransparent="True">
+                            <HorizontalStackLayout>
+                                <Grid>
+                                    <!-- Satır Tanımlamaları -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Sütun Tanımlamaları -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="200" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Başlıklar ve Değerler -->
+                                    <Label Grid.Row="0" Grid.Column="0" Text="İsim" FontSize="16" />
+                                    <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="End" Text="{Binding Isim}" FontSize="16" />
+                                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Ölçüm Tarihi" FontSize="16" />
+                                    <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="End" Text="{Binding Tarih, StringFormat='{0:dd.MM.yyyy HH:mm}'}" FontSize="16" />
+                                    <BoxView Grid.Row="2" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="2" Grid.Column="0" Text="Kilo" FontSize="16" />
+                                    <Label Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Text="{Binding Kilo, StringFormat='{0:F1} Kg'}" FontSize="16" />
+                                    <BoxView Grid.Row="3" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="3" Grid.Column="0" Text="Yağ Oranı" FontSize="16" />
+                                    <Label Grid.Row="3" Grid.Column="1" HorizontalOptions="End" Text="{Binding YagOrani, StringFormat='%{0:F1}'}" FontSize="16" />
+                                    <BoxView Grid.Row="4" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="4" Grid.Column="0" Text="Su Oranı" FontSize="16" />
+                                    <Label Grid.Row="4" Grid.Column="1" HorizontalOptions="End" Text="{Binding SuOrani, StringFormat='%{0:F1}'}" FontSize="16" />
+                                    <BoxView Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="5" Grid.Column="0" Text="Omuz" FontSize="16" />
+                                    <Label Grid.Row="5" Grid.Column="1" HorizontalOptions="End" Text="{Binding Omuz, StringFormat='{0:F1} cm'}" FontSize="16" />
+                                    <BoxView Grid.Row="6" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="6" Grid.Column="0" Text="Biceps" FontSize="16" />
+                                    <Label Grid.Row="6" Grid.Column="1" HorizontalOptions="End" Text="{Binding Biceps, StringFormat='{0:F1} cm'}" FontSize="16" />
+                                    <BoxView Grid.Row="7" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="7" Grid.Column="0" Text="Göğüs" FontSize="16" />
+                                    <Label Grid.Row="7" Grid.Column="1" HorizontalOptions="End" Text="{Binding Gogus, StringFormat='{0:F1} cm'}" FontSize="16" />
+                                    <BoxView Grid.Row="8" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="8" Grid.Column="0" Text="Bel" FontSize="16" />
+                                    <Label Grid.Row="8" Grid.Column="1" HorizontalOptions="End" Text="{Binding Bel, StringFormat='{0:F1} cm'}" FontSize="16" />
+                                    <BoxView Grid.Row="9" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="9" Grid.Column="0" Text="Karın" FontSize="16" />
+                                    <Label Grid.Row="9" Grid.Column="1" HorizontalOptions="End" Text="{Binding Karin, StringFormat='{0:F1} cm'}" FontSize="16" />
+                                    <BoxView Grid.Row="10" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="10" Grid.Column="0" Text="Kalça" FontSize="16" />
+                                    <Label Grid.Row="10" Grid.Column="1" HorizontalOptions="End" Text="{Binding Kalca, StringFormat='{0:F1} cm'}" FontSize="16" />
+                                    <BoxView Grid.Row="11" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="11" Grid.Column="0" Text="Bacak" FontSize="16" />
+                                    <Label Grid.Row="11" Grid.Column="1" HorizontalOptions="End" Text="{Binding Bacak, StringFormat='{0:F1} cm'}" FontSize="16" />
+                                    <BoxView Grid.Row="12" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
+
+                                    <Label Grid.Row="12" Grid.Column="0" Text="Kalf" FontSize="16" />
+                                    <Label Grid.Row="12" Grid.Column="1" HorizontalOptions="End" Text="{Binding Kalf, StringFormat='{0:F1} cm'}" FontSize="16" />
+                                </Grid>
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

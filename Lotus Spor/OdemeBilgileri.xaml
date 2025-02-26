@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Lotus_Spor.OdemeBilgileri"
-             Title="Ödeme Bilgileri">
+             x:Class="Lotus_Spor.OdemeBilgileri">
 
     <ContentPage.Content>
         <ScrollView>
@@ -50,14 +49,14 @@
                 <Label Text="Dönem Seçin" x:Name="lblDonemPicker" FontSize="16" Margin="10,20,20,0" />
                 <Picker x:Name="DonemPicker" 
                         SelectedIndexChanged="OnFilterChanged"
-                        Margin="10,5,20,10"
+                        Margin="10,5,10,10"
                         FontSize="16">
                 </Picker>
 
                 <Label Text="Ödeme Durumu" x:Name="lblOdemeDurumuPicker" FontSize="16" Margin="10,20,20,0" />
                 <Picker x:Name="OdemeDurumuPicker"
                         SelectedIndexChanged="OnFilterChanged"
-                        Margin="10,5,20,10"
+                        Margin="10,5,10,10"
                         FontSize="16">
                     <Picker.Items>
                         <x:String>Tümü</x:String>
@@ -71,19 +70,40 @@
                                 ItemsSource="{Binding MusteriListesi}"
                                 SelectionMode="Single"
                                 SelectionChanged="OnCustomerSelected"
-                                Margin="10,20,20,10"
+                                Margin="10,10,10,10"
                                 ZIndex="10">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame Margin="10,5,20,10" Padding="10" BorderColor="Gray" InputTransparent="True">
-                                <HorizontalStackLayout>
-                                    <VerticalStackLayout>
-                                        <Label Text="{Binding musteri_adi}" FontAttributes="Bold" />
-                                        <Label Text="{Binding odeme_donemi}" />
-                                        <Label Text="{Binding toplam_odeme}" />
-                                        <Label Text="{Binding odeme_durumu}" />
-                                    </VerticalStackLayout>
-                                </HorizontalStackLayout>
+                            <Frame Margin="10,10,10,10" Padding="10" BorderColor="Gray" InputTransparent="True">
+                                <Grid>
+                                    <!-- Satır Tanımlamaları -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Sütun Tanımlamaları -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="3*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Başlıklar ve Değerler -->
+                                    <Label Grid.Row="0" Grid.Column="0" Text="Müşteri:" FontAttributes="Bold" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding musteri_adi}" FontAttributes="Bold" />
+
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Ödeme Dönemi:" FontAttributes="Bold" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding odeme_donemi}" />
+
+                                    <Label Grid.Row="2" Grid.Column="0" Text="Ödeme Tutarı:" FontAttributes="Bold" />
+                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding toplam_odeme}" />
+
+                                    <Label Grid.Row="3" Grid.Column="0" Text="Ödeme Durumu:" FontAttributes="Bold" />
+                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding odeme_durumu}" />
+                                </Grid>
+
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -99,16 +119,18 @@
 
 
                 <!-- Seçili Müşteri Paneli -->
-                <StackLayout x:Name="SelectedCustomerPanel" IsVisible="False" Padding="10">
-                    <Label Text="Seçili Müşteri" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
-                    <Label x:Name="lblIsim" Text="İsim:" FontSize="16" />
-                    <Label x:Name="lblDonem" Text="Dönem:" FontSize="16" />
-                    <Label x:Name="lblTutar" Text="Ödenecek Tutar:" FontSize="16" />
-                    <Label x:Name="lblDurum" Text="Ödeme Durumu:" FontSize="16" />
+                <Frame Margin="10,10,10,10" x:Name="SelectedCustomerPanel" IsVisible="False" Padding="10" BorderColor="Gray">
+                    <StackLayout Padding="10" ZIndex="10">
+                        <Label Text="Seçili Müşteri" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label x:Name="lblIsim" Text="İsim:" FontSize="16" />
+                        <Label x:Name="lblDonem" Text="Dönem:" FontSize="16" />
+                        <Label x:Name="lblTutar" Text="Ödenecek Tutar:" FontSize="16" />
+                        <Label x:Name="lblDurum" Text="Ödeme Durumu:" FontSize="16" />
 
-                    <Button Text="Ödendi Olarak İşaretle" Clicked="OnOdendiClicked" Margin="10,20,20,10" />
-                    <Button Text="Kapat" Clicked="OnClosePanelClicked" Margin="10,20,20,10" />
-                </StackLayout>
+                        <Button Text="Ödendi Olarak İşaretle" Clicked="OnOdendiClicked" Margin="10,20,20,10" />
+                        <Button Text="Kapat" Clicked="OnClosePanelClicked" Margin="10,20,20,10" />
+                    </StackLayout>
+                </Frame>
 
 
             </VerticalStackLayout>

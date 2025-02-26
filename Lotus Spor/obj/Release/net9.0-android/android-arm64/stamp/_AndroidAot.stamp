@@ -3,6 +3,8 @@ obj\Release\net9.0-android\android-arm64\aot\Lotus Spor.dll.so
 obj\Release\net9.0-android\android-arm64\aot\Azure.Core.dll.so
 obj\Release\net9.0-android\android-arm64\aot\Azure.Identity.dll.so
 obj\Release\net9.0-android\android-arm64\aot\BouncyCastle.Cryptography.dll.so
+obj\Release\net9.0-android\android-arm64\aot\CommunityToolkit.Maui.dll.so
+obj\Release\net9.0-android\android-arm64\aot\CommunityToolkit.Maui.Core.dll.so
 obj\Release\net9.0-android\android-arm64\aot\Google.Protobuf.dll.so
 obj\Release\net9.0-android\android-arm64\aot\K4os.Compression.LZ4.dll.so
 obj\Release\net9.0-android\android-arm64\aot\K4os.Compression.LZ4.Streams.dll.so
@@ -44,7 +46,7 @@ obj\Release\net9.0-android\android-arm64\aot\System.Data.SqlClient.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Diagnostics.EventLog.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.IdentityModel.Tokens.Jwt.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Memory.Data.dll.so
-obj\Release\net9.0-android\android-arm64\aot\System.Runtime.Caching.dll.so
+obj\Release\net9.0-android\android-arm64\aot\System.Security.Cryptography.Pkcs.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Security.Cryptography.ProtectedData.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Security.Permissions.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Text.Json.dll.so
@@ -128,9 +130,6 @@ obj\Release\net9.0-android\android-arm64\aot\System.Private.DataContractSerializ
 obj\Release\net9.0-android\android-arm64\aot\System.Private.Uri.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Private.Xml.Linq.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Private.Xml.dll.so
-obj\Release\net9.0-android\android-arm64\aot\System.Reflection.Emit.ILGeneration.dll.so
-obj\Release\net9.0-android\android-arm64\aot\System.Reflection.Emit.Lightweight.dll.so
-obj\Release\net9.0-android\android-arm64\aot\System.Reflection.Primitives.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Runtime.CompilerServices.Unsafe.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Runtime.InteropServices.RuntimeInformation.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Runtime.InteropServices.dll.so
@@ -145,7 +144,6 @@ obj\Release\net9.0-android\android-arm64\aot\System.Runtime.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Security.AccessControl.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Security.Claims.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Security.Cryptography.Algorithms.dll.so
-obj\Release\net9.0-android\android-arm64\aot\System.Security.Cryptography.Cng.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Security.Cryptography.Csp.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Security.Cryptography.Encoding.dll.so
 obj\Release\net9.0-android\android-arm64\aot\System.Security.Cryptography.Primitives.dll.so

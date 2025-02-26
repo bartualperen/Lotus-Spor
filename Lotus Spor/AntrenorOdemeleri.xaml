@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Lotus_Spor.AntrenorOdemeleri"
-             Title="Antrenör Ödemeleri">
+             x:Class="Lotus_Spor.AntrenorOdemeleri">
     <ContentPage.Content>
         <ScrollView Orientation="Vertical">
             <VerticalStackLayout Padding="10">
@@ -11,6 +10,14 @@
                         FontSize="24"
                         HorizontalOptions="Center"
                         Margin="0,0,0,10" />
+
+                <Button Text="İsim Listesine Dön"
+                        x:Name="ListeleButton"
+                        Clicked="OnListeleClicked"
+                        HorizontalOptions="Center"
+                        Margin="0,20,0,0"
+                        IsVisible="False"/>
+
 
                 <Label Text="Dönem Seçin" FontSize="16" IsVisible="False" />
 
@@ -26,28 +33,42 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame Margin="5" Padding="10" BorderColor="LightGray">
-                                <VerticalStackLayout>
-                                    <Label Text="Antrenör:" FontAttributes="Bold" />
-                                    <Label Text="{Binding antrenor}" />
+                                <Grid>
+                                    <!-- Satır Tanımlamaları -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
 
-                                    <Label Text="Dönem:" FontAttributes="Bold" />
-                                    <Label Text="{Binding odeme_donemi}" />
+                                    <!-- Sütun Tanımlamaları -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="3*" />
+                                    </Grid.ColumnDefinitions>
 
-                                    <Label Text="Aylık Ücret:" FontAttributes="Bold" />
-                                    <Label Text="{Binding seans_ucreti}" />
+                                    <!-- Başlıklar ve Değerler -->
+                                    <Label Grid.Row="0" Grid.Column="0" Text="Antrenör:" FontAttributes="Bold" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding antrenor}" />
 
-                                    <Label Text="Ödenecek Tutar:" FontAttributes="Bold" />
-                                    <Label Text="{Binding toplam_odeme}" />
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Dönem:" FontAttributes="Bold" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding odeme_donemi}" />
 
-                                    <Label Text="Ödeme Durumu:" FontAttributes="Bold" />
-                                    <Label Text="{Binding odeme_durumu}" />
+                                    <Label Grid.Row="2" Grid.Column="0" Text="Ödenecek Tutar:" FontAttributes="Bold" />
+                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding toplam_odeme}" />
 
-                                    <Label Text="Yapılan Ders Sayısı:" FontAttributes="Bold" />
-                                    <Label Text="{Binding yapilan_ders}" />
-                                    <Button Text="Ödendi Olarak İşaretle" 
-                                            Clicked="OnOdemeYapildiClicked"
-                                            BindingContext="{Binding}"/>
-                                </VerticalStackLayout>
+                                    <Label Grid.Row="3" Grid.Column="0" Text="Ödeme Durumu:" FontAttributes="Bold" />
+                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding odeme_durumu}" />
+
+                                    <Label Grid.Row="4" Grid.Column="0" Text="Yapılan Ders Sayısı:" FontAttributes="Bold" />
+                                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding yapilan_ders}" />
+
+                                    <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,20,10,10" Text="Ödendi Olarak İşaretle" Clicked="OnOdemeYapildiClicked" />
+                                </Grid>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -62,14 +83,6 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
-                <Button Text="Üyeleri Listele"
-                        x:Name="ListeleButton"
-                        Clicked="OnListeleClicked"
-                        HorizontalOptions="Center"
-                        Margin="0,20,0,0"
-                        IsVisible="False"/>
-
             </VerticalStackLayout>
         </ScrollView>
     </ContentPage.Content>
