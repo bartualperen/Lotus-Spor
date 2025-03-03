@@ -1,14 +1,17 @@
+using CommunityToolkit.Maui.Views;
 using Microsoft.Maui.ApplicationModel;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Tls;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Runtime.ExceptionServices;
 
 namespace Lotus_Spor;
 
 public partial class LessonManagementPage : ContentPage
 {
+    private LoadingPopup _loadingPopup;
     List<string> isimListesi = new List<string>();
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     List<string> isimListesi1 = new List<string>();
@@ -32,19 +35,19 @@ public partial class LessonManagementPage : ContentPage
     private int selectedDayOfWeek;
     public string grupders;
     private bool isResettingTime = false;
-
+    private int firstRunning = 0;
     public ObservableCollection<Lesson> Lessons { get; set; } = new ObservableCollection<Lesson>();
     private int kullaniciId = -1;
     private int kullaniciId1 = -1;
     public LessonManagementPage()
 	{
 		InitializeComponent();
+        HaftaListele();
         ResultsCollectionView.ItemsSource = filteredList;
         ResultsCollectionView2.ItemsSource = filteredList;
         ResultsCollectionView1.ItemsSource = filteredList1;
         kisilistele();
         BindingContext = this;
-        LoadLessons();
         kisilistele1();
         isimListesi2.Insert(0, "Tümü");
         AntrenorPicker.ItemsSource = isimListesi2;
@@ -52,6 +55,61 @@ public partial class LessonManagementPage : ContentPage
         ServiceTypePicker.SelectedIndex = ServiceTypePicker.Items.IndexOf("Tümü");
         HaftaPicker.SelectedIndex = HaftaPicker.Items.IndexOf("Bu Hafta");
         hafta = HaftaPicker.SelectedItem?.ToString();
+        LoadLessons();
+    }
+    private async void HaftaListele()
+    {
+        //var loadingPopup = new LoadingPopup();
+        //this.ShowPopup(loadingPopup);
+
+        try
+        {
+            var weeks = new List<string>();
+
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+            var culture = new CultureInfo("tr-TR");
+
+            DateTime today = DateTime.Now;
+            DateTime firstOfMonth = new DateTime(currentYear, currentMonth, 1);
+            int dayOfMonth = (today - firstOfMonth).Days;
+            int currentWeek = (dayOfMonth / 7) + 1;
+
+            for (int i = 0; i < 12; i++)
+            {
+                string monthName = new DateTime(currentYear, i + 1, 1).ToString("MMMM", culture);
+
+                for (int j = 1; j <= 5; j++)
+                {
+                    string weekLabel = $"{monthName} {j}.Hafta";
+
+                    if (currentMonth == (i + 1) && currentWeek == j)
+                    {
+                        weeks.Add("Bu Hafta");
+                    }
+                    else if (currentMonth == (i + 1) && currentWeek + 1 == j)
+                    {
+                        weeks.Add("Sonraki Hafta");
+                    }
+                    else
+                    {
+                        weeks.Add(weekLabel);
+                    }
+                }
+            }
+
+            // **Picker'a haftalarý ekleme**
+            HaftaPicker.ItemsSource = weeks;
+            await Task.Delay(1000);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Hata", $"Bir hata oluþtu: {ex.Message}", "Tamam");
+        }
+        finally
+        {
+            //loadingPopup.Close();
+        }
     }
     private async void kisilistele()
     {
@@ -395,30 +453,32 @@ public partial class LessonManagementPage : ContentPage
     }
     private async void OnServiceTypeChanged(object sender, EventArgs e)
     {
-        searchName = SearchEntry.Text;
-        serviceType = ServiceTypePicker.SelectedItem?.ToString();
-        antrenor = AntrenorPicker.SelectedItem?.ToString();
-        hafta = HaftaPicker.SelectedItem?.ToString();
-
-        LoadLessons(searchName, serviceType, antrenor, hafta);
+        FiltreUygula();
     }
     private async void OnAntrenorChanged(object sender, EventArgs e)
     {
-        searchName = SearchEntry.Text;
-        serviceType = ServiceTypePicker.SelectedItem?.ToString();
-        antrenor = AntrenorPicker.SelectedItem?.ToString();
-        hafta = HaftaPicker.SelectedItem?.ToString();
-
-        LoadLessons(searchName, serviceType, antrenor, hafta);
+        FiltreUygula();
     }
     private async void OnHaftaChanged(object sender, EventArgs e)
     {
-        searchName = SearchEntry.Text;
-        serviceType = ServiceTypePicker.SelectedItem?.ToString();
-        antrenor = AntrenorPicker.SelectedItem?.ToString();
-        hafta = HaftaPicker.SelectedItem?.ToString();
+        FiltreUygula();
+    }
+    private async void FiltreUygula()
+    {
+        if (firstRunning > 2)
+        {
+            firstRunning++;
+            searchName = SearchEntry.Text;
+            serviceType = ServiceTypePicker.SelectedItem?.ToString();
+            antrenor = AntrenorPicker.SelectedItem?.ToString();
+            hafta = HaftaPicker.SelectedItem?.ToString();
 
-        LoadLessons(searchName, serviceType, antrenor, hafta);
+            LoadLessons(searchName, serviceType, antrenor, hafta);
+        }
+        if (firstRunning <= 2)
+        {
+            firstRunning++;
+        }
     }
     private async void OnBiriniSilClicked(object sender, EventArgs e)
     {
@@ -596,16 +656,14 @@ public partial class LessonManagementPage : ContentPage
 
         // SQL sorgusunu oluþtur
         string query = @"
-UPDATE seanslar s
-JOIN musteriler m ON s.musteri_id = m.id
-SET s.tarih = DATE_ADD(@newDate, INTERVAL FLOOR(DATEDIFF(s.tarih, @selectedDate) / 7) WEEK),
-    s.saat = @newTime
-WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
-  AND s.tarih >= @selectedDate -- Sadece baþlangýç tarihi ve sonrasý
-  AND s.saat = @selectedTime
-  AND WEEKDAY(s.tarih) = WEEKDAY(@selectedDate); -- Haftanýn ayný gününe odaklan
-
-";
+               UPDATE seanslar s
+               JOIN musteriler m ON s.musteri_id = m.id
+               SET s.tarih = DATE_ADD(@newDate, INTERVAL FLOOR(DATEDIFF(s.tarih, @selectedDate) / 7) WEEK),
+                   s.saat = @newTime
+               WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
+                 AND s.tarih >= @selectedDate -- Sadece baþlangýç tarihi ve sonrasý
+                 AND s.saat = @selectedTime
+                 AND WEEKDAY(s.tarih) = WEEKDAY(@selectedDate);";
 
         try
         {
@@ -966,8 +1024,6 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
                     searchName = SearchEntry.Text;
                     serviceType = ServiceTypePicker.SelectedItem?.ToString();
                     antrenor = AntrenorPicker.SelectedItem?.ToString();
-
-                    LoadLessons(searchName, serviceType, antrenor);
                 }
             }
         }
@@ -1045,7 +1101,6 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
                 searchName = SearchEntry.Text;
                 serviceType = ServiceTypePicker.SelectedItem?.ToString();
                 antrenor = AntrenorPicker.SelectedItem?.ToString();
-                LoadLessons(searchName, serviceType, antrenor);
             }
         }
         catch (Exception ex)
@@ -1096,10 +1151,20 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
     {
         
     }
+    private int loadLessonsCallCount = 0;
     private async void LoadLessons(string searchName = "", string hizmet_turu = "", string antrenor = "", string Hafta = "")
     {
-        Hafta = hafta;
-        string query = @"
+        loadLessonsCallCount++;
+        Console.WriteLine($"LoadLessons çaðrýldý: {loadLessonsCallCount} kez");
+        var loadingPopup = new LoadingPopup();
+        this.ShowPopup(loadingPopup);
+
+        try
+        {
+            if (HaftaPicker.SelectedIndex == -1) return;
+            Hafta = hafta;
+
+            string query = @"
         SELECT 
             s.tarih AS Day, 
             s.saat AS Time, 
@@ -1111,331 +1176,406 @@ WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
             seanslar s
         INNER JOIN 
             musteriler m ON s.musteri_id = m.id
-        WHERE m.aktiflik = 'Aktif' AND YEARWEEK(s.tarih, 1) = ";
+        WHERE 
+            m.aktiflik = 'Aktif' ";
 
-        if (string.IsNullOrEmpty(hafta))
-        {
-            hafta = "Bu Hafta";
-        }
+            DateTime startDate = DateTime.MinValue;
+            DateTime endDate = DateTime.MaxValue;
 
-        if (hafta == "Bu Hafta")
-        {
-            query += "YEARWEEK(CURDATE(), 1)";
-        }
-
-        if (hafta == "Sonraki Hafta")
-        {
-            query += "YEARWEEK(CURDATE(), 1) + 1";
-        }
-
-        if (!string.IsNullOrEmpty(searchName))
-        {
-            query += " AND CONCAT(m.isim, ' ', m.soyisim) LIKE @searchName";
-        }
-
-        if (AntrenorPicker.SelectedIndex != -1)
-        {
-            string selectedAntrenor = AntrenorPicker.SelectedItem.ToString();
-            if (selectedAntrenor != "Tümü")
+            if (string.IsNullOrEmpty(hafta))
             {
-                query += " AND s.antrenor = @antrenor";
+                hafta = "Bu Hafta";
             }
-        }
-
-        if (ServiceTypePicker.SelectedIndex != -1)
-        {
-            string selectedServiceType = ServiceTypePicker.SelectedItem.ToString();
-            if (selectedServiceType != "Tümü")
+            if (hafta == "Bu Hafta")
             {
-                query += " AND s.tur = @tur";
+                startDate = StartOfWeek(DateTime.Now);
+                endDate = StartOfWeek(DateTime.Now).AddDays(6);
             }
-        }
-
-        query += " ORDER BY s.tarih ASC, s.saat ASC";
-
-        try
-        {
-            using (MySqlConnection connection = Database.GetConnection())
+            if (hafta == "Sonraki Hafta")
             {
-                await connection.OpenAsync();
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+                DateTime currentDate = DateTime.Now;
+                DateTime startOfWeek = StartOfWeek(currentDate).AddDays(7);
+                DateTime endOfWeek = startOfWeek.AddDays(6);
+                startDate = startOfWeek;
+                endDate = endOfWeek;
+            }
+            else
+            {
+                string[] parcalar = hafta.Split(' ');
+                if (parcalar.Length == 2)
                 {
-                    command.Parameters.AddWithValue("@tur", hizmet_turu);
-                    command.Parameters.AddWithValue("@antrenor", antrenor);
-                    if (!string.IsNullOrEmpty(searchName))
+                    string ay = parcalar[0];  // "Þubat"
+                    string haftaNoStr = parcalar[1].Replace(".Hafta", ""); // "2"
+
+                    if (int.TryParse(haftaNoStr, out int haftaNo))
                     {
-                        command.Parameters.AddWithValue("@searchName", "%" + searchName + "%");
+                        // Ay ismini sayýya dönüþtür
+                        int month = DateTime.ParseExact(ay, "MMMM", new CultureInfo("tr-TR")).Month;
+
+                        // Ýlgili ayýn ve haftanýn tarih aralýðýný belirle
+                        startDate = GetStartOfWeekInMonth(month, haftaNo);
+                        endDate = startDate.AddDays(6);
                     }
+                }
+            }
 
-                    List<Tuple<int, int>> rowHeights = new List<Tuple<int, int>>();
+            // Tarih aralýðýný sorguya ekle
+            query += " AND s.tarih BETWEEN @startDate AND @endDate";
 
-                    using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                query += " AND CONCAT(m.isim, ' ', m.soyisim) LIKE @searchName";
+            }
+            if (AntrenorPicker.SelectedIndex != -1)
+            {
+                string selectedAntrenor = AntrenorPicker.SelectedItem.ToString();
+                if (selectedAntrenor != "Tümü")
+                {
+                    query += " AND s.antrenor = @antrenor";
+                }
+            }
+            if (ServiceTypePicker.SelectedIndex != -1)
+            {
+                string selectedServiceType = ServiceTypePicker.SelectedItem.ToString();
+                if (selectedServiceType != "Tümü")
+                {
+                    query += " AND s.tur = @tur";
+                }
+            }
+
+            query += " ORDER BY s.tarih ASC, s.saat ASC";
+
+            try
+            {
+                using (MySqlConnection connection = Database.GetConnection())
+                {
+                    await connection.OpenAsync();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        // Gün ve saat bazýnda verileri saklamak için dictionary
-                        var lessonsByDayAndTime = new Dictionary<string, Dictionary<string, List<(string client, string status, DateTime date, TimeSpan time, string type)>>>();
-                        var saatler = new HashSet<string>();
-                        var gunler = new HashSet<string>();
+                        command.Parameters.AddWithValue("@tur", hizmet_turu);
+                        command.Parameters.AddWithValue("@antrenor", antrenor);
 
-                        while (await reader.ReadAsync())
+                        // Parametreleri ekle
+                        command.Parameters.AddWithValue("@startDate", startDate);
+                        command.Parameters.AddWithValue("@endDate", endDate);
+
+                        lblTarihBilgi.Text = string.Empty;
+                        lblTarihBilgi.Text = "Gösterilen Tarih Aralýðý \n" + startDate.ToString("dd-MM-yyyy") + " - " + endDate.ToString("dd-MM-yyyy");
+
+                        if (!string.IsNullOrEmpty(searchName))
                         {
-                            string day = DateTime.Parse(reader["Day"].ToString()).ToString("dddd", new CultureInfo("tr-TR"));
-                            string time = reader["Time"].ToString();
-                            string clientInfo = $"{reader["Client"]}";
-                            string status = reader["Status"].ToString();
-                            string lessontype = reader["Type"].ToString();
-
-                            DateTime parsedDate = DateTime.Parse(reader["Day"].ToString());
-                            TimeSpan parsedTime = TimeSpan.Parse(reader["Time"].ToString());
-
-                            gunler.Add(day);
-                            saatler.Add(time);
-
-                            if (!lessonsByDayAndTime.ContainsKey(day))
-                                lessonsByDayAndTime[day] = new Dictionary<string, List<(string client, string status, DateTime, TimeSpan, string type)>>();
-
-                            if (!lessonsByDayAndTime[day].ContainsKey(time))
-                                lessonsByDayAndTime[day][time] = new List<(string client, string status, DateTime date, TimeSpan time, string type)>();
-
-                            lessonsByDayAndTime[day][time].Add((clientInfo, status, parsedDate, parsedTime, lessontype));
+                            command.Parameters.AddWithValue("@searchName", "%" + searchName + "%");
                         }
 
-                        // Gün sýralamasý
-                        var gunSirasi = new List<string> { "Pazartesi", "Salý", "Çarþamba", "Perþembe", "Cuma", "Cumartesi", "Pazar" };
-                        var sortedGunler = gunSirasi.Where(gun => gunler.Contains(gun)).ToList();
+                        List<Tuple<int, int>> rowHeights = new List<Tuple<int, int>>();
 
-                        // Saatleri sýralama
-                        var sortedSaatler = saatler.OrderBy(s => s).ToList();
-
-                        int rowHeight = 90;
-
-                        // 1. Üstte saatlerin olduðu grid'i oluþturuyoruz.
-                        HoursHeaderGrid.Children.Clear();
-                        HoursHeaderGrid.RowDefinitions.Clear();
-                        HoursHeaderGrid.ColumnDefinitions.Clear();
-                        HoursHeaderGrid.Children.Clear();
-
-                        DaysHeaderGrid.Children.Clear();
-                        DaysHeaderGrid.RowDefinitions.Clear();
-                        DaysHeaderGrid.ColumnDefinitions.Clear();
-                        DaysHeaderGrid.Children.Clear();
-
-                        // Saat baþlýklarýný ekliyoruz
-                        HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                        var boslabel = new Label
+                        using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                         {
-                            Text = string.Empty
-                        };
-                        HoursHeaderGrid.Children.Add(boslabel);
+                            // Gün ve saat bazýnda verileri saklamak için dictionary
+                            var lessonsByDayAndTime = new Dictionary<string, Dictionary<string, List<(string client, string status, DateTime date, TimeSpan time, string type)>>>();
+                            var saatler = new HashSet<string>();
+                            var gunler = new HashSet<string>();
 
-                        // Grid yapýlandýrmasý
-                        LessonsListView.RowDefinitions.Clear();
-                        LessonsListView.ColumnDefinitions.Clear();
-                        LessonsListView.Children.Clear();
-
-                        // Ýlk satýrda gün baþlýklarýný ekle
-                        LessonsListView.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                        LessonsListView.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-
-                        // Gün baþlýklarýný ekle
-                        for (int i = 0; i < sortedGunler.Count; i++)
-                        {
-                            DaysHeaderGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-                            var label = new Label
+                            while (await reader.ReadAsync())
                             {
-                                Text = sortedGunler[i],
-                                HorizontalOptions = LayoutOptions.Center,
-                                FontAttributes = FontAttributes.Bold
-                            };
-                            Grid.SetRow(label, 0); // Baþlýk satýrý
-                            Grid.SetColumn(label, i); // Gün sütunlarý
-                            DaysHeaderGrid.Children.Add(label);
+                                string day = DateTime.Parse(reader["Day"].ToString()).ToString("dddd", new CultureInfo("tr-TR"));
+                                string time = reader["Time"].ToString();
+                                string clientInfo = $"{reader["Client"]}";
+                                string status = reader["Status"].ToString();
+                                string lessontype = reader["Type"].ToString();
 
-                            LessonsListView.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-                            var label1 = new Label
-                            {
-                                Text = sortedGunler[i],
-                                HorizontalOptions = LayoutOptions.Center,
-                                VerticalOptions = LayoutOptions.Center,
-                                FontAttributes = FontAttributes.Bold
-                            };
-                            Grid.SetRow(label1, 0); // Baþlýk satýrý
-                            Grid.SetColumn(label1, i + 1); // Gün sütunlarý
-                            LessonsListView.Children.Add(label1);
-                        }
+                                DateTime parsedDate = DateTime.Parse(reader["Day"].ToString());
+                                TimeSpan parsedTime = TimeSpan.Parse(reader["Time"].ToString());
 
-                        // Saatleri ve seanslarý ekle
-                        for (int rowIndex = 0; rowIndex < sortedSaatler.Count; rowIndex++)
-                        {
-                            LessonsListView.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
+                                gunler.Add(day);
+                                saatler.Add(time);
 
-                            if (rowIndex < sortedSaatler.Count + 2)
-                            {
-                                var horizontalLine = new BoxView
-                                {
-                                    Color = Colors.Gray,
-                                    HeightRequest = 1,
-                                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                                    VerticalOptions = LayoutOptions.Start
-                                };
-                                Grid.SetRow(horizontalLine, rowIndex + 1); // Her satýr baþlýðýnýn altýna
-                                Grid.SetColumn(horizontalLine, 0);
-                                Grid.SetColumnSpan(horizontalLine, sortedGunler.Count + 1); // Tüm sütunlarda geçerli
-                                LessonsListView.Children.Add(horizontalLine);
+                                if (!lessonsByDayAndTime.ContainsKey(day))
+                                    lessonsByDayAndTime[day] = new Dictionary<string, List<(string client, string status, DateTime, TimeSpan, string type)>>();
 
-                                var horizontalLine1 = new BoxView
-                                {
-                                    Color = Colors.Gray,
-                                    HeightRequest = 1,
-                                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                                    VerticalOptions = LayoutOptions.Start
-                                };
-                                Grid.SetRow(horizontalLine1, rowIndex + 1); // Her satýr baþlýðýnýn altýna
-                                Grid.SetColumn(horizontalLine1, 0);
-                                Grid.SetColumnSpan(horizontalLine1, sortedGunler.Count + 1); // Tüm sütunlarda geçerli
-                                HoursHeaderGrid.Children.Add(horizontalLine1);
+                                if (!lessonsByDayAndTime[day].ContainsKey(time))
+                                    lessonsByDayAndTime[day][time] = new List<(string client, string status, DateTime date, TimeSpan time, string type)>();
+
+                                lessonsByDayAndTime[day][time].Add((clientInfo, status, parsedDate, parsedTime, lessontype));
                             }
 
-                            // Günlere göre seanslarý ekle
-                            for (int colIndex = 0; colIndex < sortedGunler.Count; colIndex++)
+                            // Gün sýralamasý
+                            var gunSirasi = new List<string> { "Pazartesi", "Salý", "Çarþamba", "Perþembe", "Cuma", "Cumartesi", "Pazar" };
+                            var sortedGunler = gunSirasi.Where(gun => gunler.Contains(gun)).ToList();
+
+                            // Saatleri sýralama
+                            var sortedSaatler = saatler.OrderBy(s => s).ToList();
+
+                            int rowHeight = 90;
+
+                            // 1. Üstte saatlerin olduðu grid'i oluþturuyoruz.
+                            HoursHeaderGrid.Children.Clear();
+                            HoursHeaderGrid.RowDefinitions.Clear();
+                            HoursHeaderGrid.ColumnDefinitions.Clear();
+                            HoursHeaderGrid.Children.Clear();
+
+                            DaysHeaderGrid.Children.Clear();
+                            DaysHeaderGrid.RowDefinitions.Clear();
+                            DaysHeaderGrid.ColumnDefinitions.Clear();
+                            DaysHeaderGrid.Children.Clear();
+
+                            // Saat baþlýklarýný ekliyoruz
+                            HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                            var boslabel = new Label
                             {
-                                string day = sortedGunler[colIndex];
-                                string time = sortedSaatler[rowIndex];
+                                Text = string.Empty
+                            };
+                            HoursHeaderGrid.Children.Add(boslabel);
 
-                                var clientDataList = lessonsByDayAndTime.ContainsKey(day) && lessonsByDayAndTime[day].ContainsKey(time)
-                                    ? lessonsByDayAndTime[day][time]
-                                    : new List<(string client, string status, DateTime date, TimeSpan time, string type)>();
+                            // Grid yapýlandýrmasý
+                            LessonsListView.RowDefinitions.Clear();
+                            LessonsListView.ColumnDefinitions.Clear();
+                            LessonsListView.Children.Clear();
 
+                            // Ýlk satýrda gün baþlýklarýný ekle
+                            LessonsListView.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                            LessonsListView.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-                                var currentTheme = Application.Current.RequestedTheme;
-
-                                var labelContainer = new StackLayout
+                            // Gün baþlýklarýný ekle
+                            for (int i = 0; i < sortedGunler.Count; i++)
+                            {
+                                DaysHeaderGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                                var label = new Label
                                 {
-                                    Orientation = StackOrientation.Vertical,
-                                    Spacing = 1
+                                    Text = sortedGunler[i],
+                                    HorizontalOptions = LayoutOptions.Center,
+                                    FontAttributes = FontAttributes.Bold
                                 };
+                                Grid.SetRow(label, 0); // Baþlýk satýrý
+                                Grid.SetColumn(label, i); // Gün sütunlarý
+                                DaysHeaderGrid.Children.Add(label);
 
-                                foreach (var clientData in clientDataList)
+                                LessonsListView.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                                var label1 = new Label
                                 {
-                                    string clientName = clientData.client;
+                                    Text = sortedGunler[i],
+                                    HorizontalOptions = LayoutOptions.Center,
+                                    VerticalOptions = LayoutOptions.Center,
+                                    FontAttributes = FontAttributes.Bold
+                                };
+                                Grid.SetRow(label1, 0); // Baþlýk satýrý
+                                Grid.SetColumn(label1, i + 1); // Gün sütunlarý
+                                LessonsListView.Children.Add(label1);
+                            }
 
-                                    // Renk seçimi duruma göre yapýlýyor
-                                    Color labelColor;
-                                    switch (clientData.status)
+                            // Saatleri ve seanslarý ekle
+                            for (int rowIndex = 0; rowIndex < sortedSaatler.Count; rowIndex++)
+                            {
+                                LessonsListView.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
+
+                                if (rowIndex < sortedSaatler.Count + 2)
+                                {
+                                    var horizontalLine = new BoxView
                                     {
-                                        case "Yapýldý":
-                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightGreen : Colors.DarkGreen;
-                                            break;
-                                        case "Yapýlmadý":
-                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightCoral : Colors.DarkRed;
-                                            break;
-                                        case "beklemede":
-                                            labelColor = (currentTheme == AppTheme.Dark) ? Colors.Yellow : Colors.OrangeRed;
-                                            break;
-                                        default:
-                                            labelColor = Colors.Grey;
-                                            break;
+                                        Color = Colors.Gray,
+                                        HeightRequest = 1,
+                                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                                        VerticalOptions = LayoutOptions.Start
+                                    };
+                                    Grid.SetRow(horizontalLine, rowIndex + 1); // Her satýr baþlýðýnýn altýna
+                                    Grid.SetColumn(horizontalLine, 0);
+                                    Grid.SetColumnSpan(horizontalLine, sortedGunler.Count + 1); // Tüm sütunlarda geçerli
+                                    LessonsListView.Children.Add(horizontalLine);
+
+                                    var horizontalLine1 = new BoxView
+                                    {
+                                        Color = Colors.Gray,
+                                        HeightRequest = 1,
+                                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                                        VerticalOptions = LayoutOptions.Start
+                                    };
+                                    Grid.SetRow(horizontalLine1, rowIndex + 1); // Her satýr baþlýðýnýn altýna
+                                    Grid.SetColumn(horizontalLine1, 0);
+                                    Grid.SetColumnSpan(horizontalLine1, sortedGunler.Count + 1); // Tüm sütunlarda geçerli
+                                    HoursHeaderGrid.Children.Add(horizontalLine1);
+                                }
+
+                                // Günlere göre seanslarý ekle
+                                for (int colIndex = 0; colIndex < sortedGunler.Count; colIndex++)
+                                {
+                                    string day = sortedGunler[colIndex];
+                                    string time = sortedSaatler[rowIndex];
+
+                                    var clientDataList = lessonsByDayAndTime.ContainsKey(day) && lessonsByDayAndTime[day].ContainsKey(time)
+                                        ? lessonsByDayAndTime[day][time]
+                                        : new List<(string client, string status, DateTime date, TimeSpan time, string type)>();
+
+
+                                    var currentTheme = Application.Current.RequestedTheme;
+
+                                    var labelContainer = new StackLayout
+                                    {
+                                        Orientation = StackOrientation.Vertical,
+                                        Spacing = 1
+                                    };
+
+                                    foreach (var clientData in clientDataList)
+                                    {
+                                        string clientName = clientData.client;
+
+                                        // Renk seçimi duruma göre yapýlýyor
+                                        Color labelColor;
+                                        switch (clientData.status)
+                                        {
+                                            case "Yapýldý":
+                                                labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightGreen : Colors.DarkGreen;
+                                                break;
+                                            case "Yapýlmadý":
+                                                labelColor = (currentTheme == AppTheme.Dark) ? Colors.LightCoral : Colors.DarkRed;
+                                                break;
+                                            case "beklemede":
+                                                labelColor = (currentTheme == AppTheme.Dark) ? Colors.Yellow : Colors.OrangeRed;
+                                                break;
+                                            default:
+                                                labelColor = Colors.Grey;
+                                                break;
+                                        }
+
+                                        // Her müþteri için ayrý bir Label oluþturuluyor
+                                        var clientLabel = new Label
+                                        {
+                                            Text = clientName,
+                                            FontSize = 16,
+                                            HorizontalOptions = LayoutOptions.Center,
+                                            VerticalOptions = LayoutOptions.Center,
+                                            TextColor = labelColor
+                                        };
+
+                                        var tapGestureRecognizer = new TapGestureRecognizer();
+                                        tapGestureRecognizer.Tapped += async (s, e) =>
+                                        {
+                                            var tappedLabel = (Label)s;
+                                            string clientInfo = tappedLabel.Text;
+                                            if (!string.IsNullOrEmpty(clientInfo))
+                                            {
+                                                DersDetaylar.IsVisible = true;
+                                                btnDersEkle.IsVisible = false;
+                                                DersEkle.IsVisible = false;
+
+                                                Client.Text = clientInfo;
+
+                                                var selectedLesson = clientDataList.FirstOrDefault(cd => cd.client == clientInfo);
+
+                                                LessonType.Text = selectedLesson.type;
+
+                                                SeansDate.Date = selectedLesson.date; // Günün tarihi
+                                                SeansTime.Time = selectedLesson.time;
+                                                oldDate = selectedLesson.date;
+                                                oldTime = selectedLesson.time;
+
+                                                await Task.Delay(100); // UI güncellenmesi için kýsa gecikme
+                                                await ScrollViewMain.ScrollToAsync(0, DersDetaylar.Y, true);
+                                            }
+                                        };
+
+
+                                        clientLabel.GestureRecognizers.Add(tapGestureRecognizer);
+
+                                        // Label, StackLayout içine ekleniyor
+                                        labelContainer.Children.Add(clientLabel);
                                     }
 
-                                    // Her müþteri için ayrý bir Label oluþturuluyor
-                                    var clientLabel = new Label
-                                    {
-                                        Text = clientName,
-                                        FontSize = 16,
-                                        HorizontalOptions = LayoutOptions.Center,
-                                        VerticalOptions = LayoutOptions.Center,
-                                        TextColor = labelColor
-                                    };
+                                    // StackLayout, grid içine ekleniyor
+                                    Grid.SetRow(labelContainer, rowIndex + 1);
+                                    Grid.SetColumn(labelContainer, colIndex + 1);
+                                    LessonsListView.Children.Add(labelContainer);
 
-                                    var tapGestureRecognizer = new TapGestureRecognizer();
-                                    tapGestureRecognizer.Tapped += async (s, e) =>
+                                    if (colIndex < sortedGunler.Count)
                                     {
-                                        var tappedLabel = (Label)s;
-                                        string clientInfo = tappedLabel.Text;
-                                        if (!string.IsNullOrEmpty(clientInfo))
+                                        var verticalLine = new BoxView
                                         {
-                                            DersDetaylar.IsVisible = true;
-                                            btnDersEkle.IsVisible = false;
-                                            DersEkle.IsVisible = false;
+                                            Color = Colors.Gray,
+                                            WidthRequest = 1,
+                                            VerticalOptions = LayoutOptions.FillAndExpand,
+                                            HorizontalOptions = LayoutOptions.Start,
+                                        };
+                                        Grid.SetRow(verticalLine, rowIndex + 1);
+                                        Grid.SetColumn(verticalLine, colIndex + 1);
+                                        Grid.SetRowSpan(verticalLine, 0);
+                                        LessonsListView.Children.Add(verticalLine);
 
-                                            Client.Text = clientInfo;
-
-                                            var selectedLesson = clientDataList.FirstOrDefault(cd => cd.client == clientInfo);
-
-                                            LessonType.Text = selectedLesson.type;
-
-                                            SeansDate.Date = selectedLesson.date; // Günün tarihi
-                                            SeansTime.Time = selectedLesson.time;
-                                            oldDate = selectedLesson.date;
-                                            oldTime = selectedLesson.time;
-                                        }
-                                    };
-
-                                    clientLabel.GestureRecognizers.Add(tapGestureRecognizer);
-
-                                    // Label, StackLayout içine ekleniyor
-                                    labelContainer.Children.Add(clientLabel);
+                                        var verticalLine1 = new BoxView
+                                        {
+                                            Color = Colors.Gray,
+                                            WidthRequest = 1,
+                                            VerticalOptions = LayoutOptions.FillAndExpand,
+                                            HorizontalOptions = LayoutOptions.Start,
+                                        };
+                                        Grid.SetRow(verticalLine1, 0);
+                                        Grid.SetColumn(verticalLine1, colIndex + 1);
+                                        Grid.SetRowSpan(verticalLine1, 0);
+                                        LessonsListView.Children.Add(verticalLine1);
+                                    }
                                 }
 
-                                // StackLayout, grid içine ekleniyor
-                                Grid.SetRow(labelContainer, rowIndex + 1);
-                                Grid.SetColumn(labelContainer, colIndex + 1);
-                                LessonsListView.Children.Add(labelContainer);
+                                HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
+                                string saatindex = string.Join("\n", sortedSaatler[rowIndex]);
 
-                                if (colIndex < sortedGunler.Count)
+                                var timeLabel1 = new Label
                                 {
-                                    var verticalLine = new BoxView
-                                    {
-                                        Color = Colors.Gray,
-                                        WidthRequest = 1,
-                                        VerticalOptions = LayoutOptions.FillAndExpand,
-                                        HorizontalOptions = LayoutOptions.Start,
-                                    };
-                                    Grid.SetRow(verticalLine, rowIndex + 1);
-                                    Grid.SetColumn(verticalLine, colIndex + 1);
-                                    Grid.SetRowSpan(verticalLine, 0);
-                                    LessonsListView.Children.Add(verticalLine);
+                                    Text = saatindex,
+                                    HorizontalOptions = LayoutOptions.Center,
+                                    FontAttributes = FontAttributes.Bold,
+                                    VerticalTextAlignment = TextAlignment.Center,
+                                    VerticalOptions = LayoutOptions.Center
+                                };
 
-                                    var verticalLine1 = new BoxView
-                                    {
-                                        Color = Colors.Gray,
-                                        WidthRequest = 1,
-                                        VerticalOptions = LayoutOptions.FillAndExpand,
-                                        HorizontalOptions = LayoutOptions.Start,
-                                    };
-                                    Grid.SetRow(verticalLine1, 0);
-                                    Grid.SetColumn(verticalLine1, colIndex + 1);
-                                    Grid.SetRowSpan(verticalLine1, 0);
-                                    LessonsListView.Children.Add(verticalLine1);
-                                }
+                                timeLabel1.HeightRequest = rowHeight;
+                                HoursHeaderGrid.RowDefinitions[rowIndex + 1].Height = new GridLength(rowHeight, GridUnitType.Absolute);
+
+                                Grid.SetRow(timeLabel1, (rowIndex + 1));
+                                Grid.SetColumn(timeLabel1, 0);
+                                HoursHeaderGrid.Children.Add(timeLabel1);
                             }
-
-                            HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
-                            string saatindex = string.Join("\n", sortedSaatler[rowIndex]);
-
-                            var timeLabel1 = new Label
-                            {
-                                Text = saatindex,
-                                HorizontalOptions = LayoutOptions.Center,
-                                FontAttributes = FontAttributes.Bold,
-                                VerticalTextAlignment = TextAlignment.Center,
-                                VerticalOptions = LayoutOptions.Center
-                            };
-
-                            timeLabel1.HeightRequest = rowHeight;
-                            HoursHeaderGrid.RowDefinitions[rowIndex + 1].Height = new GridLength(rowHeight, GridUnitType.Absolute);
-
-                            Grid.SetRow(timeLabel1, (rowIndex + 1));
-                            Grid.SetColumn(timeLabel1, 0);
-                            HoursHeaderGrid.Children.Add(timeLabel1);
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+            }
+            await Task.Delay(1000);
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+            await DisplayAlert("Hata", $"Bir hata oluþtu: {ex.Message}", "Tamam");
+            throw;
         }
+        finally
+        {
+            loadingPopup.Close();
+        }
+    }
+    private DateTime StartOfWeek(DateTime date)
+    {
+        var diff = date.DayOfWeek - DayOfWeek.Monday;
+        if (diff < 0)
+            diff += 7;
+
+        return date.AddDays(-diff).Date;
+    }
+    private DateTime GetStartOfWeekInMonth(int month, int weekNumber)
+    {
+        DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, month, 1);
+
+        var firstDayOfWeek = StartOfWeek(firstDayOfMonth);
+        return firstDayOfWeek.AddDays(7 * (weekNumber - 1));
+    }
+    public int GetWeekOfYear(DateTime date)
+    {
+        var culture = System.Globalization.CultureInfo.CurrentCulture;
+        return culture.Calendar.GetWeekOfYear(date, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+    }
+    public string GetMonthName(int month)
+    {
+        var culture = new System.Globalization.CultureInfo("tr-TR");
+        return new DateTime(1, month, 1).ToString("MMMM", culture);
     }
     private async void OnClearButtonClicked(object sender, EventArgs e)
     {

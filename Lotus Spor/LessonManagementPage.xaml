@@ -4,7 +4,7 @@
              x:Class="Lotus_Spor.LessonManagementPage"
              Title="Ders Yönetim Sayfası">
 
-    <ScrollView>
+    <ScrollView x:Name="ScrollViewMain">
         <VerticalStackLayout Padding="20">
             <Label Text="Kişi Adı Ara" x:Name="lblSearchEntry" FontSize="16" />
             <StackLayout Orientation="Horizontal">
@@ -64,12 +64,9 @@
                 SelectedIndexChanged="OnHaftaChanged"
                 FontSize="16"
                 HorizontalOptions="FillAndExpand">
-                <Picker.Items>
-                    <!-- Hizmet türlerini burada tanımlayabilirsiniz -->
-                    <x:String>Bu Hafta</x:String>
-                    <x:String>Sonraki Hafta</x:String>
-                </Picker.Items>
             </Picker>
+
+            <Label x:Name="lblTarihBilgi" />
 
             <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,30,0,0">
                 <BoxView HeightRequest="1" 
