@@ -1145,7 +1145,7 @@ public partial class LessonManagementPage : ContentPage
         //lessontype.Text = string.Empty;
         SeansDate.Date = DateTime.Now;
         SeansTime.Time = TimeSpan.Zero;
-        LoadLessons(searchName, serviceType, antrenor);
+        //LoadLessons(searchName, serviceType, antrenor);
     }
     private void OnScrollChanged(object sender, ScrolledEventArgs e)
     {
