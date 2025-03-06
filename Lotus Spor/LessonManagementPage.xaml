@@ -66,13 +66,20 @@
 
             <Label x:Name="lblTarihBilgi" />
 
+
+
             <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,30,0,0">
                 <BoxView HeightRequest="1" 
                  BackgroundColor="Gray"
                  HorizontalOptions="FillAndExpand" />
             </StackLayout>
-
             <ScrollView Orientation="Vertical" HeightRequest="400" Scrolled="OnScrollChanged">
+                <Grid x:Name="DaysHeaderGrid"
+                  ColumnSpacing="10"
+                  RowSpacing="0"
+                  VerticalOptions="Start"
+                  IsVisible="false">
+                </Grid>
                 <StackLayout Margin="0,0,0,0">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -94,13 +101,6 @@
                         <!-- LessonsListView sağda, kaydırılabilir ve HoursHeaderGrid'in solunda -->
                         <ScrollView Orientation="Horizontal" Grid.Row="1" Grid.Column="1" >
                             <StackLayout>
-                                <Grid x:Name="DaysHeaderGrid"
-                                          ColumnSpacing="10"
-                                          RowSpacing="0"
-                                          VerticalOptions="Start"
-                                          IsVisible="false">
-                                </Grid>
-
                                 <Grid x:Name="LessonsListView"
                                           ColumnSpacing="10"
                                           RowSpacing="0"

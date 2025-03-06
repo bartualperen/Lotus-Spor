@@ -2958,3 +2958,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.Maui.Controls.
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\Lotus Spor.csproj.Up2Date
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\DocumentFormat.OpenXml.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\DocumentFormat.OpenXml.Framework.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\System.IO.Packaging.dll

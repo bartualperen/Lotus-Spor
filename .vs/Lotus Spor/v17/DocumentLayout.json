@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\lessonmanagementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\lessonmanagementpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\lessonmanagementpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\lessonmanagementpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 908,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,13 +30,26 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LessonManagementPage.xaml.cs",
+              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml.cs",
+              "RelativeDocumentMoniker": "Lotus Spor\\LessonManagementPage.xaml.cs",
+              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml.cs",
+              "RelativeToolTip": "Lotus Spor\\LessonManagementPage.xaml.cs",
+              "ViewState": "AgIAABMFAAAAAAAAAAAAABYFAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T18:45:46.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "LessonManagementPage.xaml",
               "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml",
               "RelativeDocumentMoniker": "Lotus Spor\\LessonManagementPage.xaml",
               "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\LessonManagementPage.xaml",
               "RelativeToolTip": "Lotus Spor\\LessonManagementPage.xaml",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAAF0AAABkAAAAAAAAAA==",
+              "ViewState": "AgIAADoAAAAAAAAAAAAAAD0AAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-03-06T18:38:09.186Z",
               "EditorCaption": ""

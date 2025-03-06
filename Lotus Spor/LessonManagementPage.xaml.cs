@@ -1,11 +1,7 @@
 using CommunityToolkit.Maui.Views;
-using Microsoft.Maui.ApplicationModel;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1;
-using Org.BouncyCastle.Tls;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Runtime.ExceptionServices;
 
 namespace Lotus_Spor;
 
@@ -1140,13 +1136,10 @@ public partial class LessonManagementPage : ContentPage
     }
     private void OnScrollChanged(object sender, ScrolledEventArgs e)
     {
-        
+
     }
-    private int loadLessonsCallCount = 0;
     private async void LoadLessons(string searchName = "", string hizmet_turu = "", string antrenor = "", string Hafta = "")
     {
-        loadLessonsCallCount++;
-        Console.WriteLine($"LoadLessons çaðrýldý: {loadLessonsCallCount} kez");
         var loadingPopup = new LoadingPopup();
         this.ShowPopup(loadingPopup);
 
