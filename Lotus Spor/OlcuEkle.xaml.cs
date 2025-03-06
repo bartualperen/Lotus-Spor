@@ -92,22 +92,22 @@ public partial class OlcuEkle : ContentPage
             await DisplayAlert("Hata", "Lütfen bir kullanýcý seçin.", "Tamam");
             return;
         }
-        // Giriþlerin boþ olup olmadýðýný kontrol et
-        if (string.IsNullOrWhiteSpace(KiloEntry.Text) ||
-            string.IsNullOrWhiteSpace(YagOraniEntry.Text) ||
-            string.IsNullOrWhiteSpace(SuOraniEntry.Text) ||
-            string.IsNullOrWhiteSpace(OmuzOlcusuEntry.Text) ||
-            string.IsNullOrWhiteSpace(BicepsOlcusuEntry.Text) ||
-            string.IsNullOrWhiteSpace(GogusOlcusuEntry.Text) ||
-            string.IsNullOrWhiteSpace(BelOlcusuEntry.Text) ||
-            string.IsNullOrWhiteSpace(KarinOlcusuEntry.Text) ||
-            string.IsNullOrWhiteSpace(KaclaOlcusuEntry.Text) ||
-            string.IsNullOrWhiteSpace(BacakOlcusuEntry.Text) ||
-            string.IsNullOrWhiteSpace(KalfOlcusuEntry.Text))
-        {
-            await DisplayAlert("Hata", "Lütfen tüm alanlarý doldurun.", "Tamam");
-            return;
-        }
+
+        //if (string.IsNullOrWhiteSpace(KiloEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(YagOraniEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(SuOraniEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(OmuzOlcusuEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(BicepsOlcusuEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(GogusOlcusuEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(BelOlcusuEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(KarinOlcusuEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(KaclaOlcusuEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(BacakOlcusuEntry.Text) ||
+        //    string.IsNullOrWhiteSpace(KalfOlcusuEntry.Text))
+        //{
+        //    await DisplayAlert("Hata", "Lütfen tüm alanlarý doldurun.", "Tamam");
+        //    return;
+        //}
 
         // Burada ölçüleri iþleyebilirsiniz
         decimal kilo = Convert.ToDecimal(KiloEntry.Text);

@@ -161,10 +161,13 @@ public partial class MeasurementPage : ContentPage
     }
     private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
+        CustomerListView.IsVisible = false;
+
         if (e.SelectedItem != null)
         {
             CustomerListView.IsVisible = false;
             CustomerListView.SelectedItem = null;
+            
             lblSearchEntry.IsVisible = false;
             SearchEntry.IsVisible = false;
             btnUyeListele.IsVisible = true;
@@ -192,5 +195,6 @@ public partial class MeasurementPage : ContentPage
         lblSearchEntry.IsVisible = true;
         SearchEntry.IsVisible = true;
         Olculer.Clear();
+        LoadCustomers();
     }
 }

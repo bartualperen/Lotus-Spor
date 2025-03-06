@@ -11,34 +11,18 @@ namespace Lotus_Spor;
 
 public partial class LessonManagementPage : ContentPage
 {
-    private LoadingPopup _loadingPopup;
     List<string> isimListesi = new List<string>();
-    private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     List<string> isimListesi1 = new List<string>();
     List<string> isimListesi2 = new List<string>();
+    private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     private ObservableCollection<string> filteredList1 = new ObservableCollection<string>();
     public ObservableCollection<DoluSeans> DoluSeanslar { get; set; } = new ObservableCollection<DoluSeans>();
-    public class DoluSeans
-    {
-        public string Gun { get; set; }
-        public string BaslangicSaat { get; set; }
-        public string HizmetTuru { get; set; }
-    }
-    string loggedInUser = Preferences.Get("LoggedInUser", string.Empty);
-    string loggedInUser2 = Preferences.Get("LoggedInUser2", string.Empty);
-    string gender = Preferences.Get("Gender", string.Empty);
-    int loggedInUserId = int.Parse(Preferences.Get("LoggedInUserId", "0"));
-    string userRole = Preferences.Get("UserRole", string.Empty);
+    public ObservableCollection<Lesson> Lessons { get; set; } = new ObservableCollection<Lesson>();
     private DateTime oldDate;
     private TimeSpan oldTime;
-    string searchName, serviceType, antrenor, hafta;
-    private int selectedDayOfWeek;
-    public string grupders;
+    string searchName, serviceType, antrenor, hafta, grupders;
     private bool isResettingTime = false;
-    private int firstRunning = 0;
-    public ObservableCollection<Lesson> Lessons { get; set; } = new ObservableCollection<Lesson>();
-    private int kullaniciId = -1;
-    private int kullaniciId1 = -1;
+    private int firstRunning = 0, selectedDayOfWeek, kullaniciId = -1, kullaniciId1 = -1;
     public LessonManagementPage()
 	{
 		InitializeComponent();
@@ -59,9 +43,6 @@ public partial class LessonManagementPage : ContentPage
     }
     private async void HaftaListele()
     {
-        //var loadingPopup = new LoadingPopup();
-        //this.ShowPopup(loadingPopup);
-
         try
         {
             var weeks = new List<string>();
@@ -840,6 +821,12 @@ public partial class LessonManagementPage : ContentPage
     private async void OnEkleClicked(object sender, EventArgs e)
     {
         string antrenorName = AntrenorNameEntry.Text;
+        antrenorName = antrenorName.TrimEnd();
+        if (!isimListesi1.Contains(antrenorName))
+        {
+            await DisplayAlert("Uyarý", "Lütfen geçerli bir antrenör ismi giriniz.", "Tamam");
+        }
+
         string seansTur = SeansPicker.SelectedItem?.ToString();
 
         // Seçilen günleri birleþtirme
@@ -1036,6 +1023,12 @@ public partial class LessonManagementPage : ContentPage
     private async void OnTekEkleClicked(object sender, EventArgs e)
     {
         string antrenorName = AntrenorNameEntry.Text;
+        antrenorName = antrenorName.TrimEnd();
+        if (!isimListesi1.Contains(antrenorName))
+        {
+            await DisplayAlert("Uyarý", "Lütfen geçerli bir antrenör ismi giriniz.", "Tamam");
+        }
+
         string seansTur = SeansPicker.SelectedItem?.ToString();
 
         string seansquery = "INSERT INTO seanslar (tur, musteri_id, antrenor, tarih, saat, grup) VALUES (@seans_turu, @musteri_id, @antrenor, @seans_tarihi, @seans_saati, @grup)";
@@ -1141,11 +1134,9 @@ public partial class LessonManagementPage : ContentPage
         DersDetaylar.IsVisible = false;
         DersEkle.IsVisible = false;
         btnDersEkle.IsVisible = true;
-        Client.Text = string.Empty;   
-        //lessontype.Text = string.Empty;
+        Client.Text = string.Empty;
         SeansDate.Date = DateTime.Now;
         SeansTime.Time = TimeSpan.Zero;
-        //LoadLessons(searchName, serviceType, antrenor);
     }
     private void OnScrollChanged(object sender, ScrolledEventArgs e)
     {
@@ -1165,19 +1156,20 @@ public partial class LessonManagementPage : ContentPage
             Hafta = hafta;
 
             string query = @"
-        SELECT 
-            s.tarih AS Day, 
-            s.saat AS Time, 
-            s.durum AS Status, 
-            s.tur AS Type,
-            s.grup AS Grup,
-            CONCAT(m.isim, ' ', m.soyisim) AS Client 
-        FROM 
-            seanslar s
-        INNER JOIN 
-            musteriler m ON s.musteri_id = m.id
-        WHERE 
-            m.aktiflik = 'Aktif' ";
+                   SELECT 
+                       s.tarih AS Day, 
+                       s.saat AS Time, 
+                       s.durum AS Status, 
+                       s.tur AS Type,
+                       s.grup AS Grup,
+                       s.antrenor AS AntrenorIsim,
+                       CONCAT(m.isim, ' ', m.soyisim) AS Client 
+                   FROM 
+                       seanslar s
+                   INNER JOIN 
+                       musteriler m ON s.musteri_id = m.id
+                   WHERE 
+                       m.aktiflik = 'Aktif' ";
 
             DateTime startDate = DateTime.MinValue;
             DateTime endDate = DateTime.MaxValue;
@@ -1260,7 +1252,7 @@ public partial class LessonManagementPage : ContentPage
                         command.Parameters.AddWithValue("@endDate", endDate);
 
                         lblTarihBilgi.Text = string.Empty;
-                        lblTarihBilgi.Text = "Gösterilen Tarih Aralýðý \n" + startDate.ToString("dd-MM-yyyy") + " - " + endDate.ToString("dd-MM-yyyy");
+                        lblTarihBilgi.Text = "Gösterilen Tarih Aralýðý \n" + startDate.ToString("dd MMMM yyyy") + " - " + endDate.ToString("dd MMMM yyyy");
 
                         if (!string.IsNullOrEmpty(searchName))
                         {
@@ -1272,7 +1264,7 @@ public partial class LessonManagementPage : ContentPage
                         using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                         {
                             // Gün ve saat bazýnda verileri saklamak için dictionary
-                            var lessonsByDayAndTime = new Dictionary<string, Dictionary<string, List<(string client, string status, DateTime date, TimeSpan time, string type)>>>();
+                            var lessonsByDayAndTime = new Dictionary<string, Dictionary<string, List<(string client, string status, DateTime date, TimeSpan time, string type, string AntrenorIsim)>>>();
                             var saatler = new HashSet<string>();
                             var gunler = new HashSet<string>();
 
@@ -1283,6 +1275,7 @@ public partial class LessonManagementPage : ContentPage
                                 string clientInfo = $"{reader["Client"]}";
                                 string status = reader["Status"].ToString();
                                 string lessontype = reader["Type"].ToString();
+                                string AntrenorIsim = reader["AntrenorIsim"].ToString();
 
                                 DateTime parsedDate = DateTime.Parse(reader["Day"].ToString());
                                 TimeSpan parsedTime = TimeSpan.Parse(reader["Time"].ToString());
@@ -1291,12 +1284,12 @@ public partial class LessonManagementPage : ContentPage
                                 saatler.Add(time);
 
                                 if (!lessonsByDayAndTime.ContainsKey(day))
-                                    lessonsByDayAndTime[day] = new Dictionary<string, List<(string client, string status, DateTime, TimeSpan, string type)>>();
+                                    lessonsByDayAndTime[day] = new Dictionary<string, List<(string client, string status, DateTime, TimeSpan, string type, string AntrenorIsim)>>();
 
                                 if (!lessonsByDayAndTime[day].ContainsKey(time))
-                                    lessonsByDayAndTime[day][time] = new List<(string client, string status, DateTime date, TimeSpan time, string type)>();
+                                    lessonsByDayAndTime[day][time] = new List<(string client, string status, DateTime date, TimeSpan time, string type, string AntrenorIsim)>();
 
-                                lessonsByDayAndTime[day][time].Add((clientInfo, status, parsedDate, parsedTime, lessontype));
+                                lessonsByDayAndTime[day][time].Add((clientInfo, status, parsedDate, parsedTime, lessontype, AntrenorIsim));
                             }
 
                             // Gün sýralamasý
@@ -1403,7 +1396,7 @@ public partial class LessonManagementPage : ContentPage
 
                                     var clientDataList = lessonsByDayAndTime.ContainsKey(day) && lessonsByDayAndTime[day].ContainsKey(time)
                                         ? lessonsByDayAndTime[day][time]
-                                        : new List<(string client, string status, DateTime date, TimeSpan time, string type)>();
+                                        : new List<(string client, string status, DateTime date, TimeSpan time, string type, string AntrenorIsim)>();
 
 
                                     var currentTheme = Application.Current.RequestedTheme;
@@ -1467,6 +1460,7 @@ public partial class LessonManagementPage : ContentPage
                                                 SeansTime.Time = selectedLesson.time;
                                                 oldDate = selectedLesson.date;
                                                 oldTime = selectedLesson.time;
+                                                AntrenorIsmi.Text = selectedLesson.AntrenorIsim;
 
                                                 await Task.Delay(100); // UI güncellenmesi için kýsa gecikme
                                                 await ScrollViewMain.ScrollToAsync(0, DersDetaylar.Y, true);

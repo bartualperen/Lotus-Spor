@@ -19,7 +19,7 @@ namespace Lotus_Spor
         public string soyisim { get; set; }
         public string antrenor { get; set; }
         public string odeme_donemi { get; set; }
-        public string kayit_tarihi { get; set; }
+        public string odeme_tarihi { get; set; }
         public decimal toplam_odeme { get; set; }
         public decimal seans_ucreti { get; set; }
         public string odeme_durumu { get; set; }

@@ -27,47 +27,47 @@
             </CollectionView>
             <!-- Kilo -->
             <Label Text="Kilo (kg)" FontSize="16" />
-            <Entry x:Name="KiloEntry" Keyboard="Numeric" Placeholder="Kilonuzu giriniz" />
+            <Entry x:Name="KiloEntry" Keyboard="Numeric" Placeholder="Kilo giriniz" />
 
             <!-- Yağ Oranı -->
             <Label Text="Yağ Oranı (%)" FontSize="16" />
-            <Entry x:Name="YagOraniEntry" Keyboard="Numeric" Placeholder="Yağ oranınızı giriniz" />
+            <Entry x:Name="YagOraniEntry" Keyboard="Numeric" Placeholder="Yağ oranı giriniz" />
 
             <!-- Su Oranı -->
             <Label Text="Su Oranı (%)" FontSize="16" />
-            <Entry x:Name="SuOraniEntry" Keyboard="Numeric" Placeholder="Su oranınızı giriniz" />
+            <Entry x:Name="SuOraniEntry" Keyboard="Numeric" Placeholder="Su oranı giriniz" />
 
             <!-- Omuz Ölçüsü -->
             <Label Text="Omuz Ölçüsü (cm)" FontSize="16" />
-            <Entry x:Name="OmuzOlcusuEntry" Keyboard="Numeric" Placeholder="Omuz ölçünüzü giriniz" />
+            <Entry x:Name="OmuzOlcusuEntry" Keyboard="Numeric" Placeholder="Omuz ölçüsü giriniz" />
 
             <!-- Biceps Ölçüsü -->
             <Label Text="Biceps Ölçüsü (cm)" FontSize="16" />
-            <Entry x:Name="BicepsOlcusuEntry" Keyboard="Numeric" Placeholder="Biceps ölçünüzü giriniz" />
+            <Entry x:Name="BicepsOlcusuEntry" Keyboard="Numeric" Placeholder="Biceps ölçüsü giriniz" />
 
             <!-- Göğüs Ölçüsü -->
             <Label Text="Göğüs Ölçüsü (cm)" FontSize="16" />
-            <Entry x:Name="GogusOlcusuEntry" Keyboard="Numeric" Placeholder="Göğüs ölçünüzü giriniz" />
+            <Entry x:Name="GogusOlcusuEntry" Keyboard="Numeric" Placeholder="Göğüs ölçüsü giriniz" />
 
             <!-- Bel Ölçüsü -->
             <Label Text="Bel Ölçüsü (cm)" FontSize="16" />
-            <Entry x:Name="BelOlcusuEntry" Keyboard="Numeric" Placeholder="Bel ölçünüzü giriniz" />
+            <Entry x:Name="BelOlcusuEntry" Keyboard="Numeric" Placeholder="Bel ölçüsü giriniz" />
 
             <!-- Karın Ölçüsü -->
             <Label Text="Karın Ölçüsü (cm)" FontSize="16" />
-            <Entry x:Name="KarinOlcusuEntry" Keyboard="Numeric" Placeholder="Karın ölçünüzü giriniz" />
+            <Entry x:Name="KarinOlcusuEntry" Keyboard="Numeric" Placeholder="Karın ölçüsü giriniz" />
 
             <!-- Kaçla Ölçüsü -->
             <Label Text="Kaçla Ölçüsü (cm)" FontSize="16" />
-            <Entry x:Name="KaclaOlcusuEntry" Keyboard="Numeric" Placeholder="Kaçla ölçünüzü giriniz" />
+            <Entry x:Name="KaclaOlcusuEntry" Keyboard="Numeric" Placeholder="Kaçla ölçüsü giriniz" />
 
             <!-- Bacak Ölçüsü -->
             <Label Text="Bacak Ölçüsü (cm)" FontSize="16" />
-            <Entry x:Name="BacakOlcusuEntry" Keyboard="Numeric" Placeholder="Bacak ölçünüzü giriniz" />
+            <Entry x:Name="BacakOlcusuEntry" Keyboard="Numeric" Placeholder="Bacak ölçüsü giriniz" />
 
             <!-- Kalf Ölçüsü -->
             <Label Text="Kalf Ölçüsü (cm)" FontSize="16" />
-            <Entry x:Name="KalfOlcusuEntry" Keyboard="Numeric" Placeholder="Kalf ölçünüzü giriniz" />
+            <Entry x:Name="KalfOlcusuEntry" Keyboard="Numeric" Placeholder="Kalf ölçüsü giriniz" />
 
             <!-- Submit Butonu -->
             <Button Margin="10,10,5,100" Text="Ölçüleri Kaydet"  Clicked="OnSaveButtonClicked" />

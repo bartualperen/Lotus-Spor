@@ -1983,10 +1983,6 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\stamp
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\stamp\_GenerateJavaStubs.stamp
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\stamp\_ResolveLibraryProjectImports.stamp
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.Maui.Controls.HotReload.Forms.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\Lotus Spor.csproj.Up2Date
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\ar\Microsoft.Maui.Controls.resources.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Azure.Core.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Azure.Identity.dll
@@ -2958,3 +2954,7 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\compressed_assem
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\marshal_methods.x86_64.o
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\jni_remap.x86_64.o
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\app_shared_libraries\x86_64\libxamarin-app.so
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.Maui.Controls.HotReload.Forms.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\Lotus Spor.csproj.Up2Date

@@ -1400,7 +1400,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Sy
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Diagnostics.EventLog.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.IdentityModel.Tokens.Jwt.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Memory.Data.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Runtime.Caching.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Security.Cryptography.ProtectedData.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Security.Permissions.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Windows.Extensions.dll
@@ -1548,6 +1547,15 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.1
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-200.png
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-400.png
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\Lotus Spor.sourcelink.json
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\CommunityToolkit.Maui.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\CommunityToolkit.Maui.Core.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Bcl.Cryptography.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Security.Cryptography.Pkcs.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Speech.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Text.Json.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\cs\Microsoft.Data.SqlClient.resources.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\pl\Microsoft.Data.SqlClient.resources.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\tr\Microsoft.Data.SqlClient.resources.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll

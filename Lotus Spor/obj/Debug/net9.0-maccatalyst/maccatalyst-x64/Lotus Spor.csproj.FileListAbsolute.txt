@@ -45,7 +45,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Syst
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.Diagnostics.EventLog.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.IdentityModel.Tokens.Jwt.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.Memory.Data.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.Runtime.Caching.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.Security.Cryptography.ProtectedData.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.Security.Permissions.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.Windows.Extensions.dll
@@ -392,6 +391,13 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\ibto
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\copySceneKitAssets\_ProcessedSceneKitAssetsPath.items
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\collada\_ProcessedColladaAssetsPath.items
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-maccatalyst\maccatalyst-x64\atlas\_ProcessedTextureAtlasesPath.items
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\CommunityToolkit.Maui.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\CommunityToolkit.Maui.Core.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Bcl.Cryptography.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\System.Security.Cryptography.Pkcs.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\cs\Microsoft.Data.SqlClient.resources.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\pl\Microsoft.Data.SqlClient.resources.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\tr\Microsoft.Data.SqlClient.resources.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-maccatalyst\maccatalyst-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll

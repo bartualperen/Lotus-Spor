@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Lotus_Spor.AntrenorOdemeleri">
+             x:Class="Lotus_Spor.AntrenorOdemeleri"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <ScrollView Orientation="Vertical">
             <VerticalStackLayout Padding="10">
@@ -59,7 +60,7 @@
                                     <Label Grid.Row="1" Grid.Column="1" Text="{Binding odeme_donemi}" />
 
                                     <Label Grid.Row="2" Grid.Column="0" Text="Ödenecek Tutar:" FontAttributes="Bold" />
-                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding toplam_odeme}" />
+                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding toplam_odeme, StringFormat='{0} TL'}" />
 
                                     <Label Grid.Row="3" Grid.Column="0" Text="Ödeme Durumu:" FontAttributes="Bold" />
                                     <Label Grid.Row="3" Grid.Column="1" Text="{Binding odeme_durumu}" />

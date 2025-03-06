@@ -68,48 +68,50 @@ public partial class OdemeBilgileri : ContentPage
     }
     private async void VerileriGetir()
     {
-        //_loadingPopup = new LoadingPopup();
+        _loadingPopup = new LoadingPopup();
         //await this.ShowPopupAsync(_loadingPopup);
-
-        MusteriListesi.Clear();
-        DonemPicker.Items.Clear();
-        DonemPicker.Items.Add("Tümü");
-
-        using (var conn = Database.GetConnection())
+        try
         {
-            conn.Open();
-            string query = "SELECT DISTINCT DATE_FORMAT(odeme_donemi, '%Y-%m') AS odeme_donemi FROM Odemeler ORDER BY odeme_donemi DESC";
+            MusteriListesi.Clear();
+            DonemPicker.Items.Clear();
+            DonemPicker.Items.Add("Tümü");
 
-            using (var cmd = new MySqlCommand(query, conn))
+            using (var conn = Database.GetConnection())
             {
-                using (var reader = cmd.ExecuteReader())
+                conn.Open();
+                string query = @"SET lc_time_names = 'tr_TR';
+                                SELECT DISTINCT DATE_FORMAT(odeme_donemi, '%Y %M') AS odeme_donemi, YEAR(odeme_donemi) AS yil, MONTH(odeme_donemi) AS ay FROM Odemeler ORDER BY yil DESC, ay DESC;";
+
+                using (var cmd = new MySqlCommand(query, conn))
                 {
-                    while (reader.Read())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        DonemPicker.Items.Add(reader.GetString("odeme_donemi"));
+                        while (reader.Read())
+                        {
+                            DonemPicker.Items.Add(reader.GetString("odeme_donemi"));
+                        }
                     }
                 }
             }
+
+            DonemPicker.SelectedIndex = 0;
+            OdemeDurumuPicker.SelectedIndex = 0;
+
+            // Listeyi güncelle
+            MusteriListesi.Clear();
+            foreach (var odeme in await OdemeleriGetir(currentPage))
+            {
+                MusteriListesi.Add(odeme);
+            }
         }
-
-        DonemPicker.SelectedIndex = 0;
-        OdemeDurumuPicker.SelectedIndex = 0;
-
-        // Listeyi güncelle
-        MusteriListesi.Clear();
-        foreach (var odeme in await OdemeleriGetir(currentPage))
+        catch (Exception ex)
         {
-            MusteriListesi.Add(odeme);
+            await DisplayAlert("Hata", $"Veriler getirilirken bir hata oluþtu: \n {ex.Message}", "Tamam");
         }
-        //await Task.Delay(100);
-        //try
-        //{
-        //    _loadingPopup.Close();
-        //}
-        //catch (Exception ex)
-        //{
-        //    await DisplayAlert("Error", "Kapatýlamadý" + ex.Message, "OK");
-        //}
+        finally
+        {
+            _loadingPopup.Close();
+        }
     }
     public async Task<ObservableCollection<OdemeModel>> OdemeleriGetir(int page)
     {
@@ -120,6 +122,7 @@ public partial class OdemeBilgileri : ContentPage
         {
             conn.Open();
             string query = @"
+            SET lc_time_names = 'tr_TR';
             WITH RankedPayments AS (
                 SELECT 
                     o.id, 
@@ -144,7 +147,7 @@ public partial class OdemeBilgileri : ContentPage
             // Dönem Picker'ý filtreleme için kullan
             if (DonemPicker.SelectedItem != null && DonemPicker.SelectedItem.ToString() != "Tümü")
             {
-                query += " AND DATE_FORMAT(odeme_donemi, '%Y-%m') = @odeme_donemi";
+                query += " AND DATE_FORMAT(odeme_donemi, '%Y %M') = @odeme_donemi";
                 parameters.Add(new MySqlParameter("@odeme_donemi", DonemPicker.SelectedItem.ToString()));
             }
 
@@ -179,7 +182,8 @@ public partial class OdemeBilgileri : ContentPage
                     odemeler.Clear();
                     while (reader.Read())
                     {
-                        var odemeDonemi = reader.GetDateTime("odeme_donemi").ToString("yyyy-MM");
+                        var odemeDonemi = reader.GetDateTime("odeme_donemi").ToString("yyyy MMMM");
+                        var odemeTarihi = reader.GetDateTime("odeme_donemi").ToString("dd MMMM yyyy");
 
                         odemeler.Add(new OdemeModel
                         {
@@ -189,7 +193,8 @@ public partial class OdemeBilgileri : ContentPage
                             musteri_adi = reader.GetString("isim") + " " + reader.GetString("soyisim"),
                             odeme_donemi = odemeDonemi,
                             toplam_odeme = reader.GetDecimal("toplam_odeme"),
-                            odeme_durumu = reader.GetString("odeme_durumu")
+                            odeme_durumu = reader.GetString("odeme_durumu"),
+                            odeme_tarihi = odemeTarihi
                         });
                     }
                 }

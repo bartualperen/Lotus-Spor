@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lotus_Spor.LessonManagementPage"
-             Title="Ders Yönetim Sayfası">
+             Title="Ders Yönetim Sayfası"
+             NavigationPage.HasNavigationBar="False">
 
     <ScrollView x:Name="ScrollViewMain">
         <VerticalStackLayout Padding="20">
@@ -27,7 +28,6 @@
                             CornerRadius="20"
                             IsVisible="False"/>
             </StackLayout>
-            <!-- Arama Sonuçları Listesi -->
             <CollectionView x:Name="ResultsCollectionView"
                         IsVisible="False"
                         SelectionMode="Single"
@@ -44,14 +44,12 @@
                 FontSize="16"
                 HorizontalOptions="FillAndExpand" />
 
-            <!-- Hizmet Türü Seçimi -->
             <Label Text="Hizmet Türü Seçin" FontSize="16" />
             <Picker x:Name="ServiceTypePicker"
                 SelectedIndexChanged="OnServiceTypeChanged"
                 FontSize="16"
                 HorizontalOptions="FillAndExpand">
                 <Picker.Items>
-                    <!-- Hizmet türlerini burada tanımlayabilirsiniz -->
                     <x:String>Tümü</x:String>
                     <x:String>Fitness</x:String>
                     <x:String>Yoga</x:String>
@@ -77,18 +75,14 @@
             <ScrollView Orientation="Vertical" HeightRequest="400" Scrolled="OnScrollChanged">
                 <StackLayout Margin="0,0,0,0">
                     <Grid>
-                        <!-- Grid içerisindeki ilk sütunda HoursHeaderGrid yer alacak -->
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <!-- Sabit genişlik -->
                             <ColumnDefinition Width="*" />
-                            <!-- Esnek genişlik -->
                         </Grid.ColumnDefinitions>
 
-                        <!-- HoursHeaderGrid sol tarafta sabit -->
                         <Grid x:Name="HoursHeaderGrid"
                           Grid.Row="0" Grid.Column="0"
                           ColumnSpacing="10"
@@ -129,12 +123,20 @@
                 <StackLayout Margin="0,10,0,10">
                     <Label Text="Ders Detayları" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,0,0,10" />
                     <Label Text="Üye İsmi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    <BoxView BackgroundColor="Gray" Margin="0,0,0,20" />
+
                     <Label x:Name="Client" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
-                    <Label Text="Ders Türü" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,25,0,0" />
+                    <Label Text="Antrenor İsmi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    
+                    <Label x:Name="AntrenorIsmi" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
+                    <Label Text="Ders Türü" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    
                     <Label x:Name="LessonType" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,10" />
                     <Label Text="Ders Tarihi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,15,0,0" />
-                    <DatePicker x:Name="SeansDate" Format="dd.MM.yyyy" Margin="0,0,0,10" />
+
+                    <DatePicker x:Name="SeansDate" Format="dd MMMM yyyy" Margin="0,0,0,10" />
                     <Label Text="Ders Saati" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    
                     <TimePicker x:Name="SeansTime" Format="HH:mm" Margin="0,0,0,20" />
 
                     <Picker IsVisible="False" x:Name="DayPicker" SelectedIndexChanged="OnDayPickerSelectedIndexChanged" Title="Yeni Ders Gününü Seçin">
