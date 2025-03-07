@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Views;
 using MySql.Data.MySqlClient;
 
 namespace Lotus_Spor;
@@ -87,10 +88,75 @@ public partial class OlcuEkle : ContentPage
     }
     private async void OnSaveButtonClicked(object sender, EventArgs e)
     {
-        if (kullaniciId == -1)
+        var loadingPopup = new LoadingPopup();
+        this.ShowPopup(loadingPopup);
+
+        try
         {
-            await DisplayAlert("Hata", "Lütfen bir kullanýcý seçin.", "Tamam");
-            return;
+            if (kullaniciId == -1)
+            {
+                await DisplayAlert("Hata", "Lütfen bir kullanýcý seçin.", "Tamam");
+                return;
+            }
+
+            decimal kilo = Convert.ToDecimal(KiloEntry.Text);
+            decimal yagOrani = Convert.ToDecimal(YagOraniEntry.Text);
+            decimal suOrani = Convert.ToDecimal(SuOraniEntry.Text);
+            decimal kasOrani = Convert.ToDecimal(KasOraniEntry.Text);
+            decimal BMI = Convert.ToDecimal(BMIEntry.Text);
+            decimal omuzOlcusu = Convert.ToDecimal(OmuzOlcusuEntry.Text);
+            decimal bicepsOlcusu = Convert.ToDecimal(BicepsOlcusuEntry.Text);
+            decimal gogusOlcusu = Convert.ToDecimal(GogusOlcusuEntry.Text);
+            decimal belOlcusu = Convert.ToDecimal(BelOlcusuEntry.Text);
+            decimal karinOlcusu = Convert.ToDecimal(KarinOlcusuEntry.Text);
+            decimal kaclaOlcusu = Convert.ToDecimal(KaclaOlcusuEntry.Text);
+            decimal bacakOlcusu = Convert.ToDecimal(BacakOlcusuEntry.Text);
+            decimal kalfOlcusu = Convert.ToDecimal(KalfOlcusuEntry.Text);
+
+            try
+            {
+                var connectionString = Database.GetConnection();
+                using (var connection = Database.GetConnection())
+                {
+                    connection.Open();
+                    string query = "INSERT INTO VucutBilgileri (KullaniciId, Kilo, YagOrani, SuOrani, KasOrani, BMI, Omuz, Biceps, Gogus, Bel, Karin, Kalca, Bacak, Kalf) " +
+                                   "VALUES (@kullaniciId, @kilo, @yagOrani, @suOrani, @kasOrani, @BMI, @omuzOlcusu, @bicepsOlcusu, @gogusOlcusu, @belOlcusu, @karinOlcusu, @kaclaOlcusu, @bacakOlcusu, @kalfOlcusu)";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@kullaniciId", kullaniciId);
+                        command.Parameters.AddWithValue("@kilo", kilo);
+                        command.Parameters.AddWithValue("@yagOrani", yagOrani);
+                        command.Parameters.AddWithValue("@suOrani", suOrani);
+                        command.Parameters.AddWithValue("@kasOrani", kasOrani);
+                        command.Parameters.AddWithValue("@BMI", BMI);
+                        command.Parameters.AddWithValue("@omuzOlcusu", omuzOlcusu);
+                        command.Parameters.AddWithValue("@bicepsOlcusu", bicepsOlcusu);
+                        command.Parameters.AddWithValue("@gogusOlcusu", gogusOlcusu);
+                        command.Parameters.AddWithValue("@belOlcusu", belOlcusu);
+                        command.Parameters.AddWithValue("@karinOlcusu", karinOlcusu);
+                        command.Parameters.AddWithValue("@kaclaOlcusu", kaclaOlcusu);
+                        command.Parameters.AddWithValue("@bacakOlcusu", bacakOlcusu);
+                        command.Parameters.AddWithValue("@kalfOlcusu", kalfOlcusu);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+                await DisplayAlert("Baþarýlý", "Ölçüler baþarýyla kaydedildi.", "Tamam");
+                await Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", "An error occurred while saving data: " + ex.Message, "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", "An error occurred while saving data: " + ex.Message, "OK");
+        }
+        finally
+        {
+            loadingPopup.Close();
         }
 
         //if (string.IsNullOrWhiteSpace(KiloEntry.Text) ||
@@ -110,52 +176,7 @@ public partial class OlcuEkle : ContentPage
         //}
 
         // Burada ölçüleri iþleyebilirsiniz
-        decimal kilo = Convert.ToDecimal(KiloEntry.Text);
-        decimal yagOrani = Convert.ToDecimal(YagOraniEntry.Text);
-        decimal suOrani = Convert.ToDecimal(SuOraniEntry.Text);
-        decimal omuzOlcusu = Convert.ToDecimal(OmuzOlcusuEntry.Text);
-        decimal bicepsOlcusu = Convert.ToDecimal(BicepsOlcusuEntry.Text);
-        decimal gogusOlcusu = Convert.ToDecimal(GogusOlcusuEntry.Text);
-        decimal belOlcusu = Convert.ToDecimal(BelOlcusuEntry.Text);
-        decimal karinOlcusu = Convert.ToDecimal(KarinOlcusuEntry.Text);
-        decimal kaclaOlcusu = Convert.ToDecimal(KaclaOlcusuEntry.Text);
-        decimal bacakOlcusu = Convert.ToDecimal(BacakOlcusuEntry.Text);
-        decimal kalfOlcusu = Convert.ToDecimal(KalfOlcusuEntry.Text);
 
-        try
-        {
-            var connectionString = Database.GetConnection();
-            using (var connection = Database.GetConnection())
-            {
-                connection.Open();
-                string query = "INSERT INTO VucutBilgileri (KullaniciId, Kilo, YagOrani, SuOrani, Omuz, Biceps, Gogus, Bel, Karin, Kalca, Bacak, Kalf) " +
-                               "VALUES (@kullaniciId, @kilo, @yagOrani, @suOrani, @omuzOlcusu, @bicepsOlcusu, @gogusOlcusu, @belOlcusu, @karinOlcusu, @kaclaOlcusu, @bacakOlcusu, @kalfOlcusu)";
-
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@kullaniciId", kullaniciId);
-                    command.Parameters.AddWithValue("@kilo", kilo);
-                    command.Parameters.AddWithValue("@yagOrani", yagOrani);
-                    command.Parameters.AddWithValue("@suOrani", suOrani);
-                    command.Parameters.AddWithValue("@omuzOlcusu", omuzOlcusu);
-                    command.Parameters.AddWithValue("@bicepsOlcusu", bicepsOlcusu);
-                    command.Parameters.AddWithValue("@gogusOlcusu", gogusOlcusu);
-                    command.Parameters.AddWithValue("@belOlcusu", belOlcusu);
-                    command.Parameters.AddWithValue("@karinOlcusu", karinOlcusu);
-                    command.Parameters.AddWithValue("@kaclaOlcusu", kaclaOlcusu);
-                    command.Parameters.AddWithValue("@bacakOlcusu", bacakOlcusu);
-                    command.Parameters.AddWithValue("@kalfOlcusu", kalfOlcusu);
-
-                    command.ExecuteNonQuery();
-                }
-            }
-            await DisplayAlert("Baþarýlý", "Ölçüler baþarýyla kaydedildi.", "Tamam");
-            await Navigation.PopAsync();
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", "An error occurred while saving data: " + ex.Message, "OK");
-        }
     }
     private async void GetKullaniciId(string fullName)
     {

@@ -1,9 +1,7 @@
-using Google.Protobuf.WellKnownTypes;
+using CommunityToolkit.Maui.Views;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.ObjectModel;
 using System.Data;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace Lotus_Spor;
 
 public partial class MeasurementPage : ContentPage
@@ -11,10 +9,10 @@ public partial class MeasurementPage : ContentPage
 	List<string> isimListesi = new List<string>();
 	private ObservableCollection<Customer> Customers { get; set; }
     private ObservableCollection<OlcuModel> Olculer { get; set; }
-    string SearchName;
 	int KullaniciID = -1;
-    string KullaniciAdi;
-	public MeasurementPage()
+    string KullaniciAdi, nullText = string.Empty;
+    private List<Customer> AllCustomers = new List<Customer>();
+    public MeasurementPage()
 	{
 		InitializeComponent();
 
@@ -27,51 +25,67 @@ public partial class MeasurementPage : ContentPage
 	}
 	private async void LoadCustomers()
 	{
-		string query = @"SELECT id, isim, soyisim FROM musteriler WHERE aktiflik = 'Aktif'";
+        var loadingPopup = new LoadingPopup();
+        this.ShowPopup(loadingPopup);
 
-		try
-		{
-			using (var conn = Database.GetConnection())
-			{
-				await conn.OpenAsync();
+        try
+        {
+            string query = "SELECT id, isim, soyisim FROM musteriler WHERE aktiflik = 'Aktif' ORDER BY isim ASC";
 
-                List<MySqlParameter> parameters = new List<MySqlParameter>();
-
-                if (!string.IsNullOrEmpty(SearchName))
+            try
+            {
+                using (var conn = Database.GetConnection())
                 {
-                    query += " AND CONCAT(isim, ' ', soyisim) LIKE @searchName";
-                    parameters.Add(new MySqlParameter("@searchName", "%" + SearchName + "%"));
-                }
-
-				query += " ORDER BY isim ASC";
-
-                using (var cmd = new MySqlCommand(query, conn))
-				{
-					Customers.Clear();
-
-                    foreach (var param in parameters)
-                    {
-                        cmd.Parameters.Add(param);
-                    }
-
+                    await conn.OpenAsync();
+                    using (var cmd = new MySqlCommand(query, conn))
                     using (var reader = await cmd.ExecuteReaderAsync())
-					{
-						while (await reader.ReadAsync())
-						{
+                    {
+                        AllCustomers.Clear();
+                        while (await reader.ReadAsync())
+                        {
                             var customer = new Customer
                             {
                                 ID = Convert.ToInt32(reader["id"]),
                                 FullName = $"{reader["isim"]} {reader["soyisim"]}"
                             };
-                            Customers.Add(customer);
+                            AllCustomers.Add(customer);
                         }
-					}
-				}
-			}
-		}
-		catch (Exception ex)
-		{
-            await DisplayAlert("Hata", $"Müþteri verileri yüklenirken bir hata oluþtu: {ex.Message}\n {query}", "Tamam");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Hata", $"Müþteri verileri yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+            }
+
+            await Task.Delay(1000);
+            Customers.Clear();
+            foreach (var customer in AllCustomers)
+            {
+                Customers.Add(customer);
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Hata", $"Müþteri verileri yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+        }
+        finally
+        {
+            loadingPopup.Close();
+        }
+
+    }
+    private void SearchCustomers(string searchName)
+    {
+        Customers.Clear();
+
+        var filteredCustomers = string.IsNullOrWhiteSpace(searchName)
+            ? AllCustomers
+            : AllCustomers.Where(c => c.FullName.Contains(searchName, StringComparison.OrdinalIgnoreCase));
+
+        foreach (var customer in filteredCustomers)
+        {
+            Customers.Add(customer);
         }
     }
     public async Task<ObservableCollection<OlcuModel>> OlculeriGetir(string MusteriIsmi)
@@ -98,6 +112,8 @@ public partial class MeasurementPage : ContentPage
                             Kilo = reader.GetDecimal("Kilo"),
                             YagOrani = reader.GetDecimal("YagOrani"),
                             SuOrani = reader.GetDecimal("SuOrani"),
+                            KasOrani = reader.GetDecimal("KasOrani"),
+                            BMI = reader.GetDecimal("BMI"),
                             Omuz = reader.GetDecimal("Omuz"),
                             Biceps = reader.GetDecimal("Biceps"),
                             Gogus = reader.GetDecimal("Gogus"),
@@ -126,15 +142,24 @@ public partial class MeasurementPage : ContentPage
     }
     private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
+        string SearchName;
         string searchText = e.NewTextValue?.ToLower() ?? string.Empty;
 
         if (!string.IsNullOrEmpty(SearchEntry.Text))
         {
             btnClear.IsVisible = true;
+            SearchName = SearchEntry.Text;
+            Console.WriteLine(searchText);
+
+            SearchCustomers(SearchName);
         }
         else if (string.IsNullOrEmpty(SearchEntry.Text))
         {
             btnClear.IsVisible = false;
+            SearchName = string.Empty;
+            Console.WriteLine(searchText);
+
+            SearchCustomers(SearchName);
         }
 
         if (string.IsNullOrWhiteSpace(searchText))
@@ -147,17 +172,13 @@ public partial class MeasurementPage : ContentPage
         var suggestions = isimListesi
             .Where(isimSoyisim => isimSoyisim.ToLower().Contains(searchText))
             .ToList();
-
-        SearchName = SearchEntry.Text;
-        LoadCustomers();
     }
     private async void OnClearButtonClicked(object sender, EventArgs e)
     {
         SearchEntry.Text = string.Empty;
-        SearchName = string.Empty;
         btnClear.IsVisible = false;
 
-        LoadCustomers();
+        SearchCustomers(nullText);
     }
     private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
@@ -172,10 +193,9 @@ public partial class MeasurementPage : ContentPage
             SearchEntry.IsVisible = false;
             btnUyeListele.IsVisible = true;
 
-            if (!string.IsNullOrEmpty(SearchName))
+            if (!string.IsNullOrEmpty(SearchEntry.Text))
             {
                 SearchEntry.Text = string.Empty;
-                SearchName = string.Empty;
                 btnClear.IsVisible = !string.IsNullOrEmpty(SearchEntry.Text);
                 OnPropertyChanged(nameof(btnClear));
             }
@@ -184,7 +204,21 @@ public partial class MeasurementPage : ContentPage
             KullaniciID = selectedCustomer.ID;
             KullaniciAdi = selectedCustomer.FullName;
 
-            Olculer = await OlculeriGetir(KullaniciAdi);
+            var loadingPopup = new LoadingPopup();
+            this.ShowPopup(loadingPopup);
+            try
+            {
+                Olculer = await OlculeriGetir(KullaniciAdi);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Hata", $"Müþteri verileri yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+            }
+            finally
+            {
+                loadingPopup.Close();
+            }
+            //Olculer = await OlculeriGetir(KullaniciAdi);
             SelectedCustomerListView.ItemsSource = Olculer;
         }
     }
@@ -195,6 +229,5 @@ public partial class MeasurementPage : ContentPage
         lblSearchEntry.IsVisible = true;
         SearchEntry.IsVisible = true;
         Olculer.Clear();
-        LoadCustomers();
     }
 }

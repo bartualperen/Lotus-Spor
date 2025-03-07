@@ -8,7 +8,6 @@ namespace Lotus_Spor;
 
 public partial class OdemeBilgileri : ContentPage
 {
-    private LoadingPopup _loadingPopup;
     List<string> isimListesi = new List<string>();
     private ObservableCollection<string> filteredList = new ObservableCollection<string>();
     string searchName;
@@ -68,8 +67,6 @@ public partial class OdemeBilgileri : ContentPage
     }
     private async void VerileriGetir()
     {
-        _loadingPopup = new LoadingPopup();
-        //await this.ShowPopupAsync(_loadingPopup);
         try
         {
             MusteriListesi.Clear();
@@ -107,10 +104,6 @@ public partial class OdemeBilgileri : ContentPage
         catch (Exception ex)
         {
             await DisplayAlert("Hata", $"Veriler getirilirken bir hata oluþtu: \n {ex.Message}", "Tamam");
-        }
-        finally
-        {
-            _loadingPopup.Close();
         }
     }
     public async Task<ObservableCollection<OdemeModel>> OdemeleriGetir(int page)

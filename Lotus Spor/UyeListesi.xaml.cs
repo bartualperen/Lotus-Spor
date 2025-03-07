@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 
@@ -26,58 +27,71 @@ public partial class UyeListesi : ContentPage
 
     private async void LoadCustomers()
     {
-        string query = "SELECT id, isim, soyisim, hizmet_turu, seans_ucreti, notlar, telefon, kayit_tarihi, aktiflik FROM musteriler ORDER BY isim ASC";
-
+        var loadingPopup = new LoadingPopup();
+        this.ShowPopup(loadingPopup);
         try
         {
-            using (var connection = Database.GetConnection())
+            string query = "SELECT id, isim, soyisim, hizmet_turu, seans_ucreti, notlar, telefon, kayit_tarihi, aktiflik FROM musteriler ORDER BY isim ASC";
+
+            try
             {
-                await connection.OpenAsync();
-
-                using (var command = new MySqlCommand(query, connection))
+                using (var connection = Database.GetConnection())
                 {
-                    using (var reader = await command.ExecuteReaderAsync())
+                    await connection.OpenAsync();
+
+                    using (var command = new MySqlCommand(query, connection))
                     {
-                        AktifCustomers.Clear();
-                        PasifCustomers.Clear();
-
-                        while (await reader.ReadAsync())
+                        using (var reader = await command.ExecuteReaderAsync())
                         {
-                            var customer = new Customer
-                            {
-                                ID = Convert.ToInt32(reader["id"]),
-                                FullName = $"{reader["isim"]} {reader["soyisim"]}",
-                                AdditionalInfo = reader["hizmet_turu"]?.ToString() ?? "Bilinmiyor",
-                                Notlar = reader["notlar"]?.ToString() ?? "Bilinmiyor",
-                                Telefon = reader["telefon"]?.ToString() ?? "Bilinmiyor",
-                                KayitTarihi = reader["kayit_tarihi"] != DBNull.Value
-                                    ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy")
-                                    : "Bilinmiyor",
-                                Ucret = Convert.ToInt32(reader["seans_ucreti"]),
-                                Aktiflik = reader["aktiflik"].ToString()
-                            };
+                            AktifCustomers.Clear();
+                            PasifCustomers.Clear();
 
-                            // Müþteriyi Aktif veya Pasif listesine ekleyelim
-                            if (customer.Aktiflik == "Aktif")
+                            while (await reader.ReadAsync())
                             {
-                                AktifCustomers.Add(customer);
-                            }
-                            else if (customer.Aktiflik == "Pasif")
-                            {
-                                PasifCustomers.Add(customer);
+                                var customer = new Customer
+                                {
+                                    ID = Convert.ToInt32(reader["id"]),
+                                    FullName = $"{reader["isim"]} {reader["soyisim"]}",
+                                    AdditionalInfo = reader["hizmet_turu"]?.ToString() ?? "Bilinmiyor",
+                                    Notlar = reader["notlar"]?.ToString() ?? "Bilinmiyor",
+                                    Telefon = reader["telefon"]?.ToString() ?? "Bilinmiyor",
+                                    KayitTarihi = reader["kayit_tarihi"] != DBNull.Value
+                                        ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy")
+                                        : "Bilinmiyor",
+                                    Ucret = Convert.ToInt32(reader["seans_ucreti"]),
+                                    Aktiflik = reader["aktiflik"].ToString()
+                                };
+
+                                // Müþteriyi Aktif veya Pasif listesine ekleyelim
+                                if (customer.Aktiflik == "Aktif")
+                                {
+                                    AktifCustomers.Add(customer);
+                                }
+                                else if (customer.Aktiflik == "Pasif")
+                                {
+                                    PasifCustomers.Add(customer);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            TotalMembersLabel.Text = $"Toplam Üye Sayýsý: {AktifCustomers.Count + PasifCustomers.Count}";
-            TotalActiveMembersLabel.Text = $"Toplam Aktif Üye Sayýsý: {AktifCustomers.Count}";
-            TotalPasiveMembersLabel.Text = $"Toplam Pasif Üye Sayýsý: { PasifCustomers.Count}";
+                TotalMembersLabel.Text = $"Toplam Üye Sayýsý: {AktifCustomers.Count + PasifCustomers.Count}";
+                TotalActiveMembersLabel.Text = $"Toplam Aktif Üye Sayýsý: {AktifCustomers.Count}";
+                TotalPasiveMembersLabel.Text = $"Toplam Pasif Üye Sayýsý: {PasifCustomers.Count}";
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Hata", $"Müþteri verileri yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+            }
         }
         catch (Exception ex)
         {
             await DisplayAlert("Hata", $"Müþteri verileri yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+        }
+        finally
+        {
+            loadingPopup.Close();
         }
     }
 

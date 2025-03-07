@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 
@@ -15,53 +16,19 @@ public partial class AntrenorOdemeleri : ContentPage
 
         OdemeListesi = new ObservableCollection<OdemeModel>();
         Customers = new ObservableCollection<Kisi>();
-        kisilistele1();
-        musterilistele();
+        AntrenorListele();
 
         CustomerListView.ItemsSource = Customers;
 
         BindingContext = this;
     }
-    private async void kisilistele1()
+    private async void AntrenorListele()
     {
         try
         {
-            var connectionString = Database.GetConnection();
             using (var connection = Database.GetConnection())
             {
                 connection.Open();
-                string query = "SELECT isim, soyisim FROM yoneticiler";
-
-                // SQL komutunu çalýþtýr
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Verileri listeye ekle
-                        while (reader.Read())
-                        {
-                            string isim = reader["isim"].ToString();
-                            string soyisim = reader["soyisim"].ToString();
-                            string fullName = $"{isim} {soyisim}";
-                            isimListesi.Add(fullName);
-                            isimListesi.Remove(ConnectionString.admin2);
-                        }
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", "An error occurred while fetching data: " + ex, "OK");
-        }
-    }
-    private async void musterilistele()
-    {
-        try
-        {
-            using (var connection = Database.GetConnection())
-            {
-                connection.Open(); // Baðlantýnýn baþarýlý þekilde açýldýðýndan emin olun
 
                 // Temel sorgu
                 string query = "SELECT isim, soyisim FROM yoneticiler WHERE 1=1";
@@ -126,6 +93,9 @@ public partial class AntrenorOdemeleri : ContentPage
     {
         string selectQuery = @"SELECT * FROM odeme_bilgileri WHERE antrenor = @antrenor ORDER BY odeme_donemi DESC;";
 
+        var loadingPopup = new LoadingPopup();
+        this.ShowPopup(loadingPopup);
+
         try
         {
             using (MySqlConnection connection = Database.GetConnection())
@@ -160,7 +130,10 @@ public partial class AntrenorOdemeleri : ContentPage
         {
             await DisplayAlert("Error", "An error occurred while loading payment information: " + ex.Message, "OK");
         }
-
+        finally
+        {
+            loadingPopup.Close();
+        }
     }
     private async void OnOdemeYapildiClicked(object sender, EventArgs e)
     {

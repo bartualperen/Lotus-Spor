@@ -1559,3 +1559,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\tr
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\DocumentFormat.OpenXml.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\DocumentFormat.OpenXml.Framework.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.IO.Packaging.dll

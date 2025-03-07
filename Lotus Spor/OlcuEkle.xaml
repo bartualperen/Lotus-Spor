@@ -37,6 +37,14 @@
             <Label Text="Su Oranı (%)" FontSize="16" />
             <Entry x:Name="SuOraniEntry" Keyboard="Numeric" Placeholder="Su oranı giriniz" />
 
+            <!-- Kas Oranı -->
+            <Label Text="Kas Oranı (%)" FontSize="16" />
+            <Entry x:Name="KasOraniEntry" Keyboard="Numeric" Placeholder="Kas oranı giriniz" />
+
+            <!-- BMI -->
+            <Label Text="BMI" FontSize="16" />
+            <Entry x:Name="BMIEntry" Keyboard="Numeric" Placeholder="BMI giriniz" />
+
             <!-- Omuz Ölçüsü -->
             <Label Text="Omuz Ölçüsü (cm)" FontSize="16" />
             <Entry x:Name="OmuzOlcusuEntry" Keyboard="Numeric" Placeholder="Omuz ölçüsü giriniz" />

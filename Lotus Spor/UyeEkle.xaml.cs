@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Platform;
+﻿using CommunityToolkit.Maui.Views;
+using Microsoft.Maui.Platform;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -76,83 +77,88 @@ public partial class UyeEkle : ContentPage
     }
     private async void OnAddMemberClicked(object sender, EventArgs e)
     {
-        string fullName = NameEntry.Text;
-        string antrenorName = AntrenorNameEntry.Text;
-        string telefon = PhoneEntry.Text;
-        string cinsiyet = GenderPicker.SelectedItem?.ToString();
-        string seansTur = SeansPicker.SelectedItem?.ToString();
-        string notlar = NoteEntry.Text;
-        float seansUcret;
-        bool ucretValid = float.TryParse(UcretEntry.Text, out seansUcret);
+        var loadingPopup = new LoadingPopup();
+        this.ShowPopup(loadingPopup);
 
-        string[] nameParts = fullName.Split(' ');
-        string isim, soyisim;
-
-        if (string.IsNullOrWhiteSpace(telefon))
+        try
         {
+            string fullName = NameEntry.Text;
+            string antrenorName = AntrenorNameEntry.Text;
+            string telefon = PhoneEntry.Text;
+            string cinsiyet = GenderPicker.SelectedItem?.ToString();
+            string seansTur = SeansPicker.SelectedItem?.ToString();
+            string notlar = NoteEntry.Text;
+            float seansUcret;
+            bool ucretValid = float.TryParse(UcretEntry.Text, out seansUcret);
+
+            string[] nameParts = fullName.Split(' ');
+            string isim, soyisim;
+
+            if (string.IsNullOrWhiteSpace(telefon))
+            {
+                using (MySqlConnection connection = Database.GetConnection())
+                {
+                    await connection.OpenAsync();
+                    telefon = await GetUniquePhoneNumberAsync(connection);
+                }
+            }
+
             using (MySqlConnection connection = Database.GetConnection())
             {
                 await connection.OpenAsync();
-                telefon = await GetUniquePhoneNumberAsync(connection);
-            }
-        }
-
-        using (MySqlConnection connection = Database.GetConnection())
-        {
-            await connection.OpenAsync();
-            string checkQuery = "SELECT COUNT(*) FROM musteriler WHERE telefon = @telefon";
-            using (MySqlCommand command = new MySqlCommand(checkQuery, connection))
-            {
-                command.Parameters.AddWithValue("@telefon", telefon);
-                int count = Convert.ToInt32(await command.ExecuteScalarAsync());
-                if (count > 0)
+                string checkQuery = "SELECT COUNT(*) FROM musteriler WHERE telefon = @telefon";
+                using (MySqlCommand command = new MySqlCommand(checkQuery, connection))
                 {
-                    await DisplayAlert("Hata", "Bu telefon numarası zaten mevcut.", "Tamam");
-                    return;
+                    command.Parameters.AddWithValue("@telefon", telefon);
+                    int count = Convert.ToInt32(await command.ExecuteScalarAsync());
+                    if (count > 0)
+                    {
+                        await DisplayAlert("Hata", "Bu telefon numarası zaten mevcut.", "Tamam");
+                        return;
+                    }
                 }
             }
-        }
 
-        if (nameParts.Length > 1)
-        {
-            isim = string.Join(" ", nameParts[..^1]);
-            soyisim = nameParts[^1];
-        }
-        else
-        {
-            await DisplayAlert("Hata", "Soyadı belirlemek için en az iki kelime girilmelidir.", "Tamam");
-            return;
-        }
+            if (nameParts.Length > 1)
+            {
+                isim = string.Join(" ", nameParts[..^1]);
+                soyisim = nameParts[^1];
+            }
+            else
+            {
+                await DisplayAlert("Hata", "Soyadı belirlemek için en az iki kelime girilmelidir.", "Tamam");
+                return;
+            }
 
-        if (!ucretValid)
-        {
-            await DisplayAlert("Hata", "Geçerli bir seans ücreti giriniz.", "Tamam");
-            return;
-        }
+            if (!ucretValid)
+            {
+                await DisplayAlert("Hata", "Geçerli bir seans ücreti giriniz.", "Tamam");
+                return;
+            }
 
-        // Seçilen günleri birleştirme
-        List<string> secilenGunler = new List<string>();
-        if (CheckBoxPazartesi.IsChecked) secilenGunler.Add("Pazartesi");
-        if (CheckBoxSali.IsChecked) secilenGunler.Add("Salı");
-        if (CheckBoxCarsamba.IsChecked) secilenGunler.Add("Çarşamba");
-        if (CheckBoxPersembe.IsChecked) secilenGunler.Add("Perşembe");
-        if (CheckBoxCuma.IsChecked) secilenGunler.Add("Cuma");
-        if (CheckBoxCumartesi.IsChecked) secilenGunler.Add("Cumartesi");
-        if (CheckBoxPazar.IsChecked) secilenGunler.Add("Pazar");
-        if (CheckBoxGrup.IsChecked) grupders = "evet";
+            // Seçilen günleri birleştirme
+            List<string> secilenGunler = new List<string>();
+            if (CheckBoxPazartesi.IsChecked) secilenGunler.Add("Pazartesi");
+            if (CheckBoxSali.IsChecked) secilenGunler.Add("Salı");
+            if (CheckBoxCarsamba.IsChecked) secilenGunler.Add("Çarşamba");
+            if (CheckBoxPersembe.IsChecked) secilenGunler.Add("Perşembe");
+            if (CheckBoxCuma.IsChecked) secilenGunler.Add("Cuma");
+            if (CheckBoxCumartesi.IsChecked) secilenGunler.Add("Cumartesi");
+            if (CheckBoxPazar.IsChecked) secilenGunler.Add("Pazar");
+            if (CheckBoxGrup.IsChecked) grupders = "evet";
 
-        string seansGunleri = string.Join(", ", secilenGunler);
+            string seansGunleri = string.Join(", ", secilenGunler);
 
-        string query = "INSERT INTO musteriler (isim, soyisim, telefon, cinsiyet, hizmet_turu, seans_gunleri, seans_ucreti, notlar, kayit_tarihi, sifre, grup) " +
-                       "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @notlar, @kayit_tarihi, @sifre, @grup)";
+            string query = "INSERT INTO musteriler (isim, soyisim, telefon, cinsiyet, hizmet_turu, seans_gunleri, seans_ucreti, notlar, kayit_tarihi, sifre, grup) " +
+                           "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @notlar, @kayit_tarihi, @sifre, @grup)";
 
-        string getLastInsertedIdQuery = "SELECT LAST_INSERT_ID()";
+            string getLastInsertedIdQuery = "SELECT LAST_INSERT_ID()";
 
-        string seansquery = "INSERT INTO seanslar (tur, musteri_id, antrenor, tarih, saat, grup) VALUES (@seans_turu, @musteri_id, @antrenor, @seans_tarihi, @seans_saati, @grup)";
+            string seansquery = "INSERT INTO seanslar (tur, musteri_id, antrenor, tarih, saat, grup) VALUES (@seans_turu, @musteri_id, @antrenor, @seans_tarihi, @seans_saati, @grup)";
 
-        DateTime selectedDate = DatePickerKayitTarihi.Date;
+            DateTime selectedDate = DatePickerKayitTarihi.Date;
 
-        Dictionary<string, DayOfWeek> gunlerMap = new Dictionary<string, DayOfWeek>
+            Dictionary<string, DayOfWeek> gunlerMap = new Dictionary<string, DayOfWeek>
         {
             { "Pazartesi", DayOfWeek.Monday },
             { "Salı", DayOfWeek.Tuesday },
@@ -163,155 +169,164 @@ public partial class UyeEkle : ContentPage
             { "Pazar", DayOfWeek.Sunday }
         };
 
-        Dictionary<string, TimeSpan> seansSaatleri = new Dictionary<string, TimeSpan>();
-        List<DateTime> seansDönemTarihler = new List<DateTime>();
-        DateTime today = DateTime.Today;
-        DateTime endDate = today.AddMonths(12);
+            Dictionary<string, TimeSpan> seansSaatleri = new Dictionary<string, TimeSpan>();
+            List<DateTime> seansDönemTarihler = new List<DateTime>();
+            DateTime today = DateTime.Today;
+            DateTime endDate = today.AddMonths(12);
 
-        foreach (string gun in secilenGunler)
-        {
-            switch (gun)
+            foreach (string gun in secilenGunler)
             {
-                case "Pazartesi":
-                    seansSaatleri["Pazartesi"] = StartTimePazartesi.Time;
-                    break;
-                case "Salı":
-                    seansSaatleri["Salı"] = StartTimeSali.Time;
-                    break;
-                case "Çarşamba":
-                    seansSaatleri["Çarşamba"] = StartTimeCarsamba.Time;
-                    break;
-                case "Perşembe":
-                    seansSaatleri["Perşembe"] = StartTimePersembe.Time;
-                    break;
-                case "Cuma":
-                    seansSaatleri["Cuma"] = StartTimeCuma.Time;
-                    break;
-                case "Cumartesi":
-                    seansSaatleri["Cumartesi"] = StartTimeCumartesi.Time;
-                    break;
-                case "Pazar":
-                    seansSaatleri["Pazar"] = StartTimePazar.Time;
-                    break;
-                default:
-                    break;
-            }
-
-            if (!seansSaatleri.ContainsKey(gun) || seansSaatleri[gun] == default(TimeSpan))
-            {
-                await DisplayAlert("Hata", $"{gun} için bir saat seçilmelidir.", "Tamam");
-                return;
-            }
-
-            DayOfWeek hedefGun = gunlerMap[gun];
-            DateTime seansTarihi = today;
-
-            // Seçilen günü bulmak için
-            while (seansTarihi.DayOfWeek != hedefGun)
-            {
-                seansTarihi = seansTarihi.AddDays(1);
-            }
-
-            // Tarihleri bir aylık süre içinde ekleme
-            while (seansTarihi < endDate)
-            {
-                seansDönemTarihler.Add(seansTarihi);
-                seansTarihi = seansTarihi.AddDays(7); // Haftalık artış
-            }
-        }
-
-        try
-        {
-            using (MySqlConnection connection = Database.GetConnection())
-            {
-                await connection.OpenAsync();
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+                switch (gun)
                 {
-                    command.Parameters.AddWithValue("@isim", isim);
-                    command.Parameters.AddWithValue("@soyisim", soyisim);
-                    command.Parameters.AddWithValue("@telefon", telefon);
-                    command.Parameters.AddWithValue("@cinsiyet", cinsiyet);
-                    command.Parameters.AddWithValue("@hizmet_turu", seansTur);
-                    command.Parameters.AddWithValue("@seans_gunleri", seansGunleri);
-                    command.Parameters.AddWithValue("@seans_ucreti", seansUcret);
-                    command.Parameters.AddWithValue("@kayit_tarihi", selectedDate.ToString("yyyy-MM-dd")); // Seçilen tarihi ekleyin
-                    command.Parameters.AddWithValue("@sifre", telefon);
-                    command.Parameters.AddWithValue("@notlar", notlar);
-                    command.Parameters.AddWithValue("@grup", grupders ?? null);
-
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
-                    if (rowsAffected > 0)
-                    {
-                        await DisplayAlert("Başarılı", "Müşteri bilgileri başarıyla eklendi.", "Tamam");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Hata", "Veri eklenirken bir sorun oluştu.", "Tamam");
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Veritabanı Hatası", ex.Message, "Tamam");
-        }
-
-        try
-        {
-            using (MySqlConnection connection = Database.GetConnection())
-            {
-                await connection.OpenAsync();
-
-                int musteriId = 0;
-                using (MySqlCommand getIdCommand = new MySqlCommand(getLastInsertedIdQuery, connection))
-                {
-                    musteriId = Convert.ToInt32(await getIdCommand.ExecuteScalarAsync());
+                    case "Pazartesi":
+                        seansSaatleri["Pazartesi"] = StartTimePazartesi.Time;
+                        break;
+                    case "Salı":
+                        seansSaatleri["Salı"] = StartTimeSali.Time;
+                        break;
+                    case "Çarşamba":
+                        seansSaatleri["Çarşamba"] = StartTimeCarsamba.Time;
+                        break;
+                    case "Perşembe":
+                        seansSaatleri["Perşembe"] = StartTimePersembe.Time;
+                        break;
+                    case "Cuma":
+                        seansSaatleri["Cuma"] = StartTimeCuma.Time;
+                        break;
+                    case "Cumartesi":
+                        seansSaatleri["Cumartesi"] = StartTimeCumartesi.Time;
+                        break;
+                    case "Pazar":
+                        seansSaatleri["Pazar"] = StartTimePazar.Time;
+                        break;
+                    default:
+                        break;
                 }
 
-                using (MySqlCommand command = new MySqlCommand(seansquery, connection))
+                if (!seansSaatleri.ContainsKey(gun) || seansSaatleri[gun] == default(TimeSpan))
                 {
-                    command.Parameters.AddWithValue("@seans_turu", seansTur);
-                    command.Parameters.AddWithValue("@musteri_id", musteriId);
-                    command.Parameters.AddWithValue("@antrenor", antrenorName);
-                    command.Parameters.AddWithValue("@grup", grupders ?? null);
+                    await DisplayAlert("Hata", $"{gun} için bir saat seçilmelidir.", "Tamam");
+                    return;
+                }
 
-                    MySqlParameter seansTarihiParam = new MySqlParameter("@seans_tarihi", MySqlDbType.Date);
-                    MySqlParameter seansSaatiParam = new MySqlParameter("@seans_saati", MySqlDbType.VarChar);
-                    command.Parameters.Add(seansTarihiParam);
-                    command.Parameters.Add(seansSaatiParam);
+                DayOfWeek hedefGun = gunlerMap[gun];
+                DateTime seansTarihi = today;
 
-                    foreach (DateTime seansTarihi in seansDönemTarihler)
+                // Seçilen günü bulmak için
+                while (seansTarihi.DayOfWeek != hedefGun)
+                {
+                    seansTarihi = seansTarihi.AddDays(1);
+                }
+
+                // Tarihleri bir aylık süre içinde ekleme
+                while (seansTarihi < endDate)
+                {
+                    seansDönemTarihler.Add(seansTarihi);
+                    seansTarihi = seansTarihi.AddDays(7); // Haftalık artış
+                }
+            }
+
+            try
+            {
+                using (MySqlConnection connection = Database.GetConnection())
+                {
+                    await connection.OpenAsync();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        string gunAdi = seansTarihi.DayOfWeek switch
-                        {
-                            DayOfWeek.Monday => "Pazartesi",
-                            DayOfWeek.Tuesday => "Salı",
-                            DayOfWeek.Wednesday => "Çarşamba",
-                            DayOfWeek.Thursday => "Perşembe",
-                            DayOfWeek.Friday => "Cuma",
-                            DayOfWeek.Saturday => "Cumartesi",
-                            DayOfWeek.Sunday => "Pazar",
-                            _ => throw new InvalidOperationException("Geçersiz gün")
-                        };
-
-                        seansTarihiParam.Value = seansTarihi.ToString("yyyy-MM-dd");
-                        seansSaatiParam.Value = seansSaatleri[gunAdi].ToString(@"hh\:mm");
+                        command.Parameters.AddWithValue("@isim", isim);
+                        command.Parameters.AddWithValue("@soyisim", soyisim);
+                        command.Parameters.AddWithValue("@telefon", telefon);
+                        command.Parameters.AddWithValue("@cinsiyet", cinsiyet);
+                        command.Parameters.AddWithValue("@hizmet_turu", seansTur);
+                        command.Parameters.AddWithValue("@seans_gunleri", seansGunleri);
+                        command.Parameters.AddWithValue("@seans_ucreti", seansUcret);
+                        command.Parameters.AddWithValue("@kayit_tarihi", selectedDate.ToString("yyyy-MM-dd")); // Seçilen tarihi ekleyin
+                        command.Parameters.AddWithValue("@sifre", telefon);
+                        command.Parameters.AddWithValue("@notlar", notlar);
+                        command.Parameters.AddWithValue("@grup", grupders ?? null);
 
                         int rowsAffected = await command.ExecuteNonQueryAsync();
-                        if (rowsAffected <= 0)
+                        if (rowsAffected > 0)
                         {
-                            await DisplayAlert("Hata", "Seans eklenirken bir sorun oluştu.", "Tamam");
+                            await DisplayAlert("Başarılı", "Müşteri bilgileri başarıyla eklendi.", "Tamam");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Hata", "Veri eklenirken bir sorun oluştu.", "Tamam");
                         }
                     }
-
-                    await DisplayAlert("Başarılı", "Seanslar başarıyla eklendi.", "Tamam");
-                    await Navigation.PopAsync();
                 }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Veritabanı Hatası", ex.Message, "Tamam");
+            }
+
+            try
+            {
+                using (MySqlConnection connection = Database.GetConnection())
+                {
+                    await connection.OpenAsync();
+
+                    int musteriId = 0;
+                    using (MySqlCommand getIdCommand = new MySqlCommand(getLastInsertedIdQuery, connection))
+                    {
+                        musteriId = Convert.ToInt32(await getIdCommand.ExecuteScalarAsync());
+                    }
+
+                    using (MySqlCommand command = new MySqlCommand(seansquery, connection))
+                    {
+                        command.Parameters.AddWithValue("@seans_turu", seansTur);
+                        command.Parameters.AddWithValue("@musteri_id", musteriId);
+                        command.Parameters.AddWithValue("@antrenor", antrenorName);
+                        command.Parameters.AddWithValue("@grup", grupders ?? null);
+
+                        MySqlParameter seansTarihiParam = new MySqlParameter("@seans_tarihi", MySqlDbType.Date);
+                        MySqlParameter seansSaatiParam = new MySqlParameter("@seans_saati", MySqlDbType.VarChar);
+                        command.Parameters.Add(seansTarihiParam);
+                        command.Parameters.Add(seansSaatiParam);
+
+                        foreach (DateTime seansTarihi in seansDönemTarihler)
+                        {
+                            string gunAdi = seansTarihi.DayOfWeek switch
+                            {
+                                DayOfWeek.Monday => "Pazartesi",
+                                DayOfWeek.Tuesday => "Salı",
+                                DayOfWeek.Wednesday => "Çarşamba",
+                                DayOfWeek.Thursday => "Perşembe",
+                                DayOfWeek.Friday => "Cuma",
+                                DayOfWeek.Saturday => "Cumartesi",
+                                DayOfWeek.Sunday => "Pazar",
+                                _ => throw new InvalidOperationException("Geçersiz gün")
+                            };
+
+                            seansTarihiParam.Value = seansTarihi.ToString("yyyy-MM-dd");
+                            seansSaatiParam.Value = seansSaatleri[gunAdi].ToString(@"hh\:mm");
+
+                            int rowsAffected = await command.ExecuteNonQueryAsync();
+                            if (rowsAffected <= 0)
+                            {
+                                await DisplayAlert("Hata", "Seans eklenirken bir sorun oluştu.", "Tamam");
+                            }
+                        }
+
+                        await DisplayAlert("Başarılı", "Seanslar başarıyla eklendi.", "Tamam");
+                        await Navigation.PopAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Veritabanı Hatası", ex.Message, "Tamam");
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Veritabanı Hatası", ex.Message, "Tamam");
+            await DisplayAlert("Uyarı", "Lütfen Boşlukları Doldurun", "Tamam");
+        }
+        finally
+        {
+            loadingPopup.Close();
         }
     }
     private void OnUsernameTextChanged(object sender, TextChangedEventArgs e)

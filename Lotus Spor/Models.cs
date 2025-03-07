@@ -49,6 +49,8 @@ namespace Lotus_Spor
         public decimal Kilo { get; set; }
         public decimal YagOrani { get; set; }
         public decimal SuOrani { get; set; }
+        public decimal KasOrani { get; set; }
+        public decimal BMI { get; set; }
         public decimal Omuz { get; set; }
         public decimal Biceps { get; set; }
         public decimal Gogus { get; set; }

@@ -12,40 +12,55 @@ public partial class DuyuruYap : ContentPage
 	}
 	private async void OnSaveAnnouncementClicked(object sender, EventArgs e)
 	{
-		string baslik = AnnouncementTitle.Text;
-		string aciklama = AnnouncementDescription.Text;
-		string duyuru = AnnouncementBody.Text;
+		try
+		{
+            string baslik = AnnouncementTitle.Text;
+            string aciklama = AnnouncementDescription.Text;
+            string duyuru = AnnouncementBody.Text;
 
-        string query = "INSERT INTO duyurular (baslik, aciklama, duyuru, antrenor_id) VALUES (@baslik, @aciklama, @duyuru, @antrenor_id)";
+            if (string.IsNullOrWhiteSpace(AnnouncementTitle.Text) ||
+                string.IsNullOrWhiteSpace(AnnouncementDescription.Text) ||
+                string.IsNullOrWhiteSpace(AnnouncementBody.Text))
+            {
+                await DisplayAlert("Hata", "Lütfen tüm alanlarý doldurun.", "Tamam");
+                return;
+            }
 
-        try
-        {
-			using (MySqlConnection conn = Database.GetConnection())
-			{
-				await conn.OpenAsync();
-				using (MySqlCommand cmd = new MySqlCommand(query, conn))
-				{
-					cmd.Parameters.AddWithValue("@baslik", baslik);
-                    cmd.Parameters.AddWithValue("@aciklama", aciklama);
-                    cmd.Parameters.AddWithValue("@duyuru", duyuru);
-                    cmd.Parameters.AddWithValue("@antrenor_id", antrenorID);
+            string query = "INSERT INTO duyurular (baslik, aciklama, duyuru, antrenor_id) VALUES (@baslik, @aciklama, @duyuru, @antrenor_id)";
 
-                    int rowsAffected = await cmd.ExecuteNonQueryAsync();
-                    if (rowsAffected > 0)
+            try
+            {
+                using (MySqlConnection conn = Database.GetConnection())
+                {
+                    await conn.OpenAsync();
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
-                        await DisplayAlert("Baþarýlý", "Duyuru baþarýyla eklendi.", "Tamam");
-                        await Navigation.PopAsync();
-                    }
-                    else
-                    {
-                        await DisplayAlert("Hata", "Veri eklenirken bir sorun oluþtu.", "Tamam");
+                        cmd.Parameters.AddWithValue("@baslik", baslik);
+                        cmd.Parameters.AddWithValue("@aciklama", aciklama);
+                        cmd.Parameters.AddWithValue("@duyuru", duyuru);
+                        cmd.Parameters.AddWithValue("@antrenor_id", antrenorID);
+
+                        int rowsAffected = await cmd.ExecuteNonQueryAsync();
+                        if (rowsAffected > 0)
+                        {
+                            await DisplayAlert("Baþarýlý", "Duyuru baþarýyla eklendi.", "Tamam");
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Hata", "Veri eklenirken bir sorun oluþtu.", "Tamam");
+                        }
                     }
                 }
-			}
-		}
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Veritabaný Hatasý", ex.Message, "Tamam");
+            }
+        }
 		catch (Exception ex)
 		{
-            await DisplayAlert("Veritabaný Hatasý", ex.Message, "Tamam");
+            await DisplayAlert("Hata", ex.Message, "Tamam");
         }
     }
 }
