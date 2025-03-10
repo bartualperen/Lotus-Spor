@@ -122,21 +122,23 @@
             <Frame x:Name="DersDetaylar" IsVisible="False" BorderColor="Black" CornerRadius="10" Padding="10" Margin="0,20,0,0">
                 <StackLayout Margin="0,10,0,10">
                     <Label Text="Ders Detayları" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,0,0,10" />
+                    
                     <Label Text="Üye İsmi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
-                    <BoxView BackgroundColor="Gray" Margin="0,0,0,20" />
-
                     <Label x:Name="Client" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
-                    <Label Text="Antrenor İsmi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
-                    
-                    <Label x:Name="AntrenorIsmi" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
-                    <Label Text="Ders Türü" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
-                    
-                    <Label x:Name="LessonType" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,10" />
-                    <Label Text="Ders Tarihi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,15,0,0" />
+                    <BoxView BackgroundColor="Gray" HeightRequest="1" HorizontalOptions="Fill" Margin="0,15,0,0" />
 
-                    <DatePicker x:Name="SeansDate" Format="dd MMMM yyyy" Margin="0,0,0,10" />
-                    <Label Text="Ders Saati" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    <Label Text="Antrenor İsmi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    <Label x:Name="AntrenorIsmi" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
+                    <BoxView BackgroundColor="Gray" HeightRequest="1" HorizontalOptions="Fill" Margin="0,15,0,0" />
                     
+                    <Label Text="Ders Türü" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    <Label x:Name="LessonType" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
+                    <BoxView BackgroundColor="Gray" HeightRequest="1" HorizontalOptions="Fill" Margin="0,15,0,0" />
+                    
+                    <Label Text="Ders Tarihi" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,15,0,0" />
+                    <DatePicker x:Name="SeansDate" Format="dd MMMM yyyy" Margin="0,0,0,10" />
+
+                    <Label Text="Ders Saati" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
                     <TimePicker x:Name="SeansTime" Format="HH:mm" Margin="0,0,0,20" />
 
                     <Picker IsVisible="False" x:Name="DayPicker" SelectedIndexChanged="OnDayPickerSelectedIndexChanged" Title="Yeni Ders Gününü Seçin">
@@ -158,7 +160,7 @@
                     <Button FontSize="16" Text="Yapılmadı Olarak İşaretle" Clicked="OnUnDoneClicked" CornerRadius="20"  Margin="0,5,0,10"/>
                     <Button FontSize="16" Text="Hepsini Sil" Clicked="OnKayitSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
                     <Button FontSize="16" Text="Seçilen Dersi Sil" Clicked="OnBiriniSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
-                    <Button FontSize="16" Text="İptal" Clicked="OnCancelClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                    <Button FontSize="16" Text="İptal" Clicked="OnCancelClicked" x:Name="btnIptal" CornerRadius="20" Margin="0,5,0,10"/>
                 </StackLayout>
             </Frame>
 
