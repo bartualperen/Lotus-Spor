@@ -623,7 +623,6 @@ public partial class LessonManagementPage : ContentPage
         }
 
         Sifirla();
-
     }
     private async void OnAllChangeClicked(object sender, EventArgs e)
     {
@@ -745,7 +744,6 @@ public partial class LessonManagementPage : ContentPage
             await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
         }
         Sifirla();
-        LoadLessons();
     }
     private async void OnUnDoneClicked(object sender, EventArgs e)
     {
@@ -803,7 +801,6 @@ public partial class LessonManagementPage : ContentPage
         }
 
         Sifirla();
-        LoadLessons();
     }
     private async void OnAddLessonClicked(object sender, EventArgs e)
     {
@@ -1035,7 +1032,6 @@ public partial class LessonManagementPage : ContentPage
                     await DisplayAlert("Veritabaný Hatasý", ex.Message, "Tamam");
                 }
                 Sifirla();
-                LoadLessons(searchName, serviceType, antrenor);
             }
 
         }
@@ -1141,7 +1137,6 @@ public partial class LessonManagementPage : ContentPage
                     await DisplayAlert("Veritabaný Hatasý", ex.Message, "Tamam");
                 }
                 Sifirla();
-                LoadLessons(searchName, serviceType, antrenor);
             }
         }
     }
@@ -1172,6 +1167,7 @@ public partial class LessonManagementPage : ContentPage
         AntrenorNameEntry.Text = string.Empty;
         antrenor = string.Empty;
         ResultsCollectionView1.SelectedItem = string.Empty;
+        LoadLessons(searchName, serviceType, antrenor);
     }
     private async void OnCancelClicked(object sender, EventArgs e)
     {
