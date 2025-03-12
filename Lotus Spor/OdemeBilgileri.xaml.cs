@@ -1,8 +1,5 @@
-using CommunityToolkit.Maui.Views;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Input;
 
 namespace Lotus_Spor;
 

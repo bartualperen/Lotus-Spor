@@ -1,8 +1,3 @@
-using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
-using MySql.Data.MySqlClient;
-using System.Configuration;
-
 namespace Lotus_Spor;
 
 public partial class LoginPage : ContentPage

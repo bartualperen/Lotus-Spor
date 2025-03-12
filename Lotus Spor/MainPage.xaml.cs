@@ -1,10 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Diagnostics;
-using System.Diagnostics.Tracing;
 using System.Globalization;
-using System.Windows.Input;
 
 namespace Lotus_Spor
 {

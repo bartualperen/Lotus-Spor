@@ -1,10 +1,7 @@
 ﻿using CommunityToolkit.Maui.Views;
-using Microsoft.Maui.Platform;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Globalization;
-using static Google.Protobuf.Reflection.UninterpretedOption.Types;
 
 namespace Lotus_Spor;
 

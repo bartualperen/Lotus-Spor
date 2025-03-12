@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Storage;
-namespace Lotus_Spor
+﻿namespace Lotus_Spor
 {
     public partial class App : Application
     {

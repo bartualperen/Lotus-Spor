@@ -1,9 +1,6 @@
-using CommunityToolkit.Maui.Converters;
 using CommunityToolkit.Maui.Views;
-using DocumentFormat.OpenXml.Drawing;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace Lotus_Spor;

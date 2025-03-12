@@ -3,8 +3,6 @@ using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 
 namespace Lotus_Spor;
-
-
 public partial class UyeListesi : ContentPage
 {
     List<string> isimListesi = new List<string>();
@@ -317,7 +315,15 @@ public partial class UyeListesi : ContentPage
 
             if (confirmation)
             {
-                string query = "DELETE FROM musteriler WHERE id = @id";
+                string query = @"
+                START TRANSACTION;
+
+                DELETE FROM VucutBilgileri WHERE KullaniciId = @id;
+                DELETE FROM seanslar WHERE musteri_id = @id;
+                DELETE FROM Odemeler WHERE musteri_id = @id;
+                DELETE FROM musteriler WHERE id = @id;
+
+                COMMIT;";
 
                 try
                 {
@@ -370,6 +376,9 @@ public partial class UyeListesi : ContentPage
         lblSearchEntry.IsVisible = true;
 
         btnClear.IsVisible = !string.IsNullOrEmpty(SearchEntry.Text);
+
+        AktifCustomerListView.SelectedItem = null;
+        PasifCustomerListView.SelectedItem = null;
     }
     private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
