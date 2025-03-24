@@ -13,6 +13,7 @@ public partial class AdminPanelPage : ContentPage
         {
             AntrenorYonet.IsVisible = true;
             AntrenorOdemeleri.IsVisible = true;
+            btnGelirGiderBilgileri.IsVisible = true;
         }
 	}
     private async void OnClickedLogOut(Object sender, EventArgs e)
@@ -32,6 +33,10 @@ public partial class AdminPanelPage : ContentPage
     private async void OnOdemeBilgileri(Object sender, EventArgs e)
     {
         await Application.Current.MainPage.Navigation.PushAsync(new OdemeBilgileri());
+    }
+    private async void OnGelirGiderClicked(Object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new GelirGiderBilgileri());
     }
     private async void OnDuyuruYap(Object sender, EventArgs e)
     {

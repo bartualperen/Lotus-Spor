@@ -65,7 +65,7 @@
                         <x:String>Ödenmedi</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label Text="İçerisinde bulunduğumuz aydan sonraki aylar listelenmemektedir." FontAttributes="Bold" Margin="10,5,10,10" />
+                <Label x:Name="lblYazi" Text="İçerisinde bulunduğumuz aydan sonraki aylar listelenmemektedir." FontAttributes="Bold" Margin="10,5,10,10" />
 
                 <!-- Müşteri Listesi -->
                 <CollectionView x:Name="CustomerListView"

@@ -1,0 +1,51 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lotus_Spor.GelirGiderBilgileri"
+             Title="GelirGiderBilgileri"
+             NavigationPage.HasNavigationBar="False">
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Label Text="Dönem Seçin" x:Name="lblDonemPicker" FontSize="16" Margin="10,20,20,0" />
+        <Picker x:Name="DonemPicker" 
+                        
+                        Margin="10,5,10,10"
+                        FontSize="16">
+        </Picker>
+        <Grid RowDefinitions="100,100,100,100,100" ColumnDefinitions="150,150" RowSpacing="1" ColumnSpacing="1">
+
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="0" Grid.Column="0">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label11" Grid.Row="0" Grid.Column="0" Text="1,1" />
+            </Border>
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="0" Grid.Column="1">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label12" Grid.Row="0" Grid.Column="1" Text="1,2" />
+            </Border>
+
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="1" Grid.Column="0">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label21" Grid.Row="1" Grid.Column="0" Text="2,1" />
+            </Border>
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="1" Grid.Column="1">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label22" Grid.Row="1" Grid.Column="1" Text="2,2" />
+            </Border>
+
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="2" Grid.Column="0">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label31" Grid.Row="2" Grid.Column="0" Text="3,1" />
+            </Border>
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="2" Grid.Column="1">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label32" Grid.Row="2" Grid.Column="1" Text="3,2" />
+            </Border>
+
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="3" Grid.Column="0">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label41" Grid.Row="3" Grid.Column="0" Text="4,1" />
+            </Border>
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="3" Grid.Column="1">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label42" Grid.Row="3" Grid.Column="1" Text="4,2" />
+            </Border>
+
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="4" Grid.Column="0">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label51" Grid.Row="4" Grid.Column="0" Text="5,1" />
+            </Border>
+            <Border Stroke="Black" StrokeThickness="1" Grid.Row="4" Grid.Column="1">
+                <Label VerticalOptions="Center" HorizontalOptions="Center" x:Name="label52" Grid.Row="4" Grid.Column="1" Text="5,2" />
+            </Border>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

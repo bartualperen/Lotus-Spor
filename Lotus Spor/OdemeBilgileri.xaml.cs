@@ -322,6 +322,7 @@ public partial class OdemeBilgileri : ContentPage
         btnBas.IsVisible = false;
         btnClear.IsVisible = false;
         ResultsCollectionView.IsVisible = false;
+        lblYazi.IsVisible = false;
 
         var selectedMusteri = (OdemeModel)e.CurrentSelection[0];
 
@@ -349,6 +350,7 @@ public partial class OdemeBilgileri : ContentPage
         CustomerListView.IsVisible = true;
         SearchEntry.Text = string.Empty;
         searchName = SearchEntry.Text;
+        lblYazi.IsVisible = true;
 
         VerileriGetir();
     }
