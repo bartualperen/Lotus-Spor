@@ -29,7 +29,7 @@ public partial class UyeListesi : ContentPage
         this.ShowPopup(loadingPopup);
         try
         {
-            string query = "SELECT id, isim, soyisim, hizmet_turu, seans_ucreti, notlar, telefon, kayit_tarihi, aktiflik FROM musteriler ORDER BY isim ASC";
+            string query = "SELECT id, isim, soyisim, hizmet_turu, seans_ucreti, notlar, telefon, kayit_tarihi, aktiflik, aylik_ders_sayisi FROM musteriler ORDER BY isim ASC";
 
             try
             {
@@ -46,6 +46,7 @@ public partial class UyeListesi : ContentPage
 
                             while (await reader.ReadAsync())
                             {
+
                                 var customer = new Customer
                                 {
                                     ID = Convert.ToInt32(reader["id"]),
@@ -57,7 +58,8 @@ public partial class UyeListesi : ContentPage
                                         ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy")
                                         : "Bilinmiyor",
                                     Ucret = Convert.ToInt32(reader["seans_ucreti"]),
-                                    Aktiflik = reader["aktiflik"].ToString()
+                                    Aktiflik = reader["aktiflik"].ToString(),
+                                    DersSayisi = Convert.ToInt32(reader["aylik_ders_sayisi"]),
                                 };
 
                                 // Müþteriyi Aktif veya Pasif listesine ekleyelim
@@ -166,6 +168,7 @@ public partial class UyeListesi : ContentPage
         string notlar = notentry.Text;
         decimal ucret = decimal.Parse(ucretentry.Text);
         string telefon = telefonentry.Text;
+        string derssayisi = PaketkPicker.SelectedItem.ToString();
 
         // Müþteri ismini soyadýna ayýrýyoruz
         string[] nameParts = fullName.Split(' ');
@@ -212,7 +215,8 @@ public partial class UyeListesi : ContentPage
                 hizmet_turu = @seans_turu, 
                 notlar = @notlar, 
                 seans_ucreti = @ucret,
-                aktiflik = @aktiflik
+                aktiflik = @aktiflik,
+                aylik_ders_sayisi
             WHERE id = @id";
 
         try
@@ -223,6 +227,7 @@ public partial class UyeListesi : ContentPage
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekliyoruz
+                    string numericPart = new string(derssayisi.TakeWhile(char.IsDigit).ToArray());
                     command.Parameters.AddWithValue("@isim", isim);
                     command.Parameters.AddWithValue("@soyisim", soyisim);
                     command.Parameters.AddWithValue("@telefon", telefon);
@@ -230,6 +235,7 @@ public partial class UyeListesi : ContentPage
                     command.Parameters.AddWithValue("@notlar", notlar);
                     command.Parameters.AddWithValue("@ucret", ucret);
                     command.Parameters.AddWithValue("@aktiflik", aktiflik);
+                    command.Parameters.AddWithValue("@aylik_ders_sayisi", derssayisi);
                     command.Parameters.AddWithValue("@id", customerId);
 
                     // Sorguyu çalýþtýrýyoruz
@@ -258,7 +264,8 @@ public partial class UyeListesi : ContentPage
                             Telefon = telefon,
                             KayitTarihi = selectedCustomer.KayitTarihi,
                             Ucret = (int)ucret,
-                            Aktiflik = aktiflik
+                            Aktiflik = aktiflik,
+                            DersSayisi = selectedCustomer.DersSayisi,
                         };
 
                         // Yeni aktiflik durumuna göre ekle
@@ -403,6 +410,7 @@ public partial class UyeListesi : ContentPage
             ucretentry.Text = selectedCustomer.Ucret.ToString();
             telefonentry.Text = selectedCustomer.Telefon;
             AktiflikPicker.SelectedItem = selectedCustomer.Aktiflik;
+            PaketkPicker.SelectedItem = $"{selectedCustomer.DersSayisi} Ders";
         }
     }
     private async void OnClearButtonClicked(object sender, EventArgs e)

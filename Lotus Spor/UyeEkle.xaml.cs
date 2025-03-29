@@ -116,6 +116,12 @@ public partial class UyeEkle : ContentPage
                 }
             }
 
+            string selectedValue = PaketkPicker.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedValue))
+            {
+                await DisplayAlert("Hata", "Lütfen paket bilgisi seçin.", "Tamam");
+                return;
+            }
             if (nameParts.Length > 1)
             {
                 isim = string.Join(" ", nameParts[..^1]);
@@ -146,8 +152,8 @@ public partial class UyeEkle : ContentPage
 
             string seansGunleri = string.Join(", ", secilenGunler);
 
-            string query = "INSERT INTO musteriler (isim, soyisim, telefon, cinsiyet, hizmet_turu, seans_gunleri, seans_ucreti, notlar, kayit_tarihi, sifre, grup) " +
-                           "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @notlar, @kayit_tarihi, @sifre, @grup)";
+            string query = "INSERT INTO musteriler (isim, soyisim, telefon, cinsiyet, hizmet_turu, seans_gunleri, seans_ucreti, notlar, kayit_tarihi, sifre, grup, aylik_ders_sayisi) " +
+                           "VALUES (@isim, @soyisim, @telefon, @cinsiyet, @hizmet_turu, @seans_gunleri, @seans_ucreti, @notlar, @kayit_tarihi, @sifre, @grup, @aylik_ders_sayisi)";
 
             string getLastInsertedIdQuery = "SELECT LAST_INSERT_ID()";
 
@@ -156,15 +162,15 @@ public partial class UyeEkle : ContentPage
             DateTime selectedDate = DatePickerKayitTarihi.Date;
 
             Dictionary<string, DayOfWeek> gunlerMap = new Dictionary<string, DayOfWeek>
-        {
-            { "Pazartesi", DayOfWeek.Monday },
-            { "Salı", DayOfWeek.Tuesday },
-            { "Çarşamba", DayOfWeek.Wednesday },
-            { "Perşembe", DayOfWeek.Thursday },
-            { "Cuma", DayOfWeek.Friday },
-            { "Cumartesi", DayOfWeek.Saturday },
-            { "Pazar", DayOfWeek.Sunday }
-        };
+            {
+                { "Pazartesi", DayOfWeek.Monday },
+                { "Salı", DayOfWeek.Tuesday },
+                { "Çarşamba", DayOfWeek.Wednesday },
+                { "Perşembe", DayOfWeek.Thursday },
+                { "Cuma", DayOfWeek.Friday },
+                { "Cumartesi", DayOfWeek.Saturday },
+                { "Pazar", DayOfWeek.Sunday }
+            };
 
             Dictionary<string, TimeSpan> seansSaatleri = new Dictionary<string, TimeSpan>();
             List<DateTime> seansDönemTarihler = new List<DateTime>();
@@ -230,6 +236,7 @@ public partial class UyeEkle : ContentPage
                     await connection.OpenAsync();
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
+                        string numericPart = new string(selectedValue.TakeWhile(char.IsDigit).ToArray());
                         command.Parameters.AddWithValue("@isim", isim);
                         command.Parameters.AddWithValue("@soyisim", soyisim);
                         command.Parameters.AddWithValue("@telefon", telefon);
@@ -241,6 +248,7 @@ public partial class UyeEkle : ContentPage
                         command.Parameters.AddWithValue("@sifre", telefon);
                         command.Parameters.AddWithValue("@notlar", notlar);
                         command.Parameters.AddWithValue("@grup", grupders ?? null);
+                        command.Parameters.AddWithValue("@aylik_ders_sayisi", numericPart);
 
                         int rowsAffected = await command.ExecuteNonQueryAsync();
                         if (rowsAffected > 0)

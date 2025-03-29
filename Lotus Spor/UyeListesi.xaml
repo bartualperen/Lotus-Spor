@@ -94,6 +94,15 @@
                 <Entry x:Name="ucretentry" Text="{Binding Ucret}" Placeholder="Aylık Ücret" Keyboard="Numeric" />
                 <Label Text="Telefon Numarası" />
                 <Entry x:Name="telefonentry" TextChanged="OnPhoneEntryTextChanged" Text="{Binding Telefon}" Placeholder="Telefon Numarası (Başında 0 olmadan)" Keyboard="Numeric" />
+                <Label Text="Paket Bilgisi" />
+                <Picker x:Name="PaketkPicker" Title="Paket Türü Seçin">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>8 Ders</x:String>
+                            <x:String>12 Ders</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
                 <Label Text="Aktiflik" />
                 <Picker x:Name="AktiflikPicker" SelectedIndex="{Binding Aktiflik}" Title="Seans Türü Seçin">
                     <Picker.ItemsSource>

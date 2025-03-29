@@ -43,6 +43,15 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
+            
+            <Picker x:Name="PaketkPicker" Title="Paket Türü Seçin">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>8 Ders</x:String>
+                        <x:String>12 Ders</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
 
             <Entry x:Name="AntrenorNameEntry" 
                    Placeholder="Antrenör İsim Soyisim"

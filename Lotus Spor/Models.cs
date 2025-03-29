@@ -35,6 +35,7 @@ namespace Lotus_Spor
         public string KayitTarihi { get; set; }
         public int Ucret { get; set; }
         public string Aktiflik { get; set; }
+        public int DersSayisi { get; set; }
     }
     public class OlcuModel
     {
