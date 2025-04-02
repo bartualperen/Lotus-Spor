@@ -59,7 +59,7 @@ public partial class UyeListesi : ContentPage
                                         : "Bilinmiyor",
                                     Ucret = Convert.ToInt32(reader["seans_ucreti"]),
                                     Aktiflik = reader["aktiflik"].ToString(),
-                                    DersSayisi = Convert.ToInt32(reader["aylik_ders_sayisi"]),
+                                    DersSayisi = reader["aylik_ders_sayisi"] != DBNull.Value ? Convert.ToInt32(reader["aylik_ders_sayisi"]) : 0
                                 };
 
                                 // Müþteriyi Aktif veya Pasif listesine ekleyelim
@@ -94,7 +94,6 @@ public partial class UyeListesi : ContentPage
             loadingPopup.Close();
         }
     }
-
     private async void OnPhoneEntryTextChanged(object sender, TextChangedEventArgs e)
     {
         // Sadece sayýlarý filtrele
@@ -139,26 +138,6 @@ public partial class UyeListesi : ContentPage
             : new ObservableCollection<Customer>(
                 PasifCustomers.Where(c => c.FullName.ToLower().Contains(searchQuery)));
     }
-    private void OnCancelEditClicked(object sender, EventArgs e)
-    {
-        AktifCustomerListView.IsVisible = true;
-        PasifCustomerListView.IsVisible = true;
-        EditPanel.IsVisible = false;
-        SearchEntry.IsVisible = true;
-        lblSearchEntry.IsVisible = true;
-        if (!string.IsNullOrEmpty(SearchEntry.Text))
-        {
-            btnClear.IsVisible = true;
-        }
-        else if (string.IsNullOrEmpty(SearchEntry.Text))
-        {
-            btnClear.IsVisible = false;
-        }
-
-        // Liste öðesinin seçilmesini kaldýrýyoruz
-        AktifCustomerListView.SelectedItem = null;
-        PasifCustomerListView.SelectedItem = null;
-    }
     private async void OnSaveEditClicked(object sender, EventArgs e)
     {
         // EditPanel'deki müþteri bilgilerini alýyoruz
@@ -168,7 +147,7 @@ public partial class UyeListesi : ContentPage
         string notlar = notentry.Text;
         decimal ucret = decimal.Parse(ucretentry.Text);
         string telefon = telefonentry.Text;
-        string derssayisi = PaketkPicker.SelectedItem.ToString();
+        string derssayisi = PaketkPicker.SelectedItem.ToString() ?? "Bilinmiyor";
 
         // Müþteri ismini soyadýna ayýrýyoruz
         string[] nameParts = fullName.Split(' ');
@@ -402,6 +381,11 @@ public partial class UyeListesi : ContentPage
             SearchEntry.IsVisible = false;
             btnClear.IsVisible = false;
             lblSearchEntry.IsVisible = false;
+            TotalActiveMembersLabel.IsVisible = false;
+            TotalPasiveMembersLabel.IsVisible = false;
+            TotalMembersLabel.IsVisible = false;
+            lblAktifUyeler.IsVisible = false;
+            lblPasifUyeler.IsVisible = false;
 
             // EditPanel'deki alanlara týklanan öðenin verilerini baðlýyoruz
             isimentry.Text = selectedCustomer.FullName;
@@ -412,6 +396,32 @@ public partial class UyeListesi : ContentPage
             AktiflikPicker.SelectedItem = selectedCustomer.Aktiflik;
             PaketkPicker.SelectedItem = $"{selectedCustomer.DersSayisi} Ders";
         }
+    }
+    private void OnCancelEditClicked(object sender, EventArgs e)
+    {
+        AktifCustomerListView.IsVisible = true;
+        PasifCustomerListView.IsVisible = true;
+        EditPanel.IsVisible = false;
+        SearchEntry.IsVisible = true;
+        lblSearchEntry.IsVisible = true;
+        TotalActiveMembersLabel.IsVisible = true;
+        TotalPasiveMembersLabel.IsVisible = true;
+        TotalMembersLabel.IsVisible = true;
+        lblAktifUyeler.IsVisible = true;
+        lblPasifUyeler.IsVisible = true;
+
+        if (!string.IsNullOrEmpty(SearchEntry.Text))
+        {
+            btnClear.IsVisible = true;
+        }
+        else if (string.IsNullOrEmpty(SearchEntry.Text))
+        {
+            btnClear.IsVisible = false;
+        }
+
+        // Liste öðesinin seçilmesini kaldýrýyoruz
+        AktifCustomerListView.SelectedItem = null;
+        PasifCustomerListView.SelectedItem = null;
     }
     private async void OnClearButtonClicked(object sender, EventArgs e)
     {

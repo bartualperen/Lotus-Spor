@@ -1,25 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "F:\\repos\\Lotus-Spor\\",
+  "WorkspaceRootPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\uyelistesi.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\adminpanelpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\adminpanelpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\uyelistesi.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\uyelistesi.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\uyeekle.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\uyeekle.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\uyelistesi.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\uyelistesi.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\uyelistesi.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|f:\\repos\\lotus-spor\\lotus spor\\uyeekle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\uyeekle.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\uyeekle.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|c:\\users\\bartu\\source\\repos\\lotus-spor\\lotus spor\\uyeekle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{76D9381C-6797-4D26-95BA-0943C3A5B9D3}|Lotus Spor\\Lotus Spor.csproj|solutionrelative:lotus spor\\uyeekle.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 792,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,68 +46,78 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Models.cs",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Models.cs",
-              "RelativeDocumentMoniker": "Lotus Spor\\Models.cs",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Models.cs",
-              "RelativeToolTip": "Lotus Spor\\Models.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAA5wCMAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T18:23:55.548Z",
+              "DocumentIndex": 0,
+              "Title": "AdminPanelPage.xaml",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\AdminPanelPage.xaml",
+              "RelativeDocumentMoniker": "Lotus Spor\\AdminPanelPage.xaml",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\AdminPanelPage.xaml",
+              "RelativeToolTip": "Lotus Spor\\AdminPanelPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAB0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-02T17:56:57.865Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
+              "Title": "Models.cs",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Models.cs",
+              "RelativeDocumentMoniker": "Lotus Spor\\Models.cs",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Models.cs",
+              "RelativeToolTip": "Lotus Spor\\Models.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAA5wCMAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T18:23:55.548Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "UyeListesi.xaml.cs",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml.cs",
               "RelativeDocumentMoniker": "Lotus Spor\\UyeListesi.xaml.cs",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml.cs",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml.cs",
               "RelativeToolTip": "Lotus Spor\\UyeListesi.xaml.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAqwD0AAABeAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJoBAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-29T15:53:29.755Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "UyeListesi.xaml",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml",
               "RelativeDocumentMoniker": "Lotus Spor\\UyeListesi.xaml",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeListesi.xaml",
               "RelativeToolTip": "Lotus Spor\\UyeListesi.xaml",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAGEAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-03-29T15:53:28.974Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "UyeEkle.xaml.cs",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml.cs",
               "RelativeDocumentMoniker": "Lotus Spor\\UyeEkle.xaml.cs",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml.cs",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml.cs",
               "RelativeToolTip": "Lotus Spor\\UyeEkle.xaml.cs",
               "ViewState": "AgIAAOEAAAAAAAAAAAAAAOkAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T15:53:25.448Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-29T15:53:25.448Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "UyeEkle.xaml",
-              "DocumentMoniker": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml",
+              "DocumentMoniker": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml",
               "RelativeDocumentMoniker": "Lotus Spor\\UyeEkle.xaml",
-              "ToolTip": "F:\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml",
+              "ToolTip": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\UyeEkle.xaml",
               "RelativeToolTip": "Lotus Spor\\UyeEkle.xaml",
               "ViewState": "AgIAABsAAAAAAAAAAAAAADQAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-29T15:53:24.622Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-29T15:53:24.622Z"
             }
           ]
         }

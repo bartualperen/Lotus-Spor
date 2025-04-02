@@ -47,7 +47,7 @@
                             IsVisible="False"/>
             </StackLayout>
 
-            <Label Text="Aktif Üyeler" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" />
+            <Label x:Name="lblAktifUyeler" Text="Aktif Üyeler" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,0,0,10" />
             <!-- Müşteri Bilgilerini Gösteren ListView -->
             <ListView x:Name="AktifCustomerListView"
                   IsVisible="True"
@@ -61,7 +61,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Label Text="Pasif Üyeler" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,30,0,10" />
+            <Label x:Name="lblPasifUyeler" Text="Pasif Üyeler" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,30,0,10" />
             <!-- Müşteri Bilgilerini Gösteren ListView -->
             <ListView x:Name="PasifCustomerListView"
                   IsVisible="True"

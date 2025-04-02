@@ -21,7 +21,7 @@
             <Button Text="Ölçü Bilgisi Ekle" Margin="10,10,5,10" Clicked="OnOlcuEkleClicked" x:Name="OlcuEkle"/>
             <Button Text="Ölçü Bilgileri" Margin="10,10,5,10" Clicked="OnOlcuYonet" x:Name="OlcuYonet"/>
             <Button Text="Antrenörleri Ekle/Çıkar" Margin="10,10,5,10" Clicked="OnAntrenorYonet" x:Name="AntrenorYonet" IsVisible="False"/>
-            <Button Text="Duyuru Yap" Margin="10,10,5,10" Clicked="OnDuyuruYap" x:Name="DuyuruYap"/>
+            <Button Text="Duyuru Yap" Margin="10,10,5,10" Clicked="OnDuyuruYap" x:Name="DuyuruYap" IsVisible="False"/>
             <Button Text="Antrenör Ödemeleri" Margin="10,10,5,10" Clicked="OnAntrenorOdemeleri" x:Name="AntrenorOdemeleri" IsVisible="False"/>
             <Button Text="Müşteri Ödemeleri" Margin="10,10,5,10" Clicked="OnOdemeBilgileri" x:Name="OdemeBilgileri"/>
             <Button Text="Gelir/Gider Bilgileri" Margin="10,10,5,10" Clicked="OnGelirGiderClicked" x:Name="btnGelirGiderBilgileri" IsVisible="False"/>
