@@ -147,7 +147,25 @@ public partial class UyeListesi : ContentPage
         string notlar = notentry.Text;
         decimal ucret = decimal.Parse(ucretentry.Text);
         string telefon = telefonentry.Text;
-        string derssayisi = PaketkPicker.SelectedItem.ToString() ?? "Bilinmiyor";
+        string selectedValue = PaketkPicker.SelectedItem?.ToString() ?? "Bilinmiyor";
+        int? derssayisi = null;
+
+        if (selectedValue != "Bilinmiyor")
+        {
+            string sayiMetni = "";
+            foreach (char c in selectedValue)
+            {
+                if (char.IsDigit(c))
+                    sayiMetni += c;
+                else
+                    break;
+            }
+
+            if (int.TryParse(sayiMetni, out int parsed))
+            {
+                derssayisi = parsed;
+            }
+        }
 
         // Müþteri ismini soyadýna ayýrýyoruz
         string[] nameParts = fullName.Split(' ');
@@ -195,7 +213,7 @@ public partial class UyeListesi : ContentPage
                 notlar = @notlar, 
                 seans_ucreti = @ucret,
                 aktiflik = @aktiflik,
-                aylik_ders_sayisi
+                aylik_ders_sayisi = @aylik_ders_sayisi
             WHERE id = @id";
 
         try
@@ -206,7 +224,6 @@ public partial class UyeListesi : ContentPage
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekliyoruz
-                    string numericPart = new string(derssayisi.TakeWhile(char.IsDigit).ToArray());
                     command.Parameters.AddWithValue("@isim", isim);
                     command.Parameters.AddWithValue("@soyisim", soyisim);
                     command.Parameters.AddWithValue("@telefon", telefon);
