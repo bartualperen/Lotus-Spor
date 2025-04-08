@@ -97,12 +97,12 @@
                                     <BoxView Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
                                     
                                     <!-- Kas Orani -->
-                                    <Label Grid.Row="5" Grid.Column="0" Text="Yağ Oranı" FontSize="16" />
+                                    <Label Grid.Row="5" Grid.Column="0" Text="Kas Oranı" FontSize="16" />
                                     <Label Grid.Row="5" Grid.Column="1" HorizontalOptions="End" Text="{Binding KasOrani, StringFormat='%{0:F1}'}" FontSize="16" />
                                     <BoxView Grid.Row="6" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
                                     
                                     <!-- BMI -->
-                                    <Label Grid.Row="6" Grid.Column="0" Text="Su Oranı" FontSize="16" />
+                                    <Label Grid.Row="6" Grid.Column="0" Text="BMI" FontSize="16" />
                                     <Label Grid.Row="6" Grid.Column="1" HorizontalOptions="End" Text="{Binding BMI, StringFormat='%{0:F1}'}" FontSize="16" />
                                     <BoxView Grid.Row="7" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Gray" Margin="0,0,0,20" />
                                     

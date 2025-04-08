@@ -1274,6 +1274,12 @@ public partial class LessonManagementPage : ContentPage
 
             query += " ORDER BY s.tarih ASC, s.saat ASC";
 
+            //Varsayýlan yazý fontu tanýmlamasý
+            float fontScale = (float)DeviceDisplay.MainDisplayInfo.Density; // örneðin: 2.0 gibi
+            double baseFontSize = 16 * fontScale;
+            int rowHeight = 0, rowWidth = 0;
+            List<int> rowHeights = new List<int>();
+
             try
             {
                 using (MySqlConnection connection = Database.GetConnection())
@@ -1295,8 +1301,6 @@ public partial class LessonManagementPage : ContentPage
                         {
                             command.Parameters.AddWithValue("@searchName", "%" + searchName + "%");
                         }
-
-                        List<Tuple<int, int>> rowHeights = new List<Tuple<int, int>>();
 
                         using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                         {
@@ -1336,7 +1340,8 @@ public partial class LessonManagementPage : ContentPage
                             // Saatleri sýralama
                             var sortedSaatler = saatler.OrderBy(s => s).ToList();
 
-                            int rowHeight = 90;
+
+                            //Satýr yüksekliði tanýmlama ve tablonun oluþturularak içinin doldurulmasý.
 
                             // 1. Üstte saatlerin olduðu grid'i oluþturuyoruz.
                             HoursHeaderGrid.Children.Clear();
@@ -1396,8 +1401,7 @@ public partial class LessonManagementPage : ContentPage
                             // Saatleri ve seanslarý ekle
                             for (int rowIndex = 0; rowIndex < sortedSaatler.Count; rowIndex++)
                             {
-                                LessonsListView.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
-
+                                // Tablo çizgileri ekleme mekaný.
                                 if (rowIndex < sortedSaatler.Count + 2)
                                 {
                                     var horizontalLine = new BoxView
@@ -1425,7 +1429,7 @@ public partial class LessonManagementPage : ContentPage
                                     HoursHeaderGrid.Children.Add(horizontalLine1);
                                 }
 
-                                // Günlere göre seanslarý ekle
+                                // Dersler burada ekleniyor.
                                 for (int colIndex = 0; colIndex < sortedGunler.Count; colIndex++)
                                 {
                                     string day = sortedGunler[colIndex];
@@ -1441,9 +1445,13 @@ public partial class LessonManagementPage : ContentPage
                                     var labelContainer = new StackLayout
                                     {
                                         Orientation = StackOrientation.Vertical,
-                                        Spacing = 1
+                                        Spacing = 1,
+                                        HorizontalOptions = LayoutOptions.Center, // Yatayda ortala
+                                        VerticalOptions = LayoutOptions.Center, // Dikeyde ortala
+                                        WidthRequest = 200
                                     };
 
+                                    // Dersin yapýlma durumuna göre renk ayarlamasý ve isimlerin listelenmesi.
                                     foreach (var clientData in clientDataList)
                                     {
                                         string clientName = clientData.client;
@@ -1473,6 +1481,8 @@ public partial class LessonManagementPage : ContentPage
                                             FontSize = 16,
                                             HorizontalOptions = LayoutOptions.Center,
                                             VerticalOptions = LayoutOptions.Center,
+                                            HorizontalTextAlignment = TextAlignment.Center,
+                                            VerticalTextAlignment = TextAlignment.Center,
                                             TextColor = labelColor
                                         };
 
@@ -1509,13 +1519,20 @@ public partial class LessonManagementPage : ContentPage
 
                                         // Label, StackLayout içine ekleniyor
                                         labelContainer.Children.Add(clientLabel);
+
+                                        //Satýr yüksekliði ayarlama
+                                        int labelCount = labelContainer.Count;
+                                        double calculatedRowHeight = labelCount * baseFontSize;
+                                        rowHeight = Convert.ToInt32(calculatedRowHeight);
+                                        rowHeights.Add(rowHeight);
                                     }
 
-                                    // StackLayout, grid içine ekleniyor
+                                    // Ýsimler burada hücre içerisine yerleþtiriliyor.
                                     Grid.SetRow(labelContainer, rowIndex + 1);
                                     Grid.SetColumn(labelContainer, colIndex + 1);
                                     LessonsListView.Children.Add(labelContainer);
 
+                                    // Çizgi ekleme yeri.
                                     if (colIndex < sortedGunler.Count)
                                     {
                                         var verticalLine = new BoxView
@@ -1544,7 +1561,11 @@ public partial class LessonManagementPage : ContentPage
                                     }
                                 }
 
+                                rowHeight = rowHeights.Max();
+
+                                LessonsListView.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
                                 HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
+
                                 string saatindex = string.Join("\n", sortedSaatler[rowIndex]);
 
                                 var timeLabel1 = new Label
@@ -1562,6 +1583,7 @@ public partial class LessonManagementPage : ContentPage
                                 Grid.SetRow(timeLabel1, (rowIndex + 1));
                                 Grid.SetColumn(timeLabel1, 0);
                                 HoursHeaderGrid.Children.Add(timeLabel1);
+                                rowHeights.Clear();
                             }
                         }
                     }

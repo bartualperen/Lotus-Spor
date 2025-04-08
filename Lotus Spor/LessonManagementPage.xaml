@@ -73,13 +73,18 @@
                  BackgroundColor="Gray"
                  HorizontalOptions="FillAndExpand" />
             </StackLayout>
+            
+            <ScrollView Orientation="Horizontal" IsVisible="False">
+                <StackLayout>
+                    <Grid x:Name="DaysHeaderGrid"
+                     ColumnSpacing="10"
+                     RowSpacing="0"
+                     VerticalOptions="Start">
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+            
             <ScrollView Orientation="Vertical" HeightRequest="400" Scrolled="OnScrollChanged">
-                <Grid x:Name="DaysHeaderGrid"
-                  ColumnSpacing="10"
-                  RowSpacing="0"
-                  VerticalOptions="Start"
-                  IsVisible="false">
-                </Grid>
                 <StackLayout Margin="0,0,0,0">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -100,7 +105,7 @@
 
                         <!-- LessonsListView sağda, kaydırılabilir ve HoursHeaderGrid'in solunda -->
                         <ScrollView Orientation="Horizontal" Grid.Row="1" Grid.Column="1" >
-                            <StackLayout>
+                                <StackLayout>
                                 <Grid x:Name="LessonsListView"
                                           ColumnSpacing="10"
                                           RowSpacing="0"
