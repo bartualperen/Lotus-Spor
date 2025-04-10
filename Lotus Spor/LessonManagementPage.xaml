@@ -5,8 +5,9 @@
              Title="Ders Yönetim Sayfası"
              NavigationPage.HasNavigationBar="False">
 
-    <ScrollView x:Name="ScrollViewMain">
+    <ScrollView x:Name="ScrollViewMain" Scrolled="OnScrollChanged">
         <VerticalStackLayout Padding="20">
+            <Button FontSize="16" Text="Test_Button" Clicked="TestFontScale_Clicked" CornerRadius="20" Margin="0,5,0,10" />
             <Label Text="Kişi Adı Ara" x:Name="lblSearchEntry" FontSize="16" />
             <StackLayout Orientation="Horizontal">
                 <Entry x:Name="SearchEntry"
@@ -83,39 +84,41 @@
                     </Grid>
                 </StackLayout>
             </ScrollView>
-            
-            <ScrollView Orientation="Vertical" HeightRequest="400" Scrolled="OnScrollChanged">
-                <StackLayout Margin="0,0,0,0">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
 
-                        <Grid x:Name="HoursHeaderGrid"
+            <StackLayout Margin="0,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid x:Name="HoursHeaderGrid"
                           Grid.Row="0" Grid.Column="0"
                           ColumnSpacing="10"
                           RowSpacing="0"
                           VerticalOptions="Start"
                           Margin="0,0,0,0">
-                        </Grid>
-
-                        <!-- LessonsListView sağda, kaydırılabilir ve HoursHeaderGrid'in solunda -->
-                        <ScrollView Orientation="Horizontal" Grid.Row="1" Grid.Column="1" >
-                                <StackLayout>
-                                <Grid x:Name="LessonsListView"
-                                          ColumnSpacing="10"
-                                          RowSpacing="0"
-                                          VerticalOptions="Start" >
-                                </Grid>
-                            </StackLayout>
-                        </ScrollView>
                     </Grid>
-                </StackLayout>
-            </ScrollView>
+
+                    <!-- LessonsListView sağda, kaydırılabilir ve HoursHeaderGrid'in solunda -->
+                    <ScrollView Orientation="Horizontal" Grid.Row="1" Grid.Column="1" >
+                        <StackLayout>
+                            <Grid x:Name="LessonsListView"
+                                      ColumnSpacing="10"
+                                      RowSpacing="0"
+                                      VerticalOptions="Start" >
+                            </Grid>
+                        </StackLayout>
+                    </ScrollView>
+                </Grid>
+            </StackLayout>
+
+            <!--<ScrollView Orientation="Vertical" HeightRequest="400" Scrolled="OnScrollChanged">
+
+            </ScrollView>-->
 
             <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
                 <BoxView HeightRequest="1" 
@@ -161,11 +164,11 @@
                     <Label Text="Not: Yeni ders tarihini ve saatini seçtikten sonra tek seferlik veya hepsini değiştirme seçeneklerinden birini seçebilirsiniz." FontSize="14" />
                     <Button FontSize="16" Text="Seçilen Dersi Değiştir"  Clicked="OnCurDateChangeClicked" CornerRadius="20" Margin="0,15,0,10" />
                     <Button FontSize="16" Text="Bütün Dersleri Değiştir" Clicked="OnAllChangeClicked" CornerRadius="20" Margin="0,5,0,10" />
-                    <Button FontSize="16" Text="Yapıldı Olarak İşaretle" Clicked="OnDoneClicked" CornerRadius="20" Margin="0,5,0,10"/>
-                    <Button FontSize="16" Text="Yapılmadı Olarak İşaretle" Clicked="OnUnDoneClicked" CornerRadius="20"  Margin="0,5,0,10"/>
-                    <Button FontSize="16" Text="Hepsini Sil" Clicked="OnKayitSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
-                    <Button FontSize="16" Text="Seçilen Dersi Sil" Clicked="OnBiriniSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
-                    <Button FontSize="16" Text="İptal" Clicked="OnCancelClicked" x:Name="btnIptal" CornerRadius="20" Margin="0,5,0,10"/>
+                    <Button FontSize="16" BackgroundColor="#4CAF50" Text="Yapıldı Olarak İşaretle" Clicked="OnDoneClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                    <Button FontSize="16" BackgroundColor="#F44336" Text="Yapılmadı Olarak İşaretle" Clicked="OnUnDoneClicked" CornerRadius="20"  Margin="0,5,0,10"/>
+                    <Button FontSize="16" BackgroundColor="Red" Text="Hepsini Sil" Clicked="OnKayitSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                    <Button FontSize="16" BackgroundColor="Red" Text="Seçilen Dersi Sil" Clicked="OnBiriniSilClicked" CornerRadius="20" Margin="0,5,0,10"/>
+                    <Button FontSize="16" BackgroundColor="OrangeRed" Text="İptal" Clicked="OnCancelClicked" x:Name="btnIptal" CornerRadius="20" Margin="0,5,0,10"/>
                 </StackLayout>
             </Frame>
 

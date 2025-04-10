@@ -1,7 +1,13 @@
+using CommunityToolkit.Maui.Converters;
 using CommunityToolkit.Maui.Views;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using Lotus_Spor.Services;
+using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using static Lotus_Spor.App;
+using Thickness = Microsoft.Maui.Thickness;
 
 namespace Lotus_Spor;
 
@@ -14,6 +20,7 @@ public partial class LessonManagementPage : ContentPage
     private ObservableCollection<string> filteredList1 = new ObservableCollection<string>();
     public ObservableCollection<DoluSeans> DoluSeanslar { get; set; } = new ObservableCollection<DoluSeans>();
     public ObservableCollection<Lesson> Lessons { get; set; } = new ObservableCollection<Lesson>();
+    List<StackLayout> hucreListesi = new List<StackLayout>();
     private DateTime oldDate;
     private TimeSpan oldTime;
     string searchName, serviceType, antrenor, hafta, grupders;
@@ -1180,8 +1187,40 @@ public partial class LessonManagementPage : ContentPage
     }
     private void OnScrollChanged(object sender, ScrolledEventArgs e)
     {
+        //double scrollY = e.ScrollY;
+        //double cellHeight = 100; // Her hücre yüksekliði
 
+        //int visibleIndex = (int)(scrollY / cellHeight);
+        //double offsetInCell = scrollY % cellHeight;
+
+        //for (int i = 0; i < hucreListesi.Count; i++)
+        //{
+        //    var label = hucreListesi[i].Children[0] as Label;
+
+        //    // Eþik: örneðin hücrenin yarýsý kadar aþaðý kaydýrýldýysa göster
+        //    if (i == visibleIndex && offsetInCell > cellHeight * 0.5)
+        //    {
+        //        label.IsVisible = true;
+        //    }
+        //    else
+        //    {
+        //        label.IsVisible = false;
+        //    }
+        //}
     }
+    private async void TestFontScale_Clicked(object sender, EventArgs e)
+    {
+        //if (_fontScaleProvider == null)
+        //{
+        //    await DisplayAlert("Hata", "FontScaleProvider null döndü", "Tamam");
+        //}
+        //else
+        //{
+        //    float scale = _fontScaleProvider.GetFontScale();
+        //    await DisplayAlert("FontScale", $"FontScale: {scale}", "Tamam");
+        //}
+    }
+
     private async void LoadLessons(string searchName = "", string hizmet_turu = "", string antrenor = "", string Hafta = "")
     {
         var loadingPopup = new LoadingPopup();
@@ -1275,8 +1314,10 @@ public partial class LessonManagementPage : ContentPage
             query += " ORDER BY s.tarih ASC, s.saat ASC";
 
             //Varsayýlan yazý fontu tanýmlamasý
-            float fontScale = (float)DeviceDisplay.MainDisplayInfo.Density; // örneðin: 2.0 gibi
-            double baseFontSize = 16 * fontScale;
+            //float fontScale = DependencyService.Get<IFontScaleProvider>().GetFontScale();
+            //Console.WriteLine("fontScale : " + fontScale);
+            double baseFontSize = 16;
+            Console.WriteLine("baseFontsize : " + baseFontSize);
             int rowHeight = 0, rowWidth = 0;
             List<int> rowHeights = new List<int>();
 
@@ -1374,17 +1415,6 @@ public partial class LessonManagementPage : ContentPage
                             // Gün baþlýklarýný ekle
                             for (int i = 0; i < sortedGunler.Count; i++)
                             {
-                                DaysHeaderGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-                                var label = new Label
-                                {
-                                    Text = sortedGunler[i],
-                                    HorizontalOptions = LayoutOptions.Center,
-                                    FontAttributes = FontAttributes.Bold
-                                };
-                                Grid.SetRow(label, 0); // Baþlýk satýrý
-                                Grid.SetColumn(label, i); // Gün sütunlarý
-                                DaysHeaderGrid.Children.Add(label);
-
                                 LessonsListView.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                                 var label1 = new Label
                                 {
@@ -1451,6 +1481,21 @@ public partial class LessonManagementPage : ContentPage
                                         WidthRequest = 200
                                     };
 
+                                    var dayLabel = new Label
+                                    {
+                                        Text = day,
+                                        FontSize = 16,
+                                        HorizontalOptions = LayoutOptions.Center,
+                                        VerticalOptions = LayoutOptions.Start,
+                                        HorizontalTextAlignment = TextAlignment.Center,
+                                        VerticalTextAlignment = TextAlignment.Start,
+                                        TextColor = Color.FromHex("#007ACC"),
+                                        FontAttributes = FontAttributes.Bold
+                                    };
+
+                                    labelContainer.Children.Add(dayLabel);
+                                    hucreListesi.Add(labelContainer);
+
                                     // Dersin yapýlma durumuna göre renk ayarlamasý ve isimlerin listelenmesi.
                                     foreach (var clientData in clientDataList)
                                     {
@@ -1514,7 +1559,6 @@ public partial class LessonManagementPage : ContentPage
                                             }
                                         };
 
-
                                         clientLabel.GestureRecognizers.Add(tapGestureRecognizer);
 
                                         // Label, StackLayout içine ekleniyor
@@ -1522,9 +1566,15 @@ public partial class LessonManagementPage : ContentPage
 
                                         //Satýr yüksekliði ayarlama
                                         int labelCount = labelContainer.Count;
-                                        double calculatedRowHeight = labelCount * baseFontSize;
+                                        double calculatedRowHeight = CalculateRowHeight(labelCount, baseFontSize);
                                         rowHeight = Convert.ToInt32(calculatedRowHeight);
                                         rowHeights.Add(rowHeight);
+                                        Console.WriteLine("baseFontsize : " + baseFontSize);
+                                        Console.WriteLine("calculatedRowHeight : " + calculatedRowHeight);
+                                    }
+                                    if (labelContainer.Count == 1)
+                                    {
+                                        labelContainer.Clear();
                                     }
 
                                     // Ýsimler burada hücre içerisine yerleþtiriliyor.
@@ -1578,11 +1628,11 @@ public partial class LessonManagementPage : ContentPage
                                 };
 
                                 timeLabel1.HeightRequest = rowHeight;
-                                HoursHeaderGrid.RowDefinitions[rowIndex + 1].Height = new GridLength(rowHeight, GridUnitType.Absolute);
 
                                 Grid.SetRow(timeLabel1, (rowIndex + 1));
                                 Grid.SetColumn(timeLabel1, 0);
                                 HoursHeaderGrid.Children.Add(timeLabel1);
+
                                 rowHeights.Clear();
                             }
                         }
@@ -1591,7 +1641,7 @@ public partial class LessonManagementPage : ContentPage
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Hata", $"Veriler yüklenirken bir hata oluþtu: {ex.Message}", "Tamam");
+                await DisplayAlert("Hata", $"Sunucu ile baðlantý kurulamadý.", "Tamam");
             }
             await Task.Delay(1000);
         }
@@ -1605,6 +1655,16 @@ public partial class LessonManagementPage : ContentPage
             loadingPopup.Close();
         }
     }
+
+    double CalculateRowHeight(int labelCount, double baseFontSize)
+    {
+        // Her satýrýn yüksekliði = font boyutu - logaritmik küçültme
+        double perLineHeight = baseFontSize - Math.Log(baseFontSize) * 0.6;
+
+        // Toplam yükseklik
+        return labelCount * perLineHeight;
+    }
+
     private DateTime StartOfWeek(DateTime date)
     {
         var diff = date.DayOfWeek - DayOfWeek.Monday;

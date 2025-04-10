@@ -753,3 +753,4 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimula
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\Lotus Spor.csproj.Up2Date
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\Lotus Spor.genruntimeconfig.cache
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\ref\Lotus Spor.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll

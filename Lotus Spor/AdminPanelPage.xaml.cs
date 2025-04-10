@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Lotus_Spor;
 
 public partial class AdminPanelPage : ContentPage
@@ -5,6 +7,8 @@ public partial class AdminPanelPage : ContentPage
     string loggedInUser = Preferences.Get("LoggedInUser", string.Empty);
     string loggedInUser2 = Preferences.Get("LoggedInUser2", string.Empty);
     string admin1 = ConnectionString.admin1, admin2 = ConnectionString.admin2;
+    private IServiceProvider? serviceProvider;
+
     public AdminPanelPage()
 	{
 		InitializeComponent();
@@ -57,6 +61,7 @@ public partial class AdminPanelPage : ContentPage
     private async void OnDersYonet(Object sender, EventArgs e)
     {
         await Application.Current.MainPage.Navigation.PushAsync(new LessonManagementPage());
+
     }
     private async void OnOlcuYonet(Object sender, EventArgs e)
     {

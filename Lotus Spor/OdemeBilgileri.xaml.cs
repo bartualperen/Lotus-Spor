@@ -124,7 +124,7 @@ public partial class OdemeBilgileri : ContentPage
                     ROW_NUMBER() OVER (PARTITION BY o.musteri_id, o.odeme_donemi ORDER BY o.id DESC) AS row_num
                 FROM Odemeler o
                 INNER JOIN musteriler m ON o.musteri_id = m.id
-                WHERE DATE(o.odeme_donemi) <= DATE_ADD(CURDATE(), INTERVAL 1 DAY) AND m.aktiflik = 'Aktif'
+                WHERE DATE(o.odeme_donemi) <= LAST_DAY(CURDATE()) AND m.aktiflik = 'Aktif'
             )
             SELECT id, isim, soyisim, odeme_donemi, toplam_odeme, odeme_durumu
             FROM RankedPayments
