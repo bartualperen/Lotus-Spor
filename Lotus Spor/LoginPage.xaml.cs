@@ -1,3 +1,5 @@
+using Lotus_Spor.Services;
+
 namespace Lotus_Spor;
 
 public partial class LoginPage : ContentPage
@@ -27,10 +29,11 @@ public partial class LoginPage : ContentPage
     {
         string isim, soyisim;
         string fullName = UsernameEntry.Text;
-        string sifre = PasswordEntry.Text;
+        string phoneNumber = PasswordEntry.Text;
+        string tel90 = "90" + phoneNumber;
 
         // Boþ alan kontrolü
-        if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(sifre))
+        if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(phoneNumber))
         {
             await DisplayAlert("Hata", "Lütfen tüm alanlarý doldurunuz!", "Tamam");
             return; // Ýþlem burada sonlanýr
@@ -45,41 +48,7 @@ public partial class LoginPage : ContentPage
 
             try
             {
-                //if (LoginManager.IsSpecialUser(isim, soyisim)) // Özel kullanýcý kontrolü
-                //{
-                //    if (!string.IsNullOrEmpty(sifre))
-                //    {
-                //        // Doðrulama kodu oluþtur
-                //        string verificationCode = GenerateVerificationCode();
-
-                //        // SMS gönder (örneðin Twilio API kullanarak)
-                //        bool smsSent = await SmsService.SendSmsAsync(sifre,
-                //            $"Doðrulama kodunuz: {verificationCode}");
-
-                //        if (!smsSent)
-                //        {
-                //            await DisplayAlert("Hata", "Doðrulama kodu gönderilemedi!", "Tamam");
-                //            return;
-                //        }
-
-                //        // Kullanýcýdan doðrulama kodunu al
-                //        string enteredCode = await DisplayPromptAsync("Doðrulama",
-                //            "Lütfen cep telefonunuza gelen doðrulama kodunu girin:",
-                //            "Gönder", "Ýptal");
-
-                //        if (enteredCode != verificationCode)
-                //        {
-                //            await DisplayAlert("Hata", "Doðrulama kodu hatalý!", "Tamam");
-                //            return;
-                //        }
-                //    }
-                //    else
-                //    {
-                //        await DisplayAlert("Hata", "Telefon numarasý bulunamadý!", "Tamam");
-                //        return;
-                //    }
-                //}
-                if (LoginManager.Login(isim, soyisim, sifre))
+                if (LoginManager.Login(isim, soyisim, phoneNumber))
                 {
                     // Kullanýcý rolünü kaydet
                     Preferences.Set("UserRole", LoginManager.UserRole);
@@ -87,6 +56,45 @@ public partial class LoginPage : ContentPage
                     Preferences.Set("LoggedInUser2", LoginManager.LoggedInUser2);
                     Preferences.Set("Gender", LoginManager.Gender);
                     Preferences.Set("LoggedInUserId", LoginManager.LoggedInUserId.ToString());
+                    bool giris = false;
+
+                    //bool smsSent = await LoginManager.LoginWithOtpAsync(isim, soyisim, phoneNumber, tel90);
+ 
+                    //if (!smsSent)
+                    //{
+                    //    await DisplayAlert("Hata", "Giriþ baþarýsýz veya SMS yollanamadý", "Tamam");
+                    //    Preferences.Remove("UserRole");
+                    //    Preferences.Remove("LoggedInUser");
+                    //    Preferences.Remove("LoggedInUser2");
+                    //    Preferences.Remove("Gender");
+                    //    Preferences.Remove("LoggedInUserId");
+                    //    return;
+                    //}
+
+                    //// Kod isteme
+                    //string entered = await DisplayPromptAsync(
+                    //     "Doðrulama", "SMS kodu:", keyboard: Keyboard.Numeric, maxLength: 6);
+
+                    //if (!LoginManager.VerifyOtp(tel90, entered))
+                    //{
+                    //    await DisplayAlert("Hata", "Kod hatalý / süresi doldu", "Tamam");
+                    //    Preferences.Remove("UserRole");
+                    //    Preferences.Remove("LoggedInUser");
+                    //    Preferences.Remove("LoggedInUser2");
+                    //    Preferences.Remove("Gender");
+                    //    Preferences.Remove("LoggedInUserId");
+                    //    return;
+                    //}
+                    //else
+                    //{
+                    //    giris = true;
+                    //}
+
+                    //// 2-aþamalý giriþ tamam — rol zaten Login() içinde set edildi
+                    //if (LoginManager.UserRole == "yonetici" && giris)
+                    //    await Navigation.PushAsync(new AdminPanelPage());
+                    //else
+                    //    await Navigation.PushAsync(new MainPage());
 
                     if (LoginManager.UserRole == "yonetici")
                     {
@@ -137,10 +145,5 @@ public partial class LoginPage : ContentPage
             // Düzenlenmiþ metni tekrar Entry'ye yaz
             UsernameEntry.Text = string.Join(" ", words);
         }
-    }
-    private string GenerateVerificationCode()
-    {
-        var random = new Random();
-        return random.Next(100000, 999999).ToString(); // 6 haneli doðrulama kodu
     }
 }

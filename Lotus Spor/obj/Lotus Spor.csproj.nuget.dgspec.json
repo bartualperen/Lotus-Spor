@@ -69,7 +69,7 @@
           "dependencies": {
             "CommunityToolkit.Maui": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.0, )"
             },
             "DocumentFormat.OpenXml": {
               "target": "Package",
@@ -77,31 +77,31 @@
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration.FileExtensions": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[9.0.40, )"
+              "version": "[9.0.60, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -111,11 +111,15 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[9.2.0, )"
+              "version": "[9.3.0, )"
             },
             "MySql.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -127,7 +131,11 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
+            },
+            "VatanSoft.VatanSms.Net": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             }
           },
           "imports": [
@@ -156,7 +164,7 @@
           "dependencies": {
             "CommunityToolkit.Maui": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.0, )"
             },
             "DocumentFormat.OpenXml": {
               "target": "Package",
@@ -164,31 +172,31 @@
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration.FileExtensions": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[9.0.40, )"
+              "version": "[9.0.60, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -198,11 +206,15 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[9.2.0, )"
+              "version": "[9.3.0, )"
             },
             "MySql.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -214,7 +226,11 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
+            },
+            "VatanSoft.VatanSms.Net": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             }
           },
           "imports": [
@@ -243,7 +259,7 @@
           "dependencies": {
             "CommunityToolkit.Maui": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.0, )"
             },
             "DocumentFormat.OpenXml": {
               "target": "Package",
@@ -251,31 +267,31 @@
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration.FileExtensions": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[9.0.40, )"
+              "version": "[9.0.60, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -285,11 +301,15 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[9.2.0, )"
+              "version": "[9.3.0, )"
             },
             "MySql.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -301,7 +321,11 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
+            },
+            "VatanSoft.VatanSms.Net": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             }
           },
           "imports": [
@@ -331,7 +355,7 @@
           "dependencies": {
             "CommunityToolkit.Maui": {
               "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[11.2.0, )"
             },
             "DocumentFormat.OpenXml": {
               "target": "Package",
@@ -339,39 +363,43 @@
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration.FileExtensions": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[9.0.40, )"
+              "version": "[9.0.60, )"
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[9.2.0, )"
+              "version": "[9.3.0, )"
             },
             "MySql.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -383,7 +411,11 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[9.0.2, )"
+              "version": "[9.0.4, )"
+            },
+            "VatanSoft.VatanSms.Net": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             }
           },
           "imports": [

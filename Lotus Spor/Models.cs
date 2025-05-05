@@ -80,6 +80,11 @@ namespace Lotus_Spor
     }
     public class LoginManager
     {
+        public static string LoggedInUser { get; private set; }
+        public static string LoggedInUser2 { get; private set; }
+        public static string UserRole { get; private set; }
+        public static string Gender { get; private set; }
+        public static int LoggedInUserId { get; private set; }
         public static bool IsSpecialUser(string isim, string soyisim)
         {
             string query = "SELECT COUNT(*) FROM yoneticiler WHERE isim = @FirstName AND soyisim = @LastName";
@@ -97,11 +102,6 @@ namespace Lotus_Spor
                 }
             }
         }
-        public static string LoggedInUser { get; private set; }
-        public static string LoggedInUser2 { get; private set; }
-        public static string UserRole { get; private set; }
-        public static string Gender { get; private set; }
-        public static int LoggedInUserId { get; private set; }
         public static bool Login(string isim, string soyisim, string sifre)
         {
             using (var conn = Database.GetConnection())
@@ -158,6 +158,54 @@ namespace Lotus_Spor
             LoggedInUser = null;
             UserRole = null;
             LoggedInUserId = 0;
+        }
+        // < YENİ > OTP belleği (basit, 3 dk. süreli)
+        private static readonly Dictionary<string, (string Code, DateTime Expire)> _otpCache
+            = new();
+
+        private static readonly object _lock = new();     // eş-zamansız güncelleme için
+
+        /// <summary>Kimlik + şifre doğruysa SMS OTP gönderir ve true döndürür.</summary>
+        public static async Task<bool> LoginWithOtpAsync(string isim, string soyisim,
+                                                        string sifre, string phone90)
+        {
+            // 1) Önce normal doğrulama
+            if (!Login(isim, soyisim, sifre))
+                return false;
+
+            // 2) 6 haneli kod üret
+            var rnd = new Random();
+            string code = rnd.Next(100000, 999999).ToString();
+
+            // 3) SMS gönder
+            bool ok = await Services.VatanSmsService.SendOtpAsync(phone90, $"Uygulamaya giriş yapmak için kodunuz: {code}");
+            if (!ok) return false;
+
+            // 4) Belleğe koy (3 dk geçerli)
+            lock (_lock)
+                _otpCache[phone90] = (code, DateTime.UtcNow.AddMinutes(3));
+
+            return true;
+        }
+
+        /// <summary>Kullanıcının girdiği kodu doğrular.</summary>
+        public static bool VerifyOtp(string phone90, string code)
+        {
+            lock (_lock)
+            {
+                if (!_otpCache.TryGetValue(phone90, out var entry))
+                    return false;                          // kod hiç gönderilmemiş
+
+                if (DateTime.UtcNow > entry.Expire)        // süresi doldu
+                {
+                    _otpCache.Remove(phone90);
+                    return false;
+                }
+
+                bool match = entry.Code == code;
+                if (match) _otpCache.Remove(phone90);      // tek kullanımlık
+                return match;
+            }
         }
     }
 }
