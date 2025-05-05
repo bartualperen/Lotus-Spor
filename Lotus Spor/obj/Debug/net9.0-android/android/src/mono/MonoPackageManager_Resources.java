@@ -64,7 +64,6 @@ public class MonoPackageManager_Resources {
 		"System.Security.Cryptography.Pkcs.dll",
 		"System.Security.Cryptography.ProtectedData.dll",
 		"System.Security.Permissions.dll",
-		"System.Text.Json.dll",
 		"System.Windows.Extensions.dll",
 		"VatanSoft.VatanSms.Net.dll",
 		"Xamarin.Android.Glide.dll",
@@ -208,7 +207,6 @@ public class MonoPackageManager_Resources {
 		"Microsoft.Maui.Controls.HotReload.Forms.dll",
 		"Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll",
 		"Microsoft.VisualStudio.DesignTools.TapContract.dll",
-		"Microsoft.VisualStudio.DesignTools.XamlTapContract.dll",
 		"_Microsoft.Android.Resource.Designer.dll",
 	};
 	public static String[] Dependencies = new String[]{
