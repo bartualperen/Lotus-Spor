@@ -239,7 +239,11 @@ namespace Lotus_Spor
         public static void Logout()
         {
             LoggedInUser = null;
+            LoggedInUser2 = null;
             UserRole = null;
+            Gender = null;
+            PhoneNo = null;
+            Sifre = null;
             LoggedInUserId = 0;
         }
         // < YENİ > OTP belleği (basit, 3 dk. süreli)
