@@ -5,18 +5,37 @@
         public App()
         {
             InitializeComponent();
+        }
+
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            // Kullanıcı rolünü alıyoruz
             string userRole = Preferences.Get("UserRole", string.Empty);
 
+            // AppShell oluşturuluyor
+            var appShell = new AppShell();
+
+            // Kullanıcı rolüne göre sayfa yönlendirmesi yapıyoruz
             if (!string.IsNullOrEmpty(userRole))
             {
                 if (userRole == "yonetici")
-                    MainPage = new NavigationPage(new AdminPanelPage());
+                {
+                    // Admin paneli için LessonManagementPage'e yönlendirme yapıyoruz
+                    appShell.GoToAsync("//LessonManagementPage");
+
+                    return new Window(appShell);
+                }
                 else
-                    MainPage = new NavigationPage(new MainPage());
+                {
+                    // Normal kullanıcı için MainPage'e yönlendirme yapıyoruz
+                    appShell.GoToAsync("//MainPage");
+
+                    return new Window(appShell);
+                }
             }
             else
             {
-                MainPage = new NavigationPage(new LoginPage());
+                return new Window(new LoginPage());
             }
         }
 
@@ -24,7 +43,7 @@
         {
             base.OnStart();
 
-            // Uygulamanın teması başlangıçta belirlenir ve ilgili renkler otomatik olarak güncellenir.
+            // Tema ayarlarını yapıyoruz
             if (AppInfo.RequestedTheme == AppTheme.Dark)
             {
                 Application.Current.Resources["EntryBackgroundColor"] = Color.FromArgb("#f7f7f7");

@@ -40,6 +40,7 @@ obj\Release\net9.0-android\android-x64\aot\Microsoft.Maui.Graphics.dll.so
 obj\Release\net9.0-android\android-x64\aot\Microsoft.SqlServer.Server.dll.so
 obj\Release\net9.0-android\android-x64\aot\MySql.Data.dll.so
 obj\Release\net9.0-android\android-x64\aot\MySql.EntityFrameworkCore.dll.so
+obj\Release\net9.0-android\android-x64\aot\Newtonsoft.Json.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.ClientModel.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Configuration.ConfigurationManager.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Data.SqlClient.dll.so
@@ -49,6 +50,7 @@ obj\Release\net9.0-android\android-x64\aot\System.Memory.Data.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Security.Cryptography.Pkcs.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Security.Cryptography.ProtectedData.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Security.Permissions.dll.so
+obj\Release\net9.0-android\android-x64\aot\VatanSoft.VatanSms.Net.dll.so
 obj\Release\net9.0-android\android-x64\aot\Xamarin.AndroidX.Activity.dll.so
 obj\Release\net9.0-android\android-x64\aot\Xamarin.AndroidX.AppCompat.dll.so
 obj\Release\net9.0-android\android-x64\aot\Xamarin.AndroidX.AppCompat.AppCompatResources.dll.so
@@ -129,6 +131,9 @@ obj\Release\net9.0-android\android-x64\aot\System.Private.DataContractSerializat
 obj\Release\net9.0-android\android-x64\aot\System.Private.Uri.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Private.Xml.Linq.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Private.Xml.dll.so
+obj\Release\net9.0-android\android-x64\aot\System.Reflection.Emit.ILGeneration.dll.so
+obj\Release\net9.0-android\android-x64\aot\System.Reflection.Emit.Lightweight.dll.so
+obj\Release\net9.0-android\android-x64\aot\System.Reflection.Primitives.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Runtime.CompilerServices.Unsafe.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Runtime.InteropServices.RuntimeInformation.dll.so
 obj\Release\net9.0-android\android-x64\aot\System.Runtime.InteropServices.dll.so

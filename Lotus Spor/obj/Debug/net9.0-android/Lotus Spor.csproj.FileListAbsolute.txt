@@ -2038,7 +2038,6 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Mi
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.IdentityModel.Tokens.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Maui.Controls.dll
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Maui.Controls.HotReload.Forms.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Maui.Controls.pdb
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Maui.Controls.Xaml.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Maui.Controls.Xaml.pdb
@@ -2052,8 +2051,6 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Mi
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.SqlServer.Server.pdb
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.VisualBasic.Core.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.VisualBasic.dll
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.VisualStudio.DesignTools.TapContract.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Win32.Primitives.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Win32.Registry.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Mono.Android.dll
@@ -2464,10 +2461,6 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc6436e4258
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc648fc34c62be8fbbff\Snackbar_SnackbarCallback.java
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\OfflineSpeechToTextImplementation_SpeechRecognitionListener.java
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\SpeechToTextImplementation_SpeechRecognitionListener.java
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.Maui.Controls.HotReload.Forms.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\Lotus Spor.csproj.Up2Date
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\DocumentFormat.OpenXml.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\DocumentFormat.OpenXml.Framework.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\System.IO.Packaging.dll
@@ -2983,13 +2976,27 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\andro
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\marshal_methods.arm64-v8a.o
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\jni_remap.arm64-v8a.o
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\app_shared_libraries\arm64-v8a\libxamarin-app.so
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\VatanSoft.VatanSms.Net.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc6452ffdc5b34af3a0f\MauiShapeableImageView.java
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\Executor.java
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\ModelDownloadListener.java
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\RecognitionSupportCallback.java
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Newtonsoft.Json.dll
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Newtonsoft.Json.dll
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\VatanSoft.VatanSms.Net.dll
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc6452ffdc5b34af3a0f\MauiShapeableImageView.java
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\Executor.java
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\ModelDownloadListener.java
+C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\RecognitionSupportCallback.java
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.Maui.Controls.HotReload.Forms.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\Lotus Spor.csproj.Up2Date
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.Maui.Controls.HotReload.Forms.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.VisualStudio.DesignTools.TapContract.dll
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\typemaps.x86_64.ll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\environment.x86_64.ll
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\compressed_assemblies.x86_64.ll
@@ -2999,10 +3006,5 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\compressed_assem
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\marshal_methods.x86_64.o
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\jni_remap.x86_64.o
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\app_shared_libraries\x86_64\libxamarin-app.so
-F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\x86_64\Newtonsoft.Json.dll
-C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\Newtonsoft.Json.dll
-C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\assets\arm64-v8a\VatanSoft.VatanSms.Net.dll
-C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc6452ffdc5b34af3a0f\MauiShapeableImageView.java
-C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\Executor.java
-C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\ModelDownloadListener.java
-C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\android\src\crc64d6358e7bf64fbac4\RecognitionSupportCallback.java
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\resizetizer\r\drawable\eye_closed.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-android\resizetizer\r\drawable\eye_open.png

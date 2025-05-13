@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Lotus Spor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+ddd8db63593fee2cc0cb4ce178b6d1b489841c1b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+0f32f878da780fad906637f62011f2c08e77a9e1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Lotus Spor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Lotus Spor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

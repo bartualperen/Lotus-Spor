@@ -1,13 +1,7 @@
-using CommunityToolkit.Maui.Converters;
 using CommunityToolkit.Maui.Views;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using Lotus_Spor.Services;
-using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using static Lotus_Spor.App;
-using Thickness = Microsoft.Maui.Thickness;
 
 namespace Lotus_Spor;
 
@@ -1210,15 +1204,7 @@ public partial class LessonManagementPage : ContentPage
     }
     private async void TestFontScale_Clicked(object sender, EventArgs e)
     {
-        //if (_fontScaleProvider == null)
-        //{
-        //    await DisplayAlert("Hata", "FontScaleProvider null döndü", "Tamam");
-        //}
-        //else
-        //{
-        //    float scale = _fontScaleProvider.GetFontScale();
-        //    await DisplayAlert("FontScale", $"FontScale: {scale}", "Tamam");
-        //}
+        
     }
 
     private async void LoadLessons(string searchName = "", string hizmet_turu = "", string antrenor = "", string Hafta = "")
@@ -1316,10 +1302,6 @@ public partial class LessonManagementPage : ContentPage
             //Varsayýlan yazý fontu tanýmlamasý
             //float fontScale = DependencyService.Get<IFontScaleProvider>().GetFontScale();
             //Console.WriteLine("fontScale : " + fontScale);
-            double baseFontSize = 16;
-            Console.WriteLine("baseFontsize : " + baseFontSize);
-            int rowHeight = 0, rowWidth = 0;
-            List<int> rowHeights = new List<int>();
 
             try
             {
@@ -1566,11 +1548,6 @@ public partial class LessonManagementPage : ContentPage
 
                                         //Satýr yüksekliði ayarlama
                                         int labelCount = labelContainer.Count;
-                                        double calculatedRowHeight = CalculateRowHeight(labelCount, baseFontSize);
-                                        rowHeight = Convert.ToInt32(calculatedRowHeight);
-                                        rowHeights.Add(rowHeight);
-                                        Console.WriteLine("baseFontsize : " + baseFontSize);
-                                        Console.WriteLine("calculatedRowHeight : " + calculatedRowHeight);
                                     }
                                     if (labelContainer.Count == 1)
                                     {
@@ -1611,10 +1588,8 @@ public partial class LessonManagementPage : ContentPage
                                     }
                                 }
 
-                                rowHeight = rowHeights.Max();
-
-                                LessonsListView.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
-                                HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = rowHeight });
+                                LessonsListView.RowDefinitions.Add(new RowDefinition { Height = 180 });
+                                HoursHeaderGrid.RowDefinitions.Add(new RowDefinition { Height = 180 });
 
                                 string saatindex = string.Join("\n", sortedSaatler[rowIndex]);
 
@@ -1627,13 +1602,9 @@ public partial class LessonManagementPage : ContentPage
                                     VerticalOptions = LayoutOptions.Center
                                 };
 
-                                timeLabel1.HeightRequest = rowHeight;
-
                                 Grid.SetRow(timeLabel1, (rowIndex + 1));
                                 Grid.SetColumn(timeLabel1, 0);
                                 HoursHeaderGrid.Children.Add(timeLabel1);
-
-                                rowHeights.Clear();
                             }
                         }
                     }
@@ -1655,16 +1626,6 @@ public partial class LessonManagementPage : ContentPage
             loadingPopup.Close();
         }
     }
-
-    double CalculateRowHeight(int labelCount, double baseFontSize)
-    {
-        // Her satýrýn yüksekliði = font boyutu - logaritmik küçültme
-        double perLineHeight = baseFontSize - Math.Log(baseFontSize) * 0.6;
-
-        // Toplam yükseklik
-        return labelCount * perLineHeight;
-    }
-
     private DateTime StartOfWeek(DateTime date)
     {
         var diff = date.DayOfWeek - DayOfWeek.Monday;

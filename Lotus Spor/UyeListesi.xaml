@@ -76,8 +76,8 @@
             </ListView>
 
 
-            <StackLayout x:Name="EditPanel" IsVisible="False" Padding="10">
-                <Label Text="Müşteri Bilgilerini Düzenle" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
+            <StackLayout x:Name="EditPanel" IsVisible="False" Padding="5" HorizontalOptions="Center">
+                <Label Text="Müşteri Bilgilerini Düzenle" FontSize="Medium" FontAttributes="Bold" WidthRequest="400" HeightRequest="30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                 <Label Text="İsim Soyisim" />
                 <Entry x:Name="isimentry" Text="{Binding FullName}" Placeholder="İsim" />
                 <Label Text="Ders Türü" />
@@ -90,6 +90,8 @@
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
+                <Label Text="Kayıt Tarihi" />
+                <DatePicker x:Name="kayitpicker" Date="{Binding KayitTarihi, Mode=TwoWay}" Format="dd.MM.yyyy" />
                 <Label Text="Aylık Ücret" />
                 <Entry x:Name="ucretentry" Text="{Binding Ucret}" Placeholder="Aylık Ücret" Keyboard="Numeric" />
                 <Label Text="Telefon Numarası" />

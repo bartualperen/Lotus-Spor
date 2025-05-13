@@ -32,7 +32,7 @@ namespace Lotus_Spor
         public string AdditionalInfo { get; set; }
         public string Notlar { get; set; }
         public string Telefon { get; set; }
-        public string KayitTarihi { get; set; }
+        public DateTime KayitTarihi { get; set; }
         public int Ucret { get; set; }
         public string Aktiflik { get; set; }
         public int DersSayisi { get; set; }
@@ -84,7 +84,9 @@ namespace Lotus_Spor
         public static string LoggedInUser2 { get; private set; }
         public static string UserRole { get; private set; }
         public static string Gender { get; private set; }
+        public static string PhoneNo { get; private set; }
         public static int LoggedInUserId { get; private set; }
+        public static string Sifre {  get; private set; }
         public static bool IsSpecialUser(string isim, string soyisim)
         {
             string query = "SELECT COUNT(*) FROM yoneticiler WHERE isim = @FirstName AND soyisim = @LastName";
@@ -108,51 +110,132 @@ namespace Lotus_Spor
             {
                 conn.Open();
 
-                // Önce yöneticiler tablosunu kontrol et
-                string yoneticiQuery = "SELECT 'yonetici' AS rol, id FROM yoneticiler WHERE isim = @isim AND soyisim = @soyisim AND sifre = @sifre;";
+                // 1. Yönetici sorgusu (şifre boş mu, dolu mu kontrolü dahil)
+                string yoneticiQuery = "SELECT id, sifre, telefon FROM yoneticiler WHERE TRIM(isim) = TRIM(@isim) AND TRIM(soyisim) = TRIM(@soyisim) COLLATE utf8mb4_general_ci;";
                 using (var yoneticiCmd = new MySqlCommand(yoneticiQuery, conn))
                 {
                     yoneticiCmd.Parameters.AddWithValue("@isim", isim);
                     yoneticiCmd.Parameters.AddWithValue("@soyisim", soyisim);
-                    yoneticiCmd.Parameters.AddWithValue("@sifre", sifre);
+
+                    int id = -1;
+                    string dbSifre = null;
+                    string telefon = null;
 
                     using (var reader = yoneticiCmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
+                            id = Convert.ToInt32(reader["id"]);
+                            dbSifre = reader["sifre"]?.ToString();
+                            telefon = reader["telefon"]?.ToString();
+                        }
+                    }
+
+                    if (id != -1)
+                    {
+                        if (string.IsNullOrEmpty(dbSifre))
+                        {
+                            // Şifre veritabanında yoksa: gelen şifreyi kaydet
+                            string updateQuery = "UPDATE yoneticiler SET sifre = @sifre WHERE id = @id;";
+                            using (var updateCmd = new MySqlCommand(updateQuery, conn))
+                            {
+                                updateCmd.Parameters.AddWithValue("@sifre", sifre);
+                                updateCmd.Parameters.AddWithValue("@id", id);
+                                updateCmd.ExecuteNonQuery();
+                            }
+
                             LoggedInUser = isim;
                             LoggedInUser2 = soyisim;
-                            LoggedInUserId = Convert.ToInt32(reader["id"]);
+                            LoggedInUserId = id;
+                            Sifre = sifre;
+                            PhoneNo = telefon;
                             UserRole = "yonetici";
                             return true;
+                        }
+                        else if (dbSifre == sifre)
+                        {
+                            // Şifre doğruysa
+                            LoggedInUser = isim;
+                            LoggedInUser2 = soyisim;
+                            LoggedInUserId = id;
+                            Sifre = sifre;
+                            PhoneNo = telefon;
+                            UserRole = "yonetici";
+                            return true;
+                        }
+                        else
+                        {
+                            return false; // Şifre yanlış
                         }
                     }
                 }
 
-                // Eğer yönetici değilse, müşteriler tablosunu kontrol et
-                string musteriQuery = "SELECT 'musteri' AS rol, cinsiyet, id FROM musteriler WHERE isim = @isim AND soyisim = @soyisim AND sifre = @sifre;";
+                // 2. Müşteri sorgusu (şifre boş mu, dolu mu kontrolü dahil)
+                string musteriQuery = "SELECT id, sifre, cinsiyet, telefon FROM musteriler WHERE TRIM(isim) = TRIM(@isim) AND TRIM(soyisim) = TRIM(@soyisim) COLLATE utf8mb4_general_ci;";
                 using (var musteriCmd = new MySqlCommand(musteriQuery, conn))
                 {
                     musteriCmd.Parameters.AddWithValue("@isim", isim);
                     musteriCmd.Parameters.AddWithValue("@soyisim", soyisim);
-                    musteriCmd.Parameters.AddWithValue("@sifre", sifre);
+
+                    int id = -1;
+                    string dbSifre = null;
+                    string cinsiyet = null;
+                    string telefon = null;
 
                     using (var reader = musteriCmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
+                            id = Convert.ToInt32(reader["id"]);
+                            dbSifre = reader["sifre"]?.ToString();
+                            cinsiyet = reader["cinsiyet"]?.ToString();
+                            telefon = reader["telefon"]?.ToString();
+                        }
+                    }
+
+                    if (id != -1)
+                    {
+                        if (string.IsNullOrEmpty(dbSifre))
+                        {
+                            // Şifre veritabanında yoksa: gelen şifreyi kaydet
+                            string updateQuery = "UPDATE musteriler SET sifre = @sifre WHERE id = @id;";
+                            using (var updateCmd = new MySqlCommand(updateQuery, conn))
+                            {
+                                updateCmd.Parameters.AddWithValue("@sifre", sifre);
+                                updateCmd.Parameters.AddWithValue("@id", id);
+                                updateCmd.ExecuteNonQuery();
+                            }
+
                             LoggedInUser = isim;
                             LoggedInUser2 = soyisim;
-                            Gender = reader["cinsiyet"].ToString();
+                            Gender = cinsiyet;
+                            PhoneNo = telefon;
                             UserRole = "musteri";
-                            LoggedInUserId = Convert.ToInt32(reader["id"]);
+                            LoggedInUserId = id;
                             return true;
+                        }
+                        else if (dbSifre == sifre)
+                        {
+                            LoggedInUser = isim;
+                            LoggedInUser2 = soyisim;
+                            Gender = cinsiyet;
+                            PhoneNo = telefon;
+                            UserRole = "musteri";
+                            LoggedInUserId = id;
+                            return true;
+                        }
+                        else
+                        {
+                            return false; // Şifre yanlış
                         }
                     }
                 }
             }
-            return false;
+
+            return false; // Kullanıcı hiçbir tabloda bulunamadı
         }
+
+
         public static void Logout()
         {
             LoggedInUser = null;

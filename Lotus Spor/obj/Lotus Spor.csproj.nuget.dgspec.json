@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj": {}
+    "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj": {
+    "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+        "projectUniqueName": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
         "projectName": "Lotus Spor",
-        "projectPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
+        "projectPath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\Lotus Spor.csproj",
         "packagesPath": "C:\\Users\\bartu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bartu\\source\\repos\\Lotus-Spor\\Lotus Spor\\obj\\",
+        "outputPath": "F:\\repos\\Lotus-Spor\\Lotus Spor\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
@@ -38,11 +38,11 @@
             "targetAlias": "net9.0-android",
             "projectReferences": {}
           },
-          "net9.0-ios18.2": {
+          "net9.0-ios18.4": {
             "targetAlias": "net9.0-ios",
             "projectReferences": {}
           },
-          "net9.0-maccatalyst18.2": {
+          "net9.0-maccatalyst18.4": {
             "targetAlias": "net9.0-maccatalyst",
             "projectReferences": {}
           },
@@ -61,7 +61,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0-android35.0": {
@@ -106,7 +106,7 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.4, )",
+              "version": "[9.0.3, )",
               "autoReferenced": true
             },
             "MySql.Data": {
@@ -157,9 +157,9 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300-preview.0.25177.5/PortableRuntimeIdentifierGraph.json"
         },
-        "net9.0-ios18.2": {
+        "net9.0-ios18.4": {
           "targetAlias": "net9.0-ios",
           "dependencies": {
             "CommunityToolkit.Maui": {
@@ -201,7 +201,7 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.4, )",
+              "version": "[9.0.3, )",
               "autoReferenced": true
             },
             "MySql.Data": {
@@ -252,9 +252,9 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300-preview.0.25177.5/PortableRuntimeIdentifierGraph.json"
         },
-        "net9.0-maccatalyst18.2": {
+        "net9.0-maccatalyst18.4": {
           "targetAlias": "net9.0-maccatalyst",
           "dependencies": {
             "CommunityToolkit.Maui": {
@@ -296,7 +296,7 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.4, )",
+              "version": "[9.0.3, )",
               "autoReferenced": true
             },
             "MySql.Data": {
@@ -348,7 +348,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300-preview.0.25177.5/PortableRuntimeIdentifierGraph.json"
         },
         "net9.0-windows10.0.19041": {
           "targetAlias": "net9.0-windows10.0.19041.0",
@@ -431,8 +431,24 @@
           "warn": true,
           "downloadDependencies": [
             {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[9.0.3, 9.0.3]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Crossgen2.win-x64",
+              "version": "[9.0.3, 9.0.3]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[9.0.3, 9.0.3]"
+            },
+            {
               "name": "Microsoft.Windows.SDK.NET.Ref",
               "version": "[10.0.19041.57, 10.0.19041.57]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[9.0.3, 9.0.3]"
             }
           ],
           "frameworkReferences": {
@@ -443,7 +459,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300-preview.0.25177.5\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
@@ -454,6 +470,9 @@
           "#import": []
         },
         "iossimulator-x64": {
+          "#import": []
+        },
+        "maccatalyst-arm64": {
           "#import": []
         },
         "maccatalyst-x64": {

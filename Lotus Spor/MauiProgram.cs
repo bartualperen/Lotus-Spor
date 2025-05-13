@@ -2,9 +2,16 @@
 using Microsoft.Extensions.Logging;
 using Lotus_Spor.Services;
 
+using Microsoft.Maui.Hosting;
 #if ANDROID
 using Lotus_Spor.Platforms.Android;
+//#elif IOS
+//using Lotus_Spor.Platforms.iOS;
+//#elif WINDOWS
+//using Lotus_Spor.Platforms.Windows;
 #endif
+
+
 
 namespace Lotus_Spor
 {
@@ -24,10 +31,6 @@ namespace Lotus_Spor
 
 #if DEBUG
             builder.Logging.AddDebug();
-#endif
-
-#if ANDROID
-            builder.Services.AddSingleton<IFontScaleProvider, FontScaleProvider>();
 #endif
 
             builder.Services.AddSingleton<MainPage>();

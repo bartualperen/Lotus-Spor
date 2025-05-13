@@ -934,3 +934,6 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-android\and
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-android\android\src\crc64159f3caeb1269279\MauiPopup.java
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-android\android\src\crc64159f3caeb1269279\MauiSemanticOrderView.java
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-android\android\src\crc6436e425876cb621d9\FragmentLifecycleManager.java
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-android\android\src\crc6452ffdc5b34af3a0f\MauiShapeableImageView.java
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-android\resizetizer\r\drawable\eye_closed.png
+F:\repos\Lotus-Spor\Lotus Spor\obj\Release\net9.0-android\resizetizer\r\drawable\eye_open.png

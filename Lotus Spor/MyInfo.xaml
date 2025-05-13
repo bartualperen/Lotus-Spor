@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lotus_Spor.MyInfo"
+             Title="Bilgilerim">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Ad" FontAttributes="Bold" />
+            <Entry x:Name="isimEntry" Placeholder="Adınızı girin" PlaceholderColor="{DynamicResource EntryPlaceholderColor}" TextColor="{DynamicResource EntryBackgroundColor}" />
+
+            <Label Text="Soyad" FontAttributes="Bold" />
+            <Entry x:Name="soyisimEntry" Placeholder="Soyadınızı girin" PlaceholderColor="{DynamicResource EntryPlaceholderColor}" TextColor="{DynamicResource EntryBackgroundColor}"/>
+
+            <Label Text="Telefon Numarası" FontAttributes="Bold" />
+            <Entry x:Name="telefonEntry" Placeholder="5555555555" Keyboard="Numeric" MaxLength="10" PlaceholderColor="{DynamicResource EntryPlaceholderColor}" TextColor="{DynamicResource EntryBackgroundColor}" />
+
+            <!--<Label Text="Şifre" FontAttributes="Bold" />
+            <Entry x:Name="sifreEntry" Placeholder="Yeni Şifrenizi Girin" IsPassword="True" PlaceholderColor="{DynamicResource EntryPlaceholderColor}" TextColor="{DynamicResource EntryBackgroundColor}" />-->
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                <Entry x:Name="sifreEntry"
+               Placeholder="Şifrenizi Girin"
+               IsPassword="{Binding IsPassword, Mode=TwoWay}"
+               PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
+               TextColor="{DynamicResource EntryBackgroundColor}"
+               HorizontalOptions="FillAndExpand" />
+
+                <ImageButton Source="{Binding EyeIcon}"
+                 Clicked="TogglePasswordVisibility"
+                 BackgroundColor="Transparent"
+                 WidthRequest="40"
+                 HeightRequest="40"
+                 Margin="5,0,0,0" />
+            </StackLayout>
+
+
+            <Label x:Name="cinsiyetLabel" Text="Cinsiyet" FontAttributes="Bold" IsVisible="False"/>
+            <Picker x:Name="cinsiyetPicker" IsVisible="False">
+                <Picker.Items>
+                    <x:String>Erkek</x:String>
+                    <x:String>Kadın</x:String>
+                    <x:String>Belirtmek istemiyorum</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Button Text="Bilgilerimi Güncelle" Clicked="OnGuncelleClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

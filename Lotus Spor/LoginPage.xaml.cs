@@ -54,12 +54,14 @@ public partial class LoginPage : ContentPage
                     Preferences.Set("UserRole", LoginManager.UserRole);
                     Preferences.Set("LoggedInUser", LoginManager.LoggedInUser);
                     Preferences.Set("LoggedInUser2", LoginManager.LoggedInUser2);
+                    Preferences.Set("PhoneNo", LoginManager.PhoneNo);
                     Preferences.Set("Gender", LoginManager.Gender);
+                    Preferences.Set("Sifre", LoginManager.Sifre);
                     Preferences.Set("LoggedInUserId", LoginManager.LoggedInUserId.ToString());
                     bool giris = false;
 
                     //bool smsSent = await LoginManager.LoginWithOtpAsync(isim, soyisim, phoneNumber, tel90);
- 
+
                     //if (!smsSent)
                     //{
                     //    await DisplayAlert("Hata", "Giriþ baþarýsýz veya SMS yollanamadý", "Tamam");
@@ -96,27 +98,68 @@ public partial class LoginPage : ContentPage
                     //else
                     //    await Navigation.PushAsync(new MainPage());
 
-                    if (LoginManager.UserRole == "yonetici")
+                    if (!Preferences.ContainsKey("UserRole"))
                     {
-                        await Application.Current.MainPage.Navigation.PushAsync(new AdminPanelPage());
+                        await Shell.Current.GoToAsync("//LoginPage");
                     }
-                    else if (LoginManager.UserRole == "musteri")
+                    else
                     {
-                        await Application.Current.MainPage.Navigation.PushAsync(new MainPage());
+                        var userRole = Preferences.Get("UserRole", string.Empty);
+
+                        var appShell = new AppShell();
+
+                        if (!string.IsNullOrEmpty(userRole))
+                        {
+                            Application.Current.MainPage = appShell;
+
+                            if (userRole == "yonetici")
+                            {
+                                await appShell.GoToAsync("//LessonManagementPage");
+                                Console.WriteLine(userRole);
+                            }
+                            else if (userRole == "musteri")
+                            {
+                                await appShell.GoToAsync("//MainPage");
+                                Console.WriteLine(userRole);
+                            }
+                        }
+                        else
+                        {
+                            await Shell.Current.GoToAsync("//LoginPage");
+                        }
                     }
+
                 }
                 else
                 {
+                    Preferences.Remove("UserRole");
+                    Preferences.Remove("LoggedInUser");
+                    Preferences.Remove("LoggedInUser2");
+                    Preferences.Remove("Gender");
+                    Preferences.Remove("LoggedInUserId");
+                    Preferences.Remove("Sifre");
                     await DisplayAlert("Hata", "Kullanýcý adý veya þifre hatalý!", "Tamam");
                 }
             }
             catch (Exception ex)
             {
+                Preferences.Remove("UserRole");
+                Preferences.Remove("LoggedInUser");
+                Preferences.Remove("LoggedInUser2");
+                Preferences.Remove("Gender");
+                Preferences.Remove("LoggedInUserId");
+                Preferences.Remove("Sifre");
                 await DisplayAlert("Hata", ex.Message, "Tamam");
             }
         }
         else
         {
+            Preferences.Remove("UserRole");
+            Preferences.Remove("LoggedInUser");
+            Preferences.Remove("LoggedInUser2");
+            Preferences.Remove("Gender");
+            Preferences.Remove("LoggedInUserId");
+            Preferences.Remove("Sifre");
             await DisplayAlert("Hata", "Lütfen tam adýnýzý giriniz (isim ve soyisim)!", "Tamam");
         }
     }

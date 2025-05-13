@@ -1443,7 +1443,6 @@ F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\re
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-150.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-200.png
 F:\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\r\light_mode_logo.scale-400.png
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\runtimes\win-x64\native\WebView2Loader.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\WindowsAppRuntime.DeploymentExtensions.OneCore.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Globalization.winmd
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Storage.winmd
@@ -1568,3 +1567,10 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.1
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\cs\Microsoft.Data.SqlClient.resources.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\pl\Microsoft.Data.SqlClient.resources.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\tr\Microsoft.Data.SqlClient.resources.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Newtonsoft.Json.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\System.Text.Json.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\VatanSoft.VatanSms.Net.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll

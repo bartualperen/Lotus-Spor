@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+       xmlns:local="clr-namespace:Lotus_Spor"
+       x:Class="Lotus_Spor.AppShell"
+       Shell.FlyoutBehavior="Flyout"
+       Title="AppShell">
+
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior
+        StatusBarColor="#ff8c21"
+        StatusBarStyle="LightContent" />
+    </Shell.Behaviors>
+
+    <ShellContent
+        Title="Home"
+        x:Name="MainPage"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage"/>
+
+    <ShellContent
+        Title="Antrenör Ekle/Çıkar"
+        x:Name="AntrenorYonet"
+        ContentTemplate="{DataTemplate local:AntrenorYonet}"
+        Route="AntrenorYonet" />
+
+    <ShellContent
+        Title="Antrenör Ödemeleri"
+        x:Name="AntrenorOdemeleri"
+        ContentTemplate="{DataTemplate local:AntrenorOdemeleri}"
+        Route="AntrenorOdemeleri" />
+
+    <ShellContent
+        Title="Müşteri Ödemeleri"
+        x:Name="OdemeBilgileri"
+        ContentTemplate="{DataTemplate local:OdemeBilgileri}"
+        Route="OdemeBilgileri" />
+
+    <ShellContent
+        Title="Üye Ekle"
+        x:Name="UyeEkle"
+        ContentTemplate="{DataTemplate local:UyeEkle}"
+        Route="UyeEkle" />
+
+    <ShellContent
+        Title="Üye Listesi"
+        x:Name="UyeListesi"
+        ContentTemplate="{DataTemplate local:UyeListesi}"
+        Route="UyeListesi" />
+
+    <ShellContent
+        Title="Ölçü Ekle"
+        x:Name="OlcuEkle"
+        ContentTemplate="{DataTemplate local:OlcuEkle}"
+        Route="OlcuEkle" />
+
+    <ShellContent
+        Title="Ölçümler"
+        x:Name="MeasurementPage"
+        ContentTemplate="{DataTemplate local:MeasurementPage}"
+        Route="MeasurementPage" />
+
+    <ShellContent
+        Title="Ders Programı"
+        x:Name="LessonManagementPage"
+        ContentTemplate="{DataTemplate local:LessonManagementPage}"
+        Route="LessonManagementPage" />
+
+    <ShellContent
+        Title="Gelir/Gider Bilgileri"
+        x:Name="GelirGiderBilgileri"
+        ContentTemplate="{DataTemplate local:GelirGiderBilgileri}"
+        Route="GelirGiderBilgileri" />
+
+    <ShellContent
+        Title="Yeni Duyuru"
+        x:Name="DuyuruYap"
+        ContentTemplate="{DataTemplate local:DuyuruYap}"
+        Route="DuyuruYap" />
+
+    <ShellContent
+        Title="Duyurular"
+        x:Name="Duyurular"
+        ContentTemplate="{DataTemplate local:Duyurular}"
+        Route="Duyurular" />
+
+    <ShellContent
+        Title="Bilgilerim"
+        x:Name="MyInfo"
+        ContentTemplate="{DataTemplate local:MyInfo}"
+        Route="MyInfo" />
+
+    <MenuItem Text="Çıkış Yap" Clicked="OnLogOutClicked" />
+</Shell>

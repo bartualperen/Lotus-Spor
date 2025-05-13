@@ -46,6 +46,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
+[F:/repos/Lotus-Spor/Lotus Spor/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
 [F:/repos/Lotus-Spor/Lotus Spor/Duyurular.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.Duyurular.xaml
@@ -93,6 +99,12 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.MeasurementPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MeasurementPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MeasurementPage.xaml
+
+[F:/repos/Lotus-Spor/Lotus Spor/MyInfo.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Lotus_Spor.MyInfo.xaml
+build_metadata.AdditionalFiles.TargetPath = MyInfo.xaml
+build_metadata.AdditionalFiles.RelativePath = MyInfo.xaml
 
 [F:/repos/Lotus-Spor/Lotus Spor/OdemeBilgileri.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Lotus_Spor;
 public partial class UyeListesi : ContentPage
@@ -46,7 +47,6 @@ public partial class UyeListesi : ContentPage
 
                             while (await reader.ReadAsync())
                             {
-
                                 var customer = new Customer
                                 {
                                     ID = Convert.ToInt32(reader["id"]),
@@ -54,9 +54,7 @@ public partial class UyeListesi : ContentPage
                                     AdditionalInfo = reader["hizmet_turu"]?.ToString() ?? "Bilinmiyor",
                                     Notlar = reader["notlar"]?.ToString() ?? "Bilinmiyor",
                                     Telefon = reader["telefon"]?.ToString() ?? "Bilinmiyor",
-                                    KayitTarihi = reader["kayit_tarihi"] != DBNull.Value
-                                        ? Convert.ToDateTime(reader["kayit_tarihi"]).ToString("dd-MM-yyyy")
-                                        : "Bilinmiyor",
+                                    KayitTarihi = reader["kayit_tarihi"] != DBNull.Value ? Convert.ToDateTime(reader["kayit_tarihi"]) : DateTime.MinValue,
                                     Ucret = Convert.ToInt32(reader["seans_ucreti"]),
                                     Aktiflik = reader["aktiflik"].ToString(),
                                     DersSayisi = reader["aylik_ders_sayisi"] != DBNull.Value ? Convert.ToInt32(reader["aylik_ders_sayisi"]) : 0
@@ -147,6 +145,7 @@ public partial class UyeListesi : ContentPage
         string notlar = notentry.Text;
         decimal ucret = decimal.Parse(ucretentry.Text);
         string telefon = telefonentry.Text;
+        DateTime kayittarihi = kayitpicker.Date;
         string selectedValue = PaketkPicker.SelectedItem?.ToString() ?? "Bilinmiyor";
         int? derssayisi = null;
 
@@ -212,6 +211,7 @@ public partial class UyeListesi : ContentPage
                 hizmet_turu = @seans_turu, 
                 notlar = @notlar, 
                 seans_ucreti = @ucret,
+                kayit_tarihi = @kayit_tarihi,
                 aktiflik = @aktiflik,
                 aylik_ders_sayisi = @aylik_ders_sayisi
             WHERE id = @id";
@@ -228,6 +228,7 @@ public partial class UyeListesi : ContentPage
                     command.Parameters.AddWithValue("@soyisim", soyisim);
                     command.Parameters.AddWithValue("@telefon", telefon);
                     command.Parameters.AddWithValue("@seans_turu", seansTur);
+                    command.Parameters.AddWithValue("@kayit_tarihi", kayittarihi);
                     command.Parameters.AddWithValue("@notlar", notlar);
                     command.Parameters.AddWithValue("@ucret", ucret);
                     command.Parameters.AddWithValue("@aktiflik", aktiflik);
@@ -258,7 +259,7 @@ public partial class UyeListesi : ContentPage
                             AdditionalInfo = seansTur,
                             Notlar = notlar,
                             Telefon = telefon,
-                            KayitTarihi = selectedCustomer.KayitTarihi,
+                            KayitTarihi = kayittarihi,
                             Ucret = (int)ucret,
                             Aktiflik = aktiflik,
                             DersSayisi = selectedCustomer.DersSayisi,
@@ -412,6 +413,7 @@ public partial class UyeListesi : ContentPage
             telefonentry.Text = selectedCustomer.Telefon;
             AktiflikPicker.SelectedItem = selectedCustomer.Aktiflik;
             PaketkPicker.SelectedItem = $"{selectedCustomer.DersSayisi} Ders";
+            kayitpicker.Date = Convert.ToDateTime(selectedCustomer.KayitTarihi);
         }
     }
     private void OnCancelEditClicked(object sender, EventArgs e)

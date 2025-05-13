@@ -4,6 +4,12 @@
         <name>Lotus Spor</name>
     </assembly>
     <members>
+        <member name="M:Lotus_Spor.LoginManager.LoginWithOtpAsync(System.String,System.String,System.String,System.String)">
+            <summary>Kimlik + şifre doğruysa SMS OTP gönderir ve true döndürür.</summary>
+        </member>
+        <member name="M:Lotus_Spor.LoginManager.VerifyOtp(System.String,System.String)">
+            <summary>Kullanıcının girdiği kodu doğrular.</summary>
+        </member>
         <member name="T:Lotus_Spor.Resource">
             <summary>
             Android Resource Designer class.

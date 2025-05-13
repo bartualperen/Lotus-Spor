@@ -427,9 +427,6 @@ F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\System.Secu
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\cs\Microsoft.Data.SqlClient.resources.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\pl\Microsoft.Data.SqlClient.resources.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\tr\Microsoft.Data.SqlClient.resources.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\DocumentFormat.OpenXml.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\DocumentFormat.OpenXml.Framework.dll
 F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\System.IO.Packaging.dll
@@ -753,9 +750,14 @@ C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimula
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\Lotus Spor.csproj.Up2Date
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\Lotus Spor.genruntimeconfig.cache
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\obj\Debug\net9.0-ios\iossimulator-x64\ref\Lotus Spor.dll
-F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Newtonsoft.Json.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\VatanSoft.VatanSms.Net.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
 C:\Users\bartu\source\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Newtonsoft.Json.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\VatanSoft.VatanSms.Net.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
+F:\repos\Lotus-Spor\Lotus Spor\bin\Debug\net9.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll

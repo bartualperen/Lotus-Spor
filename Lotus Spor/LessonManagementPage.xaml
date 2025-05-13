@@ -2,12 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lotus_Spor.LessonManagementPage"
-             Title="Ders Yönetim Sayfası"
-             NavigationPage.HasNavigationBar="False">
+             Title="Ders Yönetim Sayfası">
 
     <ScrollView x:Name="ScrollViewMain" Scrolled="OnScrollChanged">
         <VerticalStackLayout Padding="20">
-            <Button FontSize="16" Text="Test_Button" Clicked="TestFontScale_Clicked" CornerRadius="20" Margin="0,5,0,10" />
+            <Button FontSize="16" Text="Test_Button" Clicked="TestFontScale_Clicked" IsVisible="False" CornerRadius="20" Margin="0,5,0,10" />
             <Label Text="Kişi Adı Ara" x:Name="lblSearchEntry" FontSize="16" />
             <StackLayout Orientation="Horizontal">
                 <Entry x:Name="SearchEntry"
