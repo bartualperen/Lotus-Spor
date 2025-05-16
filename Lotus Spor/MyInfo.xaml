@@ -20,18 +20,20 @@
 
             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                 <Entry x:Name="sifreEntry"
-               Placeholder="Şifrenizi Girin"
-               IsPassword="{Binding IsPassword, Mode=TwoWay}"
-               PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
-               TextColor="{DynamicResource EntryBackgroundColor}"
-               HorizontalOptions="FillAndExpand" />
+                       Placeholder="Şifrenizi Girin"
+                       IsPassword="{Binding IsPassword, Mode=TwoWay}"
+                       PlaceholderColor="{DynamicResource EntryPlaceholderColor}"
+                       TextColor="{DynamicResource EntryBackgroundColor}"
+                       HorizontalOptions="FillAndExpand" />
 
                 <ImageButton Source="{Binding EyeIcon}"
-                 Clicked="TogglePasswordVisibility"
-                 BackgroundColor="Transparent"
-                 WidthRequest="40"
-                 HeightRequest="40"
-                 Margin="5,0,0,0" />
+                             Clicked="TogglePasswordVisibility"
+                             BackgroundColor="Gray"
+                             x:Name="imbtn"
+                             WidthRequest="40"
+                             HeightRequest="40"
+                             Margin="5,0,0,0"
+                             CornerRadius="50"/>
             </StackLayout>
 
 

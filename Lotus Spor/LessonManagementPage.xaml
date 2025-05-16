@@ -148,6 +148,9 @@
                     <Label Text="Ders Saati" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
                     <TimePicker x:Name="SeansTime" Format="HH:mm" Margin="0,0,0,20" />
 
+                    <Label Text="Notlar" FontSize="16" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    <Editor x:Name="SeansNotlar" Placeholder="Notlar" HeightRequest="50" Margin="0,0,0,20" />
+
                     <Picker IsVisible="False" x:Name="DayPicker" SelectedIndexChanged="OnDayPickerSelectedIndexChanged" Title="Yeni Ders Gününü Seçin">
                         <Picker.Items>
                             <x:String>Pazartesi</x:String>

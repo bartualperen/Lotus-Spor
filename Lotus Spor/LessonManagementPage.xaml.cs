@@ -571,12 +571,13 @@ public partial class LessonManagementPage : ContentPage
 
         DateTime newDate = SeansDate.Date; // Seçilen yeni tarih
         TimeSpan newTime = SeansTime.Time; // Seçilen yeni saat
+        string notlar = SeansNotlar.Text;
 
         // SQL sorgusunu oluþtur
         string query = @"
         UPDATE seanslar s
         JOIN musteriler m ON s.musteri_id = m.id
-        SET s.tarih = @newDate, s.saat = @newTime
+        SET s.tarih = @newDate, s.saat = @newTime, s.notlar = @notlar
         WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
         AND s.tarih = @selectedDate;";
 
@@ -591,6 +592,8 @@ public partial class LessonManagementPage : ContentPage
                     command.Parameters.AddWithValue("@selectedDate", oldDate); // Seçilen eski tarih parametresi
                     command.Parameters.AddWithValue("@newDate", newDate); // Yeni tarih parametresi
                     command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm")); // Yeni saat parametresi
+                    command.Parameters.AddWithValue("@notlar", notlar);
+
 
                     // Her müþteri için sorguyu çalýþtýr
                     foreach (var name in clientNameList)
@@ -614,6 +617,7 @@ public partial class LessonManagementPage : ContentPage
                         command.Parameters.AddWithValue("@selectedDate", oldDate); // Tekrar eski tarihi ekle
                         command.Parameters.AddWithValue("@newDate", newDate);
                         command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm"));
+                        command.Parameters.AddWithValue("@notlar", notlar);
                     }
                 }
             }
@@ -629,6 +633,7 @@ public partial class LessonManagementPage : ContentPage
     {
         string clientNames = Client.Text; // Seçilen müþteri adlarý
         string[] clientNameList = clientNames.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); // Adlarý ayýrmak için satýrlara göre bölelim
+        string notlar = SeansNotlar.Text;
 
         DateTime newDate = SeansDate.Date; // Seçilen yeni tarih
         TimeSpan newTime = SeansTime.Time; // Seçilen yeni saat
@@ -638,7 +643,7 @@ public partial class LessonManagementPage : ContentPage
                UPDATE seanslar s
                JOIN musteriler m ON s.musteri_id = m.id
                SET s.tarih = DATE_ADD(@newDate, INTERVAL FLOOR(DATEDIFF(s.tarih, @selectedDate) / 7) WEEK),
-                   s.saat = @newTime
+                   s.saat = @newTime, s.notlar = @notlar
                WHERE CONCAT(m.isim, ' ', m.soyisim) = @clientName
                  AND s.tarih >= @selectedDate -- Sadece baþlangýç tarihi ve sonrasý
                  AND s.saat = @selectedTime
@@ -656,6 +661,7 @@ public partial class LessonManagementPage : ContentPage
                     command.Parameters.AddWithValue("@selectedDate", oldDate); // Seçilen eski tarih
                     command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm")); // Seçilen eski saat parametresi
                     command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm")); // Yeni saat parametresi
+                    command.Parameters.AddWithValue("@notlar", notlar);
 
                     // Her müþteri için sorguyu çalýþtýr
                     foreach (var name in clientNameList)
@@ -680,6 +686,7 @@ public partial class LessonManagementPage : ContentPage
                         command.Parameters.AddWithValue("@selectedDate", oldDate);
                         command.Parameters.AddWithValue("@selectedTime", oldTime.ToString(@"hh\:mm"));
                         command.Parameters.AddWithValue("@newTime", newTime.ToString(@"hh\:mm"));
+                        command.Parameters.AddWithValue("@notlar", notlar);
                     }
                 }
             }

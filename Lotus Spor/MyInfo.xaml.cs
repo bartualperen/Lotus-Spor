@@ -27,6 +27,7 @@ public partial class MyInfo : ContentPage
         telefonEntry.Text = PhoneNo;
         sifreEntry.Text = Sifre;
         sifreEntry.IsPassword = true;
+        imbtn.Source = "Resources/Images/eye_closed.png";
 
         if (UserRole == "musteri")
         {
